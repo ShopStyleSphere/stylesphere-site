@@ -8,303 +8,398 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
+:root{
+  --gold:#d8a33a;
+  --gold2:#ffd978;
+  --dark:#030303;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
-  color:white;
   background:#000;
+  color:#fff;
   overflow-x:hidden;
 }
 
+/* BACKGROUND VIDEO */
 .bg-video{
   position:fixed;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:-5;
-  filter:brightness(.45) saturate(1.15) contrast(1.1);
+  z-index:-10;
+  filter:brightness(.38) contrast(1.15) saturate(1.1);
 }
 
-.overlay{
+.bg-overlay{
   position:fixed;
   inset:0;
-  z-index:-4;
+  z-index:-9;
   background:
-  radial-gradient(circle at center,rgba(255,205,90,.18),rgba(0,0,0,.65) 55%,#000 100%),
-  linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.25),rgba(0,0,0,.85));
+    radial-gradient(circle at 50% 30%,rgba(255,210,90,.18),transparent 42%),
+    linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.25),rgba(0,0,0,.86));
 }
 
-.gold-beam{
+/* MOVING SHINE */
+.light-sweep{
   position:fixed;
   inset:0;
-  z-index:-3;
-  background:linear-gradient(110deg,transparent,rgba(255,215,90,.25),transparent);
-  animation:beam 6s linear infinite;
+  z-index:-8;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,220,120,.20),transparent 65%);
+  animation:sweep 7s linear infinite;
 }
-
-@keyframes beam{
+@keyframes sweep{
   0%{transform:translateX(-120%)}
   100%{transform:translateX(120%)}
 }
 
+/* GOLD PARTICLES */
+.particles{
+  position:fixed;
+  inset:0;
+  z-index:-7;
+  pointer-events:none;
+  overflow:hidden;
+}
+.particles span{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:var(--gold2);
+  border-radius:50%;
+  box-shadow:0 0 14px var(--gold2);
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(105vh) scale(.7);opacity:0}
+  15%{opacity:1}
+  to{transform:translateY(-10vh) scale(1.3);opacity:0}
+}
+
+.particles span:nth-child(1){left:6%;animation-duration:9s;animation-delay:0s}
+.particles span:nth-child(2){left:14%;animation-duration:13s;animation-delay:2s}
+.particles span:nth-child(3){left:22%;animation-duration:10s;animation-delay:4s}
+.particles span:nth-child(4){left:31%;animation-duration:15s;animation-delay:1s}
+.particles span:nth-child(5){left:44%;animation-duration:11s;animation-delay:3s}
+.particles span:nth-child(6){left:52%;animation-duration:16s;animation-delay:5s}
+.particles span:nth-child(7){left:63%;animation-duration:12s;animation-delay:2s}
+.particles span:nth-child(8){left:72%;animation-duration:14s;animation-delay:0s}
+.particles span:nth-child(9){left:84%;animation-duration:10s;animation-delay:4s}
+.particles span:nth-child(10){left:93%;animation-duration:13s;animation-delay:1s}
+
+/* HEADER */
 .header{
   height:86px;
   padding:0 42px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(0,0,0,.28);
-  border-bottom:1px solid rgba(255,215,90,.35);
-  backdrop-filter:blur(18px);
+  background:rgba(0,0,0,.55);
+  border-bottom:1px solid rgba(216,163,58,.55);
+  backdrop-filter:blur(16px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.logo-badge{
+  width:54px;
+  height:54px;
+  border:1px solid var(--gold);
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  color:var(--gold2);
+  font-weight:900;
+  font-size:30px;
+  box-shadow:0 0 28px rgba(255,217,120,.35);
+  animation:pulseGold 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGold{
+  0%,100%{box-shadow:0 0 18px rgba(255,217,120,.25)}
+  50%{box-shadow:0 0 42px rgba(255,217,120,.65)}
 }
 
 .brand h1{
-  color:#ffd86b;
-  letter-spacing:8px;
+  color:var(--gold2);
   font-size:25px;
-  text-shadow:0 0 25px #ffd86b;
+  letter-spacing:8px;
 }
 
 .brand p{
-  color:#eee;
-  letter-spacing:5px;
   font-size:11px;
-  margin-top:5px;
+  letter-spacing:5px;
+  color:#ddd;
+  margin-top:4px;
 }
 
 .nav{
   display:flex;
-  gap:35px;
+  gap:38px;
 }
-
 .nav a{
-  color:white;
+  color:#eee;
   text-decoration:none;
   font-size:13px;
-  font-weight:bold;
+  font-weight:800;
+}
+.nav a:first-child{
+  color:var(--gold2);
+  border-bottom:1px solid var(--gold2);
+  padding-bottom:8px;
 }
 
 .status{
-  color:#ffd86b;
-  border:1px solid rgba(255,216,107,.5);
-  border-radius:30px;
-  padding:10px 22px;
-  background:rgba(0,0,0,.3);
-  box-shadow:0 0 25px rgba(255,216,107,.18);
+  border:1px solid rgba(255,217,120,.55);
+  border-radius:28px;
+  padding:11px 24px;
+  background:rgba(0,0,0,.35);
+  color:var(--gold2);
   font-size:12px;
+  line-height:1.3;
+  box-shadow:0 0 22px rgba(255,217,120,.18);
 }
 
+/* HERO */
 .hero{
   text-align:center;
-  padding:58px 20px 25px;
+  padding:52px 20px 18px;
 }
 
-.hero .top{
-  color:#ffd86b;
-  letter-spacing:7px;
-  font-size:12px;
+.crown{
+  font-size:50px;
+  color:var(--gold2);
+  filter:drop-shadow(0 0 18px var(--gold2));
+  animation:crownFloat 3s ease-in-out infinite;
+}
+@keyframes crownFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
 .hero h2{
   font-family:Georgia,serif;
-  font-size:68px;
-  letter-spacing:15px;
-  margin-top:12px;
-  background:linear-gradient(#fff,#ffd86b,#8a5b0a);
+  font-size:72px;
+  letter-spacing:16px;
+  margin-top:8px;
+  background:linear-gradient(#fff,#ffe29a,#a46b12);
   -webkit-background-clip:text;
   color:transparent;
-  text-shadow:0 0 35px rgba(255,216,107,.25);
+  text-shadow:0 0 30px rgba(255,217,120,.3);
 }
 
 .hero h3{
-  font-size:22px;
-  letter-spacing:10px;
-  margin-top:6px;
+  font-size:24px;
+  letter-spacing:12px;
+  color:#eee;
+  margin-top:4px;
 }
 
 .hero p{
-  max-width:760px;
-  margin:18px auto 0;
+  margin:17px auto 0;
+  max-width:780px;
   color:#eee;
-  line-height:1.6;
   font-size:15px;
+  line-height:1.6;
 }
 
-.hero .tag{
-  margin-top:24px;
-  display:inline-block;
-  padding:12px 34px;
-  border:1px solid rgba(255,216,107,.6);
-  border-radius:14px;
-  color:#ffd86b;
-  background:rgba(0,0,0,.22);
-  backdrop-filter:blur(12px);
-  letter-spacing:2px;
+.tag{
+  margin:22px auto 0;
+  width:max-content;
+  max-width:90%;
+  border:1px solid rgba(255,217,120,.55);
+  border-radius:12px;
+  padding:12px 36px;
+  color:var(--gold2);
+  letter-spacing:2.4px;
   font-size:13px;
+  background:rgba(0,0,0,.28);
+  backdrop-filter:blur(14px);
+  box-shadow:inset 0 0 20px rgba(255,217,120,.08);
 }
 
-.grid{
-  max-width:1360px;
-  margin:42px auto 28px;
-  padding:0 38px;
+/* CARDS */
+.cards{
+  max-width:1320px;
+  margin:28px auto 0;
+  padding:0 34px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:28px;
+  gap:24px;
 }
 
 .card{
-  height:390px;
-  border:1px solid rgba(255,216,107,.5);
-  border-radius:24px;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  background:
-  linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),
-  rgba(0,0,0,.18);
-  backdrop-filter:blur(18px);
-  box-shadow:
-  inset 0 0 30px rgba(255,216,107,.08),
-  0 0 45px rgba(0,0,0,.6);
-  position:relative;
+  min-height:370px;
+  border:1px solid rgba(216,163,58,.62);
+  border-radius:18px;
   overflow:hidden;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(14px);
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.55);
   transition:.35s;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.015);
+  box-shadow:0 0 55px rgba(255,217,120,.38);
 }
 
 .card::before{
   content:"";
   position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg,transparent,rgba(255,216,107,.35),transparent);
+  inset:0;
+  background:linear-gradient(120deg,transparent 20%,rgba(255,225,140,.22),transparent 42%);
   transform:translateX(-120%);
-  animation:cardShine 5s infinite;
+  animation:cardShine 5.5s infinite;
+  z-index:3;
+  pointer-events:none;
 }
-
 @keyframes cardShine{
   0%{transform:translateX(-120%)}
-  55%{transform:translateX(120%)}
+  45%{transform:translateX(120%)}
   100%{transform:translateX(120%)}
 }
 
-.card:hover{
-  transform:translateY(-12px) scale(1.02);
-  box-shadow:0 0 55px rgba(255,216,107,.38);
+.card-img{
+  height:190px;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+}
+.card-img::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.90));
 }
 
-.lux-icon{
-  font-size:58px;
-  margin-bottom:auto;
+.client-img{background-image:url('client.jpg')}
+.merchant-img{background-image:url('merchant.jpg')}
+.admin-img{background-image:url('admin.jpg')}
+.owner-img{background-image:url('owner.jpg')}
+
+.card-body{
+  padding:22px 24px 20px;
   text-align:center;
-  filter:drop-shadow(0 0 20px #ffd86b);
-  animation:float 3s ease-in-out infinite;
 }
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-}
-
-.card h3{
-  color:#ffe08a;
+.card h4{
   font-family:Georgia,serif;
-  font-size:20px;
+  font-size:24px;
+  color:#ffe29a;
   line-height:1.15;
-  text-shadow:0 0 18px rgba(255,216,107,.4);
+  text-shadow:0 0 14px rgba(255,217,120,.4);
 }
 
 .card p{
-  color:#eee;
-  font-size:12px;
-  line-height:1.5;
-  margin:10px 0 18px;
+  font-size:13px;
+  color:#e8e8e8;
+  line-height:1.55;
+  margin:12px 0 20px;
 }
 
 .btn{
+  height:44px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  border:1px solid rgba(255,217,120,.7);
+  border-radius:8px;
+  background:linear-gradient(135deg,#0d0700,#191006);
+  color:#ffe29a;
   text-decoration:none;
-  background:linear-gradient(135deg,#9b6815,#ffd86b,#b97b16);
-  color:#111;
   font-weight:900;
-  border-radius:12px;
-  padding:12px 18px;
-  font-size:12px;
-  letter-spacing:1.5px;
-  box-shadow:0 0 30px rgba(255,216,107,.35);
+  font-size:13px;
+  letter-spacing:1.6px;
+  box-shadow:0 0 18px rgba(255,217,120,.15);
+  transition:.3s;
+}
+
+.btn:hover{
+  background:linear-gradient(135deg,#a96f15,#ffe29a,#a96f15);
+  color:#111;
 }
 
 .sub{
+  display:block;
   margin-top:12px;
-  color:#eee;
+  color:#ddd;
   font-size:12px;
-  text-align:center;
+  text-decoration:none;
 }
 
+/* STATS */
 .stats{
   max-width:1320px;
-  margin:24px auto;
-  padding:18px;
+  margin:22px auto 0;
+  padding:16px 20px;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  border:1px solid rgba(255,216,107,.45);
-  border-radius:20px;
-  background:rgba(0,0,0,.25);
-  backdrop-filter:blur(16px);
+  border:1px solid rgba(216,163,58,.55);
+  border-radius:18px;
+  background:rgba(0,0,0,.38);
+  backdrop-filter:blur(14px);
 }
 
 .stat{
   text-align:center;
-  border-right:1px solid rgba(255,216,107,.25);
+  border-right:1px solid rgba(216,163,58,.30);
 }
+.stat:last-child{border-right:none}
 
-.stat:last-child{border-right:0}
-
-.stat h4{
-  color:#ffd86b;
-  font-size:25px;
+.stat h5{
+  color:var(--gold2);
+  font-size:27px;
 }
-
 .stat p{
+  color:#ddd;
   font-size:11px;
   margin-top:4px;
 }
-
 .stat span{
-  color:#5cff62;
+  color:#54ff5a;
   font-size:11px;
 }
 
+/* BENEFITS */
 .benefits{
   max-width:1320px;
-  margin:24px auto 0;
+  margin:18px auto 0;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  border:1px solid rgba(255,216,107,.25);
+  border:1px solid rgba(216,163,58,.35);
+  background:rgba(0,0,0,.32);
+  backdrop-filter:blur(12px);
 }
 
 .benefit{
   padding:18px;
   text-align:center;
-  background:rgba(0,0,0,.25);
-  backdrop-filter:blur(12px);
-  border-right:1px solid rgba(255,216,107,.18);
+  border-right:1px solid rgba(216,163,58,.25);
 }
-
-.benefit h5{
-  color:#ffd86b;
+.benefit:last-child{border-right:none}
+.benefit h6{
+  color:var(--gold2);
   font-size:13px;
+  margin-bottom:7px;
 }
-
 .benefit p{
   color:#ccc;
   font-size:12px;
-  margin-top:6px;
+  line-height:1.45;
 }
 
-footer{
-  padding:22px 42px;
+.footer{
+  max-width:1320px;
+  margin:0 auto;
+  padding:20px 34px 26px;
   display:flex;
   justify-content:space-between;
   color:#aaa;
@@ -312,17 +407,17 @@ footer{
 }
 
 @media(max-width:1100px){
-  .grid{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:700px){
   .nav,.status{display:none}
   .header{padding:0 18px}
+  .brand h1{font-size:18px;letter-spacing:5px}
   .hero h2{font-size:40px;letter-spacing:6px}
   .hero h3{font-size:16px;letter-spacing:5px}
-  .grid,.stats,.benefits{grid-template-columns:1fr}
-  .card{height:330px}
-  .stat{border-right:0;border-bottom:1px solid rgba(255,216,107,.2);padding:10px}
+  .cards,.stats,.benefits{grid-template-columns:1fr}
+  .footer{flex-direction:column;gap:10px}
 }
 </style>
 </head>
@@ -333,13 +428,21 @@ footer{
   <source src="bg.mp4" type="video/mp4">
 </video>
 
-<div class="overlay"></div>
-<div class="gold-beam"></div>
+<div class="bg-overlay"></div>
+<div class="light-sweep"></div>
+
+<div class="particles">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
 
 <header class="header">
   <div class="brand">
-    <h1>STYLESPHERE</h1>
-    <p>MEMBERS CLUB</p>
+    <div class="logo-badge">S</div>
+    <div>
+      <h1>STYLESPHERE</h1>
+      <p>MEMBERS CLUB</p>
+    </div>
   </div>
 
   <nav class="nav">
@@ -354,66 +457,74 @@ footer{
 </header>
 
 <section class="hero">
-  <div class="top">WELCOME TO</div>
+  <div class="crown">♛</div>
   <h2>STYLESPHERE</h2>
   <h3>MEMBERS CLUB</h3>
   <p>The world’s most exclusive membership and rewards platform. Premium benefits. Global access. Elite experiences.</p>
   <div class="tag">JOIN A WORLD OF LUXURY, REWARDS & EXCLUSIVE EXPERIENCES</div>
 </section>
 
-<section class="grid">
+<section class="cards">
 
   <div class="card">
-    <div class="lux-icon">💎</div>
-    <h3>CLIENT ACCESS</h3>
-    <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
-    <a class="btn" href="client.html">CLIENT LOGIN <span>→</span></a>
-    <div class="sub">Create Account</div>
+    <div class="card-img client-img"></div>
+    <div class="card-body">
+      <h4>CLIENT ACCESS</h4>
+      <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
+      <a class="btn" href="client.html">CLIENT LOGIN <span>→</span></a>
+      <a class="sub" href="#">Create Account ›</a>
+    </div>
   </div>
 
   <div class="card">
-    <div class="lux-icon">⚜️</div>
-    <h3>MERCHANT PORTAL</h3>
-    <p>Scan, verify and redeem member rewards seamlessly.</p>
-    <a class="btn" href="merchant.html">MERCHANT LOGIN <span>→</span></a>
-    <div class="sub">Register Your Business</div>
+    <div class="card-img merchant-img"></div>
+    <div class="card-body">
+      <h4>MERCHANT PORTAL</h4>
+      <p>Scan, verify and redeem member rewards seamlessly.</p>
+      <a class="btn" href="merchant.html">MERCHANT LOGIN <span>→</span></a>
+      <a class="sub" href="#">Register Your Business ›</a>
+    </div>
   </div>
 
   <div class="card">
-    <div class="lux-icon">🛡️</div>
-    <h3>COMPANY ADMIN</h3>
-    <p>Manage operations, support members and analyze performance.</p>
-    <a class="btn" href="admin.html">ADMIN LOGIN <span>→</span></a>
-    <div class="sub">Admin Access</div>
+    <div class="card-img admin-img"></div>
+    <div class="card-body">
+      <h4>COMPANY ADMIN</h4>
+      <p>Manage operations, support members and analyze performance.</p>
+      <a class="btn" href="admin.html">ADMIN LOGIN <span>→</span></a>
+      <a class="sub" href="#">Admin Access ›</a>
+    </div>
   </div>
 
   <div class="card">
-    <div class="lux-icon">👑</div>
-    <h3>OWNER ACCESS</h3>
-    <p>Full control over the entire system. Monitor, manage and scale.</p>
-    <a class="btn" href="owner.html">OWNER LOGIN <span>→</span></a>
-    <div class="sub">Secure Access</div>
+    <div class="card-img owner-img"></div>
+    <div class="card-body">
+      <h4>OWNER ACCESS</h4>
+      <p>Full control over the entire system. Monitor. Manage. Dominate.</p>
+      <a class="btn" href="owner.html">OWNER LOGIN <span>→</span></a>
+      <a class="sub" href="#">Secure Access ›</a>
+    </div>
   </div>
 
 </section>
 
 <section class="stats">
-  <div class="stat"><h4>24,892</h4><p>TOTAL MEMBERS</p><span>12.5% this month</span></div>
-  <div class="stat"><h4>8,753</h4><p>ACTIVE MERCHANTS</p><span>8.2% this month</span></div>
-  <div class="stat"><h4>99.9%</h4><p>SYSTEM UPTIME</p><span>Excellent Performance</span></div>
-  <div class="stat"><h4>152</h4><p>COUNTRIES COVERED</p><span>Global Presence</span></div>
-  <div class="stat"><h4>1.2M+</h4><p>REWARDS REDEEMED</p><span>This month</span></div>
+  <div class="stat"><h5>24,892</h5><p>TOTAL MEMBERS</p><span>↑ 12.5% this month</span></div>
+  <div class="stat"><h5>8,753</h5><p>ACTIVE MERCHANTS</p><span>↑ 8.2% this month</span></div>
+  <div class="stat"><h5>99.9%</h5><p>SYSTEM UPTIME</p><span>Excellent Performance</span></div>
+  <div class="stat"><h5>152</h5><p>COUNTRIES COVERED</p><span>Global Presence</span></div>
+  <div class="stat"><h5>1.2M+</h5><p>REWARDS REDEEMED</p><span>This month</span></div>
 </section>
 
 <section class="benefits">
-  <div class="benefit"><h5>PREMIUM BENEFITS</h5><p>Exclusive rewards and experiences.</p></div>
-  <div class="benefit"><h5>BANK LEVEL SECURITY</h5><p>256-bit SSL encryption and protection.</p></div>
-  <div class="benefit"><h5>FAST & RELIABLE</h5><p>High performance global infrastructure.</p></div>
-  <div class="benefit"><h5>24/7 SUPPORT</h5><p>Dedicated support whenever you need.</p></div>
-  <div class="benefit"><h5>TRUSTED GLOBALLY</h5><p>Loved by members in 152+ countries.</p></div>
+  <div class="benefit"><h6>PREMIUM BENEFITS</h6><p>Exclusive rewards and experiences.</p></div>
+  <div class="benefit"><h6>BANK LEVEL SECURITY</h6><p>256-bit SSL encryption and advanced protection.</p></div>
+  <div class="benefit"><h6>FAST & RELIABLE</h6><p>High performance global infrastructure.</p></div>
+  <div class="benefit"><h6>24/7 SUPPORT</h6><p>Dedicated support whenever you need.</p></div>
+  <div class="benefit"><h6>TRUSTED GLOBALLY</h6><p>Loved by members in 152+ countries.</p></div>
 </section>
 
-<footer>
+<footer class="footer">
   <div>© 2026 StyleSphere Members Club. All rights reserved.</div>
   <div>Privacy Policy | Terms of Service</div>
 </footer>
