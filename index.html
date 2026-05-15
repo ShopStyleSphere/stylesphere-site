@@ -3,242 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Elite System</title>
+<title>StyleSphere Members Club</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh;background:#000;color:#fff;overflow-x:hidden}
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+video.bg{
+position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3
 }
+.overlay{
+position:fixed;inset:0;background:
+radial-gradient(circle at center,rgba(255,200,70,.18),rgba(0,0,0,.75) 45%,#000 100%);
+z-index:-2
+}
+.glow{
+position:fixed;inset:0;background:linear-gradient(120deg,transparent,rgba(255,215,80,.15),transparent);
+animation:shine 6s infinite linear;z-index:-1
+}
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
-body {
-  background: black;
-  color: white;
-  overflow-x: hidden;
-}
+.container{max-width:1200px;margin:auto;padding:45px 20px}
+.header{text-align:center;margin-bottom:55px;animation:fadeDown 1s ease}
+.logo{font-size:42px;letter-spacing:14px;color:#f7d65b;text-shadow:0 0 35px #f7d65b}
+.club{letter-spacing:7px;margin-top:10px;color:#ddd}
+.title{font-size:56px;margin-top:40px;text-shadow:0 0 30px #fff}
+.subtitle{color:#ddd;margin:15px 0 25px}
 
-/* 🔥 VIDEO BACKGROUND */
-.video-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
+.badges{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.badge{border:1px solid #d7aa33;padding:12px 24px;border-radius:40px;background:rgba(0,0,0,.45);box-shadow:0 0 25px rgba(255,210,70,.35);color:#ffd84d}
 
-.video-bg video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.25);
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+.card{
+background:rgba(5,8,10,.72);
+border:1px solid rgba(255,210,80,.35);
+border-radius:26px;
+padding:30px;
+backdrop-filter:blur(18px);
+box-shadow:0 0 45px rgba(255,200,60,.12);
+transition:.35s;
+animation:fadeUp 1s ease
 }
+.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 0 55px rgba(255,215,80,.35)}
+.card h2{color:#ffd84d;margin-bottom:8px}
+.card p{color:#ccc;margin-bottom:25px}
 
-/* 🔥 HERO */
-.hero {
-  text-align: center;
-  padding: 100px 20px 50px;
+input{
+width:100%;padding:15px;margin:9px 0;border-radius:12px;
+border:1px solid rgba(255,255,255,.25);
+background:rgba(0,0,0,.55);color:white;outline:none
 }
+input:focus{border-color:#ffd84d;box-shadow:0 0 18px rgba(255,216,77,.35)}
+button{
+width:100%;padding:15px;margin-top:14px;border:none;border-radius:14px;
+background:linear-gradient(135deg,#7b5200,#ffd84d,#9b6a00);
+color:#000;font-weight:bold;cursor:pointer;box-shadow:0 0 30px rgba(255,216,77,.45)
+}
+button:hover{filter:brightness(1.2)}
 
-.logo {
-  font-size: 40px;
-  letter-spacing: 8px;
-  color: #d4af37;
-  margin-bottom: 10px;
-}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}
+.stat{background:rgba(0,0,0,.55);border:1px solid rgba(255,210,80,.25);border-radius:20px;padding:22px;text-align:center}
+.stat h3{font-size:30px;color:#ffd84d}
+.stat span{color:#bbb}
 
-.subtitle {
-  color: #aaa;
-  margin-bottom: 25px;
-}
+.footer{text-align:center;margin-top:45px;color:#bbb;letter-spacing:2px}
 
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-/* 🔥 BADGES */
-.badges {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.badge {
-  padding: 10px 18px;
-  border-radius: 20px;
-  border: 1px solid #d4af37;
-  color: #d4af37;
-  backdrop-filter: blur(10px);
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { box-shadow: 0 0 10px #d4af37; }
-  to { box-shadow: 0 0 25px #d4af37; }
-}
-
-/* 🔥 WORLD GLOW NETWORK */
-.network {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(212,175,55,0.2), transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(212,175,55,0.2), transparent 40%);
-  animation: move 10s linear infinite;
-}
-
-@keyframes move {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50px); }
-}
-
-/* 🔥 LOGIN CARDS */
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  padding: 40px;
-}
-
-.card {
-  background: rgba(0,0,0,0.6);
-  border-radius: 25px;
-  padding: 25px;
-  border: 1px solid rgba(212,175,55,0.2);
-  backdrop-filter: blur(15px);
-  transition: 0.4s;
-}
-
-.card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 40px rgba(212,175,55,0.5);
-}
-
-.card h2 {
-  color: #d4af37;
-  margin-bottom: 10px;
-}
-
-.card p {
-  color: #aaa;
-  margin-bottom: 15px;
-}
-
-/* INPUT */
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: 1px solid #333;
-  background: rgba(0,0,0,0.6);
-  color: white;
-}
-
-/* BUTTON */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(135deg,#d4af37,#ffd700);
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  box-shadow: 0 0 25px gold;
-  transform: scale(1.05);
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  margin: 40px 0;
-  color: #aaa;
-}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:900px){
-  .container {
-    grid-template-columns: 1fr;
-  }
+.grid,.stats{grid-template-columns:1fr}
+.title{font-size:38px}
+.logo{font-size:28px;letter-spacing:8px}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 VIDEO BACKGROUND -->
-<div class="video-bg">
-  <video autoplay muted loop>
-    <source src="https://cdn.coverr.co/videos/coverr-night-city-traffic-5175/1080p.mp4" type="video/mp4">
-  </video>
-</div>
+<video class="bg" autoplay muted loop playsinline>
+  <source src="bg.mp4" type="video/mp4">
+</video>
 
-<div class="network"></div>
+<div class="overlay"></div>
+<div class="glow"></div>
 
-<!-- 🔥 HERO -->
-<div class="hero">
-  <div class="logo">STYLESPHERE</div>
-  <div class="subtitle">MEMBERS CLUB</div>
-
-  <h1>Smart & Secure Access System</h1>
-
-  <div class="badges">
-    <div class="badge">Secure</div>
-    <div class="badge">Fast Access</div>
-    <div class="badge">Global System</div>
-  </div>
-</div>
-
-<!-- 🔥 LOGIN -->
 <div class="container">
 
-  <!-- CLIENT -->
-  <div class="card">
-    <h2>Client Login</h2>
-    <p>Membership & Rewards</p>
-    <input placeholder="Email">
-    <input type="password" placeholder="Password">
-    <button>Login</button>
+  <div class="header">
+    <div class="logo">STYLESPHERE</div>
+    <div class="club">MEMBERS CLUB</div>
+
+    <h1 class="title">Smart & Secure Access System</h1>
+    <p class="subtitle">Three login systems. One premium global experience.</p>
+
+    <div class="badges">
+      <div class="badge">Secure</div>
+      <div class="badge">Fast Access</div>
+      <div class="badge">Global System</div>
+    </div>
   </div>
 
-  <!-- MERCHANT -->
-  <div class="card">
-    <h2>Merchant Login</h2>
-    <p>QR Scan & Verify</p>
-    <input placeholder="Merchant Email">
-    <input type="password" placeholder="Password">
-    <button>Login</button>
+  <div class="grid">
+
+    <div class="card">
+      <h2>Client Login</h2>
+      <p>Membership, rewards and digital card access.</p>
+      <input type="email" placeholder="Email address">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+    </div>
+
+    <div class="card">
+      <h2>Merchant Login</h2>
+      <p>QR scan, verification and daily operations.</p>
+      <input type="email" placeholder="Merchant email">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+    </div>
+
+    <div class="card">
+      <h2>Admin Panel</h2>
+      <p>Full control dashboard, reports and analytics.</p>
+      <input type="email" placeholder="Admin email">
+      <input type="password" placeholder="Password">
+      <input type="text" placeholder="2FA Code">
+      <button>Enter Dashboard</button>
+    </div>
+
   </div>
 
-  <!-- ADMIN -->
-  <div class="card">
-    <h2>Admin Panel</h2>
-    <p>Full Control System</p>
-    <input placeholder="Admin Email">
-    <input type="password" placeholder="Password">
-    <input placeholder="2FA Code">
-    <button>Enter Dashboard</button>
+  <div class="stats">
+    <div class="stat"><h3>24,856</h3><span>Total Members</span></div>
+    <div class="stat"><h3>1,248</h3><span>Active Merchants</span></div>
+    <div class="stat"><h3>99.9%</h3><span>System Uptime</span></div>
+    <div class="stat"><h3>152</h3><span>Countries Covered</span></div>
   </div>
 
-</div>
+  <div class="footer">
+    256-bit Encryption • 2FA Security • Real-time Monitoring • Global Access
+  </div>
 
-<!-- FOOTER -->
-<div class="footer">
-  256-bit Encryption • Global Servers • Real-time Monitoring
 </div>
 
 </body>
