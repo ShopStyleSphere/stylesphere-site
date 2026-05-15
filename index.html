@@ -1,408 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StyleSphere Members Club</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Elite System</title>
 
 <style>
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #fff;
-  background:
-    radial-gradient(circle at top, rgba(212,175,55,.25), transparent 30%),
-    linear-gradient(135deg, #030303, #090909, #111);
-  min-height: 100vh;
+  background: black;
+  color: white;
+  overflow-x: hidden;
 }
 
-.page {
-  padding: 30px;
+/* 🔥 VIDEO BACKGROUND */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
+.video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.25);
+}
+
+/* 🔥 HERO */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 20px;
-  align-items: center;
-  padding: 35px;
-  border-radius: 28px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(212,175,55,.25);
-  box-shadow: 0 0 40px rgba(212,175,55,.12);
+  text-align: center;
+  padding: 100px 20px 50px;
 }
 
 .logo {
+  font-size: 40px;
+  letter-spacing: 8px;
   color: #d4af37;
-  font-size: 34px;
-  letter-spacing: 6px;
-  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.logo span {
-  display: block;
-  color: #fff;
-  font-size: 13px;
-  letter-spacing: 8px;
-  margin-top: 8px;
+.subtitle {
+  color: #aaa;
+  margin-bottom: 25px;
 }
 
 .hero h1 {
-  font-size: 46px;
-  margin: 0;
-  text-align: center;
+  font-size: 48px;
+  margin-bottom: 20px;
 }
 
-.hero p {
-  color: #bbb;
-  text-align: center;
-}
-
+/* 🔥 BADGES */
 .badges {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .badge {
   padding: 10px 18px;
-  border: 1px solid rgba(212,175,55,.35);
-  border-radius: 16px;
-  background: rgba(0,0,0,.45);
-  color: #f4d66b;
-}
-
-.security {
-  color: #ddd;
-  line-height: 2.2;
-  text-align: right;
-}
-
-.selector {
-  margin: 30px 0;
-  padding: 25px;
-  border-radius: 24px;
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.08);
-}
-
-.selector h2 {
-  text-align: center;
-  margin-top: 0;
-}
-
-.select-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.select-card {
-  padding: 22px;
   border-radius: 20px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(212,175,55,.2);
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  transition: .3s;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  backdrop-filter: blur(10px);
+  animation: glow 2s infinite alternate;
 }
 
-.select-card:hover {
-  transform: translateY(-8px);
-  border-color: #d4af37;
-  box-shadow: 0 0 35px rgba(212,175,55,.25);
+@keyframes glow {
+  from { box-shadow: 0 0 10px #d4af37; }
+  to { box-shadow: 0 0 25px #d4af37; }
 }
 
-.icon {
-  width: 55px;
-  height: 55px;
-  border-radius: 18px;
-  display: grid;
-  place-items: center;
-  font-size: 26px;
-  background: radial-gradient(circle, #d4af37, #5a3d00);
+/* 🔥 WORLD GLOW NETWORK */
+.network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(212,175,55,0.2), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(212,175,55,0.2), transparent 40%);
+  animation: move 10s linear infinite;
 }
 
-.panels {
+@keyframes move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50px); }
+}
+
+/* 🔥 LOGIN CARDS */
+.container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 25px;
+  padding: 40px;
 }
 
-.panel {
-  position: relative;
-  min-height: 520px;
-  border-radius: 28px;
-  padding: 26px;
-  background: rgba(255,255,255,.045);
-  border: 1px solid rgba(255,255,255,.1);
-  box-shadow: inset 0 0 30px rgba(255,255,255,.03);
-  overflow: hidden;
+.card {
+  background: rgba(0,0,0,0.6);
+  border-radius: 25px;
+  padding: 25px;
+  border: 1px solid rgba(212,175,55,0.2);
+  backdrop-filter: blur(15px);
+  transition: 0.4s;
 }
 
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: -80px;
-  background: radial-gradient(circle at top, rgba(212,175,55,.16), transparent 40%);
-  pointer-events: none;
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 0 40px rgba(212,175,55,0.5);
 }
 
-.panel h2 {
+.card h2 {
   color: #d4af37;
-  text-align: center;
+  margin-bottom: 10px;
 }
 
-.phone {
-  width: 155px;
-  height: 310px;
-  margin: 20px auto;
-  border-radius: 28px;
-  background: linear-gradient(160deg, #080808, #1b1b1b);
-  border: 2px solid #333;
-  box-shadow: 0 0 35px rgba(212,175,55,.22);
-  padding: 20px;
+.card p {
+  color: #aaa;
+  margin-bottom: 15px;
 }
 
-.vip-card {
-  width: 210px;
-  height: 130px;
-  margin: -80px auto 25px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #080808, #1d1403);
-  border: 1px solid #d4af37;
-  box-shadow: 0 0 35px rgba(212,175,55,.45);
-  padding: 18px;
-  color: #d4af37;
-}
-
-.qr {
-  width: 170px;
-  height: 170px;
-  margin: 35px auto;
-  background:
-    linear-gradient(90deg,#fff 10px,transparent 10px),
-    linear-gradient(#fff 10px,transparent 10px),
-    #000;
-  background-size: 24px 24px;
-  border: 12px solid #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 35px rgba(60,140,255,.35);
-}
-
-.dashboard {
-  margin: 20px auto;
-  display: grid;
-  gap: 12px;
-}
-
-.stat {
-  padding: 18px;
-  border-radius: 16px;
-  background: rgba(0,0,0,.45);
-  border: 1px solid rgba(212,175,55,.22);
-}
-
-.chart {
-  height: 130px;
-  border-radius: 16px;
-  background:
-    linear-gradient(160deg, transparent 45%, rgba(212,175,55,.7) 46%, transparent 48%),
-    linear-gradient(20deg, transparent 55%, rgba(212,175,55,.5) 56%, transparent 58%),
-    rgba(0,0,0,.45);
-  border: 1px solid rgba(212,175,55,.2);
-}
-
-.login {
-  margin-top: 15px;
-}
-
+/* INPUT */
 input {
   width: 100%;
-  padding: 13px;
+  padding: 12px;
   margin: 8px 0;
-  border: 1px solid rgba(255,255,255,.12);
   border-radius: 10px;
-  background: rgba(0,0,0,.55);
-  color: #fff;
+  border: 1px solid #333;
+  background: rgba(0,0,0,0.6);
+  color: white;
 }
 
+/* BUTTON */
 button {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   margin-top: 10px;
-  border: 0;
   border-radius: 12px;
-  background: linear-gradient(135deg, #d4af37, #ffdf68);
-  color: #000;
+  border: none;
+  background: linear-gradient(135deg,#d4af37,#ffd700);
+  color: black;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 25px rgba(212,175,55,.38);
+  transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 40px rgba(212,175,55,.75);
+  box-shadow: 0 0 25px gold;
+  transform: scale(1.05);
 }
 
-.features {
-  margin-top: 28px;
-  padding: 25px;
-  border-radius: 24px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.08);
+/* FOOTER */
+.footer {
   text-align: center;
-  color: #ddd;
-}
-
-.help {
-  margin-top: 22px;
-  text-align: center;
+  margin: 40px 0;
   color: #aaa;
 }
 
-@media (max-width: 900px) {
-  .hero,
-  .select-grid,
-  .panels,
-  .features {
+@media(max-width:900px){
+  .container {
     grid-template-columns: 1fr;
   }
-
-  .hero h1 {
-    font-size: 34px;
-  }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<!-- 🔥 VIDEO BACKGROUND -->
+<div class="video-bg">
+  <video autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-night-city-traffic-5175/1080p.mp4" type="video/mp4">
+  </video>
+</div>
 
-  <section class="hero">
-    <div class="logo">
-      STYLESPHERE
-      <span>MEMBERS CLUB</span>
-    </div>
+<div class="network"></div>
 
-    <div>
-      <h1>Smart & Secure Access System</h1>
-      <p>Three login systems. One premium unified experience.</p>
-      <div class="badges">
-        <div class="badge">🛡 Secure</div>
-        <div class="badge">⚡ Fast Login</div>
-        <div class="badge">🔒 High Protection</div>
-      </div>
-    </div>
+<!-- 🔥 HERO -->
+<div class="hero">
+  <div class="logo">STYLESPHERE</div>
+  <div class="subtitle">MEMBERS CLUB</div>
 
-    <div class="security">
-      🛡 Multi-Level Protection<br>
-      🔐 Advanced Data Encryption<br>
-      💻 Login From Any Device<br>
-      👁 Smart Access Monitoring
-    </div>
-  </section>
+  <h1>Smart & Secure Access System</h1>
 
-  <section class="selector">
-    <h2>Choose Your Access Type</h2>
-    <div class="select-grid">
-      <div class="select-card">
-        <div class="icon">👤</div>
-        <div>
-          <h3>Client Access</h3>
-          <p>Membership, digital card, rewards and services.</p>
-        </div>
-      </div>
+  <div class="badges">
+    <div class="badge">Secure</div>
+    <div class="badge">Fast Access</div>
+    <div class="badge">Global System</div>
+  </div>
+</div>
 
-      <div class="select-card">
-        <div class="icon">🏪</div>
-        <div>
-          <h3>Merchant Access</h3>
-          <p>Daily use, QR scan and member verification.</p>
-        </div>
-      </div>
+<!-- 🔥 LOGIN -->
+<div class="container">
 
-      <div class="select-card">
-        <div class="icon">👑</div>
-        <div>
-          <h3>Admin Access</h3>
-          <p>Full control dashboard, reports and analytics.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="panels">
-
-    <div class="panel">
-      <h2>Client Login</h2>
-      <div class="phone">
-        <p>Welcome Back</p>
-        <h3>12,450</h3>
-        <p>Reward Points</p>
-      </div>
-      <div class="vip-card">
-        <strong>LEGEND</strong><br><br>
-        9876 5432 1098 7654<br><br>
-        StyleSphere Member
-      </div>
-      <div class="login">
-        <input placeholder="Email address">
-        <input type="password" placeholder="Password">
-        <button>Login</button>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Merchant Login</h2>
-      <div class="qr"></div>
-      <div class="login">
-        <input placeholder="Merchant email">
-        <input type="password" placeholder="Password">
-        <button>Login</button>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Admin Panel</h2>
-      <div class="dashboard">
-        <div class="stat">Total Revenue<br><strong>SAR 4,856,230</strong></div>
-        <div class="stat">Total Members<br><strong>24,856</strong></div>
-        <div class="stat">Active Merchants<br><strong>1,248</strong></div>
-        <div class="chart"></div>
-      </div>
-      <div class="login">
-        <input placeholder="Admin email">
-        <input type="password" placeholder="Password">
-        <input placeholder="2FA Code">
-        <button>Enter Dashboard</button>
-      </div>
-    </div>
-
-  </section>
-
-  <section class="features">
-    <div>🛡 256-bit Encryption</div>
-    <div>🔐 2FA Security</div>
-    <div>👁 Smart Monitoring</div>
-    <div>🔔 Instant Alerts</div>
-    <div>💻 All Devices</div>
-  </section>
-
-  <div class="help">
-    Need help? 24/7 support is ready for StyleSphere members.
+  <!-- CLIENT -->
+  <div class="card">
+    <h2>Client Login</h2>
+    <p>Membership & Rewards</p>
+    <input placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
   </div>
 
+  <!-- MERCHANT -->
+  <div class="card">
+    <h2>Merchant Login</h2>
+    <p>QR Scan & Verify</p>
+    <input placeholder="Merchant Email">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="card">
+    <h2>Admin Panel</h2>
+    <p>Full Control System</p>
+    <input placeholder="Admin Email">
+    <input type="password" placeholder="Password">
+    <input placeholder="2FA Code">
+    <button>Enter Dashboard</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  256-bit Encryption • Global Servers • Real-time Monitoring
 </div>
 
 </body>
