@@ -3,146 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Members Club</title>
+<title>StyleSphere Elite System</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{min-height:100vh;background:#000;color:#fff;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#000;color:#fff;overflow-x:hidden}
 
-video.bg{
-position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3
+/* 🎥 فيديو */
+video{
+position:fixed;inset:0;width:100%;height:100%;
+object-fit:cover;z-index:-3;filter:brightness(.6)
 }
-.overlay{
-position:fixed;inset:0;background:
-radial-gradient(circle at center,rgba(255,200,70,.18),rgba(0,0,0,.75) 45%,#000 100%);
-z-index:-2
+
+/* 🌌 تأثير */
+body::before{
+content:"";
+position:fixed;inset:0;
+background:radial-gradient(circle at center,rgba(255,215,80,.2),transparent 60%);
+z-index:-2;
 }
+
+/* 🔥 Glow */
 .glow{
-position:fixed;inset:0;background:linear-gradient(120deg,transparent,rgba(255,215,80,.15),transparent);
-animation:shine 6s infinite linear;z-index:-1
+position:fixed;inset:0;
+background:linear-gradient(120deg,transparent,rgba(255,215,80,.2),transparent);
+animation:move 6s linear infinite;
+z-index:-1;
 }
-@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@keyframes move{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
-.container{max-width:1200px;margin:auto;padding:45px 20px}
-.header{text-align:center;margin-bottom:55px;animation:fadeDown 1s ease}
-.logo{font-size:42px;letter-spacing:14px;color:#f7d65b;text-shadow:0 0 35px #f7d65b}
-.club{letter-spacing:7px;margin-top:10px;color:#ddd}
-.title{font-size:56px;margin-top:40px;text-shadow:0 0 30px #fff}
-.subtitle{color:#ddd;margin:15px 0 25px}
+/* 📦 Container */
+.container{max-width:1200px;margin:auto;padding:40px}
 
-.badges{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-.badge{border:1px solid #d7aa33;padding:12px 24px;border-radius:40px;background:rgba(0,0,0,.45);box-shadow:0 0 25px rgba(255,210,70,.35);color:#ffd84d}
+/* 🧠 Header */
+.header{text-align:center;margin-bottom:50px}
+.logo{
+font-size:40px;
+letter-spacing:12px;
+color:#ffd84d;
+text-shadow:0 0 30px #ffd84d;
+}
+.title{
+font-size:50px;
+margin-top:30px;
+font-weight:800;
+}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+/* ⚡ badges */
+.badges{
+display:flex;justify-content:center;gap:15px;margin-top:20px
+}
+.badge{
+padding:10px 20px;
+border-radius:40px;
+border:1px solid #ffd84d;
+box-shadow:0 0 20px rgba(255,215,80,.3);
+}
+
+/* 🧊 Cards */
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+margin-top:40px;
+}
+
 .card{
-background:rgba(5,8,10,.72);
-border:1px solid rgba(255,210,80,.35);
-border-radius:26px;
-padding:30px;
-backdrop-filter:blur(18px);
-box-shadow:0 0 45px rgba(255,200,60,.12);
-transition:.35s;
-animation:fadeUp 1s ease
+background:rgba(0,0,0,.6);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,215,80,.3);
+transition:.4s;
+position:relative;
+overflow:hidden;
 }
-.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 0 55px rgba(255,215,80,.35)}
-.card h2{color:#ffd84d;margin-bottom:8px}
-.card p{color:#ccc;margin-bottom:25px}
 
+.card::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg,transparent,rgba(255,215,80,.3),transparent);
+opacity:0;
+transition:.4s;
+}
+.card:hover::before{opacity:1}
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 40px rgba(255,215,80,.4);
+}
+
+/* 📝 Inputs */
 input{
-width:100%;padding:15px;margin:9px 0;border-radius:12px;
-border:1px solid rgba(255,255,255,.25);
-background:rgba(0,0,0,.55);color:white;outline:none
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #333;
+background:#111;
+color:#fff;
 }
-input:focus{border-color:#ffd84d;box-shadow:0 0 18px rgba(255,216,77,.35)}
+input:focus{
+outline:none;
+border-color:#ffd84d;
+box-shadow:0 0 10px #ffd84d;
+}
+
+/* 🔘 Button */
 button{
-width:100%;padding:15px;margin-top:14px;border:none;border-radius:14px;
-background:linear-gradient(135deg,#7b5200,#ffd84d,#9b6a00);
-color:#000;font-weight:bold;cursor:pointer;box-shadow:0 0 30px rgba(255,216,77,.45)
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#ffd84d,#a67c00);
+color:#000;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
 }
-button:hover{filter:brightness(1.2)}
+button:hover{
+transform:scale(1.05);
+filter:brightness(1.2);
+}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}
-.stat{background:rgba(0,0,0,.55);border:1px solid rgba(255,210,80,.25);border-radius:20px;padding:22px;text-align:center}
-.stat h3{font-size:30px;color:#ffd84d}
-.stat span{color:#bbb}
+/* 📊 Stats */
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:40px;
+}
+.stat{
+background:rgba(0,0,0,.5);
+padding:20px;
+border-radius:15px;
+text-align:center;
+border:1px solid rgba(255,215,80,.2);
+}
+.stat h2{color:#ffd84d}
 
-.footer{text-align:center;margin-top:45px;color:#bbb;letter-spacing:2px}
-
-@keyframes fadeDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
-
+/* 📱 Responsive */
 @media(max-width:900px){
 .grid,.stats{grid-template-columns:1fr}
-.title{font-size:38px}
-.logo{font-size:28px;letter-spacing:8px}
+.title{font-size:35px}
 }
 </style>
 </head>
 
 <body>
 
-<video class="bg" autoplay muted loop playsinline>
-  <source src="bg.mp4" type="video/mp4">
+<video autoplay muted loop>
+<source src="bg.mp4" type="video/mp4">
 </video>
 
-<div class="overlay"></div>
 <div class="glow"></div>
 
 <div class="container">
 
-  <div class="header">
-    <div class="logo">STYLESPHERE</div>
-    <div class="club">MEMBERS CLUB</div>
+<div class="header">
+<div class="logo">STYLESPHERE</div>
+<h1 class="title">Elite Access System</h1>
 
-    <h1 class="title">Smart & Secure Access System</h1>
-    <p class="subtitle">Three login systems. One premium global experience.</p>
+<div class="badges">
+<div class="badge">Secure</div>
+<div class="badge">Fast</div>
+<div class="badge">Global</div>
+</div>
+</div>
 
-    <div class="badges">
-      <div class="badge">Secure</div>
-      <div class="badge">Fast Access</div>
-      <div class="badge">Global System</div>
-    </div>
-  </div>
+<div class="grid">
 
-  <div class="grid">
+<div class="card">
+<h2>Client</h2>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<button>Login</button>
+</div>
 
-    <div class="card">
-      <h2>Client Login</h2>
-      <p>Membership, rewards and digital card access.</p>
-      <input type="email" placeholder="Email address">
-      <input type="password" placeholder="Password">
-      <button>Login</button>
-    </div>
+<div class="card">
+<h2>Merchant</h2>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<button>Verify</button>
+</div>
 
-    <div class="card">
-      <h2>Merchant Login</h2>
-      <p>QR scan, verification and daily operations.</p>
-      <input type="email" placeholder="Merchant email">
-      <input type="password" placeholder="Password">
-      <button>Login</button>
-    </div>
+<div class="card">
+<h2>Admin</h2>
+<input placeholder="Email">
+<input type="password" placeholder="Password">
+<input placeholder="2FA">
+<button>Enter</button>
+</div>
 
-    <div class="card">
-      <h2>Admin Panel</h2>
-      <p>Full control dashboard, reports and analytics.</p>
-      <input type="email" placeholder="Admin email">
-      <input type="password" placeholder="Password">
-      <input type="text" placeholder="2FA Code">
-      <button>Enter Dashboard</button>
-    </div>
+</div>
 
-  </div>
-
-  <div class="stats">
-    <div class="stat"><h3>24,856</h3><span>Total Members</span></div>
-    <div class="stat"><h3>1,248</h3><span>Active Merchants</span></div>
-    <div class="stat"><h3>99.9%</h3><span>System Uptime</span></div>
-    <div class="stat"><h3>152</h3><span>Countries Covered</span></div>
-  </div>
-
-  <div class="footer">
-    256-bit Encryption • 2FA Security • Real-time Monitoring • Global Access
-  </div>
+<div class="stats">
+<div class="stat"><h2>24K</h2><p>Users</p></div>
+<div class="stat"><h2>1.2K</h2><p>Merchants</p></div>
+<div class="stat"><h2>99.9%</h2><p>Uptime</p></div>
+<div class="stat"><h2>152</h2><p>Countries</p></div>
+</div>
 
 </div>
 
