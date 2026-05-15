@@ -10,8 +10,8 @@
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  background:#020202;
-  color:#fff;
+  color:white;
+  background:#000;
   overflow-x:hidden;
 }
 
@@ -22,250 +22,258 @@ body{
   height:100%;
   object-fit:cover;
   z-index:-5;
-  filter:brightness(.33) saturate(.8);
+  filter:brightness(.45) saturate(1.15) contrast(1.1);
 }
 
-.layer{
+.overlay{
   position:fixed;
   inset:0;
   z-index:-4;
   background:
-  linear-gradient(180deg,rgba(0,0,0,.88),rgba(0,0,0,.35),rgba(0,0,0,.92)),
-  radial-gradient(circle at center,rgba(212,161,54,.22),transparent 55%);
+  radial-gradient(circle at center,rgba(255,205,90,.18),rgba(0,0,0,.65) 55%,#000 100%),
+  linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.25),rgba(0,0,0,.85));
 }
 
-.gold-move{
+.gold-beam{
   position:fixed;
   inset:0;
   z-index:-3;
-  background:linear-gradient(115deg,transparent,rgba(255,201,79,.16),transparent);
-  animation:shine 8s linear infinite;
+  background:linear-gradient(110deg,transparent,rgba(255,215,90,.25),transparent);
+  animation:beam 6s linear infinite;
 }
 
-@keyframes shine{
-  from{transform:translateX(-130%)}
-  to{transform:translateX(130%)}
+@keyframes beam{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(120%)}
 }
 
 .header{
   height:86px;
-  padding:0 44px;
+  padding:0 42px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:rgba(0,0,0,.78);
-  border-bottom:1px solid rgba(214,165,55,.35);
+  background:rgba(0,0,0,.28);
+  border-bottom:1px solid rgba(255,215,90,.35);
   backdrop-filter:blur(18px);
 }
 
 .brand h1{
-  color:#f2c45c;
-  letter-spacing:7px;
-  font-size:24px;
+  color:#ffd86b;
+  letter-spacing:8px;
+  font-size:25px;
+  text-shadow:0 0 25px #ffd86b;
 }
 
 .brand p{
-  letter-spacing:4px;
+  color:#eee;
+  letter-spacing:5px;
   font-size:11px;
-  color:#ddd;
   margin-top:5px;
 }
 
 .nav{
   display:flex;
-  gap:38px;
+  gap:35px;
 }
 
 .nav a{
-  color:#eee;
+  color:white;
   text-decoration:none;
   font-size:13px;
-  font-weight:700;
+  font-weight:bold;
 }
 
 .status{
-  border:1px solid rgba(242,196,92,.5);
-  border-radius:26px;
+  color:#ffd86b;
+  border:1px solid rgba(255,216,107,.5);
+  border-radius:30px;
   padding:10px 22px;
-  color:#f2c45c;
+  background:rgba(0,0,0,.3);
+  box-shadow:0 0 25px rgba(255,216,107,.18);
   font-size:12px;
-  background:rgba(0,0,0,.45);
 }
 
 .hero{
   text-align:center;
-  padding:58px 20px 18px;
+  padding:58px 20px 25px;
 }
 
 .hero .top{
+  color:#ffd86b;
+  letter-spacing:7px;
   font-size:12px;
-  letter-spacing:6px;
-  color:#e5c06b;
 }
 
 .hero h2{
   font-family:Georgia,serif;
-  font-size:66px;
-  letter-spacing:14px;
+  font-size:68px;
+  letter-spacing:15px;
   margin-top:12px;
-  background:linear-gradient(#fff,#f8d576,#8d5d12);
+  background:linear-gradient(#fff,#ffd86b,#8a5b0a);
   -webkit-background-clip:text;
   color:transparent;
+  text-shadow:0 0 35px rgba(255,216,107,.25);
 }
 
 .hero h3{
   font-size:22px;
   letter-spacing:10px;
-  color:#eee;
   margin-top:6px;
 }
 
 .hero p{
+  max-width:760px;
   margin:18px auto 0;
-  max-width:720px;
-  font-size:15px;
-  line-height:1.6;
   color:#eee;
+  line-height:1.6;
+  font-size:15px;
 }
 
 .hero .tag{
-  margin:22px auto 0;
+  margin-top:24px;
   display:inline-block;
-  border:1px solid rgba(242,196,92,.55);
-  border-radius:12px;
-  padding:11px 30px;
-  color:#f8d576;
+  padding:12px 34px;
+  border:1px solid rgba(255,216,107,.6);
+  border-radius:14px;
+  color:#ffd86b;
+  background:rgba(0,0,0,.22);
+  backdrop-filter:blur(12px);
   letter-spacing:2px;
   font-size:13px;
-  background:rgba(0,0,0,.35);
 }
 
-.access-grid{
+.grid{
   max-width:1360px;
-  margin:44px auto 28px;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(240px,1fr));
-  gap:28px;
+  margin:42px auto 28px;
   padding:0 38px;
-  align-items:stretch;
-  justify-items:center;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:28px;
 }
 
-.access-card{
-  width:100%;
-  max-width:300px;
-  min-height:390px;
-  border:1px solid rgba(242,196,92,.45);
-  border-radius:22px;
-  overflow:hidden;
-  background:rgba(0,0,0,.62);
-  backdrop-filter:blur(16px);
-  transition:.35s;
-  box-shadow:0 20px 70px rgba(0,0,0,.5);
-}
-
-.access-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 0 45px rgba(242,196,92,.35);
-}
-
-.visual{
-  height:190px;
-  background-size:cover;
-  background-position:center;
+.card{
+  height:390px;
+  border:1px solid rgba(255,216,107,.5);
+  border-radius:24px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background:
+  linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),
+  rgba(0,0,0,.18);
+  backdrop-filter:blur(18px);
+  box-shadow:
+  inset 0 0 30px rgba(255,216,107,.08),
+  0 0 45px rgba(0,0,0,.6);
   position:relative;
+  overflow:hidden;
+  transition:.35s;
 }
 
-.visual:after{
+.card::before{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.92));
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(255,216,107,.35),transparent);
+  transform:translateX(-120%);
+  animation:cardShine 5s infinite;
 }
 
-.client-img{background-image:url('client.jpg'),linear-gradient(135deg,#1a1205,#000)}
-.merchant-img{background-image:url('merchant.jpg'),linear-gradient(135deg,#211504,#000)}
-.admin-img{background-image:url('admin.jpg'),linear-gradient(135deg,#191006,#000)}
-.owner-img{background-image:url('owner.jpg'),linear-gradient(135deg,#241600,#000)}
+@keyframes cardShine{
+  0%{transform:translateX(-120%)}
+  55%{transform:translateX(120%)}
+  100%{transform:translateX(120%)}
+}
 
-.card-content{
+.card:hover{
+  transform:translateY(-12px) scale(1.02);
+  box-shadow:0 0 55px rgba(255,216,107,.38);
+}
+
+.lux-icon{
+  font-size:58px;
+  margin-bottom:auto;
   text-align:center;
-  padding:18px;
+  filter:drop-shadow(0 0 20px #ffd86b);
+  animation:float 3s ease-in-out infinite;
 }
 
-.card-content h4{
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+.card h3{
+  color:#ffe08a;
   font-family:Georgia,serif;
-  color:#f8d576;
   font-size:20px;
   line-height:1.15;
-  letter-spacing:.8px;
+  text-shadow:0 0 18px rgba(255,216,107,.4);
 }
 
-.card-content p{
-  color:#ddd;
-  font-size:13px;
-  line-height:1.45;
+.card p{
+  color:#eee;
+  font-size:12px;
+  line-height:1.5;
   margin:10px 0 18px;
 }
 
 .btn{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   text-decoration:none;
+  background:linear-gradient(135deg,#9b6815,#ffd86b,#b97b16);
   color:#111;
-  background:linear-gradient(135deg,#9b6815,#ffd86d,#a06b16);
   font-weight:900;
-  border-radius:10px;
+  border-radius:12px;
   padding:12px 18px;
-  font-size:13px;
-  letter-spacing:.7px;
-  box-shadow:0 0 30px rgba(242,196,92,.3);
+  font-size:12px;
+  letter-spacing:1.5px;
+  box-shadow:0 0 30px rgba(255,216,107,.35);
 }
 
-.sub-link{
-  display:block;
+.sub{
   margin-top:12px;
-  color:#ddd;
-  text-decoration:none;
+  color:#eee;
   font-size:12px;
+  text-align:center;
 }
 
 .stats{
   max-width:1320px;
-  margin:24px auto 0;
-  border:1px solid rgba(242,196,92,.45);
-  border-radius:18px;
-  background:rgba(0,0,0,.62);
-  backdrop-filter:blur(14px);
+  margin:24px auto;
+  padding:18px;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  padding:18px 16px;
+  border:1px solid rgba(255,216,107,.45);
+  border-radius:20px;
+  background:rgba(0,0,0,.25);
+  backdrop-filter:blur(16px);
 }
 
 .stat{
   text-align:center;
-  border-right:1px solid rgba(242,196,92,.25);
+  border-right:1px solid rgba(255,216,107,.25);
 }
 
 .stat:last-child{border-right:0}
 
-.stat h5{
-  color:#f8d576;
+.stat h4{
+  color:#ffd86b;
   font-size:25px;
 }
 
 .stat p{
   font-size:11px;
-  color:#ddd;
   margin-top:4px;
 }
 
 .stat span{
-  display:block;
-  color:#62ff5c;
+  color:#5cff62;
   font-size:11px;
-  margin-top:4px;
 }
 
 .benefits{
@@ -273,30 +281,29 @@ body{
   margin:24px auto 0;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:1px;
-  border:1px solid rgba(242,196,92,.28);
-  background:rgba(242,196,92,.18);
+  border:1px solid rgba(255,216,107,.25);
 }
 
 .benefit{
-  background:rgba(0,0,0,.78);
   padding:18px;
   text-align:center;
+  background:rgba(0,0,0,.25);
+  backdrop-filter:blur(12px);
+  border-right:1px solid rgba(255,216,107,.18);
 }
 
-.benefit h6{
-  color:#f8d576;
+.benefit h5{
+  color:#ffd86b;
   font-size:13px;
-  margin-bottom:7px;
 }
 
 .benefit p{
   color:#ccc;
   font-size:12px;
-  line-height:1.45;
+  margin-top:6px;
 }
 
-.footer{
+footer{
   padding:22px 42px;
   display:flex;
   justify-content:space-between;
@@ -305,16 +312,17 @@ body{
 }
 
 @media(max-width:1100px){
-  .access-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}
+  .grid{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:700px){
-  .header{padding:0 18px}
   .nav,.status{display:none}
+  .header{padding:0 18px}
   .hero h2{font-size:40px;letter-spacing:6px}
   .hero h3{font-size:16px;letter-spacing:5px}
-  .access-grid,.stats,.benefits{grid-template-columns:1fr}
-  .stat{border-right:0;border-bottom:1px solid rgba(242,196,92,.18);padding:10px}
+  .grid,.stats,.benefits{grid-template-columns:1fr}
+  .card{height:330px}
+  .stat{border-right:0;border-bottom:1px solid rgba(255,216,107,.2);padding:10px}
 }
 </style>
 </head>
@@ -325,8 +333,8 @@ body{
   <source src="bg.mp4" type="video/mp4">
 </video>
 
-<div class="layer"></div>
-<div class="gold-move"></div>
+<div class="overlay"></div>
+<div class="gold-beam"></div>
 
 <header class="header">
   <div class="brand">
@@ -342,7 +350,7 @@ body{
     <a href="#">SUPPORT</a>
   </nav>
 
-  <div class="status">SYSTEM STATUS<br>ALL SYSTEMS OPERATIONAL</div>
+  <div class="status">● SYSTEM STATUS<br>ALL SYSTEMS OPERATIONAL</div>
 </header>
 
 <section class="hero">
@@ -353,67 +361,59 @@ body{
   <div class="tag">JOIN A WORLD OF LUXURY, REWARDS & EXCLUSIVE EXPERIENCES</div>
 </section>
 
-<section class="access-grid">
+<section class="grid">
 
-  <div class="access-card">
-    <div class="visual client-img"></div>
-    <div class="card-content">
-      <h4>CLIENT ACCESS</h4>
-      <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
-      <a class="btn" href="client.html">CLIENT LOGIN <span>→</span></a>
-      <a class="sub-link" href="#">Create Account</a>
-    </div>
+  <div class="card">
+    <div class="lux-icon">💎</div>
+    <h3>CLIENT ACCESS</h3>
+    <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
+    <a class="btn" href="client.html">CLIENT LOGIN <span>→</span></a>
+    <div class="sub">Create Account</div>
   </div>
 
-  <div class="access-card">
-    <div class="visual merchant-img"></div>
-    <div class="card-content">
-      <h4>MERCHANT PORTAL</h4>
-      <p>Scan, verify and redeem member rewards seamlessly.</p>
-      <a class="btn" href="merchant.html">MERCHANT LOGIN <span>→</span></a>
-      <a class="sub-link" href="#">Register Your Business</a>
-    </div>
+  <div class="card">
+    <div class="lux-icon">⚜️</div>
+    <h3>MERCHANT PORTAL</h3>
+    <p>Scan, verify and redeem member rewards seamlessly.</p>
+    <a class="btn" href="merchant.html">MERCHANT LOGIN <span>→</span></a>
+    <div class="sub">Register Your Business</div>
   </div>
 
-  <div class="access-card">
-    <div class="visual admin-img"></div>
-    <div class="card-content">
-      <h4>COMPANY ADMIN</h4>
-      <p>Manage operations, support members and analyze performance.</p>
-      <a class="btn" href="admin.html">ADMIN LOGIN <span>→</span></a>
-      <a class="sub-link" href="#">Admin Access</a>
-    </div>
+  <div class="card">
+    <div class="lux-icon">🛡️</div>
+    <h3>COMPANY ADMIN</h3>
+    <p>Manage operations, support members and analyze performance.</p>
+    <a class="btn" href="admin.html">ADMIN LOGIN <span>→</span></a>
+    <div class="sub">Admin Access</div>
   </div>
 
-  <div class="access-card">
-    <div class="visual owner-img"></div>
-    <div class="card-content">
-      <h4>OWNER ACCESS</h4>
-      <p>Full control over the entire system. Monitor, manage and scale.</p>
-      <a class="btn" href="owner.html">OWNER LOGIN <span>→</span></a>
-      <a class="sub-link" href="#">Secure Access</a>
-    </div>
+  <div class="card">
+    <div class="lux-icon">👑</div>
+    <h3>OWNER ACCESS</h3>
+    <p>Full control over the entire system. Monitor, manage and scale.</p>
+    <a class="btn" href="owner.html">OWNER LOGIN <span>→</span></a>
+    <div class="sub">Secure Access</div>
   </div>
 
 </section>
 
 <section class="stats">
-  <div class="stat"><h5>24,892</h5><p>TOTAL MEMBERS</p><span>12.5% this month</span></div>
-  <div class="stat"><h5>8,753</h5><p>ACTIVE MERCHANTS</p><span>8.2% this month</span></div>
-  <div class="stat"><h5>99.9%</h5><p>SYSTEM UPTIME</p><span>Excellent Performance</span></div>
-  <div class="stat"><h5>152</h5><p>COUNTRIES COVERED</p><span>Global Presence</span></div>
-  <div class="stat"><h5>1.2M+</h5><p>REWARDS REDEEMED</p><span>This month</span></div>
+  <div class="stat"><h4>24,892</h4><p>TOTAL MEMBERS</p><span>12.5% this month</span></div>
+  <div class="stat"><h4>8,753</h4><p>ACTIVE MERCHANTS</p><span>8.2% this month</span></div>
+  <div class="stat"><h4>99.9%</h4><p>SYSTEM UPTIME</p><span>Excellent Performance</span></div>
+  <div class="stat"><h4>152</h4><p>COUNTRIES COVERED</p><span>Global Presence</span></div>
+  <div class="stat"><h4>1.2M+</h4><p>REWARDS REDEEMED</p><span>This month</span></div>
 </section>
 
 <section class="benefits">
-  <div class="benefit"><h6>PREMIUM BENEFITS</h6><p>Exclusive rewards and experiences.</p></div>
-  <div class="benefit"><h6>BANK LEVEL SECURITY</h6><p>256-bit SSL encryption and advanced protection.</p></div>
-  <div class="benefit"><h6>FAST & RELIABLE</h6><p>High performance global infrastructure.</p></div>
-  <div class="benefit"><h6>24/7 SUPPORT</h6><p>Dedicated support whenever you need.</p></div>
-  <div class="benefit"><h6>TRUSTED GLOBALLY</h6><p>Loved by members in 152+ countries.</p></div>
+  <div class="benefit"><h5>PREMIUM BENEFITS</h5><p>Exclusive rewards and experiences.</p></div>
+  <div class="benefit"><h5>BANK LEVEL SECURITY</h5><p>256-bit SSL encryption and protection.</p></div>
+  <div class="benefit"><h5>FAST & RELIABLE</h5><p>High performance global infrastructure.</p></div>
+  <div class="benefit"><h5>24/7 SUPPORT</h5><p>Dedicated support whenever you need.</p></div>
+  <div class="benefit"><h5>TRUSTED GLOBALLY</h5><p>Loved by members in 152+ countries.</p></div>
 </section>
 
-<footer class="footer">
+<footer>
   <div>© 2026 StyleSphere Members Club. All rights reserved.</div>
   <div>Privacy Policy | Terms of Service</div>
 </footer>
