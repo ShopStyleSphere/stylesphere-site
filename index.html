@@ -1,233 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StyleSphere Members Club</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050505;color:white;overflow-x:hidden}
 
-.bg-video{
-position:fixed;inset:0;width:100%;height:100%;object-fit:cover;
-z-index:-4;filter:brightness(.32) saturate(.8) blur(1px);transform:scale(1.03)
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:black;
+color:white;
+overflow-x:hidden;
 }
-.dark-layer{
-position:fixed;inset:0;z-index:-3;
-background:
-linear-gradient(180deg,rgba(0,0,0,.86),rgba(0,0,0,.45),rgba(0,0,0,.9)),
-radial-gradient(circle at center,rgba(218,160,45,.18),transparent 60%)
-}
-.gold-light{
-position:fixed;inset:0;z-index:-2;
-background:linear-gradient(115deg,transparent,rgba(255,205,90,.18),transparent);
-animation:shine 7s linear infinite
-}
-@keyframes shine{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
 
-header{
-height:86px;display:flex;align-items:center;justify-content:space-between;
-padding:0 42px;border-bottom:1px solid rgba(212,160,54,.25);
-background:rgba(0,0,0,.72);backdrop-filter:blur(18px)
+/* VIDEO BACKGROUND */
+.video-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
 }
-.brand{display:flex;align-items:center;gap:16px}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.65);
+z-index:-1;
+}
+
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 50px;
+color:#fff;
+}
+
 .logo{
-width:58px;height:58px;border:1px solid #d8a83d;border-radius:18px;
-display:flex;align-items:center;justify-content:center;
-font-size:34px;font-weight:900;color:#f2c75b;box-shadow:0 0 28px rgba(232,184,65,.35)
-}
-.brand h1{font-size:25px;letter-spacing:9px;color:#f4c85b}
-.brand span{font-size:12px;letter-spacing:5px;color:#ddd}
-nav{display:flex;gap:48px}
-nav a{color:white;text-decoration:none;font-size:14px;letter-spacing:1px}
-nav a.active{color:#f4c85b;border-bottom:1px solid #f4c85b;padding-bottom:10px}
-.status{
-border:1px solid rgba(226,178,69,.45);padding:13px 28px;border-radius:26px;
-background:rgba(0,0,0,.55);font-size:13px
-}
-.status b{color:#f4c85b}.dot{color:#4cff4c;margin-right:8px}
-
-.hero{text-align:center;padding:62px 20px 22px}
-.crown{font-size:48px;color:#f4c85b;text-shadow:0 0 25px #d8a83d}
-.hero-title{
-font-family:Georgia,serif;font-size:76px;letter-spacing:16px;
-background:linear-gradient(#fff,#f4c85b,#8b5b11);
--webkit-background-clip:text;color:transparent;text-shadow:0 0 25px rgba(255,210,80,.18)
-}
-.club{font-size:28px;letter-spacing:13px;color:#f0d38a;margin-top:8px}
-.tagline{font-size:18px;letter-spacing:5px;margin-top:22px;color:#eee}
-.subline{
-margin:24px auto 0;border:1px solid rgba(226,178,69,.38);
-padding:13px 35px;border-radius:12px;width:max-content;max-width:92%;
-color:#f3d27b;letter-spacing:3px;background:rgba(0,0,0,.38)
+font-size:22px;
+color:gold;
+font-weight:bold;
+letter-spacing:2px;
 }
 
+/* HERO */
+.hero{
+text-align:center;
+padding-top:80px;
+}
+
+.hero h1{
+font-size:55px;
+color:gold;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#ccc;
+margin-bottom:30px;
+}
+
+.cta{
+padding:12px 30px;
+border:1px solid gold;
+color:gold;
+border-radius:30px;
+display:inline-block;
+}
+
+/* CARDS */
 .cards{
-max-width:1280px;margin:25px auto;display:grid;
-grid-template-columns:repeat(4,1fr);gap:22px;padding:0 25px
+display:flex;
+justify-content:center;
+gap:25px;
+padding:60px;
+flex-wrap:wrap;
 }
+
 .card{
-border:1px solid rgba(226,178,69,.45);border-radius:18px;overflow:hidden;
-background:rgba(0,0,0,.58);backdrop-filter:blur(16px);
-box-shadow:0 0 40px rgba(0,0,0,.5);transition:.35s
+width:280px;
+background:rgba(0,0,0,0.75);
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,215,0,0.3);
+backdrop-filter:blur(10px);
+transition:0.4s;
 }
-.card:hover{transform:translateY(-8px);box-shadow:0 0 42px rgba(226,178,69,.28)}
-.card-img{height:185px;background-size:cover;background-position:center;position:relative}
-.card-img:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.85))}
-.client{background-image:linear-gradient(135deg,#050505,#1b1306 50%,#d2a33d)}
-.merchant{background-image:radial-gradient(circle,#c99b35,#080808 65%)}
-.admin{background-image:linear-gradient(135deg,#090909,#2b2114,#070707)}
-.owner{background-image:radial-gradient(circle,#c9972d,#050505 62%)}
-.big-icon{
-position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-font-size:88px;filter:drop-shadow(0 0 24px #e1b34c)
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px gold;
 }
-.card-body{padding:25px;text-align:center}
-.card h2{font-family:Georgia,serif;color:#f4c85b;font-size:27px;letter-spacing:1px}
-.card p{color:#e8e8e8;line-height:1.6;margin:13px 0 22px}
+
+/* IMAGE INSIDE CARD */
+.card-img{
+height:180px;
+background-size:cover;
+background-position:center;
+position:relative;
+}
+
+.card-img::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom,transparent,black);
+}
+
+/* CARD BODY */
+.card-body{
+padding:20px;
+text-align:center;
+}
+
+.card-body h2{
+color:gold;
+font-size:20px;
+margin-bottom:10px;
+}
+
+.card-body p{
+font-size:14px;
+color:#bbb;
+margin-bottom:15px;
+}
+
 .btn{
-display:flex;justify-content:space-between;align-items:center;
-padding:14px 22px;border-radius:9px;border:1px solid rgba(226,178,69,.55);
-color:#f4c85b;text-decoration:none;background:rgba(0,0,0,.45);
-transition:.3s
+display:inline-block;
+padding:10px 20px;
+background:gold;
+color:black;
+border-radius:20px;
+text-decoration:none;
+font-weight:bold;
 }
-.btn:hover{background:linear-gradient(135deg,#9d6a12,#ffd86b);color:#000}
 
+/* STATS */
 .stats{
-max-width:1360px;margin:10px auto 30px;padding:18px 25px;
-border:1px solid rgba(226,178,69,.45);border-radius:18px;
-display:grid;grid-template-columns:repeat(5,1fr);gap:18px;
-background:rgba(0,0,0,.58);backdrop-filter:blur(14px)
+display:flex;
+justify-content:center;
+gap:30px;
+padding:40px;
+flex-wrap:wrap;
 }
-.stat{display:flex;gap:14px;align-items:center;justify-content:center;border-right:1px solid rgba(226,178,69,.25)}
-.stat:last-child{border-right:none}
-.stat-icon{font-size:44px}
-.stat h3{font-size:30px;color:#f4c85b}
-.stat p{font-size:12px;color:#eee}.green{color:#63ff50;font-size:13px}
 
-.benefits{
-display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
-background:rgba(226,178,69,.18);border-top:1px solid rgba(226,178,69,.28)
+.stat{
+text-align:center;
+background:rgba(0,0,0,0.6);
+padding:20px 30px;
+border-radius:15px;
+border:1px solid rgba(255,215,0,0.3);
 }
-.benefit{background:rgba(0,0,0,.78);padding:24px;text-align:center}
-.benefit h4{color:#f4c85b;margin:8px 0}.benefit p{color:#ccc;font-size:14px;line-height:1.5}
 
+.stat h3{
+color:gold;
+margin:0;
+font-size:22px;
+}
+
+.stat p{
+margin:5px 0 0;
+color:#aaa;
+}
+
+/* FOOTER */
 footer{
-padding:22px 35px;display:flex;justify-content:space-between;align-items:center;
-color:#aaa;background:#050505;border-top:1px solid rgba(226,178,69,.2)
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
 }
 
-@media(max-width:1000px){
-.cards,.stats,.benefits{grid-template-columns:1fr}
-nav,.status{display:none}
-.hero-title{font-size:42px;letter-spacing:7px}
-.club{font-size:18px;letter-spacing:7px}
-header{padding:0 18px}
-.brand h1{font-size:18px;letter-spacing:5px}
-}
 </style>
 </head>
 
 <body>
 
-<video class="bg-video" autoplay muted loop playsinline>
-  <source src="bg.mp4" type="video/mp4">
+<!-- 🎥 VIDEO BACKGROUND -->
+<video autoplay muted loop class="video-bg">
+<source src="bg.mp4" type="video/mp4">
 </video>
-<div class="dark-layer"></div>
-<div class="gold-light"></div>
+<div class="overlay"></div>
 
-<header>
-  <div class="brand">
-    <div class="logo">S</div>
-    <div>
-      <h1>STYLESPHERE</h1>
-      <span>MEMBERS CLUB</span>
-    </div>
-  </div>
+<!-- NAV -->
+<nav>
+<div class="logo">STYLESHPERE</div>
+<div>HOME | BENEFITS | SUPPORT</div>
+</nav>
 
-  <nav>
-    <a class="active" href="#">HOME</a>
-    <a href="#">ABOUT US</a>
-    <a href="#">BENEFITS</a>
-    <a href="#">PARTNERS</a>
-    <a href="#">SUPPORT</a>
-  </nav>
+<!-- HERO -->
+<div class="hero">
+<h1>STYLESHPERE</h1>
+<p>Exclusive Access. Premium Benefits. Global Privileges.</p>
+<div class="cta">JOIN LUXURY EXPERIENCE</div>
+</div>
 
-  <div class="status"><span class="dot">●</span><b>SYSTEM STATUS</b><br>ALL SYSTEMS OPERATIONAL</div>
-</header>
-
-<section class="hero">
-  <div class="crown">♛</div>
-  <h1 class="hero-title">STYLESPHERE</h1>
-  <div class="club">MEMBERS CLUB</div>
-  <div class="tagline">EXCLUSIVE ACCESS. PREMIUM BENEFITS. GLOBAL PRIVILEGES.</div>
-  <div class="subline">JOIN A WORLD OF LUXURY, REWARDS & EXCLUSIVE EXPERIENCES</div>
-</section>
-
+<!-- CARDS -->
 <section class="cards">
 
-  <div class="card">
-    <div class="card-img client"><div class="big-icon">💳</div></div>
-    <div class="card-body">
-      <h2>CLIENT ACCESS</h2>
-      <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
-      <a class="btn" href="client.html">CLIENT LOGIN <span>→</span></a>
-      <p>Create Account ›</p>
-    </div>
-  </div>
+<div class="card">
+<div class="card-img" style="background-image:url('client.jpg')"></div>
+<div class="card-body">
+<h2>CLIENT ACCESS</h2>
+<p>Manage membership, rewards & exclusive benefits.</p>
+<a class="btn" href="#">LOGIN</a>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-img merchant"><div class="big-icon">⌚</div></div>
-    <div class="card-body">
-      <h2>MERCHANT PORTAL</h2>
-      <p>Scan, verify and redeem member rewards seamlessly.</p>
-      <a class="btn" href="merchant.html">MERCHANT LOGIN <span>→</span></a>
-      <p>Register Your Business ›</p>
-    </div>
-  </div>
+<div class="card">
+<div class="card-img" style="background-image:url('merchant.jpg')"></div>
+<div class="card-body">
+<h2>MERCHANT PORTAL</h2>
+<p>Scan, verify and manage customers.</p>
+<a class="btn" href="#">LOGIN</a>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-img admin"><div class="big-icon">📒</div></div>
-    <div class="card-body">
-      <h2>COMPANY ADMIN</h2>
-      <p>Manage operations, support members and analyze performance.</p>
-      <a class="btn" href="admin.html">ADMIN LOGIN <span>→</span></a>
-      <p>Admin Access ›</p>
-    </div>
-  </div>
+<div class="card">
+<div class="card-img" style="background-image:url('admin.jpg')"></div>
+<div class="card-body">
+<h2>COMPANY ADMIN</h2>
+<p>Control operations and analytics.</p>
+<a class="btn" href="#">LOGIN</a>
+</div>
+</div>
 
-  <div class="card">
-    <div class="card-img owner"><div class="big-icon">♔</div></div>
-    <div class="card-body">
-      <h2>OWNER ACCESS</h2>
-      <p>Full control over the entire system. Monitor. Manage. Dominate.</p>
-      <a class="btn" href="owner.html">OWNER LOGIN <span>→</span></a>
-      <p>Secure Access ›</p>
-    </div>
-  </div>
+<div class="card">
+<div class="card-img" style="background-image:url('owner.jpg')"></div>
+<div class="card-body">
+<h2>OWNER ACCESS</h2>
+<p>Full system control. Monitor everything.</p>
+<a class="btn" href="#">ENTER</a>
+</div>
+</div>
 
 </section>
 
+<!-- STATS -->
 <section class="stats">
-  <div class="stat"><div class="stat-icon">💎</div><div><h3>24,892</h3><p>TOTAL MEMBERS</p><span class="green">↑ 12.5% this month</span></div></div>
-  <div class="stat"><div class="stat-icon">🌐</div><div><h3>8,753</h3><p>ACTIVE MERCHANTS</p><span class="green">↑ 8.2% this month</span></div></div>
-  <div class="stat"><div class="stat-icon">🛡️</div><div><h3>99.9%</h3><p>SYSTEM UPTIME</p><span class="green">Excellent Performance</span></div></div>
-  <div class="stat"><div class="stat-icon">🌍</div><div><h3>152</h3><p>COUNTRIES COVERED</p><span class="green">Global Presence</span></div></div>
-  <div class="stat"><div class="stat-icon">🎁</div><div><h3>1.2M+</h3><p>REWARDS REDEEMED</p><span class="green">This month</span></div></div>
+
+<div class="stat">
+<h3>24,892</h3>
+<p>Members</p>
+</div>
+
+<div class="stat">
+<h3>8,753</h3>
+<p>Merchants</p>
+</div>
+
+<div class="stat">
+<h3>99.9%</h3>
+<p>Uptime</p>
+</div>
+
+<div class="stat">
+<h3>152</h3>
+<p>Countries</p>
+</div>
+
 </section>
 
-<section class="benefits">
-  <div class="benefit"><div>💎</div><h4>PREMIUM BENEFITS</h4><p>Exclusive rewards and experiences.</p></div>
-  <div class="benefit"><div>🔒</div><h4>BANK LEVEL SECURITY</h4><p>256-bit SSL encryption and protection.</p></div>
-  <div class="benefit"><div>⚡</div><h4>FAST & RELIABLE</h4><p>High performance global infrastructure.</p></div>
-  <div class="benefit"><div>🎧</div><h4>24/7 SUPPORT</h4><p>Dedicated support whenever you need.</p></div>
-  <div class="benefit"><div>⭐</div><h4>TRUSTED GLOBALLY</h4><p>Loved by members in 152+ countries.</p></div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <div>© 2026 StyleSphere Members Club. All rights reserved.</div>
-  <div>Privacy Policy &nbsp; | &nbsp; Terms of Service</div>
+© 2026 StyleSphere Members Club
 </footer>
 
 </body>
