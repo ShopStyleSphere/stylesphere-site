@@ -22,15 +22,36 @@ body{font-family:Arial,Helvetica,sans-serif;background:#020202;color:#fff;overfl
 .nav a:hover{color:#f2c45c}
 .status{border:1px solid rgba(242,196,92,.5);border-radius:28px;padding:12px 25px;color:#f2c45c;font-size:13px;background:rgba(0,0,0,.45)}
 
-.hero{text-align:center;padding:70px 20px 34px}
+.hero{text-align:center;padding:70px 20px 25px}
 .hero .top{font-size:14px;letter-spacing:7px;color:#e5c06b}
 .hero h2{font-family:Georgia,serif;font-size:82px;letter-spacing:17px;margin-top:14px;background:linear-gradient(#fff,#f8d576,#8d5d12);-webkit-background-clip:text;color:transparent}
 .hero h3{font-size:26px;letter-spacing:12px;color:#eee;margin-top:8px}
 .hero p{margin:22px auto 0;max-width:720px;font-size:18px;line-height:1.7;color:#eee}
 .hero .tag{margin:28px auto 0;display:inline-block;border:1px solid rgba(242,196,92,.55);border-radius:12px;padding:13px 36px;color:#f8d576;letter-spacing:3px;background:rgba(0,0,0,.35)}
 
-.access-grid{max-width:1280px;margin:30px auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:0 28px}
-.access-card{min-height:430px;border:1px solid rgba(242,196,92,.45);border-radius:22px;overflow:hidden;background:rgba(0,0,0,.62);backdrop-filter:blur(16px);transition:.35s;box-shadow:0 20px 70px rgba(0,0,0,.5)}
+.access-grid{
+max-width:1400px;
+margin:55px auto 30px;
+display:grid;
+grid-template-columns:repeat(4,minmax(260px,1fr));
+gap:30px;
+padding:0 40px;
+align-items:stretch;
+justify-items:center;
+}
+
+.access-card{
+width:100%;
+max-width:320px;
+min-height:430px;
+border:1px solid rgba(242,196,92,.45);
+border-radius:22px;
+overflow:hidden;
+background:rgba(0,0,0,.62);
+backdrop-filter:blur(16px);
+transition:.35s;
+box-shadow:0 20px 70px rgba(0,0,0,.5);
+}
 .access-card:hover{transform:translateY(-10px);box-shadow:0 0 45px rgba(242,196,92,.35)}
 
 .visual{height:225px;background-size:cover;background-position:center;position:relative}
@@ -46,21 +67,43 @@ body{font-family:Arial,Helvetica,sans-serif;background:#020202;color:#fff;overfl
 .btn{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111;background:linear-gradient(135deg,#9b6815,#ffd86d,#a06b16);font-weight:900;border-radius:10px;padding:14px 22px;letter-spacing:.8px;box-shadow:0 0 30px rgba(242,196,92,.3)}
 .sub-link{display:block;margin-top:15px;color:#ddd;text-decoration:none;font-size:14px}
 
-.stats{max-width:1360px;margin:26px auto 0;border:1px solid rgba(242,196,92,.45);border-radius:18px;background:rgba(0,0,0,.62);backdrop-filter:blur(14px);display:grid;grid-template-columns:repeat(5,1fr);padding:22px 20px}
+.stats{
+max-width:1360px;
+margin:26px auto 0;
+border:1px solid rgba(242,196,92,.45);
+border-radius:18px;
+background:rgba(0,0,0,.62);
+backdrop-filter:blur(14px);
+display:grid;
+grid-template-columns:repeat(5,1fr);
+padding:22px 20px;
+}
 .stat{text-align:center;border-right:1px solid rgba(242,196,92,.25)}
 .stat:last-child{border-right:0}
 .stat h5{color:#f8d576;font-size:31px}
 .stat p{font-size:13px;color:#ddd;margin-top:5px}
 .stat span{display:block;color:#62ff5c;font-size:12px;margin-top:5px}
 
-.benefits{max-width:1360px;margin:28px auto 0;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid rgba(242,196,92,.28);background:rgba(242,196,92,.18)}
+.benefits{
+max-width:1360px;
+margin:28px auto 0;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:1px;
+border:1px solid rgba(242,196,92,.28);
+background:rgba(242,196,92,.18);
+}
 .benefit{background:rgba(0,0,0,.78);padding:24px;text-align:center}
 .benefit h6{color:#f8d576;font-size:15px;margin-bottom:8px}
 .benefit p{color:#ccc;font-size:13px;line-height:1.5}
 
 .footer{padding:26px 45px;display:flex;justify-content:space-between;color:#aaa;font-size:13px}
 
-@media(max-width:1000px){
+@media(max-width:1100px){
+.access-grid{grid-template-columns:repeat(2,minmax(260px,1fr))}
+}
+
+@media(max-width:700px){
 .header{padding:0 18px}.nav,.status{display:none}
 .hero h2{font-size:44px;letter-spacing:7px}.hero h3{font-size:17px;letter-spacing:6px}
 .access-grid,.stats,.benefits{grid-template-columns:1fr}
