@@ -290,21 +290,19 @@ body{
 }
 
 .card-img{
-  background-size:cover;
-  background-position:center;
-  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
   overflow:hidden;
-  height: 100%
-  
 }
-  .card-img img{
-    width:80%%;
-    max-width:500px;
-    height:auto;
-  object-fit: contain;
-  display: block;
-margin:auto;
-  }
+
+.card-img img{
+  width:90%;
+  max-width:500px;
+  height:auto;
+  object-fit:contain;
+}
 
 .card-img::after{
   content:"";
