@@ -317,7 +317,6 @@ body{
   50%{opacity:.85}
 }
 
-.client-img{background-image:url('client.jpg')}
 .merchant-img{background-image:url('merchant.jpg')}
 .admin-img{background-image:url('admin.jpg')}
 .owner-img{background-image:url('owner.jpg')}
@@ -556,7 +555,11 @@ body{
 <section class="cards">
 
   <div class="card">
-    <div class="card-img client-img"></div>
+<div class="card-img">
+  <video autoplay muted loop playsinline>
+    <source src="client.mp4" type="video/mp4">
+  </video>
+</div>   
     <div class="card-content">
       <h4>CLIENT ACCESS</h4>
       <p>Manage your membership, earn points, and unlock exclusive rewards.</p>
