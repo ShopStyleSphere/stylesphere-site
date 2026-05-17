@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Login | StyleSphere Members Club</title>
+
+  <style>
+    :root{
+      --gold:#d7a83f;
+      --gold2:#ffe08a;
+      --dark:#050505;
+      --card:#0b0b0d;
+      --text:#ffffff;
+      --muted:#bdbdbd;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      min-height:100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,215,0,.12), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255,215,0,.08), transparent 35%),
+        #050505;
+      color:var(--text);
+    }
+
+    header{
+      height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 48px;
+      border-bottom:1px solid rgba(215,168,63,.25);
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(14px);
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo-icon{
+      width:48px;
+      height:48px;
+      border:1px solid var(--gold);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--gold2);
+      font-size:28px;
+      font-weight:bold;
+      box-shadow:0 0 18px rgba(215,168,63,.35);
+    }
+
+    .logo-text h1{
+      font-size:26px;
+      letter-spacing:8px;
+      color:var(--gold2);
+    }
+
+    .logo-text p{
+      font-size:12px;
+      letter-spacing:7px;
+      color:#eee;
+    }
+
+    nav{
+      display:flex;
+      gap:34px;
+      font-size:14px;
+      font-weight:bold;
+      letter-spacing:1px;
+    }
+
+    nav a{
+      color:#fff;
+      text-decoration:none;
+    }
+
+    nav a:hover{
+      color:var(--gold2);
+    }
+
+    .status{
+      border:1px solid var(--gold);
+      padding:11px 18px;
+      border-radius:30px;
+      color:var(--gold2);
+      font-size:13px;
+    }
+
+    .status span{
+      color:#00ff66;
+    }
+
+    .page{
+      max-width:1240px;
+      margin:34px auto;
+      padding:0 20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+    }
+
+    .panel{
+      min-height:650px;
+      border:1px solid rgba(215,168,63,.55);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.01)),
+        rgba(0,0,0,.55);
+      box-shadow:
+        0 0 35px rgba(0,0,0,.8),
+        inset 0 0 28px rgba(255,224,138,.05);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .left{
+      padding:58px 44px;
+      text-align:center;
+      background:
+        radial-gradient(circle at center, rgba(255,215,0,.12), transparent 45%),
+        linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.85));
+    }
+
+    .left h2{
+      font-family:Georgia, serif;
+      font-size:58px;
+      letter-spacing:9px;
+      color:var(--gold2);
+      margin-top:18px;
+      text-shadow:0 0 28px rgba(255,215,0,.4);
+    }
+
+    .left .sub-title{
+      letter-spacing:6px;
+      color:#fff;
+      margin-top:8px;
+      font-size:20px;
+    }
+
+    .crown{
+      color:var(--gold2);
+      font-size:34px;
+      margin:20px 0;
+    }
+
+    .left p{
+      color:#eee;
+      font-size:18px;
+      line-height:1.7;
+      margin-bottom:28px;
+    }
+
+    .vip-card{
+      width:82%;
+      max-width:460px;
+      height:275px;
+      margin:24px auto;
+      border-radius:18px;
+      border:1px solid var(--gold);
+      background:
+        radial-gradient(circle at 70% 35%, rgba(255,215,0,.22), transparent 32%),
+        linear-gradient(135deg,#080808,#151515 45%,#050505);
+      box-shadow:
+        0 0 40px rgba(215,168,63,.35),
+        inset 0 0 18px rgba(255,224,138,.08);
+      position:relative;
+      text-align:left;
+      padding:26px;
+      transform:rotate(-3deg);
+    }
+
+    .card-logo{
+      color:var(--gold2);
+      font-size:25px;
+      font-weight:bold;
+      letter-spacing:3px;
+    }
+
+    .card-small{
+      color:#eee;
+      font-size:11px;
+      letter-spacing:4px;
+      margin-top:4px;
+    }
+
+    .chip{
+      width:56px;
+      height:42px;
+      border-radius:8px;
+      background:linear-gradient(135deg,#b8860b,#ffe08a,#c99700);
+      margin-top:34px;
+    }
+
+    .nfc{
+      position:absolute;
+      top:120px;
+      left:96px;
+      font-size:34px;
+      color:var(--gold2);
+    }
+
+    .card-level{
+      position:absolute;
+      top:68px;
+      right:28px;
+      color:var(--gold2);
+      text-align:right;
+      font-family:Georgia,serif;
+      font-size:22px;
+      line-height:1.1;
+    }
+
+    .card-number{
+      position:absolute;
+      left:26px;
+      bottom:78px;
+      font-size:25px;
+      letter-spacing:5px;
+      color:var(--gold2);
+    }
+
+    .valid{
+      position:absolute;
+      left:240px;
+      bottom:48px;
+      color:var(--gold2);
+      font-size:18px;
+    }
+
+    .visa{
+      position:absolute;
+      right:28px;
+      bottom:28px;
+      color:var(--gold2);
+      font-size:42px;
+      font-weight:bold;
+      font-style:italic;
+    }
+
+    .visa small{
+      display:block;
+      font-size:16px;
+      font-weight:normal;
+      text-align:right;
+    }
+
+    .benefits{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:40px;
+    }
+
+    .benefit{
+      border-right:1px solid rgba(215,168,63,.25);
+      color:#fff;
+      font-size:13px;
+    }
+
+    .benefit div{
+      color:var(--gold2);
+      font-size:30px;
+      margin-bottom:9px;
+    }
+
+    .right{
+      padding:58px 46px;
+    }
+
+    .login-icon{
+      width:78px;
+      height:78px;
+      border:1px solid var(--gold);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 22px;
+      font-size:34px;
+      color:var(--gold2);
+      box-shadow:0 0 28px rgba(215,168,63,.35);
+    }
+
+    .right h2{
+      text-align:center;
+      font-family:Georgia,serif;
+      font-size:34px;
+      color:var(--gold2);
+      letter-spacing:2px;
+      margin-bottom:18px;
+    }
+
+    .right .desc{
+      text-align:center;
+      color:#ddd;
+      line-height:1.6;
+      margin-bottom:36px;
+    }
+
+    label{
+      display:block;
+      margin:20px 0 10px;
+      font-size:16px;
+      color:#fff;
+    }
+
+    .input-box{
+      height:58px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:0 18px;
+      background:rgba(255,255,255,.04);
+    }
+
+    .input-box span{
+      color:var(--gold2);
+      font-size:22px;
+    }
+
+    .input-box input{
+      flex:1;
+      border:none;
+      outline:none;
+      background:transparent;
+      color:#fff;
+      font-size:16px;
+    }
+
+    .input-box input::placeholder{
+      color:#aaa;
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin:22px 0;
+      color:#eee;
+      font-size:15px;
+    }
+
+    .row a{
+      color:var(--gold2);
+      text-decoration:none;
+    }
+
+    .login-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      height:60px;
+      border-radius:10px;
+      border:none;
+      background:linear-gradient(135deg,#b8860b,#ffd700,#fff1a8,#c99700);
+      color:#000;
+      font-size:17px;
+      font-weight:bold;
+      letter-spacing:2px;
+      text-decoration:none;
+      box-shadow:0 0 28px rgba(255,215,0,.4);
+      margin-top:22px;
+    }
+
+    .login-btn:hover{
+      box-shadow:0 0 50px rgba(255,215,0,.7);
+      transform:translateY(-2px);
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin:34px 0 22px;
+      color:#999;
+      font-size:13px;
+    }
+
+    .divider::before,
+    .divider::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background:rgba(255,255,255,.12);
+    }
+
+    .socials{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .socials button{
+      height:58px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      font-size:15px;
+      cursor:pointer;
+    }
+
+    .create{
+      text-align:center;
+      margin-top:34px;
+      color:#eee;
+    }
+
+    .create a{
+      color:var(--gold2);
+      text-decoration:none;
+      margin-left:8px;
+    }
+
+    footer{
+      max-width:1200px;
+      margin:20px auto 36px;
+      padding:0 20px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      color:#ddd;
+    }
+
+    .foot{
+      border-top:1px solid rgba(215,168,63,.18);
+      padding-top:16px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      font-size:14px;
+    }
+
+    .foot span{
+      color:var(--gold2);
+      font-size:28px;
+    }
+
+    @media(max-width:900px){
+      header{
+        padding:0 18px;
+      }
+
+      nav,.status{
+        display:none;
+      }
+
+      .logo-text h1{
+        font-size:18px;
+        letter-spacing:4px;
+      }
+
+      .page{
+        grid-template-columns:1fr;
+      }
+
+      .panel{
+        min-height:auto;
+      }
+
+      .left h2{
+        font-size:38px;
+      }
+
+      .vip-card{
+        width:100%;
+        transform:none;
+      }
+
+      .benefits{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      footer{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">S</div>
+    <div class="logo-text">
+      <h1>STYLESPHERE</h1>
+      <p>MEMBERS CLUB</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="#">ABOUT US</a>
+    <a href="#">BENEFITS</a>
+    <a href="#">PARTNERS</a>
+    <a href="#">SUPPORT</a>
+  </nav>
+
+  <div class="status">
+    <span>●</span> SYSTEM STATUS<br>
+    ALL SYSTEMS OPERATIONAL
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="panel left">
+    <p style="letter-spacing:5px;color:#d7a83f;">EXCLUSIVE ACCESS</p>
+    <h2>BEYOND REWARDS</h2>
+    <div class="crown">♛</div>
+
+    <p>Join a world of luxury, rewards and exclusive experiences.</p>
+
+    <div class="vip-card">
+      <div class="card-logo">STYLESPHERE</div>
+      <div class="card-small">MEMBERS CLUB</div>
+
+      <div class="chip"></div>
+      <div class="nfc">)))</div>
+
+      <div class="card-level">
+        ROYAL<br>INFINITY
+      </div>
+
+      <div class="card-number">5412 7512 3412 3456</div>
+      <div class="valid">12/28</div>
+
+      <div class="visa">
+        VISA
+        <small>Infinite</small>
+      </div>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit"><div>◇</div>EXCLUSIVE<br>REWARDS</div>
+      <div class="benefit"><div>♜</div>VIP LEVEL<br>BENEFITS</div>
+      <div class="benefit"><div>◎</div>GLOBAL<br>ACCESS</div>
+      <div class="benefit"><div>♛</div>ELITE<br>EXPERIENCES</div>
+    </div>
+  </section>
+
+  <section class="panel right">
+    <div class="login-icon">👤</div>
+
+    <h2>CLIENT LOGIN</h2>
+    <p class="desc">
+      Access your account to manage your membership,<br>
+      earn points and unlock exclusive rewards.
+    </p>
+
+    <label>Email Address</label>
+    <div class="input-box">
+      <span>✉</span>
+      <input type="email" placeholder="Enter your email">
+    </div>
+
+    <label>Password</label>
+    <div class="input-box">
+      <span>🔒</span>
+      <input type="password" placeholder="Enter your password">
+      <span>👁</span>
+    </div>
+
+    <div class="row">
+      <div>☑ Remember Me</div>
+      <a href="#">Forgot Password?</a>
+    </div>
+
+    <a class="login-btn" href="client.html">LOGIN →</a>
+
+    <div class="divider">OR CONTINUE WITH</div>
+
+    <div class="socials">
+      <button>Google</button>
+      <button>Apple</button>
+      <button>Facebook</button>
+    </div>
+
+    <div class="create">
+      Don’t have an account?
+      <a href="#">Create Account</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot"><span>🔐</span><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
+  <div class="foot"><span>🌍</span><div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div></div>
+  <div class="foot"><span>🎧</span><div><b>24/7 SUPPORT</b><br>We are here anytime</div></div>
+  <div class="foot"><span>👑</span><div><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div></div>
+</footer>
+
+</body>
+</html>
