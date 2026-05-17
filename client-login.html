@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Login | StyleSphere</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Login | StyleSphere Members Club</title>
 
 <style>
 :root{
   --gold:#d7a83f;
   --gold2:#ffe08a;
+  --gold3:#fff3b0;
   --dark:#030303;
-  --glass:rgba(0,0,0,.62);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
   min-height:100vh;
-  font-family:Arial,sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   color:#fff;
   background:
-    radial-gradient(circle at 20% 30%,rgba(255,215,0,.18),transparent 28%),
-    radial-gradient(circle at 80% 70%,rgba(255,215,0,.10),transparent 30%),
-    linear-gradient(135deg,#020202,#080808,#000);
+    radial-gradient(circle at 18% 45%, rgba(255,204,63,.22), transparent 28%),
+    radial-gradient(circle at 70% 55%, rgba(255,204,63,.13), transparent 35%),
+    linear-gradient(120deg,#020202,#090909,#000);
   overflow-x:hidden;
 }
 
@@ -31,285 +35,391 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    linear-gradient(120deg,transparent,rgba(255,215,0,.06),transparent),
-    repeating-linear-gradient(120deg,rgba(255,215,0,.05) 0 1px,transparent 1px 70px);
+    linear-gradient(115deg, transparent 0%, rgba(255,215,0,.08) 45%, transparent 60%),
+    repeating-linear-gradient(115deg, rgba(255,215,0,.06) 0 1px, transparent 1px 75px);
   pointer-events:none;
 }
 
-header{
-  height:88px;
-  padding:0 54px;
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,215,0,.18), transparent 18%),
+    radial-gradient(circle at 90% 50%, rgba(255,215,0,.11), transparent 24%);
+  filter:blur(12px);
+  pointer-events:none;
+}
+
+/* HEADER */
+.header{
+  height:92px;
+  padding:0 58px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  border-bottom:1px solid rgba(255,215,0,.3);
-  background:rgba(0,0,0,.86);
+  background:#030303;
+  border-bottom:1px solid rgba(255,215,0,.42);
+  position:relative;
+  z-index:5;
 }
 
 .logo{
   display:flex;
-  gap:14px;
   align-items:center;
+  gap:16px;
 }
 
-.logo-icon{
-  width:56px;height:56px;
+.logo-badge{
+  width:62px;
+  height:62px;
   border:2px solid var(--gold);
-  border-radius:16px;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
+  color:var(--gold2);
+  font-size:39px;
   font-weight:900;
-  color:var(--gold2);
-  box-shadow:0 0 25px rgba(255,215,0,.55);
+  font-family:Georgia,serif;
+  box-shadow:
+    0 0 22px rgba(255,215,0,.55),
+    inset 0 0 16px rgba(255,215,0,.2);
 }
 
-.logo h1{
+.logo-text h1{
+  font-size:31px;
+  letter-spacing:5px;
   color:var(--gold2);
-  letter-spacing:8px;
-  font-size:27px;
+  font-family:Georgia,serif;
 }
 
-.logo p{
-  letter-spacing:6px;
+.logo-text p{
+  color:var(--gold);
   font-size:12px;
+  letter-spacing:8px;
+  margin-top:3px;
 }
 
-nav{
+.nav{
   display:flex;
-  gap:34px;
+  gap:39px;
 }
 
-nav a{
-  color:#fff;
+.nav a{
+  color:var(--gold2);
   text-decoration:none;
+  font-family:Georgia,serif;
+  font-size:15px;
   font-weight:700;
 }
 
-nav a:hover{color:var(--gold2)}
-
 .status{
   border:1px solid var(--gold);
-  border-radius:32px;
-  padding:11px 20px;
+  border-radius:34px;
+  padding:12px 22px;
   color:var(--gold2);
   font-size:13px;
+  line-height:1.25;
+  box-shadow:0 0 22px rgba(255,215,0,.18);
 }
 
-.status span{color:#00ff66}
+.status span{
+  color:#00ff66;
+}
 
-.wrapper{
-  max-width:1320px;
-  margin:28px auto;
-  padding:0 22px;
+/* PAGE */
+.page{
+  max-width:1390px;
+  margin:22px auto 0;
+  padding:0 24px;
   display:grid;
-  grid-template-columns:1.03fr .97fr;
-  gap:22px;
+  grid-template-columns:1.02fr .98fr;
+  gap:18px;
+  position:relative;
+  z-index:2;
 }
 
 .panel{
-  min-height:720px;
-  border:1px solid rgba(255,215,0,.65);
-  border-radius:20px;
-  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(0,0,0,.78));
+  min-height:770px;
+  border:1px solid rgba(255,215,0,.85);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,215,0,.12), transparent 42%),
+    linear-gradient(145deg, rgba(255,255,255,.05), rgba(0,0,0,.88));
   box-shadow:
-    0 0 45px rgba(0,0,0,.8),
-    inset 0 0 30px rgba(255,215,0,.08);
+    0 0 65px rgba(255,215,0,.22),
+    inset 0 0 42px rgba(255,215,0,.09);
   position:relative;
   overflow:hidden;
 }
 
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  background:linear-gradient(120deg, transparent 20%, rgba(255,215,0,.08), transparent 62%);
+  pointer-events:none;
+}
+
+/* LEFT SIDE */
 .left{
-  padding:44px;
+  padding:42px 54px 38px;
   text-align:center;
 }
 
-.left::before{
-  content:"♌";
+.lion{
   position:absolute;
-  left:20px;
-  top:125px;
-  font-size:270px;
-  color:rgba(255,215,0,.12);
-  filter:blur(.5px);
+  left:-10px;
+  top:112px;
+  font-size:300px;
+  color:rgba(255,215,0,.16);
+  text-shadow:0 0 55px rgba(255,215,0,.36);
+  transform:scaleX(1.05);
 }
 
 .kicker{
   color:var(--gold2);
-  letter-spacing:12px;
-  font-size:17px;
-  margin-bottom:18px;
+  letter-spacing:14px;
+  font-size:18px;
+  margin-top:2px;
+  margin-bottom:26px;
 }
 
-.title{
+.main-title{
   font-family:Georgia,serif;
-  font-size:64px;
+  font-size:72px;
   line-height:.95;
-  letter-spacing:4px;
+  letter-spacing:3px;
   color:var(--gold2);
-  text-shadow:0 0 30px rgba(255,215,0,.7);
+  text-shadow:
+    0 0 20px rgba(255,215,0,.8),
+    0 0 52px rgba(255,215,0,.5);
+  position:relative;
+  z-index:2;
 }
 
 .crown{
-  font-size:42px;
   color:var(--gold2);
-  margin:22px 0;
-  text-shadow:0 0 22px rgba(255,215,0,.9);
+  font-size:48px;
+  margin:24px 0 18px;
+  text-shadow:0 0 28px rgba(255,215,0,.9);
 }
 
-.desc{
-  font-size:18px;
-  line-height:1.7;
-  color:#eee;
-  margin-bottom:28px;
-}
-
-.vip-card{
-  width:82%;
-  max-width:470px;
-  height:285px;
-  margin:18px auto 28px;
-  border:1px solid var(--gold);
-  border-radius:18px;
-  background:
-    radial-gradient(circle at 70% 35%,rgba(255,215,0,.25),transparent 30%),
-    linear-gradient(135deg,#050505,#171717,#030303);
-  transform:rotate(-3deg);
-  padding:26px;
-  text-align:left;
+.left-desc{
   position:relative;
+  z-index:2;
+  color:#fff;
+  font-size:18px;
+  letter-spacing:1px;
+  line-height:1.55;
+  margin-bottom:22px;
+}
+
+/* VIP CARD */
+.vip-card{
+  width:86%;
+  max-width:510px;
+  height:305px;
+  margin:16px auto 25px;
+  border-radius:18px;
+  border:1px solid rgba(255,215,0,.95);
+  background:
+    radial-gradient(circle at 72% 40%, rgba(255,215,0,.34), transparent 34%),
+    radial-gradient(circle at 38% 25%, rgba(255,215,0,.12), transparent 28%),
+    linear-gradient(135deg,#020202,#171717 48%,#020202);
+  position:relative;
+  padding:27px;
+  text-align:left;
+  transform:rotate(-3deg);
   box-shadow:
-    0 0 55px rgba(255,215,0,.45),
-    inset 0 0 25px rgba(255,215,0,.08);
+    0 0 45px rgba(255,215,0,.55),
+    0 0 95px rgba(255,215,0,.22),
+    inset 0 0 28px rgba(255,215,0,.15);
+  overflow:hidden;
+}
+
+.vip-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,215,0,.08) 0 1px, transparent 1px 22px),
+    radial-gradient(circle at 60% 42%, rgba(255,215,0,.22), transparent 36%);
+  opacity:.55;
 }
 
 .card-brand{
+  position:relative;
+  z-index:2;
   color:var(--gold2);
-  font-size:24px;
+  font-size:26px;
   font-weight:900;
   letter-spacing:4px;
 }
 
 .card-sub{
+  position:relative;
+  z-index:2;
   color:#eee;
-  font-size:11px;
-  letter-spacing:4px;
-}
-
-.chip{
-  width:58px;height:44px;
-  border-radius:8px;
-  margin-top:34px;
-  background:linear-gradient(135deg,#9b6a00,#ffe08a,#c99700);
-}
-
-.nfc{
-  position:absolute;
-  left:100px;
-  top:123px;
-  color:var(--gold2);
-  font-size:35px;
-}
-
-.level{
-  position:absolute;
-  right:26px;
-  top:58px;
-  font-family:Georgia,serif;
-  color:var(--gold2);
-  font-size:22px;
-  text-align:right;
-}
-
-.number{
-  position:absolute;
-  bottom:76px;
-  left:26px;
-  color:var(--gold2);
-  font-size:25px;
+  font-size:12px;
   letter-spacing:5px;
+  margin-top:4px;
 }
 
-.valid{
+.card-chip{
   position:absolute;
-  bottom:44px;
-  left:250px;
-  color:var(--gold2);
-  font-size:17px;
+  left:30px;
+  top:118px;
+  width:62px;
+  height:47px;
+  border-radius:9px;
+  background:linear-gradient(135deg,#9a6800,#ffe08a,#c99700);
+  box-shadow:0 0 20px rgba(255,215,0,.45);
 }
 
-.visa{
+.card-nfc{
+  position:absolute;
+  left:104px;
+  top:124px;
+  color:var(--gold2);
+  font-size:38px;
+  z-index:2;
+}
+
+.card-level{
   position:absolute;
   right:28px;
-  bottom:24px;
+  top:55px;
   color:var(--gold2);
-  font-size:42px;
-  font-weight:900;
-  font-style:italic;
+  font-family:Georgia,serif;
+  font-size:22px;
+  text-align:right;
+  line-height:1.05;
+  z-index:2;
 }
 
-.visa small{
+.card-num{
+  position:absolute;
+  left:30px;
+  bottom:85px;
+  color:var(--gold2);
+  font-size:26px;
+  letter-spacing:5px;
+  z-index:2;
+}
+
+.card-valid{
+  position:absolute;
+  left:248px;
+  bottom:50px;
+  color:var(--gold2);
+  font-size:18px;
+  z-index:2;
+}
+
+.card-visa{
+  position:absolute;
+  right:28px;
+  bottom:28px;
+  color:var(--gold2);
+  font-size:44px;
+  font-weight:900;
+  font-style:italic;
+  z-index:2;
+}
+
+.card-visa small{
   display:block;
   font-size:15px;
   font-weight:400;
   text-align:right;
 }
 
-.icon-row{
+.stage{
+  width:96%;
+  height:35px;
+  margin:-38px auto 28px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,215,0,.7), rgba(255,215,0,.15), transparent 68%);
+  filter:blur(1px);
+}
+
+/* ICON CARDS */
+.icon-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-top:22px;
+  gap:18px;
+  margin-top:16px;
+  position:relative;
+  z-index:2;
 }
 
 .icon-card{
-  border:1px solid rgba(255,215,0,.45);
-  border-radius:12px;
-  padding:18px 10px;
-  background:rgba(0,0,0,.38);
-  box-shadow:inset 0 0 16px rgba(255,215,0,.08);
-  font-size:13px;
+  height:124px;
+  border:1px solid rgba(255,215,0,.65);
+  border-radius:13px;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:14px;
+  line-height:1.2;
+  box-shadow:
+    0 0 25px rgba(255,215,0,.12),
+    inset 0 0 16px rgba(255,215,0,.08);
 }
 
-.icon-card .i{
+.icon-card .ico{
   color:var(--gold2);
-  font-size:36px;
-  margin-bottom:10px;
-  text-shadow:0 0 18px rgba(255,215,0,.9);
+  font-size:42px;
+  margin-bottom:12px;
+  text-shadow:
+    0 0 12px rgba(255,215,0,1),
+    0 0 28px rgba(255,215,0,.7);
 }
 
+/* RIGHT SIDE */
 .right{
-  padding:52px 54px;
+  padding:54px 56px;
 }
 
-.user-icon{
-  width:82px;height:82px;
-  border:1px solid var(--gold);
+.avatar{
+  width:90px;
+  height:90px;
+  margin:0 auto 28px;
+  border:1px solid var(--gold2);
   border-radius:50%;
-  margin:0 auto 25px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:38px;
   color:var(--gold2);
-  box-shadow:0 0 35px rgba(255,215,0,.7);
+  font-size:42px;
+  box-shadow:
+    0 0 35px rgba(255,215,0,.75),
+    inset 0 0 16px rgba(255,215,0,.16);
 }
 
-.right h2{
+.login-title{
   text-align:center;
   font-family:Georgia,serif;
-  font-size:38px;
+  font-size:42px;
   color:var(--gold2);
-  margin-bottom:18px;
-  text-shadow:0 0 22px rgba(255,215,0,.55);
+  letter-spacing:1px;
+  text-shadow:
+    0 0 18px rgba(255,215,0,.8),
+    0 0 38px rgba(255,215,0,.35);
 }
 
-.right .text{
+.login-desc{
   text-align:center;
   color:#eee;
-  line-height:1.7;
-  margin-bottom:34px;
+  font-size:17px;
+  line-height:1.65;
+  margin:24px 0 36px;
 }
 
 label{
@@ -318,26 +428,30 @@ label{
   font-size:14px;
   letter-spacing:1px;
   margin:22px 0 10px;
+  font-weight:700;
 }
 
-.input{
+.input-box{
   height:62px;
+  border:1px solid rgba(255,215,0,.75);
+  border-radius:10px;
   display:flex;
   align-items:center;
   gap:16px;
   padding:0 18px;
-  border:1px solid rgba(255,215,0,.55);
-  border-radius:10px;
-  background:rgba(255,255,255,.04);
-  box-shadow:0 0 18px rgba(255,215,0,.22);
+  background:rgba(255,255,255,.035);
+  box-shadow:
+    0 0 23px rgba(255,215,0,.28),
+    inset 0 0 12px rgba(255,215,0,.05);
 }
 
-.input .i{
+.input-box .ico{
   color:var(--gold2);
   font-size:24px;
+  text-shadow:0 0 14px rgba(255,215,0,.8);
 }
 
-.input input{
+.input-box input{
   flex:1;
   background:transparent;
   border:0;
@@ -346,50 +460,56 @@ label{
   font-size:16px;
 }
 
-.input input::placeholder{color:#aaa}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  margin:22px 0;
-  color:#eee;
+.input-box input::placeholder{
+  color:#aaa;
 }
 
-.row a{
+.login-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:22px 0 26px;
+  font-size:15px;
+}
+
+.login-row a{
   color:var(--gold2);
   text-decoration:none;
 }
 
-.login{
-  height:64px;
+.login-btn{
   width:100%;
+  height:66px;
   border:0;
   border-radius:10px;
-  background:
-    linear-gradient(135deg,#b8860b,#ffd700,#fff2a8,#c99700);
-  color:#000;
-  font-weight:900;
-  font-size:18px;
-  letter-spacing:3px;
-  box-shadow:
-    0 0 25px rgba(255,215,0,.75),
-    inset 0 0 16px rgba(255,255,255,.35);
   cursor:pointer;
+  background:
+    linear-gradient(135deg,#9f6d00,#ffd700,#fff1a6,#c99700);
+  color:#000;
+  font-size:19px;
+  letter-spacing:4px;
+  font-weight:900;
+  box-shadow:
+    0 0 35px rgba(255,215,0,.85),
+    0 0 80px rgba(255,215,0,.38),
+    inset 0 0 24px rgba(255,255,255,.42);
 }
 
 .divider{
   display:flex;
   align-items:center;
   gap:16px;
-  margin:34px 0 22px;
-  color:#aaa;
+  color:#d8d8d8;
+  margin:34px 0 20px;
+  font-size:14px;
 }
 
-.divider::before,.divider::after{
+.divider::before,
+.divider::after{
   content:"";
   flex:1;
   height:1px;
-  background:rgba(255,215,0,.25);
+  background:rgba(255,215,0,.35);
 }
 
 .socials{
@@ -399,17 +519,21 @@ label{
 }
 
 .socials button{
-  height:58px;
+  height:62px;
   border-radius:10px;
-  border:1px solid rgba(255,215,0,.38);
-  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,215,0,.55);
+  background:rgba(0,0,0,.4);
   color:var(--gold2);
+  font-size:16px;
   font-weight:700;
+  cursor:pointer;
+  box-shadow:inset 0 0 14px rgba(255,215,0,.05);
 }
 
 .create{
   text-align:center;
   margin-top:28px;
+  color:#eee;
 }
 
 .create a{
@@ -418,53 +542,98 @@ label{
   margin-left:8px;
 }
 
-footer{
-  max-width:1280px;
-  margin:18px auto 28px;
-  padding:18px 22px;
+/* FOOTER */
+.footer{
+  max-width:1390px;
+  margin:20px auto 0;
+  padding:18px 28px 26px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  border-top:1px solid rgba(255,215,0,.25);
+  gap:16px;
+  position:relative;
+  z-index:2;
+  border-top:1px solid rgba(255,215,0,.35);
 }
 
-.foot{
+.footer-item{
   display:flex;
-  gap:14px;
   align-items:center;
-  color:#ddd;
+  gap:15px;
+  color:#dcdcdc;
 }
 
-.foot .i{
-  font-size:34px;
+.footer-item .ico{
   color:var(--gold2);
-  text-shadow:0 0 20px rgba(255,215,0,.9);
+  font-size:38px;
+  text-shadow:0 0 25px rgba(255,215,0,.9);
 }
 
-@media(max-width:900px){
-  header{padding:0 18px}
-  nav,.status{display:none}
-  .wrapper{grid-template-columns:1fr}
-  .title{font-size:44px}
-  .vip-card{width:100%;transform:none}
-  .icon-row{grid-template-columns:repeat(2,1fr)}
-  footer{grid-template-columns:1fr 1fr}
+.footer-item b{
+  color:var(--gold2);
+}
+
+.center-mark{
+  text-align:center;
+  color:var(--gold2);
+  font-size:34px;
+  margin:4px 0 18px;
+  text-shadow:0 0 30px rgba(255,215,0,.9);
+}
+
+@media(max-width:950px){
+  .header{
+    padding:0 18px;
+  }
+
+  .nav,.status{
+    display:none;
+  }
+
+  .logo-text h1{
+    font-size:22px;
+    letter-spacing:4px;
+  }
+
+  .page{
+    grid-template-columns:1fr;
+  }
+
+  .panel{
+    min-height:auto;
+  }
+
+  .main-title{
+    font-size:48px;
+  }
+
+  .vip-card{
+    width:100%;
+    transform:none;
+  }
+
+  .icon-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer{
+    grid-template-columns:1fr 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<header class="header">
   <div class="logo">
-    <div class="logo-icon">S</div>
-    <div>
+    <div class="logo-badge">S</div>
+    <div class="logo-text">
       <h1>STYLESPHERE</h1>
       <p>MEMBERS CLUB</p>
     </div>
   </div>
 
-  <nav>
+  <nav class="nav">
     <a href="index.html">HOME</a>
     <a href="#">ABOUT US</a>
     <a href="#">BENEFITS</a>
@@ -472,60 +641,107 @@ footer{
     <a href="#">SUPPORT</a>
   </nav>
 
-  <div class="status"><span>●</span> SYSTEM STATUS<br>ALL SYSTEMS OPERATIONAL</div>
+  <div class="status">
+    <span>●</span> SYSTEM STATUS<br>
+    ALL SYSTEMS OPERATIONAL
+  </div>
 </header>
 
-<main class="wrapper">
+<main class="page">
 
   <section class="panel left">
+    <div class="lion">♌</div>
+
     <div class="kicker">EXCLUSIVE ACCESS</div>
-    <div class="title">BEYOND<br>REWARDS</div>
+
+    <h1 class="main-title">
+      BEYOND<br>
+      REWARDS
+    </h1>
+
     <div class="crown">♛</div>
-    <p class="desc">Join a world of luxury, rewards and exclusive experiences.</p>
+
+    <p class="left-desc">
+      JOIN A WORLD OF LUXURY,<br>
+      REWARDS AND EXCLUSIVE EXPERIENCES.
+    </p>
 
     <div class="vip-card">
       <div class="card-brand">STYLESPHERE</div>
       <div class="card-sub">MEMBERS CLUB</div>
-      <div class="chip"></div>
-      <div class="nfc">)))</div>
-      <div class="level">ROYAL<br>INFINITY</div>
-      <div class="number">5412 7512 3412 3456</div>
-      <div class="valid">12/28</div>
-      <div class="visa">VISA<small>Infinite</small></div>
+
+      <div class="card-chip"></div>
+      <div class="card-nfc">)))</div>
+
+      <div class="card-level">
+        ROYAL<br>INFINITY
+      </div>
+
+      <div class="card-num">5412 7512 3412 3456</div>
+      <div class="card-valid">12/28</div>
+
+      <div class="card-visa">
+        VISA
+        <small>Infinite</small>
+      </div>
     </div>
 
-    <div class="icon-row">
-      <div class="icon-card"><div class="i">◇</div>EXCLUSIVE<br>REWARDS</div>
-      <div class="icon-card"><div class="i">♛</div>VIP LEVEL<br>BENEFITS</div>
-      <div class="icon-card"><div class="i">◎</div>GLOBAL<br>ACCESS</div>
-      <div class="icon-card"><div class="i">♕</div>ELITE<br>EXPERIENCES</div>
+    <div class="stage"></div>
+
+    <div class="icon-grid">
+      <div class="icon-card">
+        <div class="ico">💎</div>
+        EXCLUSIVE<br>REWARDS
+      </div>
+
+      <div class="icon-card">
+        <div class="ico">👑</div>
+        VIP LEVEL<br>BENEFITS
+      </div>
+
+      <div class="icon-card">
+        <div class="ico">🌍</div>
+        GLOBAL<br>ACCESS
+      </div>
+
+      <div class="icon-card">
+        <div class="ico">👑</div>
+        ELITE<br>EXPERIENCES
+      </div>
     </div>
   </section>
 
   <section class="panel right">
-    <div class="user-icon">●</div>
-    <h2>CLIENT LOGIN</h2>
-    <p class="text">Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
+    <div class="avatar">👤</div>
+
+    <h2 class="login-title">CLIENT LOGIN</h2>
+
+    <p class="login-desc">
+      Access your account to manage your membership,<br>
+      earn points and unlock exclusive rewards.
+    </p>
 
     <label>EMAIL ADDRESS</label>
-    <div class="input">
-      <div class="i">✉</div>
+    <div class="input-box">
+      <div class="ico">✉</div>
       <input type="email" placeholder="Enter your email">
     </div>
 
     <label>PASSWORD</label>
-    <div class="input">
-      <div class="i">🔒</div>
+    <div class="input-box">
+      <div class="ico">🔒</div>
       <input type="password" placeholder="Enter your password">
-      <div class="i">◉</div>
+      <div class="ico">◉</div>
     </div>
 
-    <div class="row">
+    <div class="login-row">
       <div>☑ REMEMBER ME</div>
       <a href="#">Forgot Password?</a>
     </div>
 
-    <button class="login" onclick="window.location.href='client.html'">LOGIN →</button>
+    <button class="login-btn" onclick="window.location.href='client.html'">
+      LOGIN →
+    </button>
 
     <div class="divider">OR CONTINUE WITH</div>
 
@@ -543,12 +759,29 @@ footer{
 
 </main>
 
-<footer>
-  <div class="foot"><div class="i">♜</div><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
-  <div class="foot"><div class="i">◎</div><div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div></div>
-  <div class="foot"><div class="i">☊</div><div><b>24/7 SUPPORT</b><br>We are here anytime</div></div>
-  <div class="foot"><div class="i">♛</div><div><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div></div>
+<footer class="footer">
+  <div class="footer-item">
+    <div class="ico">🔐</div>
+    <div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div>
+  </div>
+
+  <div class="footer-item">
+    <div class="ico">🌍</div>
+    <div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div>
+  </div>
+
+  <div class="footer-item">
+    <div class="ico">🎧</div>
+    <div><b>24/7 SUPPORT</b><br>We are here anytime</div>
+  </div>
+
+  <div class="footer-item">
+    <div class="ico">👑</div>
+    <div><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div>
+  </div>
 </footer>
+
+<div class="center-mark">❖</div>
 
 </body>
 </html>
