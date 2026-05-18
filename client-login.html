@@ -540,6 +540,28 @@ nav{
   gap: 12px;
   margin-top: 15px;
 }
+  .social-btn{
+  position:relative;
+  height:70px;
+  border-radius:16px;
+  border:1px solid rgba(255,215,0,0.6);
+  background:linear-gradient(145deg,#000,#0a0a0a,#000);
+  color:gold;
+  font-weight:900;
+  letter-spacing:1.5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  cursor:pointer;
+  overflow:hidden;
+  
+  box-shadow:
+    0 0 10px rgba(255,215,0,0.3),
+    inset 0 0 15px rgba(255,215,0,0.08);
+
+  transition:0.3s;
+}
 
 .social-btn::before{
   content:"";
@@ -779,23 +801,22 @@ nav{
 
 <div class="social-login">
 
-  <button class="social-btn">
-    <span class="icon gold">G</span>
-    GOOGLE
+  <button class="social-btn google">
+    <span class="icon">G</span>
+    <span>GOOGLE</span>
   </button>
 
-  <button class="social-btn">
-    <span class="icon gold"></span>
-    APPLE
+  <button class="social-btn apple">
+    <span class="icon"></span>
+    <span>APPLE</span>
   </button>
 
-  <button class="social-btn">
-    <span class="icon gold">f</span>
-    FACEBOOK
+  <button class="social-btn facebook">
+    <span class="icon">f</span>
+    <span>FACEBOOK</span>
   </button>
 
 </div>
-
     <div class="create">
       Don’t have an account? <a>Create Account</a>
     </div>
