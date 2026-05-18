@@ -858,10 +858,18 @@ nav{
       <span onclick="togglePassword()" style="cursor:pointer">👁</span>
     </div>
 
-    <div class="row">
-      <div>☑ REMEMBER ME</div>
-      <div>Forgot Password?</div>
-    </div>
+<div class="row">
+
+  <label class="remember-label">
+    <input type="checkbox" id="rememberMe">
+    REMEMBER ME
+  </label>
+
+  <div onclick="resetPassword()" style="cursor:pointer;">
+    Forgot Password?
+  </div>
+
+</div>    
 
     <button class="login-btn" onclick="loginNow()">LOGIN →</button>
 
@@ -938,6 +946,17 @@ function loginNow() {
     alert("Please enter your password");
     return;
   }
+
+  function resetPassword() {
+  let email = document.getElementById("email").value.trim();
+
+  if (email === "") {
+    alert("Enter your email first");
+    return;
+  }
+
+  alert("Password reset link will be sent to: " + email);
+}
 
 </script>
 </body>
