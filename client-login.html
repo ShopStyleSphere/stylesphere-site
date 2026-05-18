@@ -3,20 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Client Login</title>
+<title>StyleSphere Members Club</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
-body{
+html,body{
   width:100%;
-  min-height:100vh;
+  height:100%;
   background:#000;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   overflow:hidden;
 }
 
@@ -24,118 +20,195 @@ body{
   width:100vw;
   height:100vh;
   position:relative;
-  background:url("login-bg.png") center center / cover no-repeat;
+  background:url("login-bg.png") center center / contain no-repeat;
 }
 
-/* LOGIN FORM AREA */
-.login-form{
+/* نفس مكان فورم الصورة */
+.login-area{
   position:absolute;
-  right:8.5%;
-  top:37%;
-  width:38%;
-  max-width:560px;
+  right:7.1%;
+  top:38.2%;
+  width:36.5%;
+  max-width:610px;
 }
 
-.field{
+.input-box{
+  position:relative;
+  margin-bottom:26px;
+}
+
+.input-box input{
   width:100%;
   height:58px;
-  margin-bottom:28px;
-  background:transparent;
-  border:1px solid rgba(255,199,59,.85);
+  background:rgba(0,0,0,.15);
+  border:1.5px solid rgba(255,200,45,.95);
   border-radius:8px;
-  color:white;
+  color:#fff;
   font-size:17px;
-  padding:0 55px;
+  padding:0 60px;
   outline:none;
-  box-shadow:0 0 18px rgba(255,197,43,.35);
+  box-shadow:0 0 20px rgba(255,200,45,.45), inset 0 0 15px rgba(255,200,45,.10);
 }
 
-.field::placeholder{
+.input-box input::placeholder{
   color:rgba(255,255,255,.65);
 }
 
-.icon{
+.ico-left{
   position:absolute;
-  left:18px;
-  color:#d7a52f;
-  font-size:22px;
+  left:22px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#ffd45c;
+  font-size:24px;
+  text-shadow:0 0 12px #ffcc33;
 }
 
-.email-icon{
-  top:18px;
-}
-
-.lock-icon{
-  top:104px;
-}
-
-.eye{
+.ico-right{
   position:absolute;
-  right:18px;
-  top:104px;
-  color:#d7a52f;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#ffd45c;
   font-size:22px;
+  cursor:pointer;
+  text-shadow:0 0 12px #ffcc33;
 }
 
-.row{
+.options{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  color:#f3d063;
-  font-size:14px;
+  color:#ffd45c;
+  font-size:15px;
   margin-top:-10px;
-  margin-bottom:28px;
+  margin-bottom:24px;
+}
+
+.options label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+}
+
+.options input{
+  accent-color:#ffd45c;
+}
+
+.options a{
+  color:#ffd45c;
+  text-decoration:none;
 }
 
 .login-btn{
   width:100%;
-  height:70px;
+  height:68px;
   border:0;
-  border-radius:8px;
-  cursor:pointer;
-  background:linear-gradient(90deg,#b9780d,#ffe979,#b8790d);
-  color:#111;
-  font-size:22px;
+  border-radius:9px;
+  background:linear-gradient(90deg,#a96c08,#ffe979,#b8760a);
+  color:#050505;
+  font-size:23px;
   font-weight:900;
-  letter-spacing:6px;
-  box-shadow:0 0 30px rgba(255,202,38,.8);
+  letter-spacing:7px;
+  cursor:pointer;
+  box-shadow:0 0 32px rgba(255,205,45,.9), inset 0 0 18px rgba(255,255,255,.25);
+}
+
+.login-btn:hover{
+  filter:brightness(1.18);
+}
+
+.or{
+  text-align:center;
+  margin:30px 0 17px;
+  color:#ffd45c;
+  font-size:15px;
+  letter-spacing:1px;
 }
 
 .socials{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-top:70px;
+  gap:15px;
 }
 
 .socials button{
   height:56px;
-  background:rgba(0,0,0,.35);
-  border:1px solid rgba(214,164,48,.8);
-  border-radius:7px;
-  color:#f3d063;
-  font-weight:bold;
+  background:rgba(0,0,0,.38);
+  border:1.4px solid rgba(221,168,40,.95);
+  border-radius:8px;
+  color:#ffd45c;
   font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.socials button:hover{
+  background:rgba(255,200,45,.12);
 }
 
 .create{
-  margin-top:22px;
   text-align:center;
-  color:#fff;
-  font-size:15px;
+  color:white;
+  font-size:16px;
+  margin-top:23px;
 }
 
 .create a{
-  color:#f6c94a;
-  font-weight:bold;
+  color:#ffd45c;
   text-decoration:underline;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* MOBILE */
-@media(max-width:900px){
-  body{
-    overflow:auto;
+/* الرسالة */
+.toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.88);
+  color:#ffd45c;
+  border:1px solid #d6a534;
+  padding:14px 25px;
+  border-radius:30px;
+  display:none;
+  z-index:999;
+  box-shadow:0 0 22px rgba(255,200,45,.45);
+}
+
+/* شاشة لابتوب صغيرة */
+@media(max-width:1200px){
+  .login-area{
+    right:7%;
+    top:38.6%;
+    width:37%;
   }
+
+  .input-box input{
+    height:50px;
+    font-size:14px;
+  }
+
+  .login-btn{
+    height:58px;
+    font-size:18px;
+  }
+
+  .socials button{
+    height:46px;
+    font-size:12px;
+  }
+
+  .options,.or,.create{
+    font-size:12px;
+  }
+}
+
+/* جوال */
+@media(max-width:768px){
+  body{overflow:auto}
 
   .page{
     min-height:100vh;
@@ -143,19 +216,15 @@ body{
     background-position:center top;
   }
 
-  .login-form{
-    right:6%;
-    left:6%;
-    top:45%;
+  .login-area{
+    left:7%;
+    right:7%;
+    top:43%;
     width:auto;
   }
 
-  .field{
-    height:52px;
-  }
-
-  .login-btn{
-    height:60px;
+  .socials{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -163,38 +232,105 @@ body{
 
 <body>
 
+<div class="toast" id="toast"></div>
+
 <div class="page">
 
-  <form class="login-form">
+  <form class="login-area" id="loginForm">
 
-    <span class="icon email-icon">✉</span>
-    <input class="field" type="email" placeholder="Enter your email">
-
-    <span class="icon lock-icon">🔒</span>
-    <input class="field" type="password" placeholder="Enter your password">
-    <span class="eye">👁</span>
-
-    <div class="row">
-      <label><input type="checkbox" checked> REMEMBER ME</label>
-      <span>Forgot Password?</span>
+    <div class="input-box">
+      <span class="ico-left">✉</span>
+      <input id="email" type="email" placeholder="Enter your email">
     </div>
 
-    <button class="login-btn" type="button">LOGIN →</button>
+    <div class="input-box">
+      <span class="ico-left">🔒</span>
+      <input id="password" type="password" placeholder="Enter your password">
+      <span class="ico-right" id="togglePassword">👁</span>
+    </div>
+
+    <div class="options">
+      <label>
+        <input id="remember" type="checkbox" checked>
+        REMEMBER ME
+      </label>
+      <a onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+
+    <button class="login-btn" type="submit">LOGIN →</button>
+
+    <div class="or">OR CONTINUE WITH</div>
 
     <div class="socials">
-      <button type="button">G&nbsp; GOOGLE</button>
-      <button type="button">&nbsp; APPLE</button>
-      <button type="button">f&nbsp; FACEBOOK</button>
+      <button type="button" onclick="socialLogin('Google')">G&nbsp; GOOGLE</button>
+      <button type="button" onclick="socialLogin('Apple')">&nbsp; APPLE</button>
+      <button type="button" onclick="socialLogin('Facebook')">f&nbsp; FACEBOOK</button>
     </div>
 
     <div class="create">
       Don’t have an account?
-      <a>Create Account</a>
+      <a onclick="createAccount()">Create Account</a>
     </div>
 
   </form>
 
 </div>
+
+<script>
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const remember = document.getElementById("remember");
+const toast = document.getElementById("toast");
+
+window.onload = () => {
+  const savedEmail = localStorage.getItem("stylesphere_email");
+  if(savedEmail){
+    email.value = savedEmail;
+    remember.checked = true;
+  }
+};
+
+document.getElementById("togglePassword").onclick = () => {
+  password.type = password.type === "password" ? "text" : "password";
+};
+
+document.getElementById("loginForm").onsubmit = (e) => {
+  e.preventDefault();
+
+  if(!email.value || !password.value){
+    showToast("Please enter email and password");
+    return;
+  }
+
+  if(remember.checked){
+    localStorage.setItem("stylesphere_email", email.value);
+  }else{
+    localStorage.removeItem("stylesphere_email");
+  }
+
+  showToast("Login successful — Welcome to StyleSphere");
+};
+
+function socialLogin(name){
+  showToast(name + " login coming soon");
+}
+
+function forgotPassword(){
+  showToast("Password recovery coming soon");
+}
+
+function createAccount(){
+  showToast("Create account page coming soon");
+}
+
+function showToast(message){
+  toast.innerText = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2500);
+}
+</script>
 
 </body>
 </html>
