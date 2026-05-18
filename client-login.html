@@ -465,6 +465,40 @@ nav{
   font-size:16px;
 }
 
+  .input input:focus {
+  outline: none;
+  border: none;
+}
+
+/* التأثير الذهبي */
+.input:focus-within {
+  border: 1.5px solid #ffd700;
+  box-shadow: 0 0 12px rgba(255,215,0,0.5);
+}
+  .input:hover {
+  box-shadow: 0 0 15px rgba(255,215,0,0.3);
+}
+  /* ❌ حالة الخطأ */
+.input.error {
+  border: 1.5px solid #ff4d4d !important;
+  box-shadow: 0 0 10px rgba(255,0,0,0.4);
+}
+
+/* رسالة الخطأ */
+.error-message {
+  font-size: 13px;
+  color: #ff4d4d;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.error-message.show {
+  opacity: 1;
+}
+  
+
 .row{
   display:flex;
   justify-content:space-between;
@@ -809,12 +843,14 @@ nav{
     <h2>CLIENT LOGIN</h2>
     <p>Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
 
-    <label>EMAIL ADDRESS</label>
-    <div class="input">
-      <span>✉</span>
-      <input type="email" placeholder="Enter your email">
-    </div>
+<label>EMAIL ADDRESS</label>
 
+<div class="input" id="emailBox">
+  <span><i class="fa fa-envelope"></i></span>
+  <input type="email" id="email" placeholder="Enter your email">
+</div>
+
+<div class="error-message" id="emailError"></div>
     <label>PASSWORD</label>
     <div class="input">
       <span>🔒</span>
@@ -866,11 +902,35 @@ nav{
 
 <script>
 function togglePassword(){
-  const p=document.getElementById("password");
-  p.type=p.type==="password" ? "text" : "password";
+  const p = document.getElementById("password");
+  p.type = p.type === "password" ? "text" : "password";
 }
 
-function loginNow(){
+function loginNow() {
+let email = document.getElementById("email").value.trim();
+  let emailBox = document.getElementById("emailBox");
+  let emailError = document.getElementById("emailError");
+
+  // تنظيف
+  emailBox.classList.remove("error");
+  emailError.classList.remove("show");
+
+  // تحقق
+  if (email === "") {
+    emailBox.classList.add("error");
+    emailError.innerText = "Please enter your email";
+    emailError.classList.add("show");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    emailBox.classList.add("error");
+    emailError.innerText = "Invalid email address";
+    emailError.classList.add("show");
+    return;
+  }
+
+  // نجاح
   alert("Welcome to StyleSphere Members Club 👑");
 }
 </script>
