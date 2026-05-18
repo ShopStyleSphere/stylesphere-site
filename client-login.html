@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StyleSphere Members Club</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
-body{
-  min-height:100vh;
-  background:#020202;
+html,body{
+  width:100%;
+  min-height:100%;
+  background:#000;
   color:white;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
+}
+
+body{
   overflow-x:hidden;
 }
 
 .page{
   min-height:100vh;
   background:
-    linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.82)),
+    linear-gradient(90deg,rgba(0,0,0,.08),rgba(0,0,0,.82)),
     url("lion-bg.png") left center/cover no-repeat;
   position:relative;
 }
@@ -29,69 +33,71 @@ body{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 30% 50%,rgba(255,199,38,.22),transparent 35%),
-    radial-gradient(circle at 75% 45%,rgba(255,199,38,.14),transparent 35%);
+    radial-gradient(circle at 35% 45%,rgba(255,215,0,.20),transparent 40%),
+    radial-gradient(circle at 76% 48%,rgba(255,184,20,.16),transparent 38%);
   pointer-events:none;
 }
 
 header{
-  height:95px;
+  position:relative;
+  z-index:2;
+  height:92px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 55px;
-  border-bottom:1px solid rgba(255,198,51,.35);
-  position:relative;
-  z-index:2;
+  padding:0 52px;
+  background:rgba(0,0,0,.58);
+  border-bottom:1px solid rgba(255,215,90,.35);
 }
 
 .logo{
   display:flex;
   align-items:center;
-  gap:16px;
-  color:#ffd45c;
+  gap:15px;
+  color:#ffd866;
 }
 
-.logo-icon{
+.logo-mark{
   width:58px;
   height:58px;
-  border:2px solid #d8a72f;
+  border:2px solid #d9a72e;
   border-radius:50%;
   display:grid;
   place-items:center;
-  font-size:36px;
   font-family:Georgia,serif;
-  box-shadow:0 0 22px rgba(255,212,92,.55);
+  font-size:37px;
+  box-shadow:0 0 24px rgba(255,215,90,.65);
 }
 
 .logo h1{
   font-family:Georgia,serif;
+  font-size:31px;
   letter-spacing:3px;
-  font-size:30px;
 }
 
 .logo span{
   display:block;
   font-size:11px;
   letter-spacing:7px;
-  margin-top:5px;
+  margin-top:4px;
 }
 
 nav{
   display:flex;
-  gap:36px;
-  color:#ffd45c;
-  font-weight:bold;
+  gap:34px;
+  color:#ffd866;
   font-family:Georgia,serif;
+  font-weight:800;
 }
 
 .status{
-  border:1px solid #d8a72f;
+  color:#ffd866;
+  border:1px solid #d9a72e;
   border-radius:30px;
-  padding:11px 22px;
-  color:#ffd45c;
-  font-weight:bold;
+  padding:10px 20px;
   font-size:13px;
+  font-weight:800;
+  box-shadow:inset 0 0 15px rgba(255,215,90,.10);
 }
 
 .status b{color:#00ff66}
@@ -100,22 +106,24 @@ nav{
   position:relative;
   z-index:2;
   display:grid;
-  grid-template-columns:1.05fr .95fr;
+  grid-template-columns:1.08fr .92fr;
   gap:28px;
-  padding:28px 55px 20px;
+  padding:28px 55px 18px;
 }
 
-.hero,.login{
+.panel{
   min-height:620px;
-  border:1px solid rgba(255,198,51,.75);
+  border:1.5px solid rgba(255,215,90,.78);
   border-radius:20px;
-  background:rgba(0,0,0,.54);
-  box-shadow:0 0 35px rgba(255,198,51,.22), inset 0 0 35px rgba(255,198,51,.08);
-  backdrop-filter:blur(4px);
+  background:rgba(0,0,0,.58);
+  backdrop-filter:blur(5px);
+  box-shadow:
+    0 0 35px rgba(255,190,28,.24),
+    inset 0 0 35px rgba(255,215,90,.08);
 }
 
 .hero{
-  padding:45px 35px 22px;
+  padding:42px 34px 24px;
   text-align:center;
   position:relative;
   overflow:hidden;
@@ -124,196 +132,326 @@ nav{
 .hero::after{
   content:"";
   position:absolute;
-  inset:auto 0 0;
-  height:160px;
-  background:radial-gradient(ellipse at center,rgba(255,197,40,.28),transparent 70%);
+  left:15%;
+  right:15%;
+  bottom:125px;
+  height:110px;
+  background:radial-gradient(ellipse at center,rgba(255,215,0,.35),transparent 70%);
+  pointer-events:none;
 }
 
 .access{
-  color:#ffd45c;
+  color:#ffd866;
   letter-spacing:14px;
-  font-size:18px;
-  margin-bottom:20px;
+  font-size:17px;
+  margin-bottom:18px;
 }
 
 .crown{
+  color:#ffd866;
   font-size:48px;
-  color:#ffd45c;
-  text-shadow:0 0 22px #ffd45c;
+  text-shadow:0 0 25px #ffd866;
 }
 
-.hero h2{
+.hero-title{
   font-family:Georgia,serif;
   font-size:78px;
   line-height:.92;
-  color:#ffd45c;
-  text-shadow:0 0 15px #fff2a8,0 0 36px #d49b17;
-  margin:8px 0 22px;
+  color:#ffd866;
+  text-shadow:
+    0 0 8px #fff7bd,
+    0 0 22px #ffd866,
+    0 0 60px rgba(255,174,0,.75);
+  margin:6px 0 18px;
+}
+
+.divider{
+  width:330px;
+  height:1px;
+  margin:0 auto 20px;
+  background:linear-gradient(90deg,transparent,#ffd866,transparent);
+  position:relative;
+}
+
+.divider::after{
+  content:"◇";
+  position:absolute;
+  left:50%;
+  top:-10px;
+  transform:translateX(-50%);
+  background:#070707;
+  color:#ffd866;
+  padding:0 12px;
 }
 
 .subtitle{
   font-size:18px;
-  letter-spacing:.8px;
   line-height:1.5;
-  margin-bottom:25px;
+  letter-spacing:.6px;
+  margin-bottom:24px;
 }
 
-.vip-card{
-  width:450px;
-  height:255px;
+.bank-card{
+  width:460px;
+  height:272px;
   margin:0 auto;
-  border-radius:20px;
-  padding:27px;
-  text-align:left;
+  padding:28px;
+  border-radius:24px;
+  position:relative;
+  overflow:hidden;
+  color:#ffe27a;
   background:
-    linear-gradient(135deg,rgba(255,215,83,.18),transparent 25%),
-    repeating-linear-gradient(45deg,rgba(255,215,83,.06) 0 2px,transparent 2px 12px),
-    linear-gradient(135deg,#050505,#15120b,#020202);
-  border:1px solid rgba(255,211,80,.88);
-  box-shadow:0 0 35px rgba(255,205,45,.75), inset 0 0 28px rgba(255,205,45,.13);
-  transform:perspective(900px) rotateX(4deg) rotateZ(-2deg);
+    radial-gradient(circle at 22% 18%, rgba(255,225,95,.32), transparent 18%),
+    radial-gradient(circle at 78% 72%, rgba(255,190,25,.20), transparent 28%),
+    linear-gradient(135deg,#080807 0%,#17130b 38%,#020202 100%);
+  border:1.6px solid rgba(255,220,95,.95);
+  box-shadow:
+    0 0 30px rgba(255,214,65,.92),
+    0 0 85px rgba(255,185,25,.58),
+    inset 0 0 38px rgba(255,220,95,.18);
+  transform:perspective(1100px) rotateX(6deg) rotateY(-7deg) rotateZ(-2deg);
+  animation:cardFloat 4s ease-in-out infinite;
+  z-index:2;
+}
+
+.card-pattern{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,220,95,.07) 0 1px, transparent 1px 10px),
+    repeating-radial-gradient(circle at 30% 30%, rgba(255,220,95,.055) 0 1px, transparent 1px 9px);
+}
+
+.bank-card::before{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:linear-gradient(120deg, transparent 42%, rgba(255,255,255,.34), transparent 58%);
+  transform:rotate(18deg);
+  animation:cardSweep 3.8s infinite;
+}
+
+.card-top,.chip-row,.card-number,.card-bottom{
   position:relative;
   z-index:2;
 }
 
-.card-brand{
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.bank-brand{
   font-family:Georgia,serif;
-  font-size:27px;
+  font-size:29px;
   letter-spacing:2px;
-  color:#ffe27a;
-}
-
-.card-sub{
-  letter-spacing:6px;
-  font-size:12px;
-}
-
-.chip{
-  margin-top:33px;
-  width:60px;
-  height:43px;
-  border-radius:8px;
-  background:linear-gradient(135deg,#fff4a8,#b47708,#fff1a1);
-}
-
-.nfc{
-  position:absolute;
-  left:105px;
-  top:102px;
-  font-size:38px;
-  color:#ffe27a;
-}
-
-.royal{
-  position:absolute;
-  right:34px;
-  top:55px;
-  color:#ffe27a;
-  font-family:Georgia,serif;
-  font-size:20px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.numbers{
-  margin-top:24px;
-  font-size:25px;
-  letter-spacing:6px;
-  color:#ffe27a;
-}
-
-.visa{
-  position:absolute;
-  right:28px;
-  bottom:25px;
-  font-size:42px;
   font-weight:900;
+  text-shadow:0 0 12px rgba(255,220,95,.8);
+}
+
+.bank-sub{
+  margin-top:5px;
+  font-size:10px;
+  letter-spacing:4px;
+  color:#fff5b8;
+}
+
+.card-tier{
+  text-align:center;
+  font-family:Georgia,serif;
+  font-weight:900;
+  font-size:18px;
+  line-height:1.05;
+}
+
+.chip-row{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-top:35px;
+}
+
+.emv-chip{
+  width:62px;
+  height:47px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#fff3a3,#b57408,#ffe88d);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  padding:7px;
+  box-shadow:0 0 18px rgba(255,220,95,.9);
+}
+
+.emv-chip span{
+  border:1px solid rgba(90,55,0,.45);
+  border-radius:4px;
+}
+
+.contactless{
+  width:42px;
+  height:45px;
+  position:relative;
+}
+
+.contactless i{
+  position:absolute;
+  left:0;
+  top:50%;
+  border:2px solid #ffe27a;
+  border-left:0;
+  border-top-color:transparent;
+  border-bottom-color:transparent;
+  border-radius:50%;
+  transform:translateY(-50%);
+}
+
+.contactless i:nth-child(1){width:14px;height:25px}
+.contactless i:nth-child(2){width:24px;height:34px;left:6px}
+.contactless i:nth-child(3){width:34px;height:43px;left:12px}
+
+.card-number{
+  margin-top:26px;
+  font-size:26px;
+  letter-spacing:5px;
+  color:#fff0a6;
+  text-shadow:0 0 10px rgba(255,220,95,.75);
+}
+
+.card-bottom{
+  margin-top:18px;
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+}
+
+.card-bottom small{
+  font-size:8px;
+  line-height:.9;
+  color:#fff5b8;
+}
+
+.card-bottom b{
+  margin-left:8px;
+  font-size:17px;
+}
+
+.visa-real{
+  font-size:43px;
+  font-weight:1000;
   font-style:italic;
+  color:#fff;
+  letter-spacing:-2px;
+  text-shadow:0 0 14px rgba(255,255,255,.7);
+}
+
+.visa-real small{
+  display:block;
+  font-size:11px;
+  text-align:right;
+  color:#ffe27a;
+  margin-top:-6px;
+}
+
+@keyframes cardFloat{
+  0%,100%{transform:perspective(1100px) rotateX(6deg) rotateY(-7deg) rotateZ(-2deg) translateY(0)}
+  50%{transform:perspective(1100px) rotateX(7deg) rotateY(-4deg) rotateZ(-1deg) translateY(-8px)}
+}
+
+@keyframes cardSweep{
+  0%{transform:translateX(-90%) rotate(18deg)}
+  45%{transform:translateX(90%) rotate(18deg)}
+  100%{transform:translateX(90%) rotate(18deg)}
 }
 
 .features{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:18px;
-  margin-top:38px;
+  margin-top:42px;
   position:relative;
   z-index:2;
 }
 
 .feature{
-  border:1px solid rgba(255,198,51,.65);
-  border-radius:13px;
-  padding:18px 8px;
   min-height:112px;
-  color:#ffd45c;
-  font-weight:bold;
+  border:1px solid rgba(255,215,90,.75);
+  border-radius:13px;
   background:rgba(0,0,0,.55);
-  box-shadow:inset 0 0 18px rgba(255,198,51,.08);
+  display:grid;
+  place-items:center;
+  color:#ffd866;
+  font-weight:900;
+  font-size:13px;
+  box-shadow:
+    0 0 16px rgba(255,215,90,.20),
+    inset 0 0 20px rgba(255,215,90,.08);
 }
 
 .feature i{
   display:block;
   font-size:36px;
-  margin-bottom:10px;
   font-style:normal;
-  filter:drop-shadow(0 0 12px #ffd45c);
+  margin-bottom:9px;
+  filter:drop-shadow(0 0 14px #ffd866);
 }
 
 .login{
-  padding:45px 55px;
+  padding:42px 55px;
 }
 
 .user-icon{
-  width:92px;
-  height:92px;
-  border:2px solid #d8a72f;
+  width:94px;
+  height:94px;
+  margin:0 auto 25px;
+  border:2px solid #d9a72e;
   border-radius:50%;
   display:grid;
   place-items:center;
-  margin:0 auto 24px;
-  font-size:42px;
-  color:#ffd45c;
-  box-shadow:0 0 35px rgba(255,212,92,.65);
+  font-size:43px;
+  color:#ffd866;
+  box-shadow:0 0 36px rgba(255,215,90,.65);
 }
 
 .login h2{
   text-align:center;
   font-family:Georgia,serif;
-  color:#ffd45c;
-  font-size:45px;
-  text-shadow:0 0 18px #d49b17;
-  margin-bottom:14px;
+  color:#ffd866;
+  font-size:46px;
+  text-shadow:0 0 20px #d49b17;
+  margin-bottom:13px;
 }
 
 .login p{
   text-align:center;
-  line-height:1.55;
   font-size:17px;
+  line-height:1.55;
   margin-bottom:32px;
 }
 
-label{
+.login label{
   display:block;
-  color:#ffd45c;
-  font-weight:bold;
+  color:#ffd866;
+  font-weight:900;
   margin-bottom:10px;
 }
 
 .input{
   height:60px;
-  border:1px solid #d8a72f;
-  border-radius:9px;
   display:flex;
   align-items:center;
   gap:16px;
+  border:1.5px solid rgba(255,215,90,.85);
+  border-radius:10px;
   padding:0 18px;
-  margin-bottom:22px;
-  background:rgba(0,0,0,.42);
-  box-shadow:0 0 18px rgba(255,198,51,.28);
+  margin-bottom:21px;
+  background:rgba(0,0,0,.44);
+  box-shadow:0 0 20px rgba(255,215,90,.32);
 }
 
 .input span{
-  color:#ffd45c;
+  color:#ffd866;
   font-size:24px;
 }
 
@@ -322,33 +460,35 @@ label{
   background:transparent;
   border:0;
   outline:0;
-  color:#fff;
+  color:white;
   font-size:16px;
 }
 
 .row{
   display:flex;
   justify-content:space-between;
-  color:#ffd45c;
-  margin:-5px 0 24px;
+  color:#ffd866;
   font-size:14px;
+  margin:-6px 0 24px;
 }
 
 .login-btn{
   width:100%;
-  height:70px;
+  height:72px;
   border:0;
-  border-radius:11px;
+  border-radius:12px;
   background:
-    linear-gradient(120deg,transparent,rgba(255,255,255,.65),transparent),
+    linear-gradient(120deg,transparent 0%,rgba(255,255,255,.65) 45%,transparent 65%),
     linear-gradient(90deg,#8f5800,#ffe979,#b87505);
   background-size:220% 100%;
   color:#050505;
-  font-weight:900;
   font-size:23px;
+  font-weight:900;
   letter-spacing:8px;
   cursor:pointer;
-  box-shadow:0 0 35px rgba(255,215,0,.9);
+  box-shadow:
+    0 0 40px rgba(255,215,0,.95),
+    inset 0 0 25px rgba(255,255,255,.35);
   animation:shine 3s infinite;
 }
 
@@ -359,36 +499,96 @@ label{
 
 .or{
   text-align:center;
-  color:#ffd45c;
-  margin:29px 0 18px;
+  margin:31px 0 18px;
+  color:#ffd866;
+  font-size:15px;
   letter-spacing:1px;
+  text-shadow:0 0 12px #ffd866;
 }
 
 .socials{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:16px;
 }
 
-.socials button{
-  height:56px;
-  border:1px solid #d8a72f;
-  border-radius:8px;
-  background:rgba(0,0,0,.45);
-  color:#ffd45c;
-  font-weight:bold;
+.social-btn{
+  height:62px;
+  position:relative;
+  overflow:hidden;
+  border:1.5px solid rgba(255,215,90,.95);
+  border-radius:12px;
+  background:
+    linear-gradient(145deg, rgba(255,215,90,.16), rgba(0,0,0,.72)),
+    rgba(0,0,0,.65);
+  color:#ffd866;
+  font-weight:900;
+  letter-spacing:1.2px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  box-shadow:
+    0 0 18px rgba(255,215,90,.38),
+    inset 0 0 20px rgba(255,215,90,.10);
+  transition:.35s ease;
+}
+
+.social-btn::before{
+  content:"";
+  position:absolute;
+  inset:-80%;
+  background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,.65), transparent 60%);
+  transform:translateX(-120%) rotate(18deg);
+  animation:socialShine 3.2s infinite;
+}
+
+.social-btn:hover{
+  transform:translateY(-4px) scale(1.04);
+  box-shadow:
+    0 0 26px rgba(255,215,90,.85),
+    0 0 55px rgba(255,180,20,.45),
+    inset 0 0 24px rgba(255,215,90,.18);
+}
+
+.brand-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:900;
+  color:#090909;
+  background:linear-gradient(145deg,#fff6b0,#d99a12,#fff0a0);
+  box-shadow:
+    0 0 18px rgba(255,215,90,.9),
+    inset 0 0 10px rgba(255,255,255,.45);
+}
+
+.facebook .brand-icon{
+  font-size:28px;
+}
+
+@keyframes socialShine{
+  0%{transform:translateX(-120%) rotate(18deg)}
+  45%{transform:translateX(140%) rotate(18deg)}
+  100%{transform:translateX(140%) rotate(18deg)}
 }
 
 .create{
   text-align:center;
+  color:white;
+  font-size:16px;
   margin-top:24px;
 }
 
 .create a{
-  color:#ffd45c;
-  font-weight:bold;
+  color:#ffd866;
   text-decoration:underline;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .footer{
@@ -397,9 +597,9 @@ label{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:20px;
-  padding:18px 70px 24px;
-  border-top:1px solid rgba(255,198,51,.35);
-  background:rgba(0,0,0,.6);
+  padding:19px 70px 24px;
+  border-top:1px solid rgba(255,215,90,.35);
+  background:rgba(0,0,0,.65);
 }
 
 .foot{
@@ -409,24 +609,62 @@ label{
 }
 
 .foot i{
-  color:#ffd45c;
+  color:#ffd866;
   font-size:34px;
   font-style:normal;
+  filter:drop-shadow(0 0 12px #ffd866);
 }
 
-.foot b{color:#ffd45c}
+.foot b{color:#ffd866}
 
-@media(max-width:1000px){
-  header{height:auto;flex-direction:column;gap:14px;padding:20px}
-  nav{flex-wrap:wrap;justify-content:center}
-  .main{grid-template-columns:1fr;padding:20px}
-  .hero h2{font-size:52px}
-  .vip-card{width:100%}
-  .features,.footer{grid-template-columns:1fr 1fr}
+@media(max-width:1100px){
+  header{
+    height:auto;
+    flex-direction:column;
+    gap:15px;
+    padding:20px;
+  }
+
+  nav{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .main{
+    grid-template-columns:1fr;
+    padding:20px;
+  }
+
+  .hero-title{
+    font-size:52px;
+  }
+
+  .bank-card{
+    width:100%;
+    max-width:460px;
+  }
+
+  .features,.footer{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
-@media(max-width:600px){
-  .features,.footer,.socials{grid-template-columns:1fr}
+@media(max-width:620px){
+  .features,.footer,.socials{
+    grid-template-columns:1fr;
+  }
+
+  .main{
+    padding:14px;
+  }
+
+  .login{
+    padding:32px 22px;
+  }
+
+  .access{
+    letter-spacing:8px;
+  }
 }
 </style>
 </head>
@@ -437,7 +675,7 @@ label{
 
 <header>
   <div class="logo">
-    <div class="logo-icon">S</div>
+    <div class="logo-mark">S</div>
     <div>
       <h1>STYLESPHERE</h1>
       <span>MEMBERS CLUB</span>
@@ -452,36 +690,61 @@ label{
     <div>SUPPORT</div>
   </nav>
 
-  <div class="status"><b>●</b> SYSTEM STATUS<br>ALL SYSTEMS OPERATIONAL</div>
+  <div class="status">
+    <b>●</b> SYSTEM STATUS<br>
+    ALL SYSTEMS OPERATIONAL
+  </div>
 </header>
 
-<section class="main">
+<main class="main">
 
-  <div class="hero">
+  <section class="panel hero">
     <div class="access">EXCLUSIVE ACCESS</div>
     <div class="crown">♛</div>
-    <h2>BEYOND<br>REWARDS</h2>
+    <h2 class="hero-title">BEYOND<br>REWARDS</h2>
+    <div class="divider"></div>
     <p class="subtitle">JOIN A WORLD OF LUXURY,<br>REWARDS AND EXCLUSIVE EXPERIENCES.</p>
 
-    <div class="vip-card">
-      <div class="card-brand">STYLESPHERE</div>
-      <div class="card-sub">MEMBERS CLUB</div>
-      <div class="royal">♛<br>ROYAL<br>INFINITY</div>
-      <div class="chip"></div>
-      <div class="nfc">)))</div>
-      <div class="numbers">5412 7512 3412 3456</div>
-      <div class="visa">VISA</div>
+    <div class="bank-card">
+      <div class="card-pattern"></div>
+
+      <div class="card-top">
+        <div>
+          <div class="bank-brand">STYLESPHERE</div>
+          <div class="bank-sub">WORLD ELITE MEMBERS CLUB</div>
+        </div>
+        <div class="card-tier">ROYAL<br>INFINITY</div>
+      </div>
+
+      <div class="chip-row">
+        <div class="emv-chip">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="contactless">
+          <i></i><i></i><i></i>
+        </div>
+      </div>
+
+      <div class="card-number">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;3456</div>
+
+      <div class="card-bottom">
+        <div>
+          <small>VALID<br>THRU</small>
+          <b>12/28</b>
+        </div>
+        <div class="visa-real">VISA <small>Infinite</small></div>
+      </div>
     </div>
 
     <div class="features">
-      <div class="feature"><i>💎</i>EXCLUSIVE<br>REWARDS</div>
-      <div class="feature"><i>♛</i>VIP LEVEL<br>BENEFITS</div>
-      <div class="feature"><i>🌐</i>GLOBAL<br>ACCESS</div>
-      <div class="feature"><i>👑</i>ELITE<br>EXPERIENCES</div>
+      <div class="feature"><div><i>💎</i>EXCLUSIVE<br>REWARDS</div></div>
+      <div class="feature"><div><i>♛</i>VIP LEVEL<br>BENEFITS</div></div>
+      <div class="feature"><div><i>🌐</i>GLOBAL<br>ACCESS</div></div>
+      <div class="feature"><div><i>👑</i>ELITE<br>EXPERIENCES</div></div>
     </div>
-  </div>
+  </section>
 
-  <div class="login">
+  <section class="panel login">
     <div class="user-icon">👤</div>
     <h2>CLIENT LOGIN</h2>
     <p>Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
@@ -509,17 +772,23 @@ label{
     <div class="or">OR CONTINUE WITH</div>
 
     <div class="socials">
-      <button>G GOOGLE</button>
-      <button> APPLE</button>
-      <button>f FACEBOOK</button>
+      <button class="social-btn google" type="button">
+        <span class="brand-icon">G</span><span>GOOGLE</span>
+      </button>
+      <button class="social-btn apple" type="button">
+        <span class="brand-icon"></span><span>APPLE</span>
+      </button>
+      <button class="social-btn facebook" type="button">
+        <span class="brand-icon">f</span><span>FACEBOOK</span>
+      </button>
     </div>
 
     <div class="create">
       Don’t have an account? <a>Create Account</a>
     </div>
-  </div>
+  </section>
 
-</section>
+</main>
 
 <section class="footer">
   <div class="foot"><i>🔐</i><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
@@ -533,7 +802,7 @@ label{
 <script>
 function togglePassword(){
   const p=document.getElementById("password");
-  p.type = p.type === "password" ? "text" : "password";
+  p.type=p.type==="password" ? "text" : "password";
 }
 
 function loginNow(){
