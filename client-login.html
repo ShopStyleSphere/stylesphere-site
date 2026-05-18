@@ -901,21 +901,23 @@ nav{
 </div>
 
 <script>
-function togglePassword(){
+function togglePassword() {
   const p = document.getElementById("password");
   p.type = p.type === "password" ? "text" : "password";
 }
 
 function loginNow() {
-let email = document.getElementById("email").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let password = document.getElementById("password").value.trim();
+
   let emailBox = document.getElementById("emailBox");
   let emailError = document.getElementById("emailError");
 
-  // تنظيف
+  // تنظيف الأخطاء
   emailBox.classList.remove("error");
   emailError.classList.remove("show");
 
-  // تحقق
+  // تحقق الإيميل فاضي
   if (email === "") {
     emailBox.classList.add("error");
     emailError.innerText = "Please enter your email";
@@ -923,6 +925,7 @@ let email = document.getElementById("email").value.trim();
     return;
   }
 
+  // تحقق الإيميل غلط
   if (!email.includes("@")) {
     emailBox.classList.add("error");
     emailError.innerText = "Invalid email address";
@@ -930,10 +933,15 @@ let email = document.getElementById("email").value.trim();
     return;
   }
 
+  // تحقق الباسورد فاضي
+  if (password === "") {
+    alert("Please enter your password");
+    return;
+  }
+
   // نجاح
   alert("Welcome to StyleSphere Members Club 👑");
 }
 </script>
-
 </body>
 </html>
