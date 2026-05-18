@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Members Club</title>
 
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  background:#000;
+  font-family:Arial, sans-serif;
+  overflow:hidden;
+}
+
+.page{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  background:url("login-bg.png") center center / cover no-repeat;
+}
+
+/* طبقة حماية خفيفة */
+.page::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.03);
+  pointer-events:none;
+}
+
+/* مكان الفورم بالضبط يمين */
+.login-area{
+  position:absolute;
+  right:7.3%;
+  top:38.5%;
+  width:36.5%;
+  max-width:620px;
+  z-index:5;
+}
+
+.input-box{
+  position:relative;
+  margin-bottom:25px;
+}
+
+.input-box input{
+  width:100%;
+  height:58px;
+  background:rgba(0,0,0,.18);
+  border:1.5px solid rgba(255,205,45,.95);
+  border-radius:9px;
+  color:#fff;
+  font-size:17px;
+  padding:0 62px;
+  outline:none;
+  box-shadow:
+    0 0 22px rgba(255,200,40,.45),
+    inset 0 0 18px rgba(255,200,40,.12);
+}
+
+.input-box input::placeholder{
+  color:rgba(255,255,255,.7);
+}
+
+.ico-left{
+  position:absolute;
+  left:23px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#ffd45c;
+  font-size:24px;
+  text-shadow:0 0 13px #ffcc33;
+}
+
+.ico-right{
+  position:absolute;
+  right:22px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#ffd45c;
+  font-size:22px;
+  cursor:pointer;
+  text-shadow:0 0 13px #ffcc33;
+}
+
+.options{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#ffd45c;
+  font-size:15px;
+  margin-top:-10px;
+  margin-bottom:25px;
+}
+
+.options label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+}
+
+.options input{
+  accent-color:#ffd45c;
+}
+
+.options a{
+  color:#ffd45c;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.login-btn{
+  width:100%;
+  height:70px;
+  border:0;
+  border-radius:10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.45), transparent 38%),
+    linear-gradient(90deg,#9d6508,#ffe66f,#c98510);
+  color:#050505;
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:7px;
+  cursor:pointer;
+  box-shadow:
+    0 0 35px rgba(255,205,45,.9),
+    inset 0 0 22px rgba(255,255,255,.25);
+}
+
+.login-btn:hover{
+  filter:brightness(1.18);
+}
+
+.or{
+  text-align:center;
+  margin:31px 0 18px;
+  color:#ffd45c;
+  font-size:15px;
+  letter-spacing:1px;
+}
+
+.socials{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.socials button{
+  height:56px;
+  background:rgba(0,0,0,.40);
+  border:1.4px solid rgba(221,168,40,.95);
+  border-radius:8px;
+  color:#ffd45c;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.socials button:hover{
+  background:rgba(255,200,45,.14);
+}
+
+.create{
+  text-align:center;
+  color:white;
+  font-size:16px;
+  margin-top:24px;
+}
+
+.create a{
+  color:#ffd45c;
+  text-decoration:underline;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.toast{
+  position:fixed;
+  top:22px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.9);
+  color:#ffd45c;
+  border:1px solid #d6a534;
+  padding:14px 26px;
+  border-radius:30px;
+  display:none;
+  z-index:999;
+  box-shadow:0 0 25px rgba(255,200,45,.5);
+}
+
+/* لابتوب صغير */
+@media(max-width:1200px){
+  .login-area{
+    right:7%;
+    top:39%;
+    width:37%;
+  }
+
+  .input-box input{
+    height:50px;
+    font-size:14px;
+  }
+
+  .login-btn{
+    height:58px;
+    font-size:18px;
+  }
+
+  .socials button{
+    height:46px;
+    font-size:12px;
+  }
+
+  .options,.or,.create{
+    font-size:12px;
+  }
+}
+
+/* جوال */
+@media(max-width:768px){
+  body{
+    overflow:auto;
+  }
+
+  .page{
+    min-height:100vh;
+    background-size:cover;
+    background-position:center top;
+  }
+
+  .login-area{
+    left:7%;
+    right:7%;
+    top:43%;
+    width:auto;
+  }
+
+  .socials{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="page">
+
+  <form class="login-area" id="loginForm">
+
+    <div class="input-box">
+      <span class="ico-left">✉</span>
+      <input id="email" type="email" placeholder="Enter your email">
+    </div>
+
+    <div class="input-box">
+      <span class="ico-left">🔒</span>
+      <input id="password" type="password" placeholder="Enter your password">
+      <span class="ico-right" id="togglePassword">👁</span>
+    </div>
+
+    <div class="options">
+      <label>
+        <input id="remember" type="checkbox" checked>
+        REMEMBER ME
+      </label>
+      <a onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+
+    <button class="login-btn" type="submit">LOGIN →</button>
+
+    <div class="or">OR CONTINUE WITH</div>
+
+    <div class="socials">
+      <button type="button" onclick="socialLogin('Google')">G&nbsp; GOOGLE</button>
+      <button type="button" onclick="socialLogin('Apple')">&nbsp; APPLE</button>
+      <button type="button" onclick="socialLogin('Facebook')">f&nbsp; FACEBOOK</button>
+    </div>
+
+    <div class="create">
+      Don’t have an account?
+      <a onclick="createAccount()">Create Account</a>
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const remember = document.getElementById("remember");
+const toast = document.getElementById("toast");
+
+window.onload = function(){
+  const savedEmail = localStorage.getItem("stylesphere_email");
+  if(savedEmail){
+    email.value = savedEmail;
+    remember.checked = true;
+  }
+};
+
+document.getElementById("togglePassword").onclick = function(){
+  password.type = password.type === "password" ? "text" : "password";
+};
+
+document.getElementById("loginForm").onsubmit = function(e){
+  e.preventDefault();
+
+  if(!email.value || !password.value){
+    showToast("Please enter email and password");
+    return;
+  }
+
+  if(remember.checked){
+    localStorage.setItem("stylesphere_email", email.value);
+  }else{
+    localStorage.removeItem("stylesphere_email");
+  }
+
+  showToast("Login successful — Welcome to StyleSphere");
+};
+
+function socialLogin(name){
+  showToast(name + " login coming soon");
+}
+
+function forgotPassword(){
+  showToast("Password recovery coming soon");
+}
+
+function createAccount(){
+  showToast("Create account page coming soon");
+}
+
+function showToast(message){
+  toast.innerText = message;
+  toast.style.display = "block";
+  setTimeout(function(){
+    toast.style.display = "none";
+  }, 2500);
+}
+</script>
+
+</body>
+</html>
