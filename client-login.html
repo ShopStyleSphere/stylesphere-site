@@ -6,13 +6,17 @@
 <title>StyleSphere Members Club</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 html,body{
   width:100%;
   height:100%;
   background:#000;
-  font-family:Arial,sans-serif;
+  font-family:Arial, sans-serif;
   overflow:hidden;
 }
 
@@ -20,59 +24,71 @@ html,body{
   width:100vw;
   height:100vh;
   position:relative;
-  background:url("login-bg.png") center center / contain no-repeat;
+  background:url("login-bg.png") center center / cover no-repeat;
 }
 
-/* نفس مكان فورم الصورة */
+/* طبقة حماية خفيفة */
+.page::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.03);
+  pointer-events:none;
+}
+
+/* مكان الفورم بالضبط يمين */
 .login-area{
   position:absolute;
-  right:7.1%;
-  top:38.2%;
+  right:7.3%;
+  top:38.5%;
   width:36.5%;
-  max-width:610px;
+  max-width:620px;
+  z-index:5;
 }
 
 .input-box{
   position:relative;
-  margin-bottom:26px;
+  margin-bottom:25px;
 }
 
 .input-box input{
   width:100%;
   height:58px;
-  background:rgba(0,0,0,.15);
-  border:1.5px solid rgba(255,200,45,.95);
-  border-radius:8px;
+  background:rgba(0,0,0,.18);
+  border:1.5px solid rgba(255,205,45,.95);
+  border-radius:9px;
   color:#fff;
   font-size:17px;
-  padding:0 60px;
+  padding:0 62px;
   outline:none;
-  box-shadow:0 0 20px rgba(255,200,45,.45), inset 0 0 15px rgba(255,200,45,.10);
+  box-shadow:
+    0 0 22px rgba(255,200,40,.45),
+    inset 0 0 18px rgba(255,200,40,.12);
 }
 
 .input-box input::placeholder{
-  color:rgba(255,255,255,.65);
+  color:rgba(255,255,255,.7);
 }
 
 .ico-left{
   position:absolute;
-  left:22px;
+  left:23px;
   top:50%;
   transform:translateY(-50%);
   color:#ffd45c;
   font-size:24px;
-  text-shadow:0 0 12px #ffcc33;
+  text-shadow:0 0 13px #ffcc33;
 }
 
 .ico-right{
   position:absolute;
-  right:20px;
+  right:22px;
   top:50%;
   transform:translateY(-50%);
   color:#ffd45c;
   font-size:22px;
   cursor:pointer;
-  text-shadow:0 0 12px #ffcc33;
+  text-shadow:0 0 13px #ffcc33;
 }
 
 .options{
@@ -82,7 +98,7 @@ html,body{
   color:#ffd45c;
   font-size:15px;
   margin-top:-10px;
-  margin-bottom:24px;
+  margin-bottom:25px;
 }
 
 .options label{
@@ -99,20 +115,25 @@ html,body{
 .options a{
   color:#ffd45c;
   text-decoration:none;
+  cursor:pointer;
 }
 
 .login-btn{
   width:100%;
-  height:68px;
+  height:70px;
   border:0;
-  border-radius:9px;
-  background:linear-gradient(90deg,#a96c08,#ffe979,#b8760a);
+  border-radius:10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.45), transparent 38%),
+    linear-gradient(90deg,#9d6508,#ffe66f,#c98510);
   color:#050505;
   font-size:23px;
   font-weight:900;
   letter-spacing:7px;
   cursor:pointer;
-  box-shadow:0 0 32px rgba(255,205,45,.9), inset 0 0 18px rgba(255,255,255,.25);
+  box-shadow:
+    0 0 35px rgba(255,205,45,.9),
+    inset 0 0 22px rgba(255,255,255,.25);
 }
 
 .login-btn:hover{
@@ -121,7 +142,7 @@ html,body{
 
 .or{
   text-align:center;
-  margin:30px 0 17px;
+  margin:31px 0 18px;
   color:#ffd45c;
   font-size:15px;
   letter-spacing:1px;
@@ -135,7 +156,7 @@ html,body{
 
 .socials button{
   height:56px;
-  background:rgba(0,0,0,.38);
+  background:rgba(0,0,0,.40);
   border:1.4px solid rgba(221,168,40,.95);
   border-radius:8px;
   color:#ffd45c;
@@ -145,14 +166,14 @@ html,body{
 }
 
 .socials button:hover{
-  background:rgba(255,200,45,.12);
+  background:rgba(255,200,45,.14);
 }
 
 .create{
   text-align:center;
   color:white;
   font-size:16px;
-  margin-top:23px;
+  margin-top:24px;
 }
 
 .create a{
@@ -162,27 +183,26 @@ html,body{
   cursor:pointer;
 }
 
-/* الرسالة */
 .toast{
   position:fixed;
-  top:20px;
+  top:22px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(0,0,0,.88);
+  background:rgba(0,0,0,.9);
   color:#ffd45c;
   border:1px solid #d6a534;
-  padding:14px 25px;
+  padding:14px 26px;
   border-radius:30px;
   display:none;
   z-index:999;
-  box-shadow:0 0 22px rgba(255,200,45,.45);
+  box-shadow:0 0 25px rgba(255,200,45,.5);
 }
 
-/* شاشة لابتوب صغيرة */
+/* لابتوب صغير */
 @media(max-width:1200px){
   .login-area{
     right:7%;
-    top:38.6%;
+    top:39%;
     width:37%;
   }
 
@@ -208,7 +228,9 @@ html,body{
 
 /* جوال */
 @media(max-width:768px){
-  body{overflow:auto}
+  body{
+    overflow:auto;
+  }
 
   .page{
     min-height:100vh;
@@ -282,7 +304,7 @@ const password = document.getElementById("password");
 const remember = document.getElementById("remember");
 const toast = document.getElementById("toast");
 
-window.onload = () => {
+window.onload = function(){
   const savedEmail = localStorage.getItem("stylesphere_email");
   if(savedEmail){
     email.value = savedEmail;
@@ -290,11 +312,11 @@ window.onload = () => {
   }
 };
 
-document.getElementById("togglePassword").onclick = () => {
+document.getElementById("togglePassword").onclick = function(){
   password.type = password.type === "password" ? "text" : "password";
 };
 
-document.getElementById("loginForm").onsubmit = (e) => {
+document.getElementById("loginForm").onsubmit = function(e){
   e.preventDefault();
 
   if(!email.value || !password.value){
@@ -326,7 +348,7 @@ function createAccount(){
 function showToast(message){
   toast.innerText = message;
   toast.style.display = "block";
-  setTimeout(() => {
+  setTimeout(function(){
     toast.style.display = "none";
   }, 2500);
 }
