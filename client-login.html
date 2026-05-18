@@ -1,543 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StyleSphere Members Club | Client Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Client Login</title>
 
 <style>
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
 body{
+  width:100%;
   min-height:100vh;
-  background:
-    radial-gradient(circle at 18% 42%, rgba(255,190,30,.28), transparent 28%),
-    radial-gradient(circle at 82% 45%, rgba(255,190,30,.18), transparent 30%),
-    linear-gradient(135deg,#020202,#090806 45%,#000);
-  color:#fff;
-  font-family: Georgia, "Times New Roman", serif;
-  overflow-x:hidden;
+  background:#000;
+  font-family:Arial, sans-serif;
+  overflow:hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    repeating-linear-gradient(120deg, rgba(255,215,90,.07) 0 1px, transparent 1px 28px),
-    radial-gradient(circle at left center, rgba(255,190,20,.22), transparent 35%);
-  pointer-events:none;
-}
-
-.header{
-  height:105px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:18px 52px;
-  border-bottom:1px solid rgba(255,204,74,.55);
-  background:rgba(0,0,0,.72);
+.page{
+  width:100vw;
+  height:100vh;
   position:relative;
-  z-index:3;
+  background:url("login-bg.png") center center / cover no-repeat;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  color:#f7d56c;
+/* LOGIN FORM AREA */
+.login-form{
+  position:absolute;
+  right:8.5%;
+  top:37%;
+  width:38%;
+  max-width:560px;
 }
 
-.logo-badge{
-  width:58px;
+.field{
+  width:100%;
   height:58px;
-  border:2px solid #d6a93d;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  box-shadow:0 0 22px rgba(255,203,72,.45);
-}
-
-.logo h1{
-  font-size:31px;
-  letter-spacing:3px;
-  line-height:1;
-}
-
-.logo span{
-  display:block;
-  font-size:12px;
-  letter-spacing:8px;
-  margin-top:8px;
-}
-
-.nav{
-  display:flex;
-  gap:42px;
-  font-weight:bold;
-  font-size:14px;
-  color:#f6d875;
-  text-shadow:0 0 12px #ffcc43;
-}
-
-.status{
-  border:1px solid #c99c31;
-  border-radius:32px;
-  padding:12px 24px;
-  color:#f8dc76;
-  font-size:13px;
-  font-weight:bold;
-  box-shadow:inset 0 0 14px rgba(255,210,64,.18);
-}
-
-.status b{
-  color:#00ff66;
-}
-
-.main{
-  position:relative;
-  z-index:2;
-  padding:26px 64px 22px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.panel{
-  min-height:610px;
-  border:1.5px solid rgba(255,210,77,.78);
-  border-radius:18px;
-  background:rgba(4,4,4,.62);
-  box-shadow:
-    0 0 28px rgba(255,194,34,.22),
-    inset 0 0 35px rgba(255,194,34,.08);
-  position:relative;
-  overflow:hidden;
-}
-
-.left{
-  padding:36px 42px 22px;
-}
-
-.lion{
-  position:absolute;
-  left:-35px;
-  top:92px;
-  width:305px;
-  height:470px;
-  background:
-    radial-gradient(circle at 60% 40%, rgba(255,220,90,.7), transparent 20%),
-    linear-gradient(135deg, transparent 20%, rgba(255,182,20,.18));
-  opacity:.55;
-  filter:drop-shadow(0 0 35px #ffc021);
-}
-
-.lion::before{
-  content:"♛";
-  position:absolute;
-  font-size:260px;
-  color:rgba(245,183,42,.33);
-  left:30px;
-  top:70px;
-  text-shadow:0 0 40px #ffc022;
-}
-
-.left-content{
-  position:relative;
-  z-index:3;
-  text-align:center;
-}
-
-.access{
-  color:#f6d26a;
-  letter-spacing:17px;
-  font-size:17px;
-  margin-bottom:24px;
-}
-
-.crown{
-  color:#f7c747;
-  font-size:44px;
-  text-shadow:0 0 24px #ffce35;
-}
-
-.title{
-  font-size:72px;
-  line-height:.92;
-  color:#f5d776;
-  text-shadow:
-    0 0 12px #fff3aa,
-    0 0 30px #d9a51d,
-    0 5px 0 #7d5a13;
-  margin:8px 0 24px;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  color:#f6d26a;
-  margin-bottom:20px;
-}
-
-.divider::before,
-.divider::after{
-  content:"";
-  width:150px;
-  height:1px;
-  background:linear-gradient(90deg,transparent,#d6a23a,transparent);
-}
-
-.subtitle{
-  font-family:Arial,sans-serif;
-  font-size:17px;
-  letter-spacing:.5px;
-  line-height:1.5;
-  margin-bottom:24px;
-  text-shadow:0 0 10px #fff;
-}
-
-.vip-card{
-  width:430px;
-  height:255px;
-  margin:0 auto;
-  border-radius:18px;
-  padding:28px;
-  text-align:left;
-  background:
-    linear-gradient(135deg, rgba(255,215,84,.18), transparent 28%),
-    repeating-linear-gradient(45deg, rgba(255,215,84,.08) 0 2px, transparent 2px 12px),
-    linear-gradient(135deg,#080806,#17150f 50%,#020202);
-  border:1px solid rgba(255,213,88,.85);
-  box-shadow:
-    0 0 34px rgba(255,201,40,.7),
-    inset 0 0 35px rgba(255,211,70,.14);
-  transform:perspective(900px) rotateX(3deg) rotateZ(-2deg);
-  position:relative;
-  overflow:hidden;
-}
-
-.vip-card::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.25),transparent 60%);
-  transform:rotate(15deg);
-}
-
-.card-brand{
-  color:#f7d86e;
-  font-size:28px;
-  letter-spacing:2px;
-  font-weight:bold;
-}
-
-.card-sub{
-  color:#fff;
-  font-size:12px;
-  letter-spacing:6px;
-  margin-top:4px;
-}
-
-.chip{
-  margin-top:36px;
-  width:58px;
-  height:42px;
-  border-radius:9px;
-  background:linear-gradient(135deg,#fff6a8,#b98217,#fff0a0);
-  box-shadow:0 0 18px rgba(255,215,80,.8);
-}
-
-.nfc{
-  position:absolute;
-  left:100px;
-  top:105px;
-  font-size:38px;
-  color:#f8da74;
-}
-
-.royal{
-  position:absolute;
-  right:34px;
-  top:58px;
-  color:#f7d76e;
-  font-size:21px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.numbers{
-  margin-top:26px;
-  color:#f7d76e;
-  font-size:24px;
-  letter-spacing:6px;
-  font-family:Arial,sans-serif;
-}
-
-.valid{
-  margin-top:10px;
-  color:#fff;
-  font-size:14px;
-  text-align:center;
-}
-
-.visa{
-  position:absolute;
-  right:28px;
-  bottom:25px;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  font-size:42px;
-  font-weight:900;
-  font-style:italic;
-}
-
-.features{
-  margin-top:38px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-}
-
-.feature{
-  border:1px solid rgba(255,210,77,.7);
-  border-radius:11px;
-  padding:18px 8px;
-  min-height:118px;
-  background:rgba(0,0,0,.45);
-  box-shadow:inset 0 0 18px rgba(255,210,77,.08), 0 0 15px rgba(255,210,77,.12);
-  font-family:Arial,sans-serif;
-  font-size:13px;
-  font-weight:bold;
-  color:#f9d96c;
-}
-
-.feature .icon{
-  font-size:35px;
-  margin-bottom:12px;
-  filter:drop-shadow(0 0 12px #ffd23b);
-}
-
-.right{
-  padding:44px 42px;
-}
-
-.login-icon{
-  width:92px;
-  height:92px;
-  border:2px solid #d7a537;
-  border-radius:50%;
-  margin:0 auto 28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#f4d36b;
-  font-size:42px;
-  box-shadow:0 0 35px rgba(255,202,49,.65);
-}
-
-.login-title{
-  text-align:center;
-  color:#f7d76e;
-  font-size:43px;
-  text-shadow:0 0 16px #f3c332;
-  margin-bottom:16px;
-}
-
-.login-text{
-  text-align:center;
-  font-family:Arial,sans-serif;
-  color:#f7f7f7;
-  font-size:17px;
-  line-height:1.6;
-  margin-bottom:34px;
-}
-
-label{
-  display:block;
-  font-family:Arial,sans-serif;
-  color:#f6d36a;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.input{
-  height:62px;
-  border:1px solid #d6a333;
-  border-radius:9px;
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:0 18px;
-  margin-bottom:20px;
-  background:rgba(0,0,0,.5);
-  box-shadow:0 0 18px rgba(255,202,47,.28), inset 0 0 12px rgba(255,202,47,.08);
-}
-
-.input span{
-  color:#f8d66d;
-  font-size:24px;
-}
-
-.input input{
-  flex:1;
+  margin-bottom:28px;
   background:transparent;
-  border:0;
-  outline:0;
+  border:1px solid rgba(255,199,59,.85);
+  border-radius:8px;
   color:white;
-  font-size:16px;
+  font-size:17px;
+  padding:0 55px;
+  outline:none;
+  box-shadow:0 0 18px rgba(255,197,43,.35);
+}
+
+.field::placeholder{
+  color:rgba(255,255,255,.65);
+}
+
+.icon{
+  position:absolute;
+  left:18px;
+  color:#d7a52f;
+  font-size:22px;
+}
+
+.email-icon{
+  top:18px;
+}
+
+.lock-icon{
+  top:104px;
+}
+
+.eye{
+  position:absolute;
+  right:18px;
+  top:104px;
+  color:#d7a52f;
+  font-size:22px;
 }
 
 .row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  font-family:Arial,sans-serif;
-  color:#f8d76b;
-  margin:8px 0 24px;
+  color:#f3d063;
   font-size:14px;
+  margin-top:-10px;
+  margin-bottom:28px;
 }
 
 .login-btn{
   width:100%;
   height:70px;
   border:0;
-  border-radius:10px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.35), transparent 35%),
-    linear-gradient(90deg,#b97908,#fff07b,#c88c12);
+  border-radius:8px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#b9780d,#ffe979,#b8790d);
   color:#111;
   font-size:22px;
-  letter-spacing:6px;
   font-weight:900;
-  box-shadow:0 0 32px rgba(255,207,47,.75);
-  cursor:pointer;
-}
-
-.or{
-  margin:28px 0 18px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  justify-content:center;
-  color:#f6d46b;
-  font-family:Arial,sans-serif;
-  font-size:13px;
-}
-
-.or::before,
-.or::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:linear-gradient(90deg,transparent,#c4932e,transparent);
+  letter-spacing:6px;
+  box-shadow:0 0 30px rgba(255,202,38,.8);
 }
 
 .socials{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  gap:14px;
+  margin-top:70px;
 }
 
 .socials button{
   height:56px;
-  border:1px solid #bc8a2c;
-  border-radius:8px;
-  background:rgba(0,0,0,.45);
-  color:#f7d76e;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(214,164,48,.8);
+  border-radius:7px;
+  color:#f3d063;
   font-weight:bold;
   font-size:15px;
 }
 
 .create{
+  margin-top:22px;
   text-align:center;
-  margin-top:24px;
-  font-family:Arial,sans-serif;
-}
-
-.create span{
   color:#fff;
+  font-size:15px;
 }
 
 .create a{
-  color:#f8d66d;
+  color:#f6c94a;
   font-weight:bold;
   text-decoration:underline;
 }
 
-.footer{
-  margin-top:20px;
-  border-top:1px solid rgba(255,210,77,.45);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-  padding:22px 25px;
-  font-family:Arial,sans-serif;
-  background:rgba(0,0,0,.55);
-}
-
-.foot{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  color:#fff;
-}
-
-.foot i{
-  font-style:normal;
-  font-size:34px;
-  color:#f8d66d;
-  filter:drop-shadow(0 0 12px #ffd33d);
-}
-
-.foot b{
-  color:#f7d76e;
-}
-
+/* MOBILE */
 @media(max-width:900px){
-  .header{
-    padding:18px;
-    height:auto;
-    flex-direction:column;
-    gap:18px;
+  body{
+    overflow:auto;
   }
 
-  .nav{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:18px;
+  .page{
+    min-height:100vh;
+    background-size:cover;
+    background-position:center top;
   }
 
-  .main{
-    padding:18px;
+  .login-form{
+    right:6%;
+    left:6%;
+    top:45%;
+    width:auto;
   }
 
-  .grid{
-    grid-template-columns:1fr;
+  .field{
+    height:52px;
   }
 
-  .title{
-    font-size:48px;
-  }
-
-  .vip-card{
-    width:100%;
-    height:235px;
-  }
-
-  .features,
-  .footer{
-    grid-template-columns:1fr 1fr;
+  .login-btn{
+    height:60px;
   }
 }
 </style>
@@ -545,157 +163,38 @@ label{
 
 <body>
 
-<header class="header">
-  <div class="logo">
-    <div class="logo-badge">S</div>
-    <div>
-      <h1>STYLESPHERE</h1>
-      <span>MEMBERS CLUB</span>
-    </div>
-  </div>
+<div class="page">
 
-  <nav class="nav">
-    <div>HOME</div>
-    <div>ABOUT US</div>
-    <div>BENEFITS</div>
-    <div>PARTNERS</div>
-    <div>SUPPORT</div>
-  </nav>
+  <form class="login-form">
 
-  <div class="status">
-    <b>●</b> SYSTEM STATUS<br>
-    ALL SYSTEMS OPERATIONAL
-  </div>
-</header>
+    <span class="icon email-icon">✉</span>
+    <input class="field" type="email" placeholder="Enter your email">
 
-<main class="main">
+    <span class="icon lock-icon">🔒</span>
+    <input class="field" type="password" placeholder="Enter your password">
+    <span class="eye">👁</span>
 
-  <section class="grid">
-
-    <div class="panel left">
-      <div class="lion"></div>
-
-      <div class="left-content">
-        <div class="access">EXCLUSIVE ACCESS</div>
-        <div class="crown">♛</div>
-
-        <h2 class="title">BEYOND<br>REWARDS</h2>
-
-        <div class="divider">◇</div>
-
-        <p class="subtitle">
-          JOIN A WORLD OF LUXURY,<br>
-          REWARDS AND EXCLUSIVE EXPERIENCES.
-        </p>
-
-        <div class="vip-card">
-          <div class="card-brand">STYLESPHERE</div>
-          <div class="card-sub">MEMBERS CLUB</div>
-
-          <div class="royal">♛<br>ROYAL<br>INFINITY</div>
-
-          <div class="chip"></div>
-          <div class="nfc">)))</div>
-
-          <div class="numbers">5412 7512 3412 3456</div>
-          <div class="valid">12/28</div>
-
-          <div class="visa">VISA</div>
-        </div>
-
-        <div class="features">
-          <div class="feature">
-            <div class="icon">💎</div>
-            EXCLUSIVE<br>REWARDS
-          </div>
-
-          <div class="feature">
-            <div class="icon">♕</div>
-            VIP LEVEL<br>BENEFITS
-          </div>
-
-          <div class="feature">
-            <div class="icon">🌐</div>
-            GLOBAL<br>ACCESS
-          </div>
-
-          <div class="feature">
-            <div class="icon">♛</div>
-            ELITE<br>EXPERIENCES
-          </div>
-        </div>
-      </div>
+    <div class="row">
+      <label><input type="checkbox" checked> REMEMBER ME</label>
+      <span>Forgot Password?</span>
     </div>
 
-    <div class="panel right">
-      <div class="login-icon">👤</div>
+    <button class="login-btn" type="button">LOGIN →</button>
 
-      <h2 class="login-title">CLIENT LOGIN</h2>
-
-      <p class="login-text">
-        Access your account to manage your membership,<br>
-        earn points and unlock exclusive rewards.
-      </p>
-
-      <label>EMAIL ADDRESS</label>
-      <div class="input">
-        <span>✉</span>
-        <input type="email" placeholder="Enter your email">
-      </div>
-
-      <label>PASSWORD</label>
-      <div class="input">
-        <span>🔒</span>
-        <input type="password" placeholder="Enter your password">
-        <span>◉</span>
-      </div>
-
-      <div class="row">
-        <div>☑ REMEMBER ME</div>
-        <div>Forgot Password?</div>
-      </div>
-
-      <button class="login-btn">LOGIN →</button>
-
-      <div class="or">OR CONTINUE WITH</div>
-
-      <div class="socials">
-        <button>G&nbsp; GOOGLE</button>
-        <button>&nbsp; APPLE</button>
-        <button>f&nbsp; FACEBOOK</button>
-      </div>
-
-      <div class="create">
-        <span>Don’t have an account?</span>
-        <a>Create Account</a>
-      </div>
+    <div class="socials">
+      <button type="button">G&nbsp; GOOGLE</button>
+      <button type="button">&nbsp; APPLE</button>
+      <button type="button">f&nbsp; FACEBOOK</button>
     </div>
 
-  </section>
-
-  <section class="footer">
-    <div class="foot">
-      <i>🔐</i>
-      <div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div>
+    <div class="create">
+      Don’t have an account?
+      <a>Create Account</a>
     </div>
 
-    <div class="foot">
-      <i>🌐</i>
-      <div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div>
-    </div>
+  </form>
 
-    <div class="foot">
-      <i>🎧</i>
-      <div><b>24/7 SUPPORT</b><br>We are here anytime</div>
-    </div>
-
-    <div class="foot">
-      <i>♛</i>
-      <div><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div>
-    </div>
-  </section>
-
-</main>
+</div>
 
 </body>
 </html>
