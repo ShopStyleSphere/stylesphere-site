@@ -914,23 +914,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.loginNow = function () {
+window.createAccount = function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   if (!email || !password) {
-    alert("⚠️ اكتب الإيميل والباسورد");
+    alert("❌ اكتب ايميل وباسورد");
     return;
   }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      alert("✅ تم تسجيل الدخول");
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("✅ تم إنشاء الحساب");
     })
     .catch((error) => {
       alert("❌ " + error.message);
     });
 };
+
 </script>
   <section class="footer">
   <div class="foot"><i>🔐</i><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
