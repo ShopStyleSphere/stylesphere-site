@@ -900,6 +900,7 @@ Don't have an account? <a href="#" onclick="openRegister(); return false;">Creat
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyBtTzgyj4jO6twWXbu0BjOHzjNfjzEOkV8",
@@ -922,13 +923,17 @@ window.createAccount = function () {
     return;
   }
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("✅ تم إنشاء الحساب");
-    })
-    .catch((error) => {
-      alert("❌ " + error.message);
-    });
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+
+    sendEmailVerification(user);
+
+    alert("📩 تم إنشاء الحساب، تحقق من بريدك الإلكتروني");
+  })
+  .catch((error) => {
+    alert("❌ " + error.message);
+  });
 };
   
 window.openRegister = function () {
