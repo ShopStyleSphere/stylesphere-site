@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Verify Email</title>
+
+<style>
+body {
+  background:#0b0b0b;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial;
+}
+
+.box {
+  background:#111;
+  padding:40px;
+  border-radius:12px;
+  text-align:center;
+}
+
+button {
+  background:#28a745;
+  padding:15px 30px;
+  border:none;
+  color:white;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.success {
+  margin-top:20px;
+  color:#00ffae;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Confirm your email</h2>
+  <p>Click to activate your account</p>
+
+  <button onclick="verify()">✔ Confirm Email</button>
+
+  <div id="msg" class="success"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "stylesphere-81dfe.firebaseapp.com",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.verify = async function() {
+  const url = new URLSearchParams(window.location.search);
+  const code = url.get("oobCode");
+
+  if (!code) {
+    document.getElementById("msg").innerText = "❌ Invalid link";
+    return;
+  }
+
+  try {
+    await applyActionCode(auth, code);
+    document.getElementById("msg").innerText = "✅ Email verified successfully!";
+  } catch (e) {
+    document.getElementById("msg").innerText = "❌ " + e.message;
+  }
+}
+</script>
+
+</body>
+</html>
