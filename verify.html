@@ -2,52 +2,107 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Verify Email</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Email | StyleSphere</title>
 
 <style>
-body {
-  background:#0b0b0b;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#2b230f,#050505 55%,#000);
   color:white;
+  font-family:Arial,sans-serif;
   display:flex;
-  justify-content:center;
   align-items:center;
-  height:100vh;
-  font-family:Arial;
+  justify-content:center;
 }
-
-.box {
-  background:#111;
-  padding:40px;
-  border-radius:12px;
+.card{
+  width:92%;
+  max-width:460px;
+  padding:38px 28px;
   text-align:center;
+  border:1px solid rgba(255,215,90,.35);
+  border-radius:26px;
+  background:rgba(10,10,10,.82);
+  box-shadow:0 0 55px rgba(255,200,40,.22);
 }
-
-button {
-  background:#28a745;
-  padding:15px 30px;
-  border:none;
-  color:white;
-  font-size:16px;
-  border-radius:8px;
+.logo{
+  font-family:Georgia,serif;
+  font-size:30px;
+  color:#ffd866;
+  letter-spacing:3px;
+  margin-bottom:12px;
+}
+.badge{
+  width:76px;
+  height:76px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  background:linear-gradient(135deg,#b88718,#fff2a8,#c79628);
+  color:#111;
+  box-shadow:0 0 35px rgba(255,215,0,.45);
+}
+h1{
+  margin:8px 0;
+  font-size:28px;
+}
+p{
+  color:#d8d8d8;
+  line-height:1.6;
+  font-size:15px;
+}
+button{
+  margin-top:22px;
+  width:100%;
+  height:58px;
+  border:0;
+  border-radius:16px;
   cursor:pointer;
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#111;
+  background:linear-gradient(120deg,#d89b19,#fff2a8,#c88b13);
+  box-shadow:0 0 30px rgba(255,215,0,.38);
 }
-
-.success {
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+.msg{
   margin-top:20px;
-  color:#00ffae;
+  font-weight:bold;
+  min-height:24px;
+}
+.success{color:#00ff9d}
+.error{color:#ff5a5a}
+.small{
+  margin-top:22px;
+  font-size:13px;
+  color:#999;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>Confirm your email</h2>
-  <p>Click to activate your account</p>
+<div class="card">
+  <div class="logo">STYLESPHERE</div>
+  <div class="badge">✓</div>
 
-  <button onclick="verify()">✔ Confirm Email</button>
+  <h1>Verify Your Email</h1>
+  <p>Confirm your email address to activate your StyleSphere Members Club account.</p>
 
-  <div id="msg" class="success"></div>
+  <button id="verifyBtn" onclick="confirmEmail()">CONFIRM EMAIL →</button>
+
+  <div id="msg" class="msg"></div>
+
+  <div class="small">Secure verification powered by StyleSphere</div>
 </div>
 
 <script type="module">
@@ -55,63 +110,49 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "حط_API_KEY_هنا",
   authDomain: "stylesphere-81dfe.firebaseapp.com",
+  projectId: "stylesphere-81dfe",
+  storageBucket: "stylesphere-81dfe.firebasestorage.app",
+  messagingSenderId: "545255416631",
+  appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.verify = async function() {
-  const url = new URLSearchParams(window.location.search);
-  const code = url.get("oobCode");
+window.confirmEmail = async function () {
+  const btn = document.getElementById("verifyBtn");
+  const msg = document.getElementById("msg");
 
-  if (!code) {
-    document.getElementById("msg").innerText = "❌ Invalid link";
+  const params = new URLSearchParams(window.location.search);
+  const oobCode = params.get("oobCode");
+
+  if (!oobCode) {
+    msg.className = "msg error";
+    msg.innerText = "Invalid verification link.";
     return;
   }
+
+  btn.disabled = true;
+  btn.innerText = "VERIFYING...";
 
   try {
-    await applyActionCode(auth, code);
-    document.getElementById("msg").innerText = "✅ Email verified successfully!";
-  } catch (e) {
-    document.getElementById("msg").innerText = "❌ " + e.message;
-  }
-}
-  <script type="module">
-import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    await applyActionCode(auth, oobCode);
+    msg.className = "msg success";
+    msg.innerText = "Email verified successfully ✅";
 
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "stylesphere-81dfe.firebaseapp.com",
-  projectId: "stylesphere-81dfe"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// استخراج الكود من الرابط
-const urlParams = new URLSearchParams(window.location.search);
-const oobCode = urlParams.get('oobCode');
-
-window.confirmEmail = function () {
-  if (!oobCode) {
-    alert("❌ Invalid link");
-    return;
-  }
-
-  applyActionCode(auth, oobCode)
-    .then(() => {
-      alert("✅ Email verified successfully!");
+    setTimeout(() => {
       window.location.href = "client-login.html";
-    })
-    .catch((error) => {
-      alert("❌ " + error.message);
-    });
+    }, 2500);
+
+  } catch (error) {
+    msg.className = "msg error";
+    msg.innerText = "Verification failed: " + error.message;
+    btn.disabled = false;
+    btn.innerText = "CONFIRM EMAIL →";
+  }
 };
-  
-</script>
 </script>
 
 </body>
