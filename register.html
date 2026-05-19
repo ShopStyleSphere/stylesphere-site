@@ -312,21 +312,27 @@ window.register = function(){
     return;
   }
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      return updateProfile(userCredential.user, { displayName: name })
-        .then(() => sendEmailVerification(userCredential.user));
-    })
-    .then(() => {
-      msg.style.color = "#00ff99";
-      msg.innerText = "Account created. Check your email to verify.";
-      setTimeout(() => {
-        window.location.href = "client-login.html";
-      }, 2500);
-    })
-    .catch((error) => {
-      msg.innerText = error.message;
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+
+    return updateProfile(user, {
+      displayName: name
+    }).then(() => {
+      return sendEmailVerification(user);
     });
+  })
+  .then(() => {
+    msg.style.color = "#00ff99";
+    msg.innerText = "Account created. Check your email to verify.";
+
+    setTimeout(() => {
+      window.location.href = "client-login.html";
+    }, 2500);
+  })
+  .catch((error) => {
+    msg.innerText = error.message;
+  });
 };
 </script>
 
