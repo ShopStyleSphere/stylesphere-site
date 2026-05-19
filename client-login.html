@@ -899,6 +899,22 @@ nav{
 
 </main>
 
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBtTzgyj4j06twXbu0Bj0HzjNfjzE0kV8",
+  authDomain: "stylesphere-81dfe.firebaseapp.com",
+  projectId: "stylesphere-81dfe",
+  storageBucket: "stylesphere-81dfe.firebasestorage.app",
+  messagingSenderId: "545255416631",
+  appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
+};
+
+const app = initializeApp(firebaseConfig);
+
+</script>
 <section class="footer">
   <div class="foot"><i>🔐</i><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
   <div class="foot"><i>🌐</i><div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div></div>
@@ -908,56 +924,5 @@ nav{
 
 </div>
 
-<script>
-function togglePassword() {
-  const p = document.getElementById("password");
-  p.type = p.type === "password" ? "text" : "password";
-}
-
-function loginNow() {
-  let email = document.getElementById("email").value.trim();
-  let password = document.getElementById("password").value.trim();
-
-  let emailBox = document.getElementById("emailBox");
-  let emailError = document.getElementById("emailError");
-
-  // تنظيف الأخطاء
-  emailBox.classList.remove("error");
-  emailError.classList.remove("show");
-
-  // تحقق الإيميل فاضي
-  if (email === "") {
-    emailBox.classList.add("error");
-    emailError.innerText = "Please enter your email";
-    emailError.classList.add("show");
-    return;
-  }
-
-  // تحقق الإيميل غلط
-  if (!email.includes("@")) {
-    emailBox.classList.add("error");
-    emailError.innerText = "Invalid email address";
-    emailError.classList.add("show");
-    return;
-  }
-
-  // تحقق الباسورد فاضي
-  if (password === "") {
-    alert("Please enter your password");
-    return;
-  }
-
-  function resetPassword() {
-  let email = document.getElementById("email").value.trim();
-
-  if (email === "") {
-    alert("Enter your email first");
-    return;
-  }
-
-  alert("Password reset link will be sent to: " + email);
-}
-
-</script>
 </body>
 </html>
