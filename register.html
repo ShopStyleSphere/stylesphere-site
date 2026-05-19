@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account</title>
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.box{
+  width:400px;
+  padding:30px;
+  border-radius:20px;
+  background:#111;
+  box-shadow:0 0 30px rgba(255,215,0,0.3);
+}
+h1{
+  text-align:center;
+  color:gold;
+}
+input{
+  width:100%;
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  border:1px solid gold;
+  background:black;
+  color:white;
+}
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  font-weight:bold;
+  cursor:pointer;
+}
+a{
+  color:gold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Create Account</h1>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="register()">Create Account</button>
+
+  <p style="text-align:center">
+    Already have an account?
+    <a href="client-login.html">Login</a>
+  </p>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBtTzgyj4jO6twWXbu0BjOHzjNfjzEOkV8",
+  authDomain: "stylesphere-81dfe.firebaseapp.com",
+  projectId: "stylesphere-81dfe",
+  storageBucket: "stylesphere-81dfe.firebasestorage.app",
+  messagingSenderId: "545255416631",
+  appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.register = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      sendEmailVerification(userCredential.user);
+      alert("📩 Check your email to verify account");
+      window.location.href = "client-login.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+</script>
+
+</body>
+</html>
