@@ -892,9 +892,8 @@ nav{
   <span>FACEBOOK</span>
 </button>
 </div>
-    <div class="create">
-      Don’t have an account? <a onclick="createAccount()" style="cursor:pointer;">Create Account</a>
-    </div>
+Don't have an account? <a href="#" onclick="openRegister(); return false;">Create Account</a>
+  
   </section>
 
 </main>
@@ -931,7 +930,13 @@ window.createAccount = function () {
       alert("❌ " + error.message);
     });
 };
-
+  
+window.openRegister = function () {
+  document.querySelector(".login h2").innerText = "CREATE ACCOUNT";
+  document.querySelector(".login-btn").innerHTML = "CREATE ACCOUNT →";
+  document.querySelector(".login-btn").setAttribute("onclick", "createAccount()");
+};
+  
 </script>
   <section class="footer">
   <div class="foot"><i>🔐</i><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
