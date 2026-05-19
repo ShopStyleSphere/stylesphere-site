@@ -469,6 +469,16 @@ nav{
   outline: none;
   border: none;
 }
+  .input span {
+  user-select: none;
+}
+
+.input span:focus,
+.input span:active {
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
 
 /* التأثير الذهبي */
 .input:focus-within {
@@ -855,7 +865,8 @@ nav{
     <div class="input">
       <span>🔒</span>
       <input id="password" type="password" placeholder="Enter your password">
-      <span onclick="togglePassword()" style="cursor:pointer">👁</span>
+<span onclick="togglePassword()" style="cursor:pointer;" tabindex="-1">👁</span>
+    
     </div>
 
 <div class="row">
