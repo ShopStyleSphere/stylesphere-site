@@ -78,6 +78,40 @@ window.verify = async function() {
     document.getElementById("msg").innerText = "❌ " + e.message;
   }
 }
+  <script type="module">
+import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "stylesphere-81dfe.firebaseapp.com",
+  projectId: "stylesphere-81dfe"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// استخراج الكود من الرابط
+const urlParams = new URLSearchParams(window.location.search);
+const oobCode = urlParams.get('oobCode');
+
+window.confirmEmail = function () {
+  if (!oobCode) {
+    alert("❌ Invalid link");
+    return;
+  }
+
+  applyActionCode(auth, oobCode)
+    .then(() => {
+      alert("✅ Email verified successfully!");
+      window.location.href = "client-login.html";
+    })
+    .catch((error) => {
+      alert("❌ " + error.message);
+    });
+};
+  
+</script>
 </script>
 
 </body>
