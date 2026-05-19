@@ -900,11 +900,11 @@ nav{
 </main>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBtTzgyj4j06twXbu0Bj0HzjNfjzE0kV8",
+  apiKey: "AIzaSyBtTzgyj4j06twwXbu0BjOHZjNfjzE0kV8",
   authDomain: "stylesphere-81dfe.firebaseapp.com",
   projectId: "stylesphere-81dfe",
   storageBucket: "stylesphere-81dfe.firebasestorage.app",
@@ -913,9 +913,27 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
+window.loginNow = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("⚠️ اكتب الإيميل والباسورد");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("✅ تم تسجيل الدخول");
+    })
+    .catch((error) => {
+      alert("❌ " + error.message);
+    });
+};
 </script>
-<section class="footer">
+  <section class="footer">
   <div class="foot"><i>🔐</i><div><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div></div>
   <div class="foot"><i>🌐</i><div><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div></div>
   <div class="foot"><i>🎧</i><div><b>24/7 SUPPORT</b><br>We are here anytime</div></div>
