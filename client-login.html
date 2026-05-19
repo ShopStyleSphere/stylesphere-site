@@ -893,7 +893,7 @@ nav{
 </button>
 </div>
     <div class="create">
-      Don’t have an account? <a>Create Account</a>
+      Don’t have an account? <a onclick="createAccount()" style="cursor:pointer;">Create Account</a>
     </div>
   </section>
 
@@ -901,8 +901,7 @@ nav{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyBtTzgyj4jO6twWXbu0BjOHzjNfjzEOkV8",
   authDomain: "stylesphere-81dfe.firebaseapp.com",
