@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Settings</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
+body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.24),transparent 25%),radial-gradient(circle at 85% 20%,rgba(0,255,120,.12),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:76px 76px;animation:gridMove 18s linear infinite}
+@keyframes gridMove{to{background-position:152px 152px}}
+
+.page{padding:26px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
+.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green),0 0 28px var(--green);animation:pulse 1.3s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+
+.layout{display:grid;grid-template-columns:290px 1fr;gap:24px}
+.sidebar,.panel,.box,.setting,.device{border:1px solid rgba(255,227,110,.72);background:var(--glass);box-shadow:0 0 35px rgba(255,215,0,.22),inset 0 0 24px rgba(255,215,0,.08)}
+.sidebar{position:sticky;top:22px;height:fit-content;border-radius:30px;padding:22px}
+.profile{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,215,0,.35);margin-bottom:18px}
+.avatar{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;border:1px solid var(--gold);color:var(--gold);font-size:36px;box-shadow:0 0 28px gold}
+.profile h3{color:var(--gold);font-size:16px;margin-bottom:6px}.profile p{color:#ddd;font-size:13px}
+.nav a{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;padding:14px;border-radius:14px;margin-bottom:9px;transition:.3s;font-weight:700}
+.nav a:hover,.nav a.active{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;transform:translateX(4px)}
+
+.main{display:grid;gap:24px}
+.panel,.box{border-radius:30px;padding:28px;position:relative;overflow:hidden}
+.panel h1,.box h2{color:var(--gold);text-shadow:0 0 22px gold;margin-bottom:12px}
+.panel p,.box p{color:#ddd;line-height:1.6}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.security-card{border-radius:30px;padding:28px;min-height:250px;position:relative;overflow:hidden;background:linear-gradient(135deg,#060606 0%,#151515 45%,#d9d8c7 100%);border:1px solid var(--gold);box-shadow:0 0 50px gold;transform:perspective(1000px) rotateX(5deg) rotateY(-6deg);transition:.2s}
+.security-card::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
+.security-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 18%,rgba(255,215,0,.28),transparent 35%)}
+@keyframes shine{to{left:150%}}
+.security-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.sec-top{display:flex;justify-content:space-between;font-weight:900}
+.sec-brand{font-size:28px;color:var(--gold);text-shadow:0 0 14px gold}
+.sec-icon{font-size:48px;color:var(--gold);text-shadow:0 0 20px gold}
+.sec-id{letter-spacing:3px;font-weight:bold}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{border:1px solid rgba(255,227,110,.72);border-radius:22px;padding:22px;background:var(--glass);box-shadow:0 0 25px rgba(255,215,0,.18);transition:.3s}
+.stat:hover,.box:hover,.setting:hover,.device:hover{transform:translateY(-5px);box-shadow:0 0 38px gold}
+.stat i,.box i,.setting i{color:var(--gold);font-size:28px;margin-bottom:12px}
+.stat h3{color:var(--gold);font-size:28px;margin-bottom:6px}.stat p{color:#ddd;font-size:14px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.settings-list{display:grid;gap:14px}
+.setting{border-radius:20px;padding:18px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.setting-left{display:flex;gap:14px;align-items:center}
+.setting strong{color:var(--gold)}
+.setting p{font-size:13px;color:#ddd}
+.switch{width:58px;height:30px;border-radius:40px;background:#111;border:1px solid var(--gold);position:relative;cursor:pointer;box-shadow:0 0 14px rgba(255,215,0,.35)}
+.switch::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;left:4px;top:3px;background:#888;transition:.25s}
+.switch.active{background:rgba(0,255,102,.18);box-shadow:0 0 18px var(--green)}
+.switch.active::after{left:30px;background:var(--green);box-shadow:0 0 15px var(--green)}
+
+.form{display:grid;gap:12px;margin-top:12px}
+.form input,.form select{height:52px;border:1px solid var(--gold);border-radius:14px;background:#070707;color:white;padding:0 14px;outline:none}
+.btn{border:none;border-radius:16px;padding:14px 18px;cursor:pointer;color:#111;font-weight:900;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn.dark{background:#050505;color:var(--gold);border:1px solid var(--gold)}
+
+.device{border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.device strong{color:var(--gold)}
+.badge{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);border-radius:30px;padding:8px 12px;font-weight:900}
+.notify{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--gold);border-radius:16px;background:#050505;color:var(--gold);box-shadow:0 0 25px gold}
+
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}.hero,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.page{padding:16px}.header{flex-direction:column;gap:14px}.stats{grid-template-columns:1fr}.logo{font-size:25px}.setting{align-items:flex-start;flex-direction:column}.device{align-items:flex-start;flex-direction:column;gap:10px}}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status"><span class="dot"></span> SETTINGS SYSTEM ONLINE</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"><i class="fa-solid fa-gear"></i></div>
+    <h3>MOHAMMED GHALEB</h3>
+    <p>Account Control Center</p>
+  </div>
+
+  <nav class="nav">
+    <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+    <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+    <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+    <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+    <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
+    <a class="active" href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+    <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<section class="hero">
+  <div class="panel">
+    <h1>Account Settings</h1>
+    <p>Manage your profile, security preferences, notifications, devices, language, currency and privacy controls for your StyleSphere membership account.</p>
+    <br>
+    <button class="btn" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+  </div>
+
+  <div class="security-card" id="settingsCard">
+    <div class="security-content">
+      <div class="sec-top">
+        <div class="sec-brand">STYLESPHERE</div>
+        <div>ACCOUNT<br>CONTROL</div>
+      </div>
+      <div class="sec-icon"><i class="fa-solid fa-user-shield"></i></div>
+      <div>
+        <div class="sec-id">SECURITY LEVEL: HIGH</div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:12px;font-weight:bold">
+          <span>2FA READY</span>
+          <span>PRIVACY ACTIVE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><i class="fa-solid fa-shield"></i><h3>High</h3><p>Security Level</p></div>
+  <div class="stat"><i class="fa-solid fa-bell"></i><h3>On</h3><p>Notifications</p></div>
+  <div class="stat"><i class="fa-solid fa-earth-americas"></i><h3>USD</h3><p>Currency</p></div>
+  <div class="stat"><i class="fa-solid fa-lock"></i><h3>Private</h3><p>Privacy Mode</p></div>
+</section>
+
+<section class="grid">
+  <div class="box">
+    <h2>Profile Information</h2>
+    <div class="form">
+      <input id="fullName" value="MOHAMMED GHALEB" placeholder="Full Name">
+      <input id="email" value="test@stylesphere.com" placeholder="Email Address">
+      <input id="phone" placeholder="Phone Number">
+      <select id="country">
+        <option>Saudi Arabia</option>
+        <option>United Kingdom</option>
+        <option>United Arab Emirates</option>
+        <option>United States</option>
+      </select>
+      <select id="currency">
+        <option>USD</option>
+        <option>SAR</option>
+        <option>GBP</option>
+        <option>EUR</option>
+      </select>
+      <button class="btn" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Update Profile</button>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Security & Privacy</h2>
+    <div class="settings-list">
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-key"></i><div><strong>Two-Factor Authentication</strong><p>Add extra protection to your account.</p></div></div>
+        <div class="switch active" onclick="toggleSwitch(this)"></div>
+      </div>
+
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-envelope"></i><div><strong>Email Alerts</strong><p>Receive login and activity notifications.</p></div></div>
+        <div class="switch active" onclick="toggleSwitch(this)"></div>
+      </div>
+
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-eye-slash"></i><div><strong>Privacy Mode</strong><p>Hide sensitive information on dashboard.</p></div></div>
+        <div class="switch active" onclick="toggleSwitch(this)"></div>
+      </div>
+
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-fingerprint"></i><div><strong>Biometric Ready</strong><p>Prepare account for biometric login.</p></div></div>
+        <div class="switch" onclick="toggleSwitch(this)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="box">
+    <h2>Trusted Devices</h2>
+    <div class="device"><div><strong>Windows Laptop</strong><p>Jeddah, Saudi Arabia</p></div><span class="badge">ACTIVE</span></div>
+    <div class="device"><div><strong>Android Device</strong><p>Mobile Access</p></div><span class="badge">TRUSTED</span></div>
+    <button class="btn dark" onclick="showNotice('Device security reviewed')"><i class="fa-solid fa-shield-halved"></i> Review Devices</button>
+  </div>
+
+  <div class="box">
+    <h2>Account Actions</h2>
+    <div class="settings-list">
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-lock"></i><div><strong>Change Password</strong><p>Update your login password.</p></div></div>
+        <button class="btn dark" onclick="showNotice('Password update request created')">Update</button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-file-export"></i><div><strong>Export Data</strong><p>Download account activity and wallet records.</p></div></div>
+        <button class="btn dark" onclick="showNotice('Data export started')">Export</button>
+      </div>
+
+      <div class="setting">
+        <div class="setting-left"><i class="fa-solid fa-user-slash"></i><div><strong>Deactivate Account</strong><p>Temporarily disable account access.</p></div></div>
+        <button class="btn dark" onclick="showNotice('Deactivate request pending')">Request</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="notify" id="notify"><i class="fa-solid fa-bell"></i><span id="notifyText">Done</span></div>
+
+<script>
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
+
+function showNotice(text){
+  const n=document.getElementById("notify");
+  document.getElementById("notifyText").textContent=text;
+  n.style.display="flex";
+  setTimeout(()=>n.style.display="none",2800);
+}
+
+function toggleSwitch(el){
+  el.classList.toggle("active");
+  showNotice(el.classList.contains("active") ? "Setting enabled" : "Setting disabled");
+}
+
+function saveProfile(){
+  const name=document.getElementById("fullName").value.trim();
+  if(!name){showNotice("Enter full name");return}
+  showNotice("Profile settings saved");
+}
+
+const card=document.getElementById("settingsCard");
+card.addEventListener("mousemove",function(e){
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  const rotateX=-((y/rect.height)-.5)*16;
+  const rotateY=((x/rect.width)-.5)*16;
+  card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseenter",()=>{card.style.boxShadow="0 0 80px gold,0 0 120px rgba(255,215,0,.4)"});
+card.addEventListener("mouseleave",function(){
+  card.style.transform="perspective(1000px) rotateX(5deg) rotateY(-6deg)";
+  card.style.boxShadow="0 0 50px gold";
+});
+</script>
+
+</body>
+</html>
