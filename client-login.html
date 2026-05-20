@@ -861,13 +861,13 @@ nav{
 </div>
 
 <div class="error-message" id="emailError"></div>
-      <label>PASSWORD</label>
-      <div class="input">
-        <i class="fa fa-lock"></i>
-        <input id="password" type="password" placeholder="Enter your password">
-        <i class="fa fa-eye eye" onclick="togglePassword('password', this)"></i>
-      </div>
-    <div class="row">
+<label>PASSWORD</label>
+
+<div class="input" style="position:relative;">
+  <span>🔒</span>
+  <input id="password" type="password" placeholder="Enter your password">
+  <span onclick="togglePassword()" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); cursor:pointer; color:gold; font-size:18px;">👁️</span>
+</div>    <div class="row">
 
   <label class="remember-label">
     <input type="checkbox" id="rememberMe">
