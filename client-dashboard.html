@@ -3,756 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Executive Dashboard</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>StyleSphere Login</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
 
-:root{
-  --gold:#ffe36e;
-  --gold2:#d4af37;
-  --dark:#030303;
-  --glass:rgba(0,0,0,.72);
-  --line:rgba(255,227,110,.72);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
-
-html{scroll-behavior:smooth}
 
 body{
-  min-height:100vh;
-  background:#020202;
-  color:white;
-  font-family:Arial,sans-serif;
-  overflow-x:hidden;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+  overflow:hidden;
+  color:#fff;
 }
 
+/* 🔥 خلفية متحركة */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  z-index:-3;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(255,215,0,.25),transparent 28%),
-    radial-gradient(circle at 82% 18%,rgba(0,255,130,.13),transparent 25%),
-    radial-gradient(circle at 50% 90%,rgba(255,215,0,.12),transparent 35%),
-    linear-gradient(135deg,#000,#080603,#000);
-  animation:bgShift 8s infinite alternate;
-}
-
-@keyframes bgShift{
-  from{filter:hue-rotate(0deg) brightness(1)}
-  to{filter:hue-rotate(12deg) brightness(1.12)}
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background-image:
-    linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);
-  background-size:76px 76px;
-  animation:gridMove 18s linear infinite;
-}
-
-@keyframes gridMove{
-  from{background-position:0 0}
-  to{background-position:152px 152px}
-}
-
-.page{
-  width:100%;
-  min-height:100vh;
-  padding:26px;
-}
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
-}
-
-.logo{
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:3px;
-  color:var(--gold);
-  text-shadow:0 0 25px gold;
-}
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 22px;
-  border:1px solid var(--gold);
-  border-radius:50px;
-  background:rgba(0,0,0,.72);
-  color:var(--gold);
-  font-weight:900;
-  box-shadow:0 0 24px rgba(255,215,0,.65);
-}
-
-.dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:#00ff66;
-  box-shadow:0 0 10px #00ff66,0 0 28px #00ff66;
-  animation:dotPulse 1.3s infinite;
-}
-
-@keyframes dotPulse{
-  50%{opacity:.38;transform:scale(.75)}
-}
-
-.layout{
-  display:grid;
-  grid-template-columns:290px 1fr;
-  gap:24px;
-}
-
-.sidebar{
-  position:sticky;
-  top:22px;
-  height:fit-content;
-  border:1px solid var(--line);
-  border-radius:30px;
-  padding:22px;
-  background:var(--glass);
-  box-shadow:0 0 35px rgba(255,215,0,.22), inset 0 0 25px rgba(255,215,0,.08);
-}
-
-.profile{
-  text-align:center;
-  padding-bottom:20px;
-  border-bottom:1px solid rgba(255,215,0,.35);
-  margin-bottom:18px;
-}
-
-.avatar{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  margin:0 auto 12px;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  font-size:36px;
-  box-shadow:0 0 28px gold;
-}
-
-.profile h3{
-  color:var(--gold);
-  margin-bottom:6px;
-  font-size:16px;
-}
-
-.profile p{
-  color:#ddd;
-  font-size:13px;
-}
-
-.nav a{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:white;
-  text-decoration:none;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:9px;
-  transition:.3s;
-  font-weight:700;
-}
-
-.nav a:hover,
-.nav a.active{
-  color:#111;
-  background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);
-  box-shadow:0 0 22px gold;
-  transform:translateX(4px);
-}
-
-.main{
-  display:grid;
-  gap:24px;
-}
-
-.panel,
-.card,
-.stat,
-.box{
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:28px;
-  background:rgba(0,0,0,.72);
-  box-shadow:0 0 35px rgba(255,215,0,.22), inset 0 0 24px rgba(255,215,0,.08);
-}
-
-.panel::after,
-.stat::after,
-.box::after{
-  content:"";
-  position:absolute;
-  inset:-120%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.26),transparent);
-  transform:rotate(25deg);
-  opacity:0;
-  transition:.55s;
-}
-
-.panel:hover::after,
-.stat:hover::after,
-.box:hover::after{
-  opacity:1;
-  inset:120%;
-}
-
-.hero{
-  padding:28px;
-  display:grid;
-  grid-template-columns:1fr 380px;
-  gap:26px;
-  align-items:center;
-}
-
-.hero h1{
-  font-size:48px;
-  color:var(--gold);
-  text-shadow:0 0 28px gold;
-  margin-bottom:10px;
-}
-
-.hero p{
-  color:#e8e8e8;
-  line-height:1.7;
-  max-width:700px;
-}
-
-.action-row{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:22px;
-}
-
-.btn{
-  border:none;
-  border-radius:16px;
-  padding:15px 20px;
-  cursor:pointer;
-  color:#111;
-  font-weight:900;
-  background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);
-  box-shadow:0 0 24px gold;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-}
-
-.btn.dark{
-  color:var(--gold);
-  background:rgba(0,0,0,.55);
-  border:1px solid var(--gold);
-}
-
-.vip-card{
-  height:235px;
-  border-radius:28px;
-  padding:24px;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,#080808 0%,#121212 42%,#d9d8c7 100%);
-  border:1px solid var(--gold);
-  box-shadow:0 0 45px gold;
-  transform:perspective(1000px) rotateX(6deg) rotateY(-7deg);
-}
-
-.vip-card::before{
-  content:"";
-  position:absolute;
-  inset:-80%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);
-  transform:rotate(25deg);
-  animation:cardShine 4s linear infinite;
-}
-
-.vip-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 75% 18%,rgba(255,215,0,.27),transparent 35%),
-    linear-gradient(115deg,transparent 48%,rgba(255,255,255,.25) 49%,rgba(255,255,255,.14) 65%,transparent 66%);
-}
-
-@keyframes cardShine{
-  from{left:-150%}
-  to{left:150%}
-}
-
-.vip-content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.card-top{
-  display:flex;
-  justify-content:space-between;
-  font-weight:900;
-}
-
-.card-brand{
-  color:var(--gold);
-  font-size:27px;
-  text-shadow:0 0 14px gold;
-}
-
-.card-tier{
-  text-align:right;
-  font-size:14px;
-}
-
-.chip-row{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-
-.chip{
-  width:52px;
-  height:38px;
-  border-radius:9px;
-  background:linear-gradient(135deg,#b8860b,#fff3a3,#c99922);
-  box-shadow:0 0 18px gold;
-}
-
-.nfc{
-  color:var(--gold);
-  font-size:32px;
-  transform:rotate(90deg);
-  animation:nfcPulse 1.7s infinite;
-}
-
-@keyframes nfcPulse{
-  50%{opacity:.35;filter:brightness(1.8)}
-}
-
-.card-number{
-  font-size:21px;
-  letter-spacing:5px;
-  text-shadow:0 0 9px white;
-}
-
-.card-bottom{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-.stat{
-  padding:22px;
-  transition:.3s;
-}
-
-.stat:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 38px gold;
-}
-
-.stat i{
-  color:var(--gold);
-  font-size:28px;
-  margin-bottom:12px;
-}
-
-.stat h3{
-  color:var(--gold);
-  font-size:30px;
-  margin-bottom:6px;
-}
-
-.stat p{
-  color:#ddd;
-  font-size:14px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:24px;
-}
-
-.box{
-  padding:24px;
-}
-
-.box h2{
-  color:var(--gold);
-  margin-bottom:18px;
-  text-shadow:0 0 15px gold;
-}
-
-.progress{
-  width:100%;
-  height:15px;
-  border-radius:30px;
-  background:#111;
-  border:1px solid rgba(255,215,0,.55);
-  overflow:hidden;
-  margin:18px 0;
-}
-
-.progress span{
-  display:block;
-  width:0;
-  height:100%;
-  background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);
-  box-shadow:0 0 24px gold;
-  animation:fillProgress 1.8s forwards;
-}
-
-@keyframes fillProgress{
-  to{width:72%}
-}
-
-.qr{
-  width:178px;
-  height:178px;
-  margin:12px auto;
-  border-radius:18px;
-  background:
-    linear-gradient(90deg,#111 11px,transparent 11px) 0 0/29px 29px,
-    linear-gradient(#111 11px,transparent 11px) 0 0/29px 29px,
-    #eee;
-  border:8px solid var(--gold);
-  box-shadow:0 0 28px gold;
-  animation:qrGlow 2s infinite alternate;
-}
-
-@keyframes qrGlow{
-  to{box-shadow:0 0 42px gold}
-}
-
-.rewards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-
-.reward{
-  border:1px solid rgba(255,215,0,.65);
-  border-radius:20px;
-  padding:22px;
-  text-align:center;
-  background:rgba(0,0,0,.55);
-  transition:.3s;
-}
-
-.reward:hover{
-  transform:scale(1.04);
-  box-shadow:0 0 28px gold;
-}
-
-.reward i{
-  color:var(--gold);
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.transactions{
-  display:grid;
-  gap:12px;
-}
-
-.tx{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px;
-  border:1px solid rgba(255,215,0,.4);
-  border-radius:16px;
-  background:rgba(255,255,255,.035);
-}
-
-.tx strong{
-  color:var(--gold);
-}
-
-.notify{
-  position:fixed;
-  right:22px;
-  bottom:22px;
-  z-index:20;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:14px 20px;
-  border:1px solid var(--gold);
-  border-radius:16px;
-  background:#050505;
-  color:var(--gold);
-  box-shadow:0 0 25px gold;
-  animation:notifyIn .6s ease;
-}
-
-@keyframes notifyIn{
-  from{transform:translateX(200px);opacity:0}
-  to{transform:translateX(0);opacity:1}
-}
-
-@media(max-width:1050px){
-  .layout{grid-template-columns:1fr}
-  .sidebar{position:relative;top:0}
-  .hero{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr 1fr}
-  .grid{grid-template-columns:1fr}
-  .rewards{grid-template-columns:1fr}
-}
-
-@media(max-width:600px){
-  .page{padding:16px}
-  .header{flex-direction:column;gap:14px}
-  .stats{grid-template-columns:1fr}
-  .logo{font-size:25px}
-  .hero h1{font-size:36px}
-}
-
-body::before{
+  z-index:-1;
   background:
   radial-gradient(circle at var(--x) var(--y), rgba(255,215,0,.25), transparent 25%),
   linear-gradient(135deg,#000,#080603,#000);
 }
 
-.vip-card{
-  transition: transform .2s ease, box-shadow .2s;
+/* الحاوية */
+.container{
+  width:1200px;
+  display:flex;
+  gap:30px;
 }
-  
+
+/* البوكس */
+.box{
+  flex:1;
+  padding:40px;
+  border-radius:20px;
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,215,0,.3);
+  box-shadow:0 0 20px rgba(255,215,0,.2);
+}
+
+/* العنوان */
+.title{
+  font-size:40px;
+  color:gold;
+  margin-bottom:20px;
+  text-shadow:0 0 20px gold;
+}
+
+/* البطاقة */
+.vip-card{
+  margin-top:30px;
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#111,#222);
+  box-shadow:0 0 30px gold;
+  transition:.2s;
+}
+
+.vip-card h3{
+  color:gold;
+}
+
+.card-number{
+  margin-top:20px;
+  letter-spacing:3px;
+  font-size:18px;
+}
+
+/* الفورم */
+.input{
+  margin-top:20px;
+}
+
+.input input{
+  width:100%;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid rgba(255,215,0,.4);
+  background:transparent;
+  color:#fff;
+  outline:none;
+}
+
+/* زر */
+.btn{
+  margin-top:25px;
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:12px;
+  background:gold;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover{
+  box-shadow:0 0 30px gold;
+}
+
+/* زر تسجيل */
+.register{
+  margin-top:15px;
+  text-align:center;
+}
+
+.register a{
+  color:gold;
+  text-decoration:none;
+}
+
+/* الحالة */
+.status{
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:10px 20px;
+  border-radius:20px;
+  background:#0f0;
+  color:#000;
+  font-weight:bold;
+  box-shadow:0 0 20px #0f0;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<div class="status">● STORE ONLINE</div>
 
-<header class="header">
-  <div class="logo">Ⓢ STYLESPHERE</div>
-  <div class="status"><span class="dot"></span> EXECUTIVE SYSTEM ONLINE</div>
-</header>
+<div class="container">
 
-<div class="layout">
-
-<aside class="sidebar">
-  <div class="profile">
-    <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
-    <h3>MOHAMMED GHALEB</h3>
-    <p>Royal Infinity Member</p>
-  </div>
-
-  <nav class="nav">
-    <a class="active" href="#dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-    <a href="#wallet"><i class="fa-solid fa-wallet"></i> Wallet</a>
-    <a href="#rewards"><i class="fa-solid fa-gift"></i> Rewards</a>
-    <a href="#qr"><i class="fa-solid fa-qrcode"></i> QR Access</a>
-    <a href="#card"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
-    <a href="#activity"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
-    <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-  </nav>
-</aside>
-
-<main class="main" id="dashboard">
-
-<section class="panel hero">
-  <div>
-    <h1>Welcome Back</h1>
-    <p>
-      Your premium StyleSphere membership command center. Manage points,
-      wallet balance, QR access, NFC card, rewards and exclusive global benefits.
-    </p>
-
-    <div class="action-row">
-      <a class="btn" href="#card"><i class="fa-solid fa-credit-card"></i> Request NFC Card</a>
-      <a class="btn dark" href="#rewards"><i class="fa-solid fa-gift"></i> View Rewards</a>
-    </div>
-  </div>
-
-  <div class="vip-card" id="vipCard">
-    <div class="vip-content">
-      <div class="card-top">
-        <div class="card-brand">STYLESPHERE</div>
-        <div class="card-tier">ROYAL INFINITY<br>WORLD ELITE</div>
-      </div>
-
-      <div class="chip-row">
-        <div class="chip"></div>
-        <i class="fa-solid fa-wifi nfc"></i>
-      </div>
-
-      <div class="card-number">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;3488</div>
-
-      <div class="card-bottom">
-        <span>MEMBER SINCE 2026</span>
-        <span>NFC ENABLED</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="stats">
-  <div class="stat">
-    <i class="fa-solid fa-coins"></i>
-    <h3 id="points">0</h3>
-    <p>Total Points</p>
-  </div>
-
-  <div class="stat" id="wallet">
-    <i class="fa-solid fa-wallet"></i>
-    <h3>$240.00</h3>
-    <p>Wallet Balance</p>
-  </div>
-
-  <div class="stat">
-    <i class="fa-solid fa-crown"></i>
-    <h3>Royal</h3>
-    <p>Membership Level</p>
-  </div>
-
-  <div class="stat">
-    <i class="fa-solid fa-gift"></i>
-    <h3 id="rewardsCount">0</h3>
-    <p>Available Rewards</p>
-  </div>
-</section>
-
-<section class="grid">
+  <!-- اليسار -->
   <div class="box">
-    <h2>Membership Progress</h2>
-    <p>You are 72% away from unlocking the next elite level.</p>
-    <div class="progress"><span></span></div>
-    <p><strong style="color:var(--gold)">Next Level:</strong> Imperial Infinity</p>
-  </div>
+    <div class="title">BEYOND REWARDS</div>
+    <p>Join a world of luxury rewards and exclusive experiences.</p>
 
-  <div class="box" id="qr">
-    <h2>QR Access</h2>
-    <div class="qr"></div>
-    <p style="text-align:center">Scan for member verification</p>
-  </div>
-</section>
-
-<section class="box" id="rewards">
-  <h2>Exclusive Rewards Store</h2>
-
-  <div class="rewards">
-    <div class="reward">
-      <i class="fa-solid fa-ticket"></i>
-      <h3>Event Access</h3>
-      <p>Coming Soon</p>
+    <div class="vip-card">
+      <h3>STYLESPHERE</h3>
+      <p>Royal Infinity Member</p>
+      <div class="card-number">5412 7512 3412 3488</div>
     </div>
 
-    <div class="reward">
-      <i class="fa-solid fa-plane"></i>
-      <h3>Travel Rewards</h3>
-      <p>Coming Soon</p>
+  </div>
+
+  <!-- اليمين -->
+  <div class="box">
+    <div class="title">CLIENT LOGIN</div>
+
+    <div class="input">
+      <input type="email" placeholder="Enter your email">
     </div>
 
-    <div class="reward">
-      <i class="fa-solid fa-mobile-screen"></i>
-      <h3>Electronics Gifts</h3>
-      <p>Coming Soon</p>
+    <div class="input">
+      <input type="password" placeholder="Enter your password">
     </div>
+
+    <button class="btn">LOGIN</button>
+
+    <div class="register">
+      Don't have an account?
+      <a href="register.html">Create Account</a>
+    </div>
+
   </div>
-</section>
 
-<section class="box" id="card">
-  <h2>NFC Card Services</h2>
-  <p>Request a physical StyleSphere NFC membership card, activate digital access, or manage your secure member identity.</p>
-  <br>
-  <a class="btn" href="#"><i class="fa-solid fa-truck-fast"></i> Order Physical Card</a>
-</section>
-
-<section class="box" id="activity">
-  <h2>Recent Activity</h2>
-
-  <div class="transactions">
-    <div class="tx"><span>Membership activated</span><strong>+500 pts</strong></div>
-    <div class="tx"><span>Welcome bonus</span><strong>+250 pts</strong></div>
-    <div class="tx"><span>Wallet top-up</span><strong>$100.00</strong></div>
-    <div class="tx"><span>NFC card requested</span><strong>Pending</strong></div>
-  </div>
-</section>
-
-</main>
-
-</div>
-</div>
-
-<div class="notify">
-  <i class="fa-solid fa-bell"></i>
-  Premium dashboard upgraded successfully
 </div>
 
 <script>
-function animateValue(id,start,end,duration){
-  const obj=document.getElementById(id);
-  let startTime=null;
 
-  function step(timestamp){
-    if(!startTime)startTime=timestamp;
-    const progress=Math.min((timestamp-startTime)/duration,1);
-    const value=Math.floor(progress*(end-start)+start);
-    obj.textContent=value.toLocaleString();
-    if(progress<1)requestAnimationFrame(step);
-  }
-
-  requestAnimationFrame(step);
-}
-
-animateValue("points",0,12450,1400);
-animateValue("rewardsCount",0,8,1000);
-
-const card=document.getElementById("vipCard");
-
-card.addEventListener("mousemove",function(e){
-  const rect=card.getBoundingClientRect();
-  const x=e.clientX-rect.left;
-  const y=e.clientY-rect.top;
-  const rotateX=-((y/rect.height)-.5)*16;
-  const rotateY=((x/rect.width)-.5)*16;
-  card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
-
-card.addEventListener("mouseleave",function(){
-  card.style.transform="perspective(1000px) rotateX(6deg) rotateY(-7deg)";
-});
-
-setTimeout(()=>{
-  const n=document.querySelector(".notify");
-  if(n)n.style.display="none";
-},5000);
-
-// Glow follow mouse (احترافي جدا)
-document.addEventListener("mousemove", (e) => {
+/* 🔥 حركة الخلفية */
+document.addEventListener("mousemove", (e)=>{
   document.body.style.setProperty('--x', e.clientX + 'px');
   document.body.style.setProperty('--y', e.clientY + 'px');
+});
+
+/* 🔥 حركة البطاقة */
+const card = document.querySelector(".vip-card");
+
+card.addEventListener("mousemove", (e)=>{
+  let x = e.offsetX;
+  let y = e.offsetY;
+
+  let rotateY = (x / card.offsetWidth - 0.5) * 20;
+  let rotateX = (y / card.offsetHeight - 0.5) * -20;
+
+  card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.05)`;
+});
+
+card.addEventListener("mouseenter", ()=>{
+  card.style.boxShadow="0 0 80px gold, 0 0 120px rgba(255,215,0,.4)";
+});
+
+card.addEventListener("mouseleave", ()=>{
+  card.style.transform="rotateY(0) rotateX(0)";
+  card.style.boxShadow="0 0 30px gold";
 });
 
 </script>
