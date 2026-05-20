@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere QR Access</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
+body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.24),transparent 25%),radial-gradient(circle at 85% 20%,rgba(0,255,120,.12),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:76px 76px;animation:gridMove 18s linear infinite}
+@keyframes gridMove{to{background-position:152px 152px}}
+
+.page{padding:26px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
+.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green),0 0 28px var(--green);animation:pulse 1.3s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+
+.layout{display:grid;grid-template-columns:290px 1fr;gap:24px}
+.sidebar,.panel,.box,.access-card,.scanner,.log{border:1px solid rgba(255,227,110,.72);background:var(--glass);box-shadow:0 0 35px rgba(255,215,0,.22),inset 0 0 24px rgba(255,215,0,.08)}
+.sidebar{position:sticky;top:22px;height:fit-content;border-radius:30px;padding:22px}
+.profile{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,215,0,.35);margin-bottom:18px}
+.avatar{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;border:1px solid var(--gold);color:var(--gold);font-size:36px;box-shadow:0 0 28px gold}
+.profile h3{color:var(--gold);font-size:16px;margin-bottom:6px}.profile p{color:#ddd;font-size:13px}
+.nav a{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;padding:14px;border-radius:14px;margin-bottom:9px;transition:.3s;font-weight:700}
+.nav a:hover,.nav a.active{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;transform:translateX(4px)}
+
+.main{display:grid;gap:24px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.panel{border-radius:30px;padding:28px;position:relative;overflow:hidden}
+.panel h1,.box h2{color:var(--gold);text-shadow:0 0 22px gold;margin-bottom:12px}
+.panel p,.box p{color:#ddd;line-height:1.6}
+
+.access-card{border-radius:30px;padding:28px;min-height:260px;position:relative;overflow:hidden;background:linear-gradient(135deg,#060606 0%,#151515 45%,#d9d8c7 100%);box-shadow:0 0 50px gold;transform:perspective(1000px) rotateX(5deg) rotateY(-6deg);transition:.2s}
+.access-card::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
+.access-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 18%,rgba(255,215,0,.28),transparent 35%)}
+@keyframes shine{to{left:150%}}
+.access-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.card-top{display:flex;justify-content:space-between;font-weight:900}
+.card-brand{font-size:28px;color:var(--gold);text-shadow:0 0 14px gold}
+.card-tier{text-align:right;font-size:14px}
+.access-id{letter-spacing:3px;font-size:17px}
+.secure-token{color:var(--gold);font-size:40px;text-shadow:0 0 20px gold}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{border:1px solid rgba(255,227,110,.72);border-radius:22px;padding:22px;background:var(--glass);box-shadow:0 0 25px rgba(255,215,0,.18);transition:.3s}
+.stat:hover,.box:hover,.scanner:hover{transform:translateY(-5px);box-shadow:0 0 38px gold}
+.stat i,.box i{color:var(--gold);font-size:28px;margin-bottom:12px}
+.stat h3{color:var(--gold);font-size:28px;margin-bottom:6px}.stat p{color:#ddd;font-size:14px}
+
+.grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
+.box,.scanner{border-radius:28px;padding:24px;position:relative;overflow:hidden}
+.qr-wrap{display:grid;place-items:center}
+.qr{
+  width:250px;height:250px;border-radius:24px;
+  background:
+  linear-gradient(90deg,#111 12px,transparent 12px) 0 0/31px 31px,
+  linear-gradient(#111 12px,transparent 12px) 0 0/31px 31px,#eee;
+  border:10px solid var(--gold);
+  box-shadow:0 0 35px gold;
+  position:relative;
+  animation:qrGlow 2s infinite alternate;
+}
+.qr::after{content:"STYLESPHERE";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#000;color:var(--gold);font-weight:900;padding:10px 14px;border-radius:12px;border:1px solid var(--gold)}
+@keyframes qrGlow{to{box-shadow:0 0 55px gold}}
+.scan-line{position:absolute;left:0;right:0;height:4px;background:var(--green);box-shadow:0 0 20px var(--green);animation:scan 2.2s linear infinite}
+@keyframes scan{from{top:18px}to{top:222px}}
+
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.btn{border:none;border-radius:16px;padding:14px 18px;cursor:pointer;color:#111;font-weight:900;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.btn.dark{background:#060606;color:var(--gold);border:1px solid var(--gold)}
+
+.logs{display:grid;gap:12px}
+.log{border-radius:16px;padding:15px;display:flex;justify-content:space-between;align-items:center}
+.log span{color:#ddd}.log strong{color:var(--gold)}
+.badge{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);border-radius:30px;padding:8px 12px;font-weight:900}
+.verify-box{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.verify-box input{height:52px;border:1px solid var(--gold);border-radius:14px;background:#070707;color:white;padding:0 14px;outline:none}
+.notify{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--gold);border-radius:16px;background:#050505;color:var(--gold);box-shadow:0 0 25px gold}
+
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}.hero,.grid{grid-template-columns:1fr}.stats,.actions{grid-template-columns:1fr 1fr}.verify-box{grid-template-columns:1fr}}
+@media(max-width:600px){.page{padding:16px}.header{flex-direction:column;gap:14px}.stats,.actions{grid-template-columns:1fr}.logo{font-size:25px}.qr{width:210px;height:210px}}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status"><span class="dot"></span> QR ACCESS ONLINE</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"><i class="fa-solid fa-qrcode"></i></div>
+    <h3>MOHAMMED GHALEB</h3>
+    <p>Verified Access Member</p>
+  </div>
+
+  <nav class="nav">
+    <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+    <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+    <a class="active" href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+    <a href="#"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+    <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<section class="hero">
+  <div class="panel">
+    <h1>Secure QR Access</h1>
+    <p>Use your encrypted member QR to verify identity, access partners, unlock rewards, and validate membership benefits across merchants, hotels, clubs and events.</p>
+    <div class="actions">
+      <button class="btn" onclick="refreshQR()"><i class="fa-solid fa-rotate"></i> Refresh QR</button>
+      <button class="btn dark" onclick="copyAccess()"><i class="fa-solid fa-copy"></i> Copy ID</button>
+      <button class="btn dark" onclick="showNotice('QR downloaded')"><i class="fa-solid fa-download"></i> Download</button>
+    </div>
+  </div>
+
+  <div class="access-card" id="accessCard">
+    <div class="access-content">
+      <div class="card-top">
+        <div class="card-brand">STYLESPHERE</div>
+        <div class="card-tier">SECURE ACCESS<br>WORLD ELITE</div>
+      </div>
+      <div class="secure-token"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <div class="access-id" id="accessId">QR-SS-2026-8842</div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:12px;font-weight:bold">
+          <span>ENCRYPTED TOKEN</span>
+          <span>ACTIVE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><i class="fa-solid fa-shield"></i><h3>Active</h3><p>Access Status</p></div>
+  <div class="stat"><i class="fa-solid fa-clock"></i><h3 id="timer">60s</h3><p>Token Refresh</p></div>
+  <div class="stat"><i class="fa-solid fa-store"></i><h3>152+</h3><p>Partner Regions</p></div>
+  <div class="stat"><i class="fa-solid fa-check"></i><h3 id="scans">0</h3><p>Verified Scans</p></div>
+</section>
+
+<section class="grid">
+  <div class="scanner">
+    <h2 style="color:var(--gold);text-shadow:0 0 22px gold;margin-bottom:15px;">Live Member QR</h2>
+    <div class="qr-wrap">
+      <div class="qr"><div class="scan-line"></div></div>
+    </div>
+    <br>
+    <p style="text-align:center;color:#ddd;">Dynamic secure QR token for merchant verification.</p>
+  </div>
+
+  <div class="box">
+    <h2>Merchant Verification Simulator</h2>
+    <p>For partner merchants: enter access code to verify member status and approve benefits.</p>
+
+    <div class="verify-box">
+      <input id="verifyInput" placeholder="Enter Access ID">
+      <button class="btn" onclick="verifyAccess()">Verify Member</button>
+    </div>
+
+    <br>
+    <div id="verifyResult" class="log">
+      <span>Verification status</span>
+      <strong>Waiting</strong>
+    </div>
+  </div>
+</section>
+
+<section class="box">
+  <h2>Access History</h2>
+  <div class="logs" id="logs">
+    <div class="log"><span>QR generated</span><strong>Active</strong></div>
+    <div class="log"><span>Dashboard access</span><strong>Verified</strong></div>
+    <div class="log"><span>Wallet identity linked</span><strong>Secure</strong></div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="notify" id="notify"><i class="fa-solid fa-bell"></i><span id="notifyText">Done</span></div>
+
+<script>
+let scans=0;
+let seconds=60;
+
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
+
+function showNotice(text){
+  const n=document.getElementById("notify");
+  document.getElementById("notifyText").textContent=text;
+  n.style.display="flex";
+  setTimeout(()=>n.style.display="none",2800);
+}
+
+function addLog(label,status){
+  const log=document.createElement("div");
+  log.className="log";
+  log.innerHTML=`<span>${label}</span><strong>${status}</strong>`;
+  document.getElementById("logs").prepend(log);
+}
+
+function refreshQR(){
+  const id="QR-SS-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
+  document.getElementById("accessId").textContent=id;
+  seconds=60;
+  addLog("QR token refreshed",id);
+  showNotice("New QR token generated");
+}
+
+function copyAccess(){
+  const id=document.getElementById("accessId").textContent;
+  navigator.clipboard.writeText(id);
+  showNotice("Access ID copied");
+}
+
+function verifyAccess(){
+  const input=document.getElementById("verifyInput").value.trim();
+  const current=document.getElementById("accessId").textContent;
+  const result=document.getElementById("verifyResult");
+
+  if(input===current){
+    scans++;
+    document.getElementById("scans").textContent=scans;
+    result.innerHTML="<span>Verification status</span><strong>Approved</strong>";
+    addLog("Merchant verification","Approved");
+    showNotice("Member verified successfully");
+  }else{
+    result.innerHTML="<span>Verification status</span><strong>Rejected</strong>";
+    addLog("Merchant verification","Rejected");
+    showNotice("Invalid access ID");
+  }
+}
+
+setInterval(()=>{
+  seconds--;
+  if(seconds<=0){
+    refreshQR();
+  }
+  document.getElementById("timer").textContent=seconds+"s";
+},1000);
+
+const card=document.getElementById("accessCard");
+card.addEventListener("mousemove",function(e){
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  const rotateX=-((y/rect.height)-.5)*16;
+  const rotateY=((x/rect.width)-.5)*16;
+  card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseenter",()=>{card.style.boxShadow="0 0 80px gold,0 0 120px rgba(255,215,0,.4)"});
+card.addEventListener("mouseleave",function(){
+  card.style.transform="perspective(1000px) rotateX(5deg) rotateY(-6deg)";
+  card.style.boxShadow="0 0 50px gold";
+});
+</script>
+
+</body>
+</html>
