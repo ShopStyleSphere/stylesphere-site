@@ -737,6 +737,13 @@ setTimeout(()=>{
   const n=document.querySelector(".notify");
   if(n)n.style.display="none";
 },5000);
+
+// Glow follow mouse (احترافي جدا)
+document.addEventListener("mousemove", (e) => {
+  document.body.style.setProperty('--x', e.clientX + 'px');
+  document.body.style.setProperty('--y', e.clientY + 'px');
+});
+
 </script>
 
 </body>
