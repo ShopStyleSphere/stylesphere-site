@@ -8,13 +8,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-body{
-  min-height:100vh;
+html,body{
+  width:100%;
+  min-height:100%;
   background:#030303;
-  color:#fff;
-  font-family:Arial,sans-serif;
+  color:white;
+  font-family:Arial, sans-serif;
   overflow-x:hidden;
 }
 
@@ -23,10 +28,10 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 20% 20%,rgba(255,215,0,.22),transparent 30%),
-    radial-gradient(circle at 80% 20%,rgba(0,255,120,.08),transparent 25%),
+    radial-gradient(circle at 18% 18%,rgba(255,215,0,.22),transparent 30%),
+    radial-gradient(circle at 82% 22%,rgba(0,255,120,.10),transparent 25%),
     linear-gradient(135deg,#000,#080603,#000);
-  z-index:-2;
+  z-index:-3;
 }
 
 body::after{
@@ -34,11 +39,11 @@ body::after{
   position:fixed;
   inset:0;
   background-image:
-    linear-gradient(rgba(255,215,0,.07) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,215,0,.07) 1px,transparent 1px);
+    linear-gradient(rgba(255,215,0,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,215,0,.06) 1px,transparent 1px);
   background-size:75px 75px;
   animation:gridMove 18s linear infinite;
-  z-index:-1;
+  z-index:-2;
 }
 
 @keyframes gridMove{
@@ -46,7 +51,11 @@ body::after{
   to{background-position:150px 150px}
 }
 
-.page{min-height:100vh;padding:28px}
+.page{
+  width:100%;
+  min-height:100vh;
+  padding:26px;
+}
 
 .header{
   display:flex;
@@ -68,11 +77,12 @@ body::after{
   align-items:center;
   gap:10px;
   border:1px solid #ffe36e;
-  border-radius:40px;
+  border-radius:50px;
   padding:12px 22px;
   color:#ffe36e;
   font-weight:900;
-  box-shadow:0 0 22px gold;
+  background:rgba(0,0,0,.65);
+  box-shadow:0 0 24px rgba(255,215,0,.75);
 }
 
 .green-light{
@@ -80,12 +90,12 @@ body::after{
   height:12px;
   border-radius:50%;
   background:#00ff66;
-  box-shadow:0 0 8px #00ff66,0 0 20px #00ff66,0 0 35px #00ff66;
-  animation:blink 1.4s infinite;
+  box-shadow:0 0 10px #00ff66,0 0 25px #00ff66;
+  animation:greenPulse 1.4s infinite;
 }
 
-@keyframes blink{
-  50%{opacity:.45}
+@keyframes greenPulse{
+  50%{opacity:.4;transform:scale(.8)}
 }
 
 .main{
@@ -95,82 +105,112 @@ body::after{
 }
 
 .panel{
-  border:1px solid rgba(255,215,0,.8);
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,215,0,.78);
   border-radius:32px;
   padding:34px;
-  background:rgba(0,0,0,.72);
-  box-shadow:0 0 42px rgba(255,215,0,.26), inset 0 0 32px rgba(255,215,0,.12);
+  background:rgba(0,0,0,.74);
+  box-shadow:
+    0 0 45px rgba(255,215,0,.26),
+    inset 0 0 36px rgba(255,215,0,.12);
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:rotate(25deg);
+  animation:panelShine 6s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes panelShine{
+  from{left:-120%}
+  to{left:120%}
 }
 
 .hero-small{
   text-align:center;
   color:#ffe36e;
   letter-spacing:12px;
-  margin-bottom:22px;
+  margin-bottom:20px;
+  font-weight:900;
 }
 
 .hero-title{
   text-align:center;
-  font-size:76px;
+  font-size:72px;
   line-height:.95;
   color:#ffe36e;
-  text-shadow:0 0 18px gold,0 0 48px gold;
-  animation:pulse 2.4s infinite;
+  text-shadow:0 0 16px gold,0 0 46px gold;
+  animation:titleGlow 2.5s infinite;
 }
 
-@keyframes pulse{
+@keyframes titleGlow{
   50%{filter:brightness(1.45)}
 }
 
 .hero-text{
   text-align:center;
-  margin:24px 0;
+  margin:24px 0 28px;
   font-size:18px;
   line-height:1.6;
+  font-weight:bold;
 }
 
 .bank-card{
   width:82%;
   height:265px;
-  margin:34px auto;
-  border-radius:26px;
+  margin:28px auto 34px;
+  border-radius:28px;
   padding:28px;
   position:relative;
   overflow:hidden;
   background:
-    linear-gradient(135deg,#111 0%,#060606 45%,#191308 100%);
+    linear-gradient(135deg,#080808 0%,#121212 40%,#d8d8c8 100%);
   border:1px solid #ffe36e;
   box-shadow:0 0 45px gold;
-  transform:perspective(900px) rotateX(6deg) rotateY(-8deg);
-  animation:floatCard 4s ease-in-out infinite;
+  transform:perspective(1000px) rotateX(6deg) rotateY(-7deg);
+  animation:cardFloat 4s ease-in-out infinite;
 }
 
 .bank-card::before{
   content:"";
   position:absolute;
-  inset:-70%;
+  inset:-80%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);
   transform:rotate(25deg);
-  animation:shine 4s linear infinite;
+  animation:cardShine 4s linear infinite;
 }
 
 .bank-card::after{
   content:"";
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at 80% 10%,rgba(255,215,0,.25),transparent 35%);
+  background:
+    radial-gradient(circle at 70% 18%,rgba(255,215,0,.25),transparent 35%),
+    linear-gradient(115deg,transparent 48%,rgba(255,255,255,.28) 49%,rgba(255,255,255,.15) 65%,transparent 66%);
 }
 
-@keyframes shine{
+@keyframes cardFloat{
+  50%{transform:perspective(1000px) rotateX(6deg) rotateY(-7deg) translateY(-10px)}
+}
+
+@keyframes cardShine{
   from{left:-140%}
   to{left:140%}
 }
 
-@keyframes floatCard{
-  50%{transform:perspective(900px) rotateX(6deg) rotateY(-8deg) translateY(-12px)}
+.card-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
-
-.card-content{position:relative;z-index:2}
 
 .card-top{
   display:flex;
@@ -180,22 +220,22 @@ body::after{
 
 .card-brand{
   color:#ffe36e;
-  font-size:31px;
+  font-size:32px;
   font-weight:900;
+  text-shadow:0 0 12px gold;
 }
 
 .card-tier{
   text-align:right;
   font-size:15px;
-  color:#fff;
-  letter-spacing:1px;
+  font-weight:900;
+  color:white;
 }
 
-.chip-row{
+.card-mid{
   display:flex;
   align-items:center;
   gap:18px;
-  margin:34px 0 24px;
 }
 
 .chip{
@@ -214,35 +254,39 @@ body::after{
 }
 
 .card-number{
-  font-size:24px;
+  font-size:23px;
   letter-spacing:6px;
-  text-shadow:0 0 8px #fff;
+  text-shadow:0 0 8px white;
 }
 
 .card-bottom{
-  margin-top:18px;
   display:flex;
   justify-content:space-between;
   font-size:12px;
-  color:#ddd;
+  color:#f1f1f1;
+  font-weight:bold;
 }
 
-.features,.footer{
+.features{
   display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:16px;
 }
-
-.features{grid-template-columns:repeat(3,1fr)}
-.footer{grid-template-columns:repeat(4,1fr);margin-top:26px}
 
 .feature,.foot{
   border:1px solid #ffe36e;
   border-radius:18px;
   padding:18px;
   text-align:center;
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.58);
   color:#ffe36e;
   box-shadow:0 0 18px rgba(255,215,0,.22);
+  transition:.3s;
+}
+
+.feature:hover,.foot:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 35px gold;
 }
 
 .login-title{
@@ -256,6 +300,7 @@ body::after{
   text-align:center;
   margin:16px 0 28px;
   line-height:1.6;
+  font-weight:bold;
 }
 
 label{
@@ -271,12 +316,15 @@ label{
   align-items:center;
   border:1px solid #ffe36e;
   border-radius:15px;
-  background:rgba(0,0,0,.62);
+  background:rgba(0,0,0,.68);
   padding:0 16px;
   box-shadow:0 0 18px rgba(255,215,0,.32);
 }
 
-.input i{color:#ffe36e;margin-right:12px}
+.input i{
+  color:#ffe36e;
+  margin-right:12px;
+}
 
 .input input{
   flex:1;
@@ -289,19 +337,30 @@ label{
   box-shadow:none !important;
 }
 
-.input input::placeholder{color:#ddd}
+.input input::placeholder{
+  color:#ddd;
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
-  -webkit-box-shadow:0 0 0 1000px #060606 inset !important;
+  -webkit-box-shadow:0 0 0 1000px #070707 inset !important;
   -webkit-text-fill-color:#ffffff !important;
   caret-color:#ffffff !important;
   transition:background-color 9999s ease-in-out 0s !important;
 }
 
-.eye{cursor:pointer;margin-left:12px}
+.eye{
+  cursor:pointer;
+  margin-left:12px;
+  transition:.25s;
+}
+
+.eye:hover{
+  transform:scale(1.25);
+  text-shadow:0 0 18px gold;
+}
 
 .row{
   display:flex;
@@ -311,9 +370,14 @@ input:-webkit-autofill:active{
   font-size:14px;
 }
 
-.row a,.create a{color:#ffe36e;text-decoration:none}
+.row a,.create a{
+  color:#ffe36e;
+  text-decoration:none;
+}
 
 .login-btn{
+  position:relative;
+  overflow:hidden;
   width:100%;
   height:70px;
   border:none;
@@ -325,11 +389,19 @@ input:-webkit-autofill:active{
   color:#111;
   background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37,#fff3a3);
   box-shadow:0 0 38px gold;
-  animation:btnGlow 2s infinite alternate;
 }
 
-@keyframes btnGlow{
-  to{box-shadow:0 0 60px gold}
+.login-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-100%);
+  animation:btnShine 2.6s infinite;
+}
+
+@keyframes btnShine{
+  to{transform:translateX(100%)}
 }
 
 .or{
@@ -349,21 +421,43 @@ input:-webkit-autofill:active{
   height:56px;
   border:1px solid #ffe36e;
   border-radius:14px;
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.58);
   color:#ffe36e;
   font-weight:bold;
   cursor:pointer;
+  transition:.3s;
 }
 
-.create{text-align:center;margin-top:18px;font-size:14px}
+.social button:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 25px gold;
+}
 
-.foot i{font-size:24px;margin-bottom:8px}
+.create{
+  text-align:center;
+  margin-top:18px;
+  font-size:14px;
+}
+
+.footer{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.foot i{
+  font-size:24px;
+  margin-bottom:8px;
+}
 
 @media(max-width:900px){
+  .header{flex-direction:column;gap:14px}
   .main{grid-template-columns:1fr}
   .features,.footer,.social{grid-template-columns:1fr}
   .hero-title{font-size:46px}
-  .bank-card{width:100%}
+  .bank-card{width:100%;height:245px}
+  .logo{font-size:26px}
 }
 </style>
 </head>
@@ -381,17 +475,22 @@ input:-webkit-autofill:active{
 
 <section class="panel">
   <div class="hero-small">EXCLUSIVE ACCESS</div>
-  <h1 class="hero-title">BEYOND<br>REWARDS</h1>
-  <p class="hero-text">JOIN A WORLD OF LUXURY,<br>REWARDS AND EXCLUSIVE EXPERIENCES.</p>
 
-  <div class="bank-card">
+  <h1 class="hero-title">BEYOND<br>REWARDS</h1>
+
+  <p class="hero-text">
+    JOIN A WORLD OF LUXURY,<br>
+    REWARDS AND EXCLUSIVE EXPERIENCES.
+  </p>
+
+  <div class="bank-card" id="bankCard">
     <div class="card-content">
       <div class="card-top">
         <div class="card-brand">STYLESPHERE</div>
         <div class="card-tier">ROYAL INFINITY<br>WORLD ELITE</div>
       </div>
 
-      <div class="chip-row">
+      <div class="card-mid">
         <div class="chip"></div>
         <i class="fa-solid fa-wifi nfc"></i>
       </div>
@@ -414,7 +513,11 @@ input:-webkit-autofill:active{
 
 <section class="panel">
   <h2 class="login-title">CLIENT LOGIN</h2>
-  <p class="login-sub">Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
+
+  <p class="login-sub">
+    Access your account to manage your membership,<br>
+    earn points and unlock exclusive rewards.
+  </p>
 
   <label>EMAIL ADDRESS</label>
   <div class="input">
@@ -471,6 +574,23 @@ function togglePassword(){
 function loginNow(){
   alert("Login system will be connected soon.");
 }
+
+const card = document.getElementById("bankCard");
+
+card.addEventListener("mousemove", function(e){
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const rotateX = -((y / rect.height) - 0.5) * 16;
+  const rotateY = ((x / rect.width) - 0.5) * 16;
+
+  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+card.addEventListener("mouseleave", function(){
+  card.style.transform = "perspective(1000px) rotateX(6deg) rotateY(-7deg)";
+});
 </script>
 
 </body>
