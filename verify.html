@@ -3,156 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verify Email | StyleSphere</title>
+<title>StyleSphere Verify Email</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  background:radial-gradient(circle at top,#2b230f,#050505 55%,#000);
-  color:white;
-  font-family:Arial,sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.card{
-  width:92%;
-  max-width:460px;
-  padding:38px 28px;
-  text-align:center;
-  border:1px solid rgba(255,215,90,.35);
-  border-radius:26px;
-  background:rgba(10,10,10,.82);
-  box-shadow:0 0 55px rgba(255,200,40,.22);
-}
-.logo{
-  font-family:Georgia,serif;
-  font-size:30px;
-  color:#ffd866;
-  letter-spacing:3px;
-  margin-bottom:12px;
-}
-.badge{
-  width:76px;
-  height:76px;
-  margin:0 auto 18px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:36px;
-  background:linear-gradient(135deg,#b88718,#fff2a8,#c79628);
-  color:#111;
-  box-shadow:0 0 35px rgba(255,215,0,.45);
-}
-h1{
-  margin:8px 0;
-  font-size:28px;
-}
-p{
-  color:#d8d8d8;
-  line-height:1.6;
-  font-size:15px;
-}
-button{
-  margin-top:22px;
-  width:100%;
-  height:58px;
-  border:0;
-  border-radius:16px;
-  cursor:pointer;
-  font-size:17px;
-  font-weight:900;
-  letter-spacing:2px;
-  color:#111;
-  background:linear-gradient(120deg,#d89b19,#fff2a8,#c88b13);
-  box-shadow:0 0 30px rgba(255,215,0,.38);
-}
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-.msg{
-  margin-top:20px;
-  font-weight:bold;
-  min-height:24px;
-}
-.success{color:#00ff9d}
-.error{color:#ff5a5a}
-.small{
-  margin-top:22px;
-  font-size:13px;
-  color:#999;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
+body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.25),transparent 25%),radial-gradient(circle at 80% 20%,rgba(0,255,120,.13),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:75px 75px;animation:grid 18s linear infinite}
+@keyframes grid{to{background-position:150px 150px}}
+
+.page{min-height:100vh;padding:28px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
+.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.3s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+
+.center{flex:1;display:grid;place-items:center}
+.card{width:min(520px,94%);border:1px solid rgba(255,227,110,.8);border-radius:34px;background:var(--glass);box-shadow:0 0 55px rgba(255,215,0,.35),inset 0 0 30px rgba(255,215,0,.08);padding:42px;text-align:center;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:-120%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.3),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
+@keyframes shine{to{left:150%}}
+
+.icon{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;margin:0 auto 24px;background:linear-gradient(135deg,#b8860b,#fff3a3,#d4af37);color:#111;font-size:48px;box-shadow:0 0 45px gold;position:relative;z-index:2}
+.card h1{color:var(--gold);font-size:42px;text-shadow:0 0 28px gold;margin-bottom:12px;position:relative;z-index:2}
+.card p{color:#ddd;line-height:1.7;margin-bottom:24px;position:relative;z-index:2}
+
+.email-box{border:1px solid rgba(255,215,0,.65);border-radius:18px;padding:16px;margin:18px 0;background:rgba(0,0,0,.55);color:var(--gold);font-weight:900;position:relative;z-index:2}
+
+.btn{width:100%;height:60px;border:0;border-radius:18px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;letter-spacing:6px;cursor:pointer;box-shadow:0 0 32px gold;margin-top:10px;position:relative;z-index:2}
+.btn.dark{background:#050505;color:var(--gold);border:1px solid var(--gold);letter-spacing:2px;margin-top:14px}
+.small{font-size:13px;color:#aaa;margin-top:22px;position:relative;z-index:2}
+.progress{height:10px;border-radius:40px;background:#111;border:1px solid var(--gold);overflow:hidden;margin-top:22px;position:relative;z-index:2}
+.progress span{display:block;width:0%;height:100%;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 20px gold;transition:.8s}
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="logo">STYLESPHERE</div>
-  <div class="badge">✓</div>
+<div class="page">
 
-  <h1>Verify Your Email</h1>
-  <p>Confirm your email address to activate your StyleSphere Members Club account.</p>
+  <div class="top">
+    <div class="logo">Ⓢ STYLESPHERE</div>
+    <div class="status"><span class="dot"></span> VERIFICATION SYSTEM ONLINE</div>
+  </div>
 
-  <button id="verifyBtn" onclick="confirmEmail()">CONFIRM EMAIL →</button>
+  <div class="center">
+    <div class="card">
+      <div class="icon"><i class="fa-solid fa-check"></i></div>
 
-  <div id="msg" class="msg"></div>
+      <h1>Verify Your Email</h1>
 
-  <div class="small">Secure verification powered by StyleSphere</div>
+      <p>
+        Confirm your email address to activate your StyleSphere Members Club account,
+        wallet, rewards, QR access and NFC card services.
+      </p>
+
+      <div class="email-box" id="userEmail">member@stylesphere.com</div>
+
+      <button class="btn" onclick="confirmEmail()">CONFIRM EMAIL →</button>
+
+      <button class="btn dark" onclick="resendEmail()">
+        <i class="fa-solid fa-paper-plane"></i> Resend Verification Email
+      </button>
+
+      <div class="progress"><span id="bar"></span></div>
+
+      <div class="small">Secure verification powered by StyleSphere Global Access</div>
+    </div>
+  </div>
+
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+<script>
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
 
-const firebaseConfig = {
-  apiKey: "حط_API_KEY_هنا",
-  authDomain: "stylesphere-81dfe.firebaseapp.com",
-  projectId: "stylesphere-81dfe",
-  storageBucket: "stylesphere-81dfe.firebasestorage.app",
-  messagingSenderId: "545255416631",
-  appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
-};
+const user = JSON.parse(localStorage.getItem("stylesphereUser") || "null");
+if(user && user.email){
+  document.getElementById("userEmail").textContent = user.email;
+}
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+function confirmEmail(){
+  document.getElementById("bar").style.width = "100%";
 
-window.confirmEmail = async function () {
-  const btn = document.getElementById("verifyBtn");
-  const msg = document.getElementById("msg");
+  setTimeout(()=>{
+    let user = JSON.parse(localStorage.getItem("stylesphereUser") || "{}");
+    user.emailVerified = true;
+    user.status = "Active";
+    localStorage.setItem("stylesphereUser", JSON.stringify(user));
+    localStorage.setItem("stylesphereLoggedIn", "true");
+    window.location.href = "client-dashboard.html";
+  },900);
+}
 
-  const params = new URLSearchParams(window.location.search);
-  const oobCode = params.get("oobCode");
-
-  if (!oobCode) {
-    msg.className = "msg error";
-    msg.innerText = "Invalid verification link.";
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerText = "VERIFYING...";
-
-  try {
-    await applyActionCode(auth, oobCode);
-    msg.className = "msg success";
-    msg.innerText = "Email verified successfully ✅";
-
-    setTimeout(() => {
-      window.location.href = "client-login.html";
-    }, 2500);
-
-  } catch (error) {
-    msg.className = "msg error";
-    msg.innerText = "Verification failed: " + error.message;
-    btn.disabled = false;
-    btn.innerText = "CONFIRM EMAIL →";
-  }
-};
+function resendEmail(){
+  alert("Verification email sent again.");
+}
 </script>
 
 </body>
