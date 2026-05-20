@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere NFC Card</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
+body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.24),transparent 25%),radial-gradient(circle at 85% 20%,rgba(0,255,120,.12),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:76px 76px;animation:gridMove 18s linear infinite}
+@keyframes gridMove{to{background-position:152px 152px}}
+
+.page{padding:26px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
+.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green),0 0 28px var(--green);animation:pulse 1.3s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+
+.layout{display:grid;grid-template-columns:290px 1fr;gap:24px}
+.sidebar,.panel,.box,.card-preview,.request,.step{border:1px solid rgba(255,227,110,.72);background:var(--glass);box-shadow:0 0 35px rgba(255,215,0,.22),inset 0 0 24px rgba(255,215,0,.08)}
+.sidebar{position:sticky;top:22px;height:fit-content;border-radius:30px;padding:22px}
+.profile{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,215,0,.35);margin-bottom:18px}
+.avatar{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;border:1px solid var(--gold);color:var(--gold);font-size:36px;box-shadow:0 0 28px gold}
+.profile h3{color:var(--gold);font-size:16px;margin-bottom:6px}.profile p{color:#ddd;font-size:13px}
+.nav a{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;padding:14px;border-radius:14px;margin-bottom:9px;transition:.3s;font-weight:700}
+.nav a:hover,.nav a.active{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;transform:translateX(4px)}
+
+.main{display:grid;gap:24px}
+.hero{display:grid;grid-template-columns:1fr 420px;gap:24px}
+.panel,.box{border-radius:30px;padding:28px;position:relative;overflow:hidden}
+.panel h1,.box h2{color:var(--gold);text-shadow:0 0 22px gold;margin-bottom:12px}
+.panel p,.box p{color:#ddd;line-height:1.6}
+
+.card-preview{height:270px;border-radius:30px;padding:28px;position:relative;overflow:hidden;background:linear-gradient(135deg,#060606 0%,#151515 45%,#d9d8c7 100%);box-shadow:0 0 55px gold;transform:perspective(1000px) rotateX(5deg) rotateY(-6deg);transition:.2s}
+.card-preview::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
+.card-preview::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 18%,rgba(255,215,0,.28),transparent 35%),linear-gradient(115deg,transparent 48%,rgba(255,255,255,.25) 49%,rgba(255,255,255,.14) 65%,transparent 66%)}
+@keyframes shine{to{left:150%}}
+.card-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.card-top{display:flex;justify-content:space-between;font-weight:900}
+.card-brand{font-size:30px;color:var(--gold);text-shadow:0 0 14px gold}
+.card-tier{text-align:right;font-size:14px}
+.chip-row{display:flex;align-items:center;gap:18px}
+.chip{width:54px;height:40px;border-radius:9px;background:linear-gradient(135deg,#b8860b,#fff3a3,#c99922);box-shadow:0 0 18px gold}
+.nfc{color:var(--gold);font-size:36px;transform:rotate(90deg);animation:nfcPulse 1.7s infinite}
+@keyframes nfcPulse{50%{opacity:.35;filter:brightness(1.8)}}
+.card-number{font-size:22px;letter-spacing:5px;text-shadow:0 0 9px white}
+.card-bottom{display:flex;justify-content:space-between;font-size:12px;font-weight:bold}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{border:1px solid rgba(255,227,110,.72);border-radius:22px;padding:22px;background:var(--glass);box-shadow:0 0 25px rgba(255,215,0,.18);transition:.3s}
+.stat:hover,.box:hover,.request:hover,.step:hover{transform:translateY(-5px);box-shadow:0 0 38px gold}
+.stat i,.box i,.request i,.step i{color:var(--gold);font-size:28px;margin-bottom:12px}
+.stat h3{color:var(--gold);font-size:28px;margin-bottom:6px}.stat p{color:#ddd;font-size:14px}
+
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.request{border-radius:22px;padding:22px;text-align:center;cursor:pointer;transition:.3s}
+.request h3{color:var(--gold);margin-bottom:8px}.request p{font-size:13px;color:#ddd}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.steps{display:grid;gap:12px}
+.step{border-radius:18px;padding:16px;display:flex;gap:14px;align-items:center}
+.step strong{color:var(--gold)}
+.badge{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);border-radius:30px;padding:8px 12px;font-weight:900}
+
+.form{display:grid;gap:12px;margin-top:12px}
+.form input,.form select{height:52px;border:1px solid var(--gold);border-radius:14px;background:#070707;color:white;padding:0 14px;outline:none}
+.btn{border:none;border-radius:16px;padding:14px 18px;cursor:pointer;color:#111;font-weight:900;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+
+.logs{display:grid;gap:12px}
+.log{border:1px solid rgba(255,215,0,.45);border-radius:16px;padding:15px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.55)}
+.log span{color:#ddd}.log strong{color:var(--gold)}
+.notify{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--gold);border-radius:16px;background:#050505;color:var(--gold);box-shadow:0 0 25px gold}
+
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}.hero,.grid{grid-template-columns:1fr}.stats,.actions{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.page{padding:16px}.header{flex-direction:column;gap:14px}.stats,.actions{grid-template-columns:1fr}.logo{font-size:25px}.card-preview{height:245px}}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status"><span class="dot"></span> NFC CARD SYSTEM ONLINE</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"><i class="fa-solid fa-credit-card"></i></div>
+    <h3>MOHAMMED GHALEB</h3>
+    <p>Royal Infinity Cardholder</p>
+  </div>
+
+  <nav class="nav">
+    <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+    <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+    <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+    <a class="active" href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+    <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<section class="hero">
+  <div class="panel">
+    <h1>NFC Membership Card</h1>
+    <p>Manage your digital and physical StyleSphere NFC card. Activate secure identity, request printing, track delivery, and connect the card to QR access and wallet services.</p>
+    <br>
+    <button class="btn" onclick="requestCard()"><i class="fa-solid fa-truck-fast"></i> Request Physical Card</button>
+  </div>
+
+  <div class="card-preview" id="nfcCard">
+    <div class="card-content">
+      <div class="card-top">
+        <div class="card-brand">STYLESPHERE</div>
+        <div class="card-tier">ROYAL INFINITY<br>BLACK NFC</div>
+      </div>
+
+      <div class="chip-row">
+        <div class="chip"></div>
+        <i class="fa-solid fa-wifi nfc"></i>
+      </div>
+
+      <div class="card-number">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;3488</div>
+
+      <div class="card-bottom">
+        <span>MEMBER SINCE 2026</span>
+        <span>NFC ENABLED</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><i class="fa-solid fa-power-off"></i><h3>Active</h3><p>Card Status</p></div>
+  <div class="stat"><i class="fa-solid fa-shield-halved"></i><h3>Secure</h3><p>Token Protection</p></div>
+  <div class="stat"><i class="fa-solid fa-truck-fast"></i><h3 id="shipping">Ready</h3><p>Delivery Status</p></div>
+  <div class="stat"><i class="fa-solid fa-wifi"></i><h3>NFC</h3><p>Tap Access</p></div>
+</section>
+
+<section class="actions">
+  <div class="request" onclick="activateCard()"><i class="fa-solid fa-bolt"></i><h3>Activate</h3><p>Activate digital card token.</p></div>
+  <div class="request" onclick="freezeCard()"><i class="fa-solid fa-snowflake"></i><h3>Freeze</h3><p>Temporarily disable access.</p></div>
+  <div class="request" onclick="requestCard()"><i class="fa-solid fa-print"></i><h3>Print Card</h3><p>Order physical NFC card.</p></div>
+  <div class="request" onclick="showNotice('Card linked to wallet')"><i class="fa-solid fa-wallet"></i><h3>Link Wallet</h3><p>Connect wallet to card.</p></div>
+</section>
+
+<section class="grid">
+  <div class="box">
+    <h2>Request Physical Card</h2>
+    <p>Submit your delivery details to print and ship your StyleSphere NFC membership card.</p>
+
+    <div class="form">
+      <input id="fullName" placeholder="Full Name">
+      <input id="country" placeholder="Country">
+      <input id="city" placeholder="City">
+      <input id="address" placeholder="Delivery Address">
+      <select id="cardType">
+        <option>Royal Infinity Black NFC</option>
+        <option>Gold Elite NFC</option>
+        <option>Private Reserve NFC</option>
+      </select>
+      <button class="btn" onclick="submitOrder()"><i class="fa-solid fa-check"></i> Submit Card Order</button>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Card Lifecycle</h2>
+    <div class="steps">
+      <div class="step"><i class="fa-solid fa-check"></i><div><strong>Digital Card Active</strong><p>Secure token is enabled.</p></div></div>
+      <div class="step"><i class="fa-solid fa-print"></i><div><strong>Printing Request</strong><p>Physical card can be requested.</p></div></div>
+      <div class="step"><i class="fa-solid fa-truck"></i><div><strong>Delivery Tracking</strong><p>Delivery status updates here.</p></div></div>
+      <div class="step"><i class="fa-solid fa-wifi"></i><div><strong>NFC Tap Access</strong><p>Tap card with partner systems.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="box">
+  <h2>Card Activity</h2>
+  <div class="logs" id="logs">
+    <div class="log"><span>Digital NFC token created</span><strong>Active</strong></div>
+    <div class="log"><span>Wallet linked</span><strong>Secure</strong></div>
+    <div class="log"><span>QR access connected</span><strong>Verified</strong></div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="notify" id="notify"><i class="fa-solid fa-bell"></i><span id="notifyText">Done</span></div>
+
+<script>
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
+
+function showNotice(text){
+  const n=document.getElementById("notify");
+  document.getElementById("notifyText").textContent=text;
+  n.style.display="flex";
+  setTimeout(()=>n.style.display="none",2800);
+}
+
+function addLog(label,status){
+  const log=document.createElement("div");
+  log.className="log";
+  log.innerHTML=`<span>${label}</span><strong>${status}</strong>`;
+  document.getElementById("logs").prepend(log);
+}
+
+function activateCard(){
+  addLog("Card activated","Active");
+  showNotice("NFC card activated");
+}
+
+function freezeCard(){
+  addLog("Card frozen","Disabled");
+  showNotice("NFC card frozen");
+}
+
+function requestCard(){
+  document.getElementById("shipping").textContent="Pending";
+  addLog("Physical card requested","Pending");
+  showNotice("Physical NFC card request created");
+}
+
+function submitOrder(){
+  const name=document.getElementById("fullName").value.trim();
+  const address=document.getElementById("address").value.trim();
+  if(!name||!address){showNotice("Enter name and address");return}
+  document.getElementById("shipping").textContent="Processing";
+  addLog("Card order submitted","Processing");
+  showNotice("Card order submitted successfully");
+}
+
+const card=document.getElementById("nfcCard");
+card.addEventListener("mousemove",function(e){
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  const rotateX=-((y/rect.height)-.5)*16;
+  const rotateY=((x/rect.width)-.5)*16;
+  card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseenter",()=>{card.style.boxShadow="0 0 80px gold,0 0 120px rgba(255,215,0,.4)"});
+card.addEventListener("mouseleave",function(){
+  card.style.transform="perspective(1000px) rotateX(5deg) rotateY(-6deg)";
+  card.style.boxShadow="0 0 55px gold";
+});
+</script>
+
+</body>
+</html>
