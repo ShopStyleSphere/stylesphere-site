@@ -910,42 +910,46 @@ Don't have an account? <a href="register.html">Create Account</a>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 const firebaseConfig = {
-  apiKey: "......",
+  apiKey: "🔥 حط API KEY هنا 🔥",
   authDomain: "stylesphere-81dfe.firebaseapp.com",
   projectId: "stylesphere-81dfe",
-  storageBucket: "stylesphere-81dfe.firebasestorage.app",
+  storageBucket: "stylesphere-81dfe.appspot.com",
   messagingSenderId: "545255416631",
   appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
 };
-  
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-window.createAccount = function () {
+window.login = function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  if (!email || !password) {
-    alert("❌ اكتب ايميل وباسورد");
-    return;
-  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
 
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
 
-    sendEmailVerification(user);
-
-    alert("📩 تم إنشاء الحساب، تحقق من بريدك الإلكتروني");
-  })
-  .catch((error) => {
-    alert("❌ " + error.message);
-  });
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        alert(`Welcome ${data.name} | Level: ${data.level}`);
+      } else {
+        alert("No data found");
+      }
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    });
 };
-  
+</script>
+ 
 window.togglePassword = function () {
   const pass = document.getElementById("password");
 
