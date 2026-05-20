@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Activity Center</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
+body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.24),transparent 25%),radial-gradient(circle at 85% 20%,rgba(0,255,120,.12),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:76px 76px;animation:gridMove 18s linear infinite}
+@keyframes gridMove{to{background-position:152px 152px}}
+
+.page{padding:26px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
+.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green),0 0 28px var(--green);animation:pulse 1.3s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+
+.layout{display:grid;grid-template-columns:290px 1fr;gap:24px}
+.sidebar,.panel,.box,.stat,.event{border:1px solid rgba(255,227,110,.72);background:var(--glass);box-shadow:0 0 35px rgba(255,215,0,.22),inset 0 0 24px rgba(255,215,0,.08)}
+.sidebar{position:sticky;top:22px;height:fit-content;border-radius:30px;padding:22px}
+.profile{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,215,0,.35);margin-bottom:18px}
+.avatar{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;border:1px solid var(--gold);color:var(--gold);font-size:36px;box-shadow:0 0 28px gold}
+.profile h3{color:var(--gold);font-size:16px;margin-bottom:6px}.profile p{color:#ddd;font-size:13px}
+.nav a{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;padding:14px;border-radius:14px;margin-bottom:9px;transition:.3s;font-weight:700}
+.nav a:hover,.nav a.active{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;transform:translateX(4px)}
+
+.main{display:grid;gap:24px}
+.panel,.box{border-radius:30px;padding:28px;position:relative;overflow:hidden}
+.panel h1,.box h2{color:var(--gold);text-shadow:0 0 22px gold;margin-bottom:12px}
+.panel p,.box p{color:#ddd;line-height:1.6}
+
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.security-card{border-radius:30px;padding:28px;min-height:250px;position:relative;overflow:hidden;background:linear-gradient(135deg,#060606 0%,#151515 45%,#d9d8c7 100%);border:1px solid var(--gold);box-shadow:0 0 50px gold;transform:perspective(1000px) rotateX(5deg) rotateY(-6deg);transition:.2s}
+.security-card::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
+.security-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 18%,rgba(255,215,0,.28),transparent 35%)}
+@keyframes shine{to{left:150%}}
+.security-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.sec-top{display:flex;justify-content:space-between;font-weight:900}
+.sec-brand{font-size:28px;color:var(--gold);text-shadow:0 0 14px gold}
+.sec-shield{font-size:48px;color:var(--gold);text-shadow:0 0 20px gold}
+.sec-id{letter-spacing:3px;font-weight:bold}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{border-radius:22px;padding:22px;transition:.3s}
+.stat:hover,.box:hover,.event:hover{transform:translateY(-5px);box-shadow:0 0 38px gold}
+.stat i,.box i{color:var(--gold);font-size:28px;margin-bottom:12px}
+.stat h3{color:var(--gold);font-size:28px;margin-bottom:6px}.stat p{color:#ddd;font-size:14px}
+
+.controls{display:flex;gap:12px;flex-wrap:wrap}
+.filter{border:1px solid var(--gold);border-radius:40px;background:#050505;color:var(--gold);padding:12px 18px;cursor:pointer;font-weight:900}
+.filter.active,.filter:hover{background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;box-shadow:0 0 20px gold}
+
+.timeline{display:grid;gap:14px}
+.event{border-radius:20px;padding:18px;display:grid;grid-template-columns:54px 1fr auto;gap:16px;align-items:center;transition:.3s}
+.event-icon{width:54px;height:54px;border-radius:16px;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:22px;box-shadow:0 0 18px rgba(255,215,0,.35)}
+.event h3{color:var(--gold);margin-bottom:5px}
+.event p{font-size:13px;color:#ddd}
+.event strong{color:var(--gold)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.device{display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,215,0,.45);border-radius:18px;padding:16px;margin-bottom:12px;background:rgba(0,0,0,.55)}
+.device strong{color:var(--gold)}
+.badge{color:#111;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);border-radius:30px;padding:8px 12px;font-weight:900}
+.risk{height:14px;background:#111;border:1px solid rgba(255,215,0,.55);border-radius:30px;overflow:hidden;margin:16px 0}
+.risk span{display:block;height:100%;width:18%;background:linear-gradient(90deg,#00ff66,#ffe36e);box-shadow:0 0 20px #00ff66}
+.btn{border:none;border-radius:16px;padding:14px 18px;cursor:pointer;color:#111;font-weight:900;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);box-shadow:0 0 22px gold;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.notify{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--gold);border-radius:16px;background:#050505;color:var(--gold);box-shadow:0 0 25px gold}
+
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}.hero,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.page{padding:16px}.header{flex-direction:column;gap:14px}.stats{grid-template-columns:1fr}.logo{font-size:25px}.event{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status"><span class="dot"></span> ACTIVITY SYSTEM ONLINE</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"><i class="fa-solid fa-clock-rotate-left"></i></div>
+    <h3>MOHAMMED GHALEB</h3>
+    <p>Security Activity Center</p>
+  </div>
+
+  <nav class="nav">
+    <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+    <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+    <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+    <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+    <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+    <a class="active" href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
+    <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<section class="hero">
+  <div class="panel">
+    <h1>Activity Center</h1>
+    <p>Monitor your wallet transactions, QR verifications, NFC card actions, reward redemptions, device access and security events from one global activity center.</p>
+    <br>
+    <div class="controls">
+      <button class="filter active" onclick="filterEvents('all')">All</button>
+      <button class="filter" onclick="filterEvents('wallet')">Wallet</button>
+      <button class="filter" onclick="filterEvents('qr')">QR</button>
+      <button class="filter" onclick="filterEvents('nfc')">NFC</button>
+      <button class="filter" onclick="filterEvents('security')">Security</button>
+    </div>
+  </div>
+
+  <div class="security-card" id="securityCard">
+    <div class="security-content">
+      <div class="sec-top">
+        <div class="sec-brand">STYLESPHERE</div>
+        <div>SECURITY<br>COMMAND</div>
+      </div>
+      <div class="sec-shield"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <div class="sec-id">RISK SCORE: LOW</div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:12px;font-weight:bold">
+          <span>SESSION ACTIVE</span>
+          <span>PROTECTED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><i class="fa-solid fa-list-check"></i><h3 id="eventsCount">0</h3><p>Total Events</p></div>
+  <div class="stat"><i class="fa-solid fa-shield"></i><h3>Low</h3><p>Risk Score</p></div>
+  <div class="stat"><i class="fa-solid fa-mobile-screen"></i><h3>2</h3><p>Trusted Devices</p></div>
+  <div class="stat"><i class="fa-solid fa-check-circle"></i><h3>Active</h3><p>Account Status</p></div>
+</section>
+
+<section class="grid">
+  <div class="box">
+    <h2>Security Overview</h2>
+    <p>Current account risk level is low. All recent activity appears normal.</p>
+    <div class="risk"><span></span></div>
+    <button class="btn" onclick="addSecurityCheck()"><i class="fa-solid fa-shield"></i> Run Security Check</button>
+  </div>
+
+  <div class="box">
+    <h2>Trusted Devices</h2>
+    <div class="device"><div><strong>Windows Laptop</strong><p>Jeddah, Saudi Arabia</p></div><span class="badge">ACTIVE</span></div>
+    <div class="device"><div><strong>Android Device</strong><p>Mobile Access</p></div><span class="badge">TRUSTED</span></div>
+  </div>
+</section>
+
+<section class="box">
+  <h2>Activity Timeline</h2>
+
+  <div class="timeline" id="timeline">
+
+    <div class="event" data-type="wallet">
+      <div class="event-icon"><i class="fa-solid fa-wallet"></i></div>
+      <div><h3>Wallet top-up</h3><p>Balance added to StyleSphere Wallet</p></div>
+      <strong>+$100</strong>
+    </div>
+
+    <div class="event" data-type="qr">
+      <div class="event-icon"><i class="fa-solid fa-qrcode"></i></div>
+      <div><h3>QR token refreshed</h3><p>Secure access token generated</p></div>
+      <strong>Verified</strong>
+    </div>
+
+    <div class="event" data-type="nfc">
+      <div class="event-icon"><i class="fa-solid fa-credit-card"></i></div>
+      <div><h3>NFC card requested</h3><p>Physical NFC card request submitted</p></div>
+      <strong>Pending</strong>
+    </div>
+
+    <div class="event" data-type="security">
+      <div class="event-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <div><h3>Security session active</h3><p>Login session protected and verified</p></div>
+      <strong>Secure</strong>
+    </div>
+
+    <div class="event" data-type="wallet">
+      <div class="event-icon"><i class="fa-solid fa-gift"></i></div>
+      <div><h3>Reward redeemed</h3><p>Luxury Gift Box redemption created</p></div>
+      <strong>Redeemed</strong>
+    </div>
+
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="notify" id="notify"><i class="fa-solid fa-bell"></i><span id="notifyText">Done</span></div>
+
+<script>
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
+
+function showNotice(text){
+  const n=document.getElementById("notify");
+  document.getElementById("notifyText").textContent=text;
+  n.style.display="flex";
+  setTimeout(()=>n.style.display="none",2800);
+}
+
+function updateCount(){
+  document.getElementById("eventsCount").textContent=document.querySelectorAll(".event").length;
+}
+updateCount();
+
+function filterEvents(type){
+  document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  document.querySelectorAll(".event").forEach(e=>{
+    e.style.display=(type==="all"||e.dataset.type===type)?"grid":"none";
+  });
+}
+
+function addEvent(type,icon,title,desc,status){
+  const item=document.createElement("div");
+  item.className="event";
+  item.dataset.type=type;
+  item.innerHTML=`
+    <div class="event-icon"><i class="${icon}"></i></div>
+    <div><h3>${title}</h3><p>${desc}</p></div>
+    <strong>${status}</strong>
+  `;
+  document.getElementById("timeline").prepend(item);
+  updateCount();
+}
+
+function addSecurityCheck(){
+  addEvent("security","fa-solid fa-shield","Security check completed","Account activity scanned successfully","Safe");
+  showNotice("Security check completed");
+}
+
+const card=document.getElementById("securityCard");
+card.addEventListener("mousemove",function(e){
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  const rotateX=-((y/rect.height)-.5)*16;
+  const rotateY=((x/rect.width)-.5)*16;
+  card.style.transform=`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseenter",()=>{card.style.boxShadow="0 0 80px gold,0 0 120px rgba(255,215,0,.4)"});
+card.addEventListener("mouseleave",function(){
+  card.style.transform="perspective(1000px) rotateX(5deg) rotateY(-6deg)";
+  card.style.boxShadow="0 0 50px gold";
+});
+</script>
+
+</body>
+</html>
