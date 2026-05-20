@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StyleSphere Members Club</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,8 +13,8 @@
 body{
   min-height:100vh;
   background:#020202;
-  color:#fff;
-  font-family:Arial, sans-serif;
+  color:white;
+  font-family:Arial,sans-serif;
   overflow-x:hidden;
 }
 
@@ -23,9 +23,9 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 20% 20%,rgba(255,215,0,.18),transparent 30%),
-    radial-gradient(circle at 80% 40%,rgba(255,215,0,.12),transparent 35%),
-    linear-gradient(135deg,#000,#080602,#000);
+    radial-gradient(circle at 20% 20%,rgba(255,215,0,.22),transparent 28%),
+    radial-gradient(circle at 80% 30%,rgba(255,215,0,.16),transparent 30%),
+    linear-gradient(135deg,#000,#090702,#000);
   z-index:-2;
 }
 
@@ -34,19 +34,19 @@ body::after{
   position:fixed;
   inset:0;
   background-image:
-    linear-gradient(rgba(255,215,0,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,215,0,.08) 1px, transparent 1px);
-  background-size:70px 70px;
+    linear-gradient(rgba(255,215,0,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,215,0,.08) 1px,transparent 1px);
+  background-size:80px 80px;
   animation:gridMove 18s linear infinite;
   z-index:-1;
 }
 
 @keyframes gridMove{
   from{background-position:0 0}
-  to{background-position:140px 140px}
+  to{background-position:160px 160px}
 }
 
-.wrapper{
+.page{
   min-height:100vh;
   padding:28px;
 }
@@ -59,33 +59,20 @@ body::after{
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:14px;
   color:#ffe36e;
-  font-size:30px;
+  font-size:32px;
   font-weight:900;
   letter-spacing:3px;
-  text-shadow:0 0 18px gold;
-}
-
-.logo span{
-  width:48px;
-  height:48px;
-  border:2px solid #ffe36e;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  box-shadow:0 0 25px gold;
+  text-shadow:0 0 22px gold;
 }
 
 .status{
+  color:#ffe36e;
   border:1px solid #ffe36e;
   border-radius:40px;
   padding:12px 22px;
-  color:#ffe36e;
-  box-shadow:0 0 18px rgba(255,215,0,.45);
   font-weight:bold;
+  box-shadow:0 0 20px gold;
 }
 
 .main{
@@ -95,132 +82,132 @@ body::after{
 }
 
 .panel{
-  position:relative;
-  border:1px solid rgba(255,215,0,.75);
+  border:1px solid rgba(255,215,0,.8);
   border-radius:30px;
   padding:34px;
-  background:rgba(0,0,0,.62);
-  box-shadow:
-    inset 0 0 28px rgba(255,215,0,.12),
-    0 0 35px rgba(255,215,0,.20);
-  overflow:hidden;
+  background:rgba(0,0,0,.72);
+  box-shadow:0 0 40px rgba(255,215,0,.25), inset 0 0 35px rgba(255,215,0,.12);
 }
 
-.panel::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg,transparent,#ffe36e,transparent);
-  opacity:.15;
-  animation:shine 4s linear infinite;
+.hero-title{
+  text-align:center;
+  font-size:74px;
+  line-height:.95;
+  color:#ffe36e;
+  text-shadow:0 0 16px gold,0 0 45px gold;
+  animation:pulse 2.5s infinite;
 }
 
-@keyframes shine{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
+@keyframes pulse{
+  50%{filter:brightness(1.45)}
 }
-
-.content{position:relative;z-index:2}
 
 .hero-small{
   text-align:center;
   color:#ffe36e;
   letter-spacing:12px;
-  margin-top:10px;
-  margin-bottom:20px;
-}
-
-.hero-title{
-  text-align:center;
-  font-size:76px;
-  line-height:.95;
-  color:#ffe36e;
-  text-shadow:0 0 12px #ffd700,0 0 35px #ffd700;
-  animation:pulse 2.5s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%,100%{filter:brightness(1)}
-  50%{filter:brightness(1.45)}
+  margin-bottom:22px;
 }
 
 .hero-text{
   text-align:center;
-  margin:22px 0;
+  margin:24px 0;
   font-size:18px;
   line-height:1.6;
 }
 
-.vip-card{
-  width:78%;
-  margin:30px auto;
-  padding:32px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#151515,#020202);
+.bank-card{
+  width:82%;
+  margin:35px auto;
+  height:250px;
+  border-radius:24px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(135deg,#111,#050505 45%,#1d1706),
+    radial-gradient(circle at 75% 20%,rgba(255,215,0,.35),transparent 30%);
   border:1px solid #ffe36e;
-  box-shadow:0 0 35px gold;
+  box-shadow:0 0 45px gold;
   transform:perspective(900px) rotateX(6deg) rotateY(-8deg);
-  animation:float 4s ease-in-out infinite;
+  animation:cardFloat 4s ease-in-out infinite;
 }
 
-@keyframes float{
-  0%,100%{transform:perspective(900px) rotateX(6deg) rotateY(-8deg) translateY(0)}
+.bank-card::before{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.38),transparent);
+  transform:rotate(25deg);
+  animation:cardShine 4s linear infinite;
+}
+
+@keyframes cardShine{
+  from{left:-120%}
+  to{left:120%}
+}
+
+@keyframes cardFloat{
   50%{transform:perspective(900px) rotateX(6deg) rotateY(-8deg) translateY(-12px)}
 }
 
-.vip-card h2{
+.bank-card h2{
   color:#ffe36e;
-  font-size:34px;
+  font-size:32px;
+  position:relative;
+  z-index:2;
 }
 
-.vip-card p{
-  margin-top:8px;
-  letter-spacing:2px;
+.bank-card p{
+  position:relative;
+  z-index:2;
 }
 
-.nfc{
-  margin-top:24px;
-  display:flex;
-  gap:18px;
-  font-size:26px;
-  color:#ffe36e;
+.card-chip{
+  width:48px;
+  height:38px;
+  background:linear-gradient(135deg,#c59b21,#fff1a8,#b8860b);
+  border-radius:8px;
+  margin:28px 0 16px;
+  position:relative;
+  z-index:2;
+  box-shadow:0 0 18px gold;
+}
+
+.card-number{
+  letter-spacing:5px;
+  font-size:22px;
+  position:relative;
+  z-index:2;
 }
 
 .features{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
-  margin-top:26px;
 }
 
 .feature{
-  border:1px solid rgba(255,215,0,.7);
+  border:1px solid #ffe36e;
   border-radius:18px;
   padding:18px;
   text-align:center;
-  background:rgba(0,0,0,.55);
   color:#ffe36e;
-  box-shadow:0 0 18px rgba(255,215,0,.18);
-  transition:.35s;
-}
-
-.feature:hover{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:0 0 35px gold;
+  background:rgba(0,0,0,.55);
+  box-shadow:0 0 18px rgba(255,215,0,.2);
 }
 
 .login-title{
   text-align:center;
   font-size:50px;
   color:#ffe36e;
-  text-shadow:0 0 22px gold;
-  margin-bottom:14px;
+  text-shadow:0 0 25px gold;
 }
 
 .login-sub{
   text-align:center;
+  margin:16px 0 28px;
   line-height:1.6;
-  margin-bottom:26px;
 }
 
 label{
@@ -231,14 +218,14 @@ label{
 }
 
 .input{
-  height:60px;
+  height:62px;
   display:flex;
   align-items:center;
   border:1px solid #ffe36e;
-  border-radius:14px;
+  border-radius:15px;
+  background:rgba(0,0,0,.62);
   padding:0 16px;
-  background:rgba(0,0,0,.55);
-  box-shadow:0 0 15px rgba(255,215,0,.30);
+  box-shadow:0 0 18px rgba(255,215,0,.32);
 }
 
 .input i{
@@ -249,14 +236,26 @@ label{
 .input input{
   flex:1;
   height:100%;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:#fff;
+  border:none;
+  outline:none;
+  background:transparent !important;
+  color:white !important;
   font-size:16px;
+  box-shadow:none !important;
 }
 
-.input input::placeholder{color:#ddd}
+.input input::placeholder{color:#d8d8d8}
+
+/* هذا أهم شيء يخفي الأبيض حق Chrome Autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow:0 0 0 1000px #070707 inset !important;
+  -webkit-text-fill-color:#ffffff !important;
+  caret-color:#ffffff !important;
+  transition:background-color 9999s ease-in-out 0s !important;
+}
 
 .eye{
   cursor:pointer;
@@ -265,8 +264,8 @@ label{
 }
 
 .eye:hover{
-  transform:scale(1.2);
-  text-shadow:0 0 15px gold;
+  transform:scale(1.25);
+  text-shadow:0 0 18px gold;
 }
 
 .row{
@@ -277,29 +276,28 @@ label{
   font-size:14px;
 }
 
-.row a{
+.row a,.create a{
   color:#ffe36e;
   text-decoration:none;
 }
 
 .login-btn{
   width:100%;
-  height:68px;
+  height:70px;
   border:none;
   border-radius:16px;
   cursor:pointer;
-  color:#111;
   font-size:20px;
-  letter-spacing:8px;
   font-weight:900;
+  letter-spacing:8px;
+  color:#111;
   background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37,#fff3a3);
-  box-shadow:0 0 30px gold;
+  box-shadow:0 0 35px gold;
   animation:btnGlow 2s infinite alternate;
 }
 
 @keyframes btnGlow{
-  from{box-shadow:0 0 18px gold}
-  to{box-shadow:0 0 45px gold}
+  to{box-shadow:0 0 55px gold}
 }
 
 .or{
@@ -323,37 +321,27 @@ label{
   color:#ffe36e;
   font-weight:bold;
   cursor:pointer;
-  transition:.3s;
-}
-
-.social button:hover{
-  background:#ffe36e;
-  color:#111;
-  box-shadow:0 0 25px gold;
 }
 
 .create{
-  margin-top:18px;
   text-align:center;
+  margin-top:18px;
   font-size:14px;
 }
 
-.create a{color:#ffe36e}
-
 .footer{
+  margin-top:26px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:16px;
-  margin-top:26px;
 }
 
 .foot{
-  border:1px solid rgba(255,215,0,.65);
+  border:1px solid #ffe36e;
   border-radius:18px;
   padding:18px;
-  background:rgba(0,0,0,.55);
   text-align:center;
-  box-shadow:0 0 15px rgba(255,215,0,.18);
+  background:rgba(0,0,0,.55);
 }
 
 .foot i{
@@ -365,8 +353,8 @@ label{
 @media(max-width:900px){
   .main{grid-template-columns:1fr}
   .footer{grid-template-columns:1fr}
-  .hero-title{font-size:48px}
-  .vip-card{width:100%}
+  .hero-title{font-size:46px}
+  .bank-card{width:100%}
   .features,.social{grid-template-columns:1fr}
 }
 </style>
@@ -374,88 +362,81 @@ label{
 
 <body>
 
-<div class="wrapper">
+<div class="page">
 
-  <header class="header">
-    <div class="logo"><span>S</span> STYLESPHERE</div>
-    <div class="status">● SYSTEM STATUS ACTIVE</div>
-  </header>
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status">● SYSTEM STATUS ACTIVE</div>
+</header>
 
-  <main class="main">
+<main class="main">
 
-    <section class="panel">
-      <div class="content">
-        <div class="hero-small">EXCLUSIVE ACCESS</div>
-        <h1 class="hero-title">BEYOND<br>REWARDS</h1>
-        <p class="hero-text">JOIN A WORLD OF LUXURY,<br>REWARDS AND EXCLUSIVE EXPERIENCES.</p>
+<section class="panel">
+  <div class="hero-small">EXCLUSIVE ACCESS</div>
+  <h1 class="hero-title">BEYOND<br>REWARDS</h1>
+  <p class="hero-text">JOIN A WORLD OF LUXURY,<br>REWARDS AND EXCLUSIVE EXPERIENCES.</p>
 
-        <div class="vip-card">
-          <h2>STYLESPHERE</h2>
-          <p>ROYAL INFINITY<br>WORLD ELITE MEMBERS CLUB</p>
-          <div class="nfc">
-            <i class="fa-solid fa-microchip"></i>
-            <i class="fa-solid fa-wifi"></i>
-          </div>
-          <p style="margin-top:22px;font-size:22px;">5412 &nbsp; 7512 &nbsp; 3412 &nbsp; 34</p>
-        </div>
+  <div class="bank-card">
+    <h2>STYLESPHERE</h2>
+    <p>ROYAL INFINITY<br>WORLD ELITE MEMBERS CLUB</p>
+    <div class="card-chip"></div>
+    <div class="card-number">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;34</div>
+  </div>
 
-        <div class="features">
-          <div class="feature"><i class="fa-solid fa-gem"></i><br>EXCLUSIVE REWARDS</div>
-          <div class="feature"><i class="fa-solid fa-crown"></i><br>VIP LEVEL BENEFITS</div>
-          <div class="feature"><i class="fa-solid fa-globe"></i><br>GLOBAL ACCESS</div>
-        </div>
-      </div>
-    </section>
+  <div class="features">
+    <div class="feature"><i class="fa-solid fa-gem"></i><br>EXCLUSIVE REWARDS</div>
+    <div class="feature"><i class="fa-solid fa-crown"></i><br>VIP LEVEL BENEFITS</div>
+    <div class="feature"><i class="fa-solid fa-globe"></i><br>GLOBAL ACCESS</div>
+  </div>
+</section>
 
-    <section class="panel">
-      <div class="content">
-        <h2 class="login-title">CLIENT LOGIN</h2>
-        <p class="login-sub">Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
+<section class="panel">
+  <h2 class="login-title">CLIENT LOGIN</h2>
+  <p class="login-sub">Access your account to manage your membership,<br>earn points and unlock exclusive rewards.</p>
 
-        <label>EMAIL ADDRESS</label>
-        <div class="input">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="email" placeholder="Enter your email">
-        </div>
+  <label>EMAIL ADDRESS</label>
+  <div class="input">
+    <i class="fa-solid fa-envelope"></i>
+    <input type="email" id="email" placeholder="Enter your email" autocomplete="off">
+  </div>
 
-        <label>PASSWORD</label>
-        <div class="input">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="password" placeholder="Enter your password">
-          <i class="fa-solid fa-eye eye" onclick="togglePassword()"></i>
-        </div>
+  <label>PASSWORD</label>
+  <div class="input">
+    <i class="fa-solid fa-lock"></i>
+    <input type="password" id="password" placeholder="Enter your password" autocomplete="new-password">
+    <i class="fa-solid fa-eye eye" onclick="togglePassword()"></i>
+  </div>
 
-        <div class="row">
-          <label style="margin:0;color:#fff;font-weight:normal;">
-            <input type="checkbox"> REMEMBER ME
-          </label>
-          <a href="#">Forgot Password?</a>
-        </div>
+  <div class="row">
+    <label style="margin:0;color:white;font-weight:normal;">
+      <input type="checkbox"> REMEMBER ME
+    </label>
+    <a href="#">Forgot Password?</a>
+  </div>
 
-        <button class="login-btn" onclick="loginNow()">LOGIN →</button>
+  <button class="login-btn" onclick="loginNow()">LOGIN →</button>
 
-        <div class="or">OR CONTINUE WITH</div>
+  <div class="or">OR CONTINUE WITH</div>
 
-        <div class="social">
-          <button><i class="fa-brands fa-google"></i> GOOGLE</button>
-          <button><i class="fa-brands fa-apple"></i> APPLE</button>
-          <button><i class="fa-brands fa-facebook-f"></i> FACEBOOK</button>
-        </div>
+  <div class="social">
+    <button><i class="fa-brands fa-google"></i> GOOGLE</button>
+    <button><i class="fa-brands fa-apple"></i> APPLE</button>
+    <button><i class="fa-brands fa-facebook-f"></i> FACEBOOK</button>
+  </div>
 
-        <div class="create">
-          Don’t have an account? <a href="#">Create Account</a>
-        </div>
-      </div>
-    </section>
+  <div class="create">
+    Don’t have an account? <a href="#">Create Account</a>
+  </div>
+</section>
 
-  </main>
+</main>
 
-  <section class="footer">
-    <div class="foot"><i class="fa-solid fa-shield-halved"></i><br><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div>
-    <div class="foot"><i class="fa-solid fa-earth-americas"></i><br><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div>
-    <div class="foot"><i class="fa-solid fa-headset"></i><br><b>24/7 SUPPORT</b><br>We are here anytime</div>
-    <div class="foot"><i class="fa-solid fa-crown"></i><br><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div>
-  </section>
+<section class="footer">
+  <div class="foot"><i class="fa-solid fa-shield-halved"></i><br><b>SECURE & ENCRYPTED</b><br>256-bit SSL encryption</div>
+  <div class="foot"><i class="fa-solid fa-earth-americas"></i><br><b>GLOBAL MEMBERSHIP</b><br>Access in 152+ countries</div>
+  <div class="foot"><i class="fa-solid fa-headset"></i><br><b>24/7 SUPPORT</b><br>We are here anytime</div>
+  <div class="foot"><i class="fa-solid fa-crown"></i><br><b>ELITE EXPERIENCES</b><br>Luxury rewards access</div>
+</section>
 
 </div>
 
