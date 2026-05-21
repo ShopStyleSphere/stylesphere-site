@@ -1,5 +1,4 @@
 /* StyleSphere Global System */
-/* LocalStorage business system - ready to upgrade later to Firebase/API */
 
 const SS = {
   keys: {
@@ -18,6 +17,7 @@ const SS = {
       points: 12450,
       wallet: 240,
       rewards: 8,
+      profileImage: "",
       qrId: "QR-SS-2026-8842",
       nfcStatus: "Active",
       status: "Active",
@@ -33,6 +33,9 @@ const SS = {
       user = this.defaultUser();
       this.saveUser(user);
     }
+
+    if (user.profileImage === undefined) user.profileImage = "";
+
     return user;
   },
 
@@ -40,54 +43,35 @@ const SS = {
     localStorage.setItem(this.keys.user, JSON.stringify(user));
   },
 
+  updateProfileImage(imageBase64) {
+    const user = this.getUser();
+    user.profileImage = imageBase64;
+    this.saveUser(user);
+    this.renderUser();
+  },
+
+  getProfileImage() {
+    return this.getUser().profileImage || "";
+  },
+
   isLoggedIn() {
     return localStorage.getItem(this.keys.logged) === "true";
   },
 
   login(email, password) {
-    if (!email || !password) return { ok:false, message:"Enter email and password" };
+    if (!email || !password) {
+      return { ok: false, message: "Enter email and password" };
+    }
 
-    let user = this.getUser();
+    const user = this.getUser();
     user.email = email;
     user.lastLogin = new Date().toISOString();
 
     this.saveUser(user);
     localStorage.setItem(this.keys.logged, "true");
-
     this.addActivity("Security", "Client login", "Verified");
-    return { ok:true, user };
-  },
 
-  register(data) {
-    if (!data.name || !data.email || !data.password) {
-      return { ok:false, message:"Complete all fields" };
-    }
-
-    if (data.password.length < 6) {
-      return { ok:false, message:"Password must be at least 6 characters" };
-    }
-
-    const user = {
-      id: "USR-" + Date.now(),
-      name: data.name,
-      email: data.email,
-      level: "Bronze",
-      points: 0,
-      wallet: 0,
-      rewards: 0,
-      qrId: "QR-SS-" + Date.now(),
-      nfcStatus: "Not Requested",
-      status: "Pending Verification",
-      emailVerified: false,
-      currency: "USD",
-      createdAt: new Date().toISOString()
-    };
-
-    this.saveUser(user);
-    localStorage.setItem(this.keys.logged, "true");
-    this.addActivity("Account", "Account created", "Pending Verification");
-
-    return { ok:true, user };
+    return { ok: true, user };
   },
 
   logout() {
@@ -115,7 +99,10 @@ const SS = {
 
   redeemPoints(amount, rewardName = "Reward redeemed") {
     const user = this.getUser();
-    if (user.points < amount) return { ok:false, message:"Not enough points" };
+
+    if (user.points < amount) {
+      return { ok: false, message: "Not enough points" };
+    }
 
     user.points -= amount;
     user.rewards = Number(user.rewards || 0) + 1;
@@ -124,7 +111,7 @@ const SS = {
     this.saveUser(user);
     this.addActivity("Rewards", rewardName, "-" + amount + " pts");
 
-    return { ok:true, user };
+    return { ok: true, user };
   },
 
   topUpWallet(amount) {
@@ -139,28 +126,28 @@ const SS = {
     const user = this.getUser();
 
     if (user.wallet < amount) {
-      return { ok:false, message:"Insufficient wallet balance" };
+      return { ok: false, message: "Insufficient wallet balance" };
     }
 
     user.wallet -= Number(amount);
     this.saveUser(user);
     this.addActivity("Wallet", "Withdrawal request", "-$" + Number(amount).toFixed(2));
 
-    return { ok:true, user };
+    return { ok: true, user };
   },
 
   sendGift(amount, recipient) {
     const user = this.getUser();
 
     if (user.wallet < amount) {
-      return { ok:false, message:"Insufficient wallet balance" };
+      return { ok: false, message: "Insufficient wallet balance" };
     }
 
     user.wallet -= Number(amount);
     this.saveUser(user);
     this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + Number(amount).toFixed(2));
 
-    return { ok:true, user };
+    return { ok: true, user };
   },
 
   requestNFC() {
@@ -252,6 +239,7 @@ const SS = {
   formatMoney(amount) {
     const user = this.getUser();
     const currency = user.currency || "USD";
+
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency
@@ -269,10 +257,17 @@ const SS = {
     document.querySelectorAll("[data-user-rewards]").forEach(el => el.textContent = user.rewards || 0);
     document.querySelectorAll("[data-user-qr]").forEach(el => el.textContent = user.qrId);
     document.querySelectorAll("[data-user-nfc]").forEach(el => el.textContent = user.nfcStatus);
+
+    document.querySelectorAll("[data-user-image]").forEach(el => {
+      if (user.profileImage) {
+        el.src = user.profileImage;
+      }
+    });
   }
 };
 
 window.StyleSphereSystem = SS;
+window.SS = SS;
 
 document.addEventListener("mousemove", (e) => {
   document.body.style.setProperty("--x", e.clientX + "px");
@@ -281,4 +276,24 @@ document.addEventListener("mousemove", (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   SS.renderUser();
+
+  const img = document.getElementById("profileImage");
+  const upload = document.getElementById("uploadImage");
+
+  if (img && upload) {
+    img.addEventListener("click", () => upload.click());
+
+    upload.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        SS.updateProfileImage(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
 });
