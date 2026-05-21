@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StyleSphere Secure Checkout</title>
+  <title>StyleSphere | Secure Global Checkout</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -12,30 +12,30 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family: Arial, sans-serif;
+      font-family:Arial, sans-serif;
     }
 
     body{
       min-height:100vh;
       background:
-        radial-gradient(circle at top left, rgba(255,215,0,.18), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255,215,0,.12), transparent 35%),
-        #050805;
+        radial-gradient(circle at top left, rgba(255,215,0,.20), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(255,215,0,.14), transparent 35%),
+        linear-gradient(135deg,#020402,#081008,#020402);
       color:#fff;
       overflow-x:hidden;
     }
 
     .page{
       width:100%;
-      max-width:1250px;
+      max-width:1280px;
       margin:auto;
       padding:28px;
     }
 
     .top{
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:center;
       gap:18px;
       margin-bottom:28px;
     }
@@ -46,71 +46,134 @@
       border:1px solid rgba(247,216,74,.45);
       padding:11px 18px;
       border-radius:999px;
-      font-weight:800;
+      font-weight:900;
       background:rgba(255,215,0,.06);
       box-shadow:0 0 20px rgba(247,216,74,.18);
     }
 
     .back-btn:hover{
       background:#f7d84a;
-      color:#101010;
+      color:#111;
     }
 
     .logo{
       font-size:34px;
-      font-weight:900;
+      font-weight:950;
       letter-spacing:3px;
       color:#f7d84a;
-      text-shadow:0 0 22px rgba(247,216,74,.7);
-    }
-
-    .status{
-      border:1px solid rgba(247,216,74,.55);
-      padding:12px 20px;
-      border-radius:999px;
-      font-weight:800;
-      color:#f7d84a;
-      box-shadow:0 0 22px rgba(247,216,74,.22);
+      text-shadow:
+        0 0 12px rgba(247,216,74,.65),
+        0 0 35px rgba(247,216,74,.35);
       white-space:nowrap;
     }
 
-    .dot{
-      display:inline-block;
-      width:9px;
-      height:9px;
-      background:#00ff7b;
+    .status{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(247,216,74,.55);
+      padding:13px 22px;
+      border-radius:999px;
+      font-weight:900;
+      color:#f7d84a;
+      background:rgba(0,0,0,.28);
+      box-shadow:
+        inset 0 0 20px rgba(247,216,74,.08),
+        0 0 24px rgba(247,216,74,.25);
+      white-space:nowrap;
+    }
+
+    .status::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius:999px;
+      border:1px solid rgba(0,255,157,.18);
+      animation:statusRing 2s infinite;
+      pointer-events:none;
+    }
+
+    .live-dot{
+      width:11px;
+      height:11px;
       border-radius:50%;
-      margin-right:8px;
-      box-shadow:0 0 10px #00ff7b;
+      background:radial-gradient(circle,#baffdf 0%,#00ff9d 38%,#00b96b 100%);
+      box-shadow:
+        0 0 8px #00ff9d,
+        0 0 18px #00ff9d,
+        0 0 34px rgba(0,255,157,.75);
+      animation:pulseDot 1.35s infinite;
+    }
+
+    @keyframes pulseDot{
+      0%{transform:scale(1);opacity:1;}
+      50%{transform:scale(1.45);opacity:.65;}
+      100%{transform:scale(1);opacity:1;}
+    }
+
+    @keyframes statusRing{
+      0%{transform:scale(1);opacity:.7;}
+      70%{transform:scale(1.08);opacity:0;}
+      100%{transform:scale(1.08);opacity:0;}
     }
 
     .wrap{
       display:grid;
-      grid-template-columns:1.1fr .9fr;
+      grid-template-columns:1.08fr .92fr;
       gap:26px;
       align-items:start;
     }
 
     .panel{
       border:1px solid rgba(247,216,74,.55);
-      border-radius:28px;
+      border-radius:30px;
       padding:26px;
-      background:rgba(8,12,8,.78);
+      background:
+        linear-gradient(145deg, rgba(255,215,0,.07), rgba(0,0,0,.35)),
+        rgba(8,12,8,.82);
       box-shadow:
-        inset 0 0 35px rgba(247,216,74,.08),
-        0 0 35px rgba(247,216,74,.16);
-      backdrop-filter:blur(10px);
+        inset 0 0 40px rgba(247,216,74,.08),
+        0 0 40px rgba(247,216,74,.14);
+      backdrop-filter:blur(14px);
     }
 
     h1,h2{
       color:#f7d84a;
-      text-shadow:0 0 18px rgba(247,216,74,.45);
+      text-shadow:0 0 18px rgba(247,216,74,.48);
       margin-bottom:12px;
     }
 
+    h1{
+      font-size:30px;
+    }
+
     p{
-      color:#d7e1d7;
+      color:#dce7dc;
       line-height:1.6;
+    }
+
+    .secure-note{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .secure-note div{
+      border:1px solid rgba(247,216,74,.28);
+      border-radius:14px;
+      padding:10px;
+      text-align:center;
+      color:#e8efe8;
+      font-size:12px;
+      background:rgba(0,0,0,.22);
+    }
+
+    .secure-note i{
+      color:#f7d84a;
+      display:block;
+      margin-bottom:6px;
     }
 
     .plans{
@@ -120,25 +183,27 @@
     }
 
     .plan{
-      border:1px solid rgba(247,216,74,.5);
-      border-radius:22px;
+      border:1px solid rgba(247,216,74,.48);
+      border-radius:23px;
       padding:22px;
       cursor:pointer;
-      background:linear-gradient(145deg, rgba(255,215,0,.08), rgba(0,0,0,.35));
+      background:linear-gradient(145deg, rgba(255,215,0,.09), rgba(0,0,0,.42));
       transition:.25s;
     }
 
     .plan:hover,
     .plan.active{
-      box-shadow:0 0 28px rgba(247,216,74,.45);
+      box-shadow:
+        0 0 28px rgba(247,216,74,.42),
+        inset 0 0 18px rgba(247,216,74,.10);
       transform:translateY(-2px);
     }
 
     .plan-top{
       display:flex;
       justify-content:space-between;
+      gap:14px;
       align-items:center;
-      gap:12px;
     }
 
     .plan h3{
@@ -147,9 +212,10 @@
     }
 
     .price{
-      color:#fff3a0;
+      color:#fff4a3;
       font-size:25px;
-      font-weight:900;
+      font-weight:950;
+      text-shadow:0 0 12px rgba(247,216,74,.35);
     }
 
     .badge{
@@ -160,50 +226,94 @@
       color:#111;
       border-radius:999px;
       font-size:12px;
-      font-weight:900;
+      font-weight:950;
     }
 
-    .card-preview{
-      border-radius:24px;
-      padding:24px;
-      margin-bottom:20px;
-      min-height:190px;
+    .payment-card{
+      border-radius:26px;
+      padding:25px;
+      margin-bottom:22px;
+      min-height:202px;
       background:
-        linear-gradient(120deg, rgba(255,255,255,.18), rgba(255,255,255,.03)),
-        linear-gradient(135deg, #27322d, #b8c1ad);
-      box-shadow:0 0 35px rgba(247,216,74,.4);
-      color:#fff;
+        linear-gradient(120deg, rgba(255,255,255,.22), rgba(255,255,255,.04)),
+        linear-gradient(135deg,#26352f,#b9c3b2);
+      color:white;
+      box-shadow:
+        0 0 35px rgba(247,216,74,.48),
+        inset 0 0 30px rgba(255,255,255,.09);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .payment-card::after{
+      content:"";
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:180px;
+      height:300px;
+      background:rgba(255,255,255,.16);
+      transform:rotate(18deg);
     }
 
     .card-brand{
       display:flex;
       justify-content:space-between;
-      font-weight:900;
-      font-size:24px;
+      align-items:flex-start;
+      position:relative;
+      z-index:2;
+      font-weight:950;
+      font-size:25px;
       color:#f7d84a;
     }
 
+    .card-brand small{
+      color:#fff;
+      font-size:13px;
+      text-align:right;
+      line-height:1.2;
+    }
+
     .chip{
-      width:42px;
-      height:34px;
+      width:43px;
+      height:35px;
       border-radius:9px;
       background:linear-gradient(135deg,#fff8a0,#b99718);
       margin:30px 0 24px;
-      box-shadow:0 0 18px rgba(247,216,74,.65);
+      box-shadow:0 0 18px rgba(247,216,74,.75);
+      position:relative;
+      z-index:2;
     }
 
     .card-num{
       letter-spacing:5px;
       font-size:18px;
-      font-weight:700;
+      font-weight:900;
+      position:relative;
+      z-index:2;
     }
 
     .small-row{
-      margin-top:24px;
+      margin-top:25px;
       display:flex;
       justify-content:space-between;
       font-size:12px;
-      font-weight:800;
+      font-weight:950;
+      position:relative;
+      z-index:2;
+    }
+
+    .session-bar{
+      border:1px solid rgba(0,255,157,.28);
+      background:rgba(0,255,157,.07);
+      border-radius:16px;
+      padding:12px 14px;
+      margin-bottom:18px;
+      color:#caffdf;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
     }
 
     .methods{
@@ -214,21 +324,23 @@
     }
 
     .method{
-      border:1px solid rgba(247,216,74,.5);
+      border:1px solid rgba(247,216,74,.48);
       border-radius:18px;
       padding:16px;
       text-align:center;
       cursor:pointer;
-      background:rgba(0,0,0,.25);
+      background:rgba(0,0,0,.28);
+      transition:.2s;
     }
 
-    .method.active{
+    .method.active,
+    .method:hover{
       background:rgba(247,216,74,.18);
-      box-shadow:0 0 20px rgba(247,216,74,.35);
+      box-shadow:0 0 22px rgba(247,216,74,.35);
     }
 
     .method i{
-      font-size:23px;
+      font-size:24px;
       color:#f7d84a;
       margin-bottom:8px;
     }
@@ -243,10 +355,10 @@
       display:flex;
       align-items:center;
       gap:10px;
-      border:1px solid rgba(247,216,74,.5);
+      border:1px solid rgba(247,216,74,.48);
       border-radius:15px;
       padding:13px 15px;
-      background:rgba(0,0,0,.32);
+      background:rgba(0,0,0,.35);
     }
 
     .input i{
@@ -263,7 +375,11 @@
     }
 
     input::placeholder{
-      color:#cfd8cf;
+      color:#cfd9cf;
+    }
+
+    select option{
+      background:#111;
     }
 
     .row{
@@ -274,7 +390,7 @@
 
     .summary{
       margin-top:18px;
-      border-top:1px solid rgba(247,216,74,.3);
+      border-top:1px solid rgba(247,216,74,.30);
       padding-top:18px;
     }
 
@@ -291,9 +407,9 @@
       justify-content:space-between;
       align-items:center;
       padding:18px 0;
-      font-weight:900;
+      font-weight:950;
       color:#f7d84a;
-      font-size:26px;
+      font-size:27px;
     }
 
     .pay-btn{
@@ -301,13 +417,18 @@
       border:none;
       padding:18px;
       border-radius:18px;
-      font-weight:900;
+      font-weight:950;
       letter-spacing:4px;
       color:#111;
       background:linear-gradient(135deg,#fff27a,#d6a900);
-      box-shadow:0 0 30px rgba(247,216,74,.65);
+      box-shadow:0 0 32px rgba(247,216,74,.68);
       cursor:pointer;
       margin-top:10px;
+    }
+
+    .pay-btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.08);
     }
 
     .trust{
@@ -324,6 +445,7 @@
       text-align:center;
       font-size:12px;
       color:#dfe9df;
+      background:rgba(0,0,0,.22);
     }
 
     .trust i{
@@ -332,7 +454,7 @@
       margin-bottom:5px;
     }
 
-    @media(max-width:900px){
+    @media(max-width:950px){
       .wrap{
         grid-template-columns:1fr;
       }
@@ -347,7 +469,8 @@
       }
 
       .methods,
-      .trust{
+      .trust,
+      .secure-note{
         grid-template-columns:1fr;
       }
     }
@@ -366,7 +489,8 @@
       <div class="logo">Ⓢ STYLESPHERE</div>
 
       <div class="status">
-        <span class="dot"></span> SECURE CHECKOUT ONLINE
+        <span class="live-dot"></span>
+        ENCRYPTED PAYMENT SESSION ACTIVE
       </div>
     </div>
 
@@ -374,7 +498,16 @@
 
       <section class="panel">
         <h1>Secure Payment System</h1>
-        <p>Choose your StyleSphere membership plan and complete secure checkout for wallet, rewards, QR access and NFC card services.</p>
+        <p>
+          Choose your StyleSphere membership plan and complete secure checkout for wallet,
+          rewards, QR access and NFC card services.
+        </p>
+
+        <div class="secure-note">
+          <div><i class="fa-solid fa-lock"></i>Encrypted checkout</div>
+          <div><i class="fa-solid fa-shield-halved"></i>Tokenized session</div>
+          <div><i class="fa-solid fa-globe"></i>Global payment ready</div>
+        </div>
 
         <div class="plans">
 
@@ -417,10 +550,10 @@
 
       <section class="panel">
 
-        <div class="card-preview">
+        <div class="payment-card">
           <div class="card-brand">
             <div>STYLESPHERE</div>
-            <div style="font-size:13px;color:white;">GLOBAL<br>PAYMENT</div>
+            <small>GLOBAL<br>PAYMENT</small>
           </div>
 
           <div class="chip"></div>
@@ -431,6 +564,11 @@
             <span>SECURE CHECKOUT</span>
             <span>NFC READY</span>
           </div>
+        </div>
+
+        <div class="session-bar">
+          <span><i class="fa-solid fa-circle-check"></i> Session Verified</span>
+          <strong>SS-SECURE-2026</strong>
         </div>
 
         <h2>Payment Details</h2>
