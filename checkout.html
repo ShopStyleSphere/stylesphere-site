@@ -1,242 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Secure Checkout</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleSphere Secure Checkout</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
-body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.25),transparent 25%),radial-gradient(circle at 85% 20%,rgba(0,255,120,.12),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
-body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:75px 75px;animation:grid 18s linear infinite}
-@keyframes grid{to{background-position:150px 150px}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-.page{padding:28px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
-.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.3s infinite}
-@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
 
-.wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;max-width:1250px;margin:auto}
-.panel,.summary,.method,.plan{border:1px solid rgba(255,227,110,.75);border-radius:30px;background:var(--glass);box-shadow:0 0 40px rgba(255,215,0,.25),inset 0 0 25px rgba(255,215,0,.08);padding:28px;position:relative;overflow:hidden}
-.panel h1,.summary h2{color:var(--gold);text-shadow:0 0 24px gold;margin-bottom:12px}
-.panel p,.summary p{color:#ddd;line-height:1.6}
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255,215,0,.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,215,0,.12), transparent 35%),
+        #050805;
+      color:#fff;
+      overflow-x:hidden;
+    }
 
-.plans{display:grid;gap:14px;margin-top:20px}
-.plan{cursor:pointer;transition:.25s}
-.plan:hover,.plan.active{transform:translateY(-4px);box-shadow:0 0 38px gold}
-.plan.active{background:linear-gradient(135deg,rgba(255,227,110,.18),rgba(0,0,0,.7))}
-.plan-top{display:flex;justify-content:space-between;align-items:center}
-.plan h3{color:var(--gold);font-size:22px}
-.price{font-size:26px;color:var(--gold);font-weight:900}
-.badge{display:inline-block;margin-top:10px;padding:7px 12px;border-radius:30px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;font-size:12px}
+    .page{
+      width:100%;
+      max-width:1250px;
+      margin:auto;
+      padding:28px;
+    }
 
-.methods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
-.method{text-align:center;padding:18px;cursor:pointer;transition:.25s}
-.method i{font-size:28px;color:var(--gold);margin-bottom:10px}
-.method.active,.method:hover{box-shadow:0 0 28px gold;transform:translateY(-3px)}
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:28px;
+    }
 
-.form{display:grid;gap:13px;margin-top:18px}
-.input{height:56px;border:1px solid var(--gold);border-radius:16px;background:rgba(0,0,0,.62);display:flex;align-items:center;gap:12px;padding:0 16px}
-.input i{color:var(--gold)}
-.input input,.input select{flex:1;background:transparent;border:0;outline:0;color:white;font-size:15px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.input input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #080806 inset!important;-webkit-text-fill-color:white!important}
+    .back-btn{
+      color:#f7d84a;
+      text-decoration:none;
+      border:1px solid rgba(247,216,74,.45);
+      padding:11px 18px;
+      border-radius:999px;
+      font-weight:800;
+      background:rgba(255,215,0,.06);
+      box-shadow:0 0 20px rgba(247,216,74,.18);
+    }
 
-.total-line{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,215,0,.25);color:#ddd}
-.total-line strong{color:var(--gold)}
-.grand{font-size:28px;color:var(--gold);font-weight:900;text-shadow:0 0 16px gold}
+    .back-btn:hover{
+      background:#f7d84a;
+      color:#101010;
+    }
 
-.card-preview{height:250px;border-radius:28px;padding:26px;margin-bottom:20px;background:linear-gradient(135deg,#060606 0%,#151515 45%,#d9d8c7 100%);border:1px solid var(--gold);box-shadow:0 0 50px gold;position:relative;overflow:hidden;transform:perspective(900px) rotateX(6deg) rotateY(-7deg)}
-.card-preview::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.46),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
-@keyframes shine{to{left:150%}}
-.card-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
-.card-brand{font-size:28px;color:var(--gold);font-weight:900;text-shadow:0 0 14px gold}
-.chip{width:54px;height:40px;border-radius:9px;background:linear-gradient(135deg,#b8860b,#fff3a3,#c99922);box-shadow:0 0 18px gold}
-.card-num{font-size:21px;letter-spacing:4px;text-shadow:0 0 8px white}
+    .logo{
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:3px;
+      color:#f7d84a;
+      text-shadow:0 0 22px rgba(247,216,74,.7);
+    }
 
-.btn{width:100%;height:62px;border:0;border-radius:18px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;letter-spacing:5px;cursor:pointer;box-shadow:0 0 32px gold;margin-top:18px}
-.secure{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-.secure div{border:1px solid rgba(255,215,0,.55);border-radius:16px;padding:14px;text-align:center;color:#ddd;font-size:12px}
-.secure i{color:var(--gold);display:block;margin-bottom:7px}
+    .status{
+      border:1px solid rgba(247,216,74,.55);
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:800;
+      color:#f7d84a;
+      box-shadow:0 0 22px rgba(247,216,74,.22);
+      white-space:nowrap;
+    }
 
-.notify{position:fixed;right:22px;bottom:22px;z-index:60;display:none;align-items:center;gap:10px;padding:14px 20px;border:1px solid var(--gold);border-radius:16px;background:#050505;color:var(--gold);box-shadow:0 0 25px gold}
+    .dot{
+      display:inline-block;
+      width:9px;
+      height:9px;
+      background:#00ff7b;
+      border-radius:50%;
+      margin-right:8px;
+      box-shadow:0 0 10px #00ff7b;
+    }
 
-@media(max-width:950px){.wrap{grid-template-columns:1fr}.methods,.secure{grid-template-columns:1fr}}
-@media(max-width:600px){.page{padding:16px}.top{flex-direction:column;gap:14px}.logo{font-size:26px}.row{grid-template-columns:1fr}}
-</style>
+    .wrap{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:26px;
+      align-items:start;
+    }
+
+    .panel{
+      border:1px solid rgba(247,216,74,.55);
+      border-radius:28px;
+      padding:26px;
+      background:rgba(8,12,8,.78);
+      box-shadow:
+        inset 0 0 35px rgba(247,216,74,.08),
+        0 0 35px rgba(247,216,74,.16);
+      backdrop-filter:blur(10px);
+    }
+
+    h1,h2{
+      color:#f7d84a;
+      text-shadow:0 0 18px rgba(247,216,74,.45);
+      margin-bottom:12px;
+    }
+
+    p{
+      color:#d7e1d7;
+      line-height:1.6;
+    }
+
+    .plans{
+      display:grid;
+      gap:16px;
+      margin-top:24px;
+    }
+
+    .plan{
+      border:1px solid rgba(247,216,74,.5);
+      border-radius:22px;
+      padding:22px;
+      cursor:pointer;
+      background:linear-gradient(145deg, rgba(255,215,0,.08), rgba(0,0,0,.35));
+      transition:.25s;
+    }
+
+    .plan:hover,
+    .plan.active{
+      box-shadow:0 0 28px rgba(247,216,74,.45);
+      transform:translateY(-2px);
+    }
+
+    .plan-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .plan h3{
+      color:#f7d84a;
+      font-size:22px;
+    }
+
+    .price{
+      color:#fff3a0;
+      font-size:25px;
+      font-weight:900;
+    }
+
+    .badge{
+      display:inline-block;
+      margin-top:10px;
+      padding:6px 12px;
+      background:#f7d84a;
+      color:#111;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .card-preview{
+      border-radius:24px;
+      padding:24px;
+      margin-bottom:20px;
+      min-height:190px;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.18), rgba(255,255,255,.03)),
+        linear-gradient(135deg, #27322d, #b8c1ad);
+      box-shadow:0 0 35px rgba(247,216,74,.4);
+      color:#fff;
+    }
+
+    .card-brand{
+      display:flex;
+      justify-content:space-between;
+      font-weight:900;
+      font-size:24px;
+      color:#f7d84a;
+    }
+
+    .chip{
+      width:42px;
+      height:34px;
+      border-radius:9px;
+      background:linear-gradient(135deg,#fff8a0,#b99718);
+      margin:30px 0 24px;
+      box-shadow:0 0 18px rgba(247,216,74,.65);
+    }
+
+    .card-num{
+      letter-spacing:5px;
+      font-size:18px;
+      font-weight:700;
+    }
+
+    .small-row{
+      margin-top:24px;
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .methods{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin:18px 0;
+    }
+
+    .method{
+      border:1px solid rgba(247,216,74,.5);
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+      cursor:pointer;
+      background:rgba(0,0,0,.25);
+    }
+
+    .method.active{
+      background:rgba(247,216,74,.18);
+      box-shadow:0 0 20px rgba(247,216,74,.35);
+    }
+
+    .method i{
+      font-size:23px;
+      color:#f7d84a;
+      margin-bottom:8px;
+    }
+
+    .form{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .input{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(247,216,74,.5);
+      border-radius:15px;
+      padding:13px 15px;
+      background:rgba(0,0,0,.32);
+    }
+
+    .input i{
+      color:#f7d84a;
+    }
+
+    input,select{
+      width:100%;
+      background:transparent;
+      border:none;
+      outline:none;
+      color:white;
+      font-size:15px;
+    }
+
+    input::placeholder{
+      color:#cfd8cf;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .summary{
+      margin-top:18px;
+      border-top:1px solid rgba(247,216,74,.3);
+      padding-top:18px;
+    }
+
+    .summary-line{
+      display:flex;
+      justify-content:space-between;
+      padding:10px 0;
+      color:#dce8dc;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .total{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 0;
+      font-weight:900;
+      color:#f7d84a;
+      font-size:26px;
+    }
+
+    .pay-btn{
+      width:100%;
+      border:none;
+      padding:18px;
+      border-radius:18px;
+      font-weight:900;
+      letter-spacing:4px;
+      color:#111;
+      background:linear-gradient(135deg,#fff27a,#d6a900);
+      box-shadow:0 0 30px rgba(247,216,74,.65);
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    .trust{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .trust div{
+      border:1px solid rgba(247,216,74,.35);
+      border-radius:14px;
+      padding:12px;
+      text-align:center;
+      font-size:12px;
+      color:#dfe9df;
+    }
+
+    .trust i{
+      color:#f7d84a;
+      display:block;
+      margin-bottom:5px;
+    }
+
+    @media(max-width:900px){
+      .wrap{
+        grid-template-columns:1fr;
+      }
+
+      .top{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .logo{
+        font-size:26px;
+      }
+
+      .methods,
+      .trust{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="page">
+  <div class="page">
 
-  <div class="top">
-    <div class="logo">Ⓢ STYLESPHERE</div>
-    <div class="status"><span class="dot"></span> SECURE CHECKOUT ONLINE</div>
-  </div>
+    <div class="top">
+      <a class="back-btn" href="wallet.html">
+        <i class="fa-solid fa-arrow-left"></i> Back to Wallet
+      </a>
 
-  <div class="wrap">
+      <div class="logo">Ⓢ STYLESPHERE</div>
 
-    <section class="panel">
-      <h1>Secure Payment System</h1>
-      <p>Choose your StyleSphere membership plan and complete secure checkout for wallet, rewards, QR access and NFC card services.</p>
-
-      <div class="plans">
-        <div class="plan active" onclick="selectPlan(this,'Monthly Membership',24.99)">
-          <div class="plan-top"><h3>Monthly Membership</h3><div class="price">$24.99</div></div>
-          <p>Flexible monthly access.</p>
-        </div>
-
-        <div class="plan" onclick="selectPlan(this,'3 Months Membership',74.97)">
-          <div class="plan-top"><h3>3 Months Membership</h3><div class="price">$74.97</div></div>
-          <p>Quarterly member access.</p>
-        </div>
-
-        <div class="plan" onclick="selectPlan(this,'6 Months Membership',134.95)">
-          <div class="plan-top"><h3>6 Months Membership</h3><div class="price">$134.95</div></div>
-          <p>Includes 10% discount.</p>
-          <span class="badge">SAVE 10%</span>
-        </div>
-
-        <div class="plan" onclick="selectPlan(this,'Annual Membership',239.90)">
-          <div class="plan-top"><h3>Annual Membership</h3><div class="price">$239.90</div></div>
-          <p>Includes 20% discount.</p>
-          <span class="badge">BEST VALUE</span>
-        </div>
+      <div class="status">
+        <span class="dot"></span> SECURE CHECKOUT ONLINE
       </div>
-    </section>
+    </div>
 
-    <section class="summary">
-      <div class="card-preview">
-        <div class="card-content">
-          <div style="display:flex;justify-content:space-between">
-            <div class="card-brand">STYLESPHERE</div>
-            <div>GLOBAL<br>PAYMENT</div>
+    <div class="wrap">
+
+      <section class="panel">
+        <h1>Secure Payment System</h1>
+        <p>Choose your StyleSphere membership plan and complete secure checkout for wallet, rewards, QR access and NFC card services.</p>
+
+        <div class="plans">
+
+          <div class="plan active" onclick="selectPlan(this,'Monthly Membership',24.99)">
+            <div class="plan-top">
+              <h3>Monthly Membership</h3>
+              <div class="price">$24.99</div>
+            </div>
+            <p>Flexible monthly access.</p>
           </div>
+
+          <div class="plan" onclick="selectPlan(this,'3 Months Membership',74.97)">
+            <div class="plan-top">
+              <h3>3 Months Membership</h3>
+              <div class="price">$74.97</div>
+            </div>
+            <p>Quarterly member access.</p>
+          </div>
+
+          <div class="plan" onclick="selectPlan(this,'6 Months Membership',134.95)">
+            <div class="plan-top">
+              <h3>6 Months Membership</h3>
+              <div class="price">$134.95</div>
+            </div>
+            <p>Includes 10% discount.</p>
+            <span class="badge">SAVE 10%</span>
+          </div>
+
+          <div class="plan" onclick="selectPlan(this,'Annual Membership',239.90)">
+            <div class="plan-top">
+              <h3>Annual Membership</h3>
+              <div class="price">$239.90</div>
+            </div>
+            <p>Includes 20% discount.</p>
+            <span class="badge">BEST VALUE</span>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="panel">
+
+        <div class="card-preview">
+          <div class="card-brand">
+            <div>STYLESPHERE</div>
+            <div style="font-size:13px;color:white;">GLOBAL<br>PAYMENT</div>
+          </div>
+
           <div class="chip"></div>
-          <div class="card-num">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;3488</div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:bold">
+
+          <div class="card-num">5412 7512 3412 3488</div>
+
+          <div class="small-row">
             <span>SECURE CHECKOUT</span>
             <span>NFC READY</span>
           </div>
         </div>
-      </div>
 
-      <h2>Payment Details</h2>
+        <h2>Payment Details</h2>
 
-      <div class="methods">
-        <div class="method active" onclick="selectMethod(this,'Card')"><i class="fa-solid fa-credit-card"></i><br>Card</div>
-        <div class="method" onclick="selectMethod(this,'Apple Pay')"><i class="fa-brands fa-apple"></i><br>Apple Pay</div>
-        <div class="method" onclick="selectMethod(this,'Google Pay')"><i class="fa-brands fa-google"></i><br>Google Pay</div>
-      </div>
+        <div class="methods">
+          <div class="method active" onclick="selectMethod(this)">
+            <i class="fa-solid fa-credit-card"></i>
+            <strong>Card</strong>
+          </div>
 
-      <div class="form">
-        <div class="input"><i class="fa-solid fa-user"></i><input id="name" placeholder="Cardholder name"></div>
-        <div class="input"><i class="fa-solid fa-envelope"></i><input id="email" placeholder="Email address"></div>
-        <div class="input"><i class="fa-solid fa-credit-card"></i><input id="card" placeholder="Card number"></div>
-        <div class="row">
-          <div class="input"><input id="expiry" placeholder="MM / YY"></div>
-          <div class="input"><input id="cvc" placeholder="CVC"></div>
+          <div class="method" onclick="selectMethod(this)">
+            <i class="fa-brands fa-apple"></i>
+            <strong>Apple Pay</strong>
+          </div>
+
+          <div class="method" onclick="selectMethod(this)">
+            <i class="fa-brands fa-google"></i>
+            <strong>Google Pay</strong>
+          </div>
         </div>
-        <div class="input">
-          <i class="fa-solid fa-globe"></i>
-          <select id="currency">
-            <option>USD</option>
-            <option>SAR</option>
-            <option>GBP</option>
-            <option>EUR</option>
-          </select>
+
+        <div class="form">
+          <div class="input">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Cardholder name">
+          </div>
+
+          <div class="input">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="Email address">
+          </div>
+
+          <div class="input">
+            <i class="fa-solid fa-credit-card"></i>
+            <input type="text" placeholder="Card number">
+          </div>
+
+          <div class="row">
+            <div class="input">
+              <input type="text" placeholder="MM / YY">
+            </div>
+
+            <div class="input">
+              <input type="text" placeholder="CVC">
+            </div>
+          </div>
+
+          <div class="input">
+            <i class="fa-solid fa-globe"></i>
+            <select>
+              <option>USD</option>
+              <option>SAR</option>
+              <option>GBP</option>
+              <option>EUR</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div style="margin-top:20px">
-        <div class="total-line"><span>Plan</span><strong id="planName">Monthly Membership</strong></div>
-        <div class="total-line"><span>Subtotal</span><strong id="subtotal">$24.99</strong></div>
-        <div class="total-line"><span>Processing</span><strong>$0.00</strong></div>
-        <div class="total-line"><span>Total</span><span class="grand" id="grand">$24.99</span></div>
-      </div>
+        <div class="summary">
+          <div class="summary-line">
+            <span>Plan</span>
+            <strong id="planName">Monthly Membership</strong>
+          </div>
 
-      <button class="btn" onclick="payNow()">PAY SECURELY →</button>
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <strong id="subtotal">$24.99</strong>
+          </div>
 
-      <div class="secure">
-        <div><i class="fa-solid fa-lock"></i>256-bit SSL</div>
-        <div><i class="fa-solid fa-shield"></i>Secure Token</div>
-        <div><i class="fa-solid fa-receipt"></i>Receipt Ready</div>
-      </div>
-    </section>
+          <div class="summary-line">
+            <span>Processing</span>
+            <strong>$0.00</strong>
+          </div>
+
+          <div class="total">
+            <span>Total</span>
+            <span id="total">$24.99</span>
+          </div>
+        </div>
+
+        <button class="pay-btn">PAY SECURELY →</button>
+
+        <div class="trust">
+          <div><i class="fa-solid fa-lock"></i>256-bit SSL</div>
+          <div><i class="fa-solid fa-shield-halved"></i>Secure Token</div>
+          <div><i class="fa-solid fa-receipt"></i>Receipt Ready</div>
+        </div>
+
+      </section>
+
+    </div>
 
   </div>
-</div>
 
-<div class="notify" id="notify"><i class="fa-solid fa-bell"></i><span id="notifyText">Done</span></div>
+  <script>
+    function selectPlan(element, name, price){
+      document.querySelectorAll('.plan').forEach(plan => {
+        plan.classList.remove('active');
+      });
 
-<script>
-let selectedPlan = "Monthly Membership";
-let selectedAmount = 24.99;
-let selectedMethod = "Card";
+      element.classList.add('active');
 
-document.addEventListener("mousemove",(e)=>{
-  document.body.style.setProperty("--x",e.clientX+"px");
-  document.body.style.setProperty("--y",e.clientY+"px");
-});
+      document.getElementById('planName').innerText = name;
+      document.getElementById('subtotal').innerText = '$' + price.toFixed(2);
+      document.getElementById('total').innerText = '$' + price.toFixed(2);
+    }
 
-function selectPlan(el,name,amount){
-  document.querySelectorAll(".plan").forEach(p=>p.classList.remove("active"));
-  el.classList.add("active");
-  selectedPlan=name;
-  selectedAmount=amount;
-  document.getElementById("planName").textContent=name;
-  document.getElementById("subtotal").textContent="$"+amount.toFixed(2);
-  document.getElementById("grand").textContent="$"+amount.toFixed(2);
-}
+    function selectMethod(element){
+      document.querySelectorAll('.method').forEach(method => {
+        method.classList.remove('active');
+      });
 
-function selectMethod(el,method){
-  document.querySelectorAll(".method").forEach(m=>m.classList.remove("active"));
-  el.classList.add("active");
-  selectedMethod=method;
-}
-
-function showNotice(text){
-  const n=document.getElementById("notify");
-  document.getElementById("notifyText").textContent=text;
-  n.style.display="flex";
-  setTimeout(()=>n.style.display="none",2800);
-}
-
-function payNow(){
-  const name=document.getElementById("name").value.trim();
-  const email=document.getElementById("email").value.trim();
-
-  if(!name || !email){
-    showNotice("Enter name and email");
-    return;
-  }
-
-  const payment = {
-    plan:selectedPlan,
-    amount:selectedAmount,
-    method:selectedMethod,
-    status:"Paid Demo",
-    date:new Date().toISOString()
-  };
-
-  localStorage.setItem("stylespherePayment",JSON.stringify(payment));
-
-  let user=JSON.parse(localStorage.getItem("stylesphereUser")||"{}");
-  user.membership=selectedPlan;
-  user.status="Active";
-  user.points=(user.points||0)+500;
-  localStorage.setItem("stylesphereUser",JSON.stringify(user));
-
-  showNotice("Payment approved");
-  setTimeout(()=>window.location.href="client-dashboard.html",1000);
-}
-</script>
+      element.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
