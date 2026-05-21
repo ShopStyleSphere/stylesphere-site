@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Membership</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -21,19 +23,18 @@ body{
   overflow-x:hidden;
 }
 
-/* 🔥 نفس الحركة اللي عندك */
+/* 🔥 حركة الضوء الأساسية */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:linear-gradient(120deg, transparent, rgba(255,215,0,.08), transparent);
-  animation:light 6s linear infinite;
-  pointer-events:none;
+  animation:bgMove 6s linear infinite;
 }
 
-@keyframes light{
-  from{transform:translateX(-100%);}
-  to{transform:translateX(100%);}
+@keyframes bgMove{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
 }
 
 /* ===== LAYOUT ===== */
@@ -43,7 +44,7 @@ body::before{
 
 /* ===== SIDEBAR ===== */
 .sidebar{
-  width:250px;
+  width:240px;
   min-height:100vh;
   padding:20px;
   background:rgba(10,15,10,.85);
@@ -70,7 +71,7 @@ body::before{
 .nav a:hover{
   background:rgba(255,215,0,.08);
   color:#FFD700;
-  transform:translateX(5px);
+  transform:translateX(6px);
 }
 
 .nav a.active{
@@ -88,7 +89,7 @@ body::before{
 .header{
   display:flex;
   justify-content:space-between;
-  margin-bottom:20px;
+  margin-bottom:25px;
 }
 
 .status{
@@ -101,7 +102,7 @@ body::before{
   border-radius:20px;
 }
 
-/* 🔥 حركة السيجنال */
+/* 🔥 signal animation */
 .signal{
   display:flex;
   gap:3px;
@@ -134,18 +135,18 @@ body::before{
   overflow:hidden;
 }
 
-/* 🔥 حركة الضوء داخل البوكس */
+/* 🔥 حركة الضوء داخل الكارد */
 .card::before{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(120deg, transparent, rgba(255,215,0,.1), transparent);
-  animation:shine 5s infinite;
+  animation:shine 5s linear infinite;
 }
 
 @keyframes shine{
-  from{transform:translateX(-100%);}
-  to{transform:translateX(100%);}
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
 }
 
 /* ===== GRID ===== */
@@ -176,15 +177,32 @@ body::before{
   border-radius:10px;
   border:1px solid rgba(255,215,0,.2);
   transition:.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+/* 🔥 hover light */
+.box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent, rgba(255,215,0,.1), transparent);
+  transform:translateX(-100%);
+  transition:.4s;
+}
+
+.box:hover::before{
+  transform:translateX(100%);
 }
 
 .box:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 20px rgba(255,215,0,.2);
+  transform:translateY(-4px);
+  box-shadow:0 0 20px rgba(255,215,0,.25);
 }
 
 .box h4{
   color:#FFD700;
+  margin-bottom:5px;
 }
 
 </style>
