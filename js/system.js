@@ -11,8 +11,8 @@ const SS = {
   defaultUser() {
     return {
       id: "USR-" + Date.now(),
-      name: "MOHAMMED GHALEB",
-      email: "member@stylesphere.com",
+      name: "Guest User",
+      email: "user@stylesphere.com",
       level: "Royal Infinity",
       points: 12450,
       wallet: 240,
@@ -23,24 +23,36 @@ const SS = {
       status: "Active",
       emailVerified: true,
       currency: "USD",
+      membership: "Royal Infinity",
       createdAt: new Date().toISOString()
     };
   },
 
   getUser() {
     let user = JSON.parse(localStorage.getItem(this.keys.user) || "null");
+
     if (!user) {
       user = this.defaultUser();
       this.saveUser(user);
     }
 
     if (user.profileImage === undefined) user.profileImage = "";
+    if (!user.name) user.name = "Guest User";
+    if (!user.email) user.email = "user@stylesphere.com";
 
     return user;
   },
 
   saveUser(user) {
     localStorage.setItem(this.keys.user, JSON.stringify(user));
+  },
+
+  updateUser(data = {}) {
+    const user = this.getUser();
+    Object.assign(user, data);
+    this.saveUser(user);
+    this.renderUser();
+    return user;
   },
 
   updateProfileImage(imageBase64) {
@@ -50,21 +62,18 @@ const SS = {
     this.renderUser();
   },
 
-  getProfileImage() {
-    return this.getUser().profileImage || "";
-  },
-
   isLoggedIn() {
     return localStorage.getItem(this.keys.logged) === "true";
   },
 
-  login(email, password) {
+  login(email, password, name = "") {
     if (!email || !password) {
       return { ok: false, message: "Enter email and password" };
     }
 
     const user = this.getUser();
     user.email = email;
+    if (name) user.name = name;
     user.lastLogin = new Date().toISOString();
 
     this.saveUser(user);
@@ -80,36 +89,50 @@ const SS = {
     window.location.href = "client-login.html";
   },
 
-  verifyEmail() {
-    const user = this.getUser();
-    user.emailVerified = true;
-    user.status = "Active";
-    this.saveUser(user);
-    this.addActivity("Account", "Email verified", "Active");
+  protectPage() {
+    if (!this.isLoggedIn()) {
+      window.location.href = "client-login.html";
+    }
+  },
+
+  calculateLevel(points) {
+    points = Number(points || 0);
+
+    if (points >= 15000) return "Imperial Infinity";
+    if (points >= 10000) return "Royal Infinity";
+    if (points >= 5000) return "Royal";
+    if (points >= 2500) return "Elite";
+    if (points >= 1000) return "Gold";
+    if (points >= 300) return "Silver";
+    return "Bronze";
   },
 
   addPoints(amount, reason = "Points added") {
     const user = this.getUser();
     user.points = Number(user.points || 0) + Number(amount);
     user.level = this.calculateLevel(user.points);
+
     this.saveUser(user);
     this.addActivity("Rewards", reason, "+" + amount + " pts");
+    this.renderUser();
+
     return user;
   },
 
   redeemPoints(amount, rewardName = "Reward redeemed") {
     const user = this.getUser();
 
-    if (user.points < amount) {
+    if (Number(user.points || 0) < Number(amount)) {
       return { ok: false, message: "Not enough points" };
     }
 
-    user.points -= amount;
+    user.points = Number(user.points || 0) - Number(amount);
     user.rewards = Number(user.rewards || 0) + 1;
     user.level = this.calculateLevel(user.points);
 
     this.saveUser(user);
     this.addActivity("Rewards", rewardName, "-" + amount + " pts");
+    this.renderUser();
 
     return { ok: true, user };
   },
@@ -117,35 +140,42 @@ const SS = {
   topUpWallet(amount) {
     const user = this.getUser();
     user.wallet = Number(user.wallet || 0) + Number(amount);
+
     this.saveUser(user);
     this.addActivity("Wallet", "Wallet top-up", "+$" + Number(amount).toFixed(2));
+    this.renderUser();
+
     return user;
   },
 
   withdrawWallet(amount) {
     const user = this.getUser();
 
-    if (user.wallet < amount) {
+    if (Number(user.wallet || 0) < Number(amount)) {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet -= Number(amount);
+    user.wallet = Number(user.wallet || 0) - Number(amount);
+
     this.saveUser(user);
     this.addActivity("Wallet", "Withdrawal request", "-$" + Number(amount).toFixed(2));
+    this.renderUser();
 
     return { ok: true, user };
   },
 
-  sendGift(amount, recipient) {
+  sendGift(amount, recipient = "Guest") {
     const user = this.getUser();
 
-    if (user.wallet < amount) {
+    if (Number(user.wallet || 0) < Number(amount)) {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet -= Number(amount);
+    user.wallet = Number(user.wallet || 0) - Number(amount);
+
     this.saveUser(user);
     this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + Number(amount).toFixed(2));
+    this.renderUser();
 
     return { ok: true, user };
   },
@@ -153,24 +183,33 @@ const SS = {
   requestNFC() {
     const user = this.getUser();
     user.nfcStatus = "Pending";
+
     this.saveUser(user);
     this.addActivity("NFC Card", "Physical NFC card requested", "Pending");
+    this.renderUser();
+
     return user;
   },
 
   activateNFC() {
     const user = this.getUser();
     user.nfcStatus = "Active";
+
     this.saveUser(user);
     this.addActivity("NFC Card", "NFC card activated", "Active");
+    this.renderUser();
+
     return user;
   },
 
   refreshQR() {
     const user = this.getUser();
     user.qrId = "QR-SS-" + Date.now();
+
     this.saveUser(user);
     this.addActivity("QR Access", "QR token refreshed", "Active");
+    this.renderUser();
+
     return user.qrId;
   },
 
@@ -196,20 +235,9 @@ const SS = {
 
     this.saveUser(user);
     this.addActivity("Payment", plan, "$" + Number(amount).toFixed(2));
+    this.renderUser();
 
     return payment;
-  },
-
-  calculateLevel(points) {
-    points = Number(points || 0);
-
-    if (points >= 15000) return "Imperial Infinity";
-    if (points >= 10000) return "Royal Infinity";
-    if (points >= 5000) return "Royal";
-    if (points >= 2500) return "Elite";
-    if (points >= 1000) return "Gold";
-    if (points >= 300) return "Silver";
-    return "Bronze";
   },
 
   addActivity(type, title, status) {
@@ -230,10 +258,8 @@ const SS = {
     return JSON.parse(localStorage.getItem(this.keys.activity) || "[]");
   },
 
-  protectPage() {
-    if (!this.isLoggedIn()) {
-      window.location.href = "client-login.html";
-    }
+  getPayments() {
+    return JSON.parse(localStorage.getItem(this.keys.payments) || "[]");
   },
 
   formatMoney(amount) {
@@ -257,30 +283,20 @@ const SS = {
     document.querySelectorAll("[data-user-rewards]").forEach(el => el.textContent = user.rewards || 0);
     document.querySelectorAll("[data-user-qr]").forEach(el => el.textContent = user.qrId);
     document.querySelectorAll("[data-user-nfc]").forEach(el => el.textContent = user.nfcStatus);
+    document.querySelectorAll("[data-user-status]").forEach(el => el.textContent = user.status);
+    document.querySelectorAll("[data-user-membership]").forEach(el => el.textContent = user.membership);
 
     document.querySelectorAll("[data-user-image]").forEach(el => {
-      if (user.profileImage) {
-        el.src = user.profileImage;
-      }
+      if (user.profileImage) el.src = user.profileImage;
     });
-  }
-};
+  },
 
-window.StyleSphereSystem = SS;
-window.SS = SS;
+  handleImageUpload() {
+    const img = document.getElementById("profileImage");
+    const upload = document.getElementById("uploadImage");
 
-document.addEventListener("mousemove", (e) => {
-  document.body.style.setProperty("--x", e.clientX + "px");
-  document.body.style.setProperty("--y", e.clientY + "px");
-});
+    if (!img || !upload) return;
 
-document.addEventListener("DOMContentLoaded", () => {
-  SS.renderUser();
-
-  const img = document.getElementById("profileImage");
-  const upload = document.getElementById("uploadImage");
-
-  if (img && upload) {
     img.addEventListener("click", () => upload.click());
 
     upload.addEventListener("change", function () {
@@ -296,4 +312,17 @@ document.addEventListener("DOMContentLoaded", () => {
       reader.readAsDataURL(file);
     });
   }
+};
+
+window.SS = SS;
+window.StyleSphereSystem = SS;
+
+document.addEventListener("mousemove", (e) => {
+  document.body.style.setProperty("--x", e.clientX + "px");
+  document.body.style.setProperty("--y", e.clientY + "px");
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  SS.renderUser();
+  SS.handleImageUpload();
 });
