@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Membership</title>
+<title>StyleSphere | Membership</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -18,71 +18,76 @@
 body{
   min-height:100vh;
   background:
-    radial-gradient(circle at top left, rgba(255,215,0,.18), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255,215,0,.10), transparent 35%),
-    #050805;
+    radial-gradient(circle at top left, rgba(255,215,0,.18), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(255,215,0,.12), transparent 35%),
+    linear-gradient(135deg,#030503,#071007,#020302);
   color:#fff;
   overflow-x:hidden;
 }
 
+/* moving background light */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:linear-gradient(120deg, transparent, rgba(255,215,0,.08), transparent);
-  animation:lightMove 6s infinite linear;
+  background:linear-gradient(120deg, transparent 0%, rgba(255,215,0,.08) 45%, transparent 70%);
+  animation:bgMove 7s linear infinite;
   pointer-events:none;
+  z-index:0;
 }
 
-@keyframes lightMove{
-  0%{transform:translateX(-100%);}
-  100%{transform:translateX(100%);}
+@keyframes bgMove{
+  from{transform:translateX(-100%);}
+  to{transform:translateX(100%);}
 }
 
 .layout{
+  position:relative;
+  z-index:1;
   display:grid;
-  grid-template-columns:280px 1fr;
-  gap:26px;
-  padding:28px;
+  grid-template-columns:270px 1fr;
+  gap:24px;
+  padding:24px;
 }
 
 /* SIDEBAR */
 .sidebar{
   border:1px solid rgba(255,215,0,.45);
   border-radius:28px;
-  padding:24px;
-  background:rgba(5,10,5,.82);
+  padding:22px;
+  background:rgba(5,8,5,.82);
   box-shadow:0 0 35px rgba(255,215,0,.18);
   height:auto;
   align-self:start;
+  backdrop-filter:blur(12px);
 }
 
 .logo{
   color:#f7d84a;
-  font-size:28px;
+  font-size:26px;
   font-weight:900;
   letter-spacing:2px;
-  margin-bottom:28px;
-  text-shadow:0 0 20px rgba(255,215,0,.65);
+  margin-bottom:24px;
+  text-shadow:0 0 22px rgba(255,215,0,.65);
 }
 
 .profile{
   text-align:center;
-  padding-bottom:22px;
-  margin-bottom:22px;
+  padding-bottom:20px;
+  margin-bottom:20px;
   border-bottom:1px solid rgba(255,215,0,.25);
 }
 
 .avatar{
-  width:78px;
-  height:78px;
-  margin:0 auto 14px;
+  width:74px;
+  height:74px;
+  margin:0 auto 12px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   color:#f7d84a;
-  font-size:32px;
+  font-size:30px;
   background:rgba(255,215,0,.12);
   box-shadow:0 0 28px rgba(255,215,0,.45);
 }
@@ -100,26 +105,26 @@ body::before{
 
 .nav{
   display:grid;
-  gap:10px;
+  gap:9px;
 }
 
 .nav a{
   text-decoration:none;
   color:#e8eee8;
-  padding:13px 15px;
+  padding:12px 14px;
   border-radius:15px;
   display:flex;
   align-items:center;
   gap:12px;
   font-weight:800;
-  transition:.25s;
+  transition:.25s ease;
 }
 
 .nav a:hover{
   color:#f7d84a;
   background:rgba(255,215,0,.08);
   box-shadow:0 0 18px rgba(255,215,0,.25);
-  transform:translateX(4px);
+  transform:translateX(5px);
 }
 
 .nav a.active{
@@ -150,6 +155,7 @@ body::before{
 .title p{
   color:#dce7dc;
   margin-top:8px;
+  line-height:1.6;
 }
 
 .status{
@@ -163,6 +169,7 @@ body::before{
   background:rgba(0,255,157,.08);
   font-weight:900;
   box-shadow:0 0 22px rgba(0,255,157,.18);
+  white-space:nowrap;
 }
 
 .signal{
@@ -205,23 +212,21 @@ body::before{
     0 0 35px rgba(255,215,0,.14);
   position:relative;
   overflow:hidden;
+  backdrop-filter:blur(10px);
 }
 
 .panel::before{
   content:"";
   position:absolute;
-  top:-100%;
-  left:-100%;
-  width:200%;
-  height:200%;
+  inset:-80%;
   background:linear-gradient(120deg, transparent, rgba(255,215,0,.10), transparent);
-  animation:shine 7s infinite linear;
+  animation:shine 8s infinite linear;
   pointer-events:none;
 }
 
 @keyframes shine{
-  0%{transform:translate(-40%,-40%) rotate(20deg);}
-  100%{transform:translate(40%,40%) rotate(20deg);}
+  from{transform:translateX(-30%) rotate(20deg);}
+  to{transform:translateX(30%) rotate(20deg);}
 }
 
 .panel h2{
@@ -229,6 +234,14 @@ body::before{
   font-size:27px;
   margin-bottom:12px;
   text-shadow:0 0 18px rgba(255,215,0,.45);
+  position:relative;
+  z-index:2;
+}
+
+.panel p,
+.panel div{
+  position:relative;
+  z-index:2;
 }
 
 .panel p{
@@ -236,7 +249,7 @@ body::before{
   line-height:1.6;
 }
 
-/* CARD */
+/* MEMBER CARD */
 .member-card{
   min-height:245px;
   border-radius:30px;
@@ -247,6 +260,19 @@ body::before{
   box-shadow:0 0 40px rgba(255,215,0,.45);
   position:relative;
   overflow:hidden;
+}
+
+.member-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.18), transparent);
+  animation:cardLight 4.5s infinite linear;
+}
+
+@keyframes cardLight{
+  from{transform:translateX(-100%);}
+  to{transform:translateX(100%);}
 }
 
 .member-card::after{
@@ -284,6 +310,7 @@ body::before{
   padding:8px 13px;
   font-size:12px;
   font-weight:900;
+  background:rgba(0,0,0,.18);
 }
 
 .card-info{
@@ -331,6 +358,12 @@ body::before{
   height:100%;
   background:linear-gradient(90deg,#d6a900,#fff27a);
   box-shadow:0 0 18px rgba(255,215,0,.55);
+  animation:progressGlow 2s infinite;
+}
+
+@keyframes progressGlow{
+  0%,100%{filter:brightness(1);}
+  50%{filter:brightness(1.35);}
 }
 
 /* BOXES */
@@ -352,9 +385,26 @@ body::before{
   border-radius:20px;
   padding:18px;
   background:rgba(0,0,0,.25);
-  transition:.25s;
+  transition:.25s ease;
   text-decoration:none;
   color:white;
+  position:relative;
+  overflow:hidden;
+}
+
+.box::before,
+.action::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent, rgba(255,215,0,.10), transparent);
+  transform:translateX(-100%);
+  transition:.45s;
+}
+
+.box:hover::before,
+.action:hover::before{
+  transform:translateX(100%);
 }
 
 .box:hover,
@@ -373,18 +423,25 @@ body::before{
   color:#f7d84a;
   font-size:24px;
   margin-bottom:12px;
+  position:relative;
+  z-index:2;
 }
 
 .box h3,
 .action h3{
   color:#f7d84a;
   margin-bottom:8px;
+  position:relative;
+  z-index:2;
 }
 
 .box p,
 .action p{
   font-size:13px;
   color:#dce7dc;
+  line-height:1.5;
+  position:relative;
+  z-index:2;
 }
 
 @media(max-width:1000px){
