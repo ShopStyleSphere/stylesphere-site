@@ -13,50 +13,51 @@
     body{
       min-height:100vh;
       background:
-        radial-gradient(circle at top left,rgba(255,215,0,.18),transparent 30%),
-        radial-gradient(circle at bottom right,rgba(255,215,0,.12),transparent 35%),
-        linear-gradient(135deg,#030603,#081008,#020402);
+        radial-gradient(circle at top left,rgba(255,215,0,.16),transparent 32%),
+        radial-gradient(circle at bottom right,rgba(255,215,0,.10),transparent 36%),
+        linear-gradient(135deg,#030603,#071007,#020402);
       color:#fff;
     }
 
     .app{
       display:grid;
-      grid-template-columns:280px 1fr;
+      grid-template-columns:230px 1fr;
+      gap:20px;
       min-height:100vh;
-      padding:24px;
-      gap:24px;
+      padding:22px;
     }
 
     .sidebar{
-      border:1px solid rgba(247,216,74,.5);
-      border-radius:28px;
-      padding:22px;
-      background:rgba(5,8,5,.78);
-      box-shadow:0 0 35px rgba(247,216,74,.16);
-      height:calc(100vh - 48px);
+      border:1px solid rgba(247,216,74,.45);
+      border-radius:26px;
+      padding:18px;
+      background:rgba(5,8,5,.80);
+      box-shadow:0 0 28px rgba(247,216,74,.14);
+      height:calc(100vh - 44px);
       position:sticky;
-      top:24px;
+      top:22px;
+      overflow:hidden;
     }
 
     .brand{
       color:#f7d84a;
-      font-size:28px;
+      font-size:24px;
       font-weight:950;
       letter-spacing:2px;
       margin-bottom:22px;
-      text-shadow:0 0 20px rgba(247,216,74,.6);
+      text-shadow:0 0 18px rgba(247,216,74,.55);
     }
 
     .profile{
       text-align:center;
-      border-bottom:1px solid rgba(247,216,74,.25);
+      border-bottom:1px solid rgba(247,216,74,.22);
       padding-bottom:18px;
       margin-bottom:18px;
     }
 
     .avatar{
-      width:72px;
-      height:72px;
+      width:64px;
+      height:64px;
       margin:0 auto 12px;
       border-radius:50%;
       display:flex;
@@ -64,64 +65,65 @@
       justify-content:center;
       background:rgba(247,216,74,.12);
       color:#f7d84a;
-      box-shadow:0 0 22px rgba(247,216,74,.35);
-      font-size:30px;
+      box-shadow:0 0 20px rgba(247,216,74,.34);
+      font-size:28px;
     }
 
     .profile h3{
       color:#f7d84a;
-      font-size:15px;
+      font-size:13px;
       margin-bottom:5px;
     }
 
     .profile p{
-      color:#cfd8cf;
-      font-size:13px;
+      color:#dce7dc;
+      font-size:12px;
     }
 
     .nav{
       display:grid;
-      gap:8px;
+      gap:7px;
     }
 
     .nav a{
       color:#e8eee8;
       text-decoration:none;
-      padding:12px 14px;
+      padding:10px 12px;
       border-radius:14px;
       display:flex;
       align-items:center;
-      gap:12px;
-      font-weight:800;
+      gap:11px;
+      font-weight:850;
+      font-size:14px;
       transition:.2s;
     }
 
     .nav a:hover{
-      background:rgba(247,216,74,.09);
+      background:rgba(247,216,74,.08);
       color:#f7d84a;
     }
 
     .nav a.active{
       background:linear-gradient(135deg,#fff27a,#d6a900);
       color:#101010;
-      box-shadow:0 0 25px rgba(247,216,74,.55);
+      box-shadow:0 0 22px rgba(247,216,74,.55);
     }
 
     .main{
       display:grid;
-      gap:24px;
+      gap:20px;
     }
 
     .top{
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:center;
       gap:18px;
     }
 
     .page-title h1{
       color:#f7d84a;
-      font-size:36px;
+      font-size:34px;
       text-shadow:0 0 22px rgba(247,216,74,.5);
       margin-bottom:8px;
     }
@@ -129,66 +131,90 @@
     .page-title p{
       color:#dce7dc;
       line-height:1.6;
+      font-size:15px;
     }
 
-    .status{
-      border:1px solid rgba(247,216,74,.55);
+    .system-status{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(0,255,157,.35);
       border-radius:999px;
       padding:12px 18px;
-      color:#f7d84a;
-      font-weight:900;
-      box-shadow:0 0 22px rgba(247,216,74,.18);
+      color:#caffdf;
+      background:rgba(0,255,157,.07);
+      font-weight:950;
       white-space:nowrap;
+      box-shadow:
+        inset 0 0 18px rgba(0,255,157,.08),
+        0 0 22px rgba(0,255,157,.14);
     }
 
-    .dot{
-      display:inline-block;
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      background:#00ff9d;
-      box-shadow:0 0 16px #00ff9d;
-      margin-right:8px;
+    .signal{
+      width:34px;
+      height:18px;
+      display:flex;
+      align-items:end;
+      gap:3px;
+    }
+
+    .signal span{
+      width:5px;
+      border-radius:5px;
+      background:linear-gradient(#baffdf,#00d985);
+      box-shadow:0 0 10px rgba(0,255,157,.55);
+      animation:signal 1.4s infinite;
+    }
+
+    .signal span:nth-child(1){height:7px;animation-delay:.1s}
+    .signal span:nth-child(2){height:11px;animation-delay:.25s}
+    .signal span:nth-child(3){height:15px;animation-delay:.4s}
+    .signal span:nth-child(4){height:18px;animation-delay:.55s}
+
+    @keyframes signal{
+      0%,100%{opacity:.45}
+      50%{opacity:1}
     }
 
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:24px;
+      gap:20px;
     }
 
     .panel{
-      border:1px solid rgba(247,216,74,.5);
-      border-radius:28px;
-      padding:24px;
+      border:1px solid rgba(247,216,74,.45);
+      border-radius:26px;
+      padding:22px;
       background:
-        linear-gradient(145deg,rgba(255,215,0,.07),rgba(0,0,0,.36)),
-        rgba(8,12,8,.78);
+        linear-gradient(145deg,rgba(255,215,0,.065),rgba(0,0,0,.34)),
+        rgba(8,12,8,.80);
       box-shadow:
-        inset 0 0 35px rgba(247,216,74,.07),
-        0 0 35px rgba(247,216,74,.14);
+        inset 0 0 32px rgba(247,216,74,.065),
+        0 0 28px rgba(247,216,74,.12);
     }
 
     .panel h2{
       color:#f7d84a;
       margin-bottom:12px;
-      font-size:26px;
-      text-shadow:0 0 18px rgba(247,216,74,.4);
+      font-size:25px;
+      text-shadow:0 0 16px rgba(247,216,74,.38);
     }
 
     .panel p{
       color:#dce7dc;
       line-height:1.6;
+      font-size:14px;
     }
 
     .membership-card{
-      min-height:240px;
-      border-radius:28px;
-      padding:26px;
+      min-height:205px;
+      border-radius:26px;
+      padding:24px;
       background:
-        linear-gradient(120deg,rgba(255,255,255,.18),rgba(255,255,255,.04)),
-        linear-gradient(135deg,#111b14,#5f5b32,#c7b44b);
-      box-shadow:0 0 38px rgba(247,216,74,.45);
+        linear-gradient(120deg,rgba(255,255,255,.20),rgba(255,255,255,.04)),
+        linear-gradient(135deg,#1e3028,#aeb79f);
+      box-shadow:0 0 34px rgba(247,216,74,.35);
       position:relative;
       overflow:hidden;
     }
@@ -196,10 +222,10 @@
     .membership-card::after{
       content:"";
       position:absolute;
-      right:-70px;
-      top:-60px;
-      width:220px;
-      height:360px;
+      right:-60px;
+      top:-70px;
+      width:210px;
+      height:350px;
       background:rgba(255,255,255,.14);
       transform:rotate(20deg);
     }
@@ -210,39 +236,40 @@
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      gap:14px;
     }
 
     .card-top h2{
       margin:0;
-      font-size:28px;
+      font-size:26px;
+      color:white;
+      text-shadow:none;
     }
 
     .level-badge{
       border:1px solid rgba(255,255,255,.45);
       border-radius:999px;
       padding:8px 12px;
-      font-weight:900;
-      font-size:12px;
+      font-weight:950;
+      font-size:11px;
       color:#fff;
-      background:rgba(0,0,0,.2);
+      background:rgba(0,0,0,.18);
     }
 
     .member-info{
       position:relative;
       z-index:2;
-      margin-top:44px;
+      margin-top:38px;
     }
 
     .member-info h3{
-      font-size:25px;
-      color:#fff8b0;
+      font-size:24px;
+      color:#fff;
       margin-bottom:8px;
     }
 
     .member-info p{
       color:#fff;
-      font-weight:800;
+      font-weight:850;
     }
 
     .card-bottom{
@@ -250,9 +277,9 @@
       z-index:2;
       display:flex;
       justify-content:space-between;
-      margin-top:38px;
-      font-size:13px;
-      font-weight:900;
+      margin-top:30px;
+      font-size:12px;
+      font-weight:950;
       color:#fff;
     }
 
@@ -265,11 +292,11 @@
       justify-content:space-between;
       margin-bottom:10px;
       color:#f7d84a;
-      font-weight:900;
+      font-weight:950;
     }
 
     .bar{
-      height:14px;
+      height:13px;
       border-radius:999px;
       background:rgba(255,255,255,.12);
       overflow:hidden;
@@ -292,15 +319,15 @@
     }
 
     .benefit{
-      border:1px solid rgba(247,216,74,.35);
+      border:1px solid rgba(247,216,74,.32);
       border-radius:18px;
       padding:16px;
-      background:rgba(0,0,0,.25);
+      background:rgba(0,0,0,.24);
     }
 
     .benefit i{
       color:#f7d84a;
-      font-size:22px;
+      font-size:21px;
       margin-bottom:10px;
     }
 
@@ -317,25 +344,25 @@
     .tiers{
       display:grid;
       grid-template-columns:repeat(4,1fr);
-      gap:16px;
+      gap:14px;
     }
 
     .tier{
-      border:1px solid rgba(247,216,74,.42);
-      border-radius:22px;
-      padding:18px;
-      background:rgba(0,0,0,.26);
-      min-height:150px;
+      border:1px solid rgba(247,216,74,.36);
+      border-radius:20px;
+      padding:17px;
+      background:rgba(0,0,0,.25);
+      min-height:138px;
     }
 
     .tier.active{
-      box-shadow:0 0 26px rgba(247,216,74,.42);
+      box-shadow:0 0 26px rgba(247,216,74,.40);
       background:rgba(247,216,74,.10);
     }
 
     .tier i{
       color:#f7d84a;
-      font-size:24px;
+      font-size:23px;
       margin-bottom:12px;
     }
 
@@ -346,18 +373,19 @@
 
     .tier p{
       font-size:13px;
+      color:#dce7dc;
     }
 
     .actions{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:16px;
+      gap:14px;
     }
 
     .action{
-      border:1px solid rgba(247,216,74,.42);
-      border-radius:22px;
-      padding:20px;
+      border:1px solid rgba(247,216,74,.36);
+      border-radius:20px;
+      padding:18px;
       text-decoration:none;
       color:#fff;
       background:rgba(0,0,0,.25);
@@ -366,7 +394,7 @@
 
     .action:hover{
       transform:translateY(-2px);
-      box-shadow:0 0 24px rgba(247,216,74,.35);
+      box-shadow:0 0 24px rgba(247,216,74,.32);
     }
 
     .action i{
@@ -380,21 +408,17 @@
       margin-bottom:6px;
     }
 
+    .action p{
+      color:#dce7dc;
+      font-size:13px;
+      line-height:1.5;
+    }
+
     @media(max-width:1000px){
-      .app{
-        grid-template-columns:1fr;
-      }
-      .sidebar{
-        position:relative;
-        height:auto;
-      }
-      .grid,.tiers,.actions{
-        grid-template-columns:1fr;
-      }
-      .top{
-        flex-direction:column;
-        align-items:flex-start;
-      }
+      .app{grid-template-columns:1fr}
+      .sidebar{position:relative;height:auto}
+      .grid,.tiers,.actions,.benefits{grid-template-columns:1fr}
+      .top{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
@@ -412,33 +436,21 @@
         <p>Royal Infinity Member</p>
       </div>
 
-<nav class="nav">
-  <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-
-  <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
-
-  <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
-
-  <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
-
-  <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
-
-  <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
-
-  <a class="active" href="membership.html"><i class="fa-solid fa-crown"></i> Membership</a>
-
-  <a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a>
-
-  <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-
-  <a href="support.html"><i class="fa-solid fa-headset"></i> Support</a>
-
-  <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
-
-  <a href="checkout.html"><i class="fa-solid fa-cart-shopping"></i> Checkout</a>
-
-  <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-</nav>
+      <nav class="nav">
+        <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+        <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+        <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+        <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+        <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+        <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
+        <a class="active" href="membership.html"><i class="fa-solid fa-crown"></i> Membership</a>
+        <a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a>
+        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+        <a href="support.html"><i class="fa-solid fa-headset"></i> Support</a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+        <a href="checkout.html"><i class="fa-solid fa-cart-shopping"></i> Checkout</a>
+        <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </nav>
     </aside>
 
     <main class="main">
@@ -449,13 +461,15 @@
           <p>Manage your elite level, benefits, progress and premium StyleSphere membership status.</p>
         </div>
 
-        <div class="status">
-          <span class="dot"></span> MEMBERSHIP ACTIVE
+        <div class="system-status">
+          <div class="signal">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          MEMBERSHIP SYSTEM VERIFIED
         </div>
       </div>
 
       <section class="grid">
-
         <div class="membership-card">
           <div class="card-top">
             <h2>STYLESPHERE</h2>
@@ -482,16 +496,13 @@
               <span>Progress to next level</span>
               <span>72%</span>
             </div>
-            <div class="bar">
-              <div class="fill"></div>
-            </div>
+            <div class="bar"><div class="fill"></div></div>
           </div>
 
-          <div style="margin-top:18px;color:#f7d84a;font-weight:900;">
+          <div style="margin-top:18px;color:#f7d84a;font-weight:950;">
             Next Level: Imperial Infinity
           </div>
         </div>
-
       </section>
 
       <section class="panel">
