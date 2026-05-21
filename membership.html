@@ -5,157 +5,405 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StyleSphere Membership</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root{
-  --gold:#FFD700;
-  --bg:#0b0b0b;
-  --card:#111;
-}
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Poppins;
+  font-family:Arial, sans-serif;
 }
 
 body{
-  background: radial-gradient(circle at top, #1a1a1a, #000);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255,215,0,.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,215,0,.10), transparent 35%),
+    #050805;
   color:#fff;
+  overflow-x:hidden;
 }
 
-/* ===== LAYOUT ===== */
-.layout{
-  display:flex;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
-  width:260px;
-  height:100vh;
+body::before{
+  content:"";
   position:fixed;
-  left:0;
-  top:0;
-  background:linear-gradient(180deg,#111,#000);
-  border-right:1px solid rgba(255,215,0,0.2);
-  padding:20px;
+  inset:0;
+  background:linear-gradient(120deg, transparent, rgba(255,215,0,.08), transparent);
+  animation:lightMove 6s infinite linear;
+  pointer-events:none;
+}
+
+@keyframes lightMove{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(100%);}
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:26px;
+  padding:28px;
+}
+
+/* SIDEBAR */
+.sidebar{
+  border:1px solid rgba(255,215,0,.45);
+  border-radius:28px;
+  padding:24px;
+  background:rgba(5,10,5,.82);
+  box-shadow:0 0 35px rgba(255,215,0,.18);
+  height:auto;
+  align-self:start;
 }
 
 .logo{
-  color:var(--gold);
-  font-size:22px;
-  font-weight:600;
-  margin-bottom:25px;
+  color:#f7d84a;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:28px;
+  text-shadow:0 0 20px rgba(255,215,0,.65);
 }
 
 .profile{
   text-align:center;
-  margin-bottom:30px;
+  padding-bottom:22px;
+  margin-bottom:22px;
+  border-bottom:1px solid rgba(255,215,0,.25);
+}
+
+.avatar{
+  width:78px;
+  height:78px;
+  margin:0 auto 14px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#f7d84a;
+  font-size:32px;
+  background:rgba(255,215,0,.12);
+  box-shadow:0 0 28px rgba(255,215,0,.45);
 }
 
 .profile h3{
+  color:#f7d84a;
   font-size:14px;
 }
 
-.profile span{
-  font-size:11px;
-  opacity:.6;
+.profile p{
+  color:#dce7dc;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.nav{
+  display:grid;
+  gap:10px;
 }
 
 .nav a{
+  text-decoration:none;
+  color:#e8eee8;
+  padding:13px 15px;
+  border-radius:15px;
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:12px;
-  margin:6px 0;
-  border-radius:10px;
-  color:#ccc;
-  text-decoration:none;
-  transition:.3s;
+  gap:12px;
+  font-weight:800;
+  transition:.25s;
 }
 
 .nav a:hover{
-  background:rgba(255,215,0,0.1);
-  color:var(--gold);
+  color:#f7d84a;
+  background:rgba(255,215,0,.08);
+  box-shadow:0 0 18px rgba(255,215,0,.25);
+  transform:translateX(4px);
 }
 
 .nav a.active{
-  background:linear-gradient(90deg,#FFD700,#ffaa00);
-  color:#000;
-  font-weight:600;
+  background:linear-gradient(135deg,#fff27a,#d6a900);
+  color:#111;
+  box-shadow:0 0 28px rgba(255,215,0,.65);
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
-  margin-left:260px;
-  padding:30px;
-  width:100%;
+  display:grid;
+  gap:24px;
 }
 
-/* ===== HEADER ===== */
-.header{
+.top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
-}
-
-.status{
-  background:#0f2;
-  color:#000;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:600;
-}
-
-/* ===== CARD ===== */
-.card{
-  background:linear-gradient(145deg,#1c1c1c,#0a0a0a);
-  border:1px solid rgba(255,215,0,0.2);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 0 25px rgba(255,215,0,0.1);
-}
-
-/* ===== GRID ===== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
 }
 
-/* ===== PROGRESS ===== */
-.progress{
-  height:8px;
-  background:#222;
-  border-radius:10px;
-  margin-top:10px;
+.title h1{
+  color:#f7d84a;
+  font-size:38px;
+  text-shadow:0 0 25px rgba(255,215,0,.55);
 }
 
-.progress span{
-  display:block;
-  height:100%;
+.title p{
+  color:#dce7dc;
+  margin-top:8px;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid rgba(0,255,157,.35);
+  border-radius:999px;
+  padding:13px 20px;
+  color:#caffdf;
+  background:rgba(0,255,157,.08);
+  font-weight:900;
+  box-shadow:0 0 22px rgba(0,255,157,.18);
+}
+
+.signal{
+  display:flex;
+  gap:3px;
+  align-items:end;
+}
+
+.signal span{
+  width:5px;
+  border-radius:5px;
+  background:#00ff9d;
+  box-shadow:0 0 10px #00ff9d;
+  animation:signal 1.2s infinite;
+}
+
+.signal span:nth-child(1){height:7px}
+.signal span:nth-child(2){height:11px;animation-delay:.2s}
+.signal span:nth-child(3){height:15px;animation-delay:.4s}
+.signal span:nth-child(4){height:19px;animation-delay:.6s}
+
+@keyframes signal{
+  0%,100%{opacity:.35}
+  50%{opacity:1}
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+
+.panel{
+  border:1px solid rgba(255,215,0,.45);
+  border-radius:28px;
+  padding:24px;
+  background:rgba(8,12,8,.82);
+  box-shadow:
+    inset 0 0 35px rgba(255,215,0,.07),
+    0 0 35px rgba(255,215,0,.14);
+  position:relative;
+  overflow:hidden;
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  top:-100%;
+  left:-100%;
+  width:200%;
+  height:200%;
+  background:linear-gradient(120deg, transparent, rgba(255,215,0,.10), transparent);
+  animation:shine 7s infinite linear;
+  pointer-events:none;
+}
+
+@keyframes shine{
+  0%{transform:translate(-40%,-40%) rotate(20deg);}
+  100%{transform:translate(40%,40%) rotate(20deg);}
+}
+
+.panel h2{
+  color:#f7d84a;
+  font-size:27px;
+  margin-bottom:12px;
+  text-shadow:0 0 18px rgba(255,215,0,.45);
+}
+
+.panel p{
+  color:#dce7dc;
+  line-height:1.6;
+}
+
+/* CARD */
+.member-card{
+  min-height:245px;
+  border-radius:30px;
+  padding:28px;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.22), rgba(255,255,255,.04)),
+    linear-gradient(135deg,#1e3028,#b7c2ad);
+  box-shadow:0 0 40px rgba(255,215,0,.45);
+  position:relative;
+  overflow:hidden;
+}
+
+.member-card::after{
+  content:"";
+  position:absolute;
+  right:-70px;
+  top:-70px;
+  width:230px;
+  height:370px;
+  background:rgba(255,255,255,.15);
+  transform:rotate(20deg);
+}
+
+.card-top,
+.card-info,
+.card-bottom{
+  position:relative;
+  z-index:2;
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.card-top h2{
+  color:white;
+  font-size:30px;
+}
+
+.badge{
+  border:1px solid rgba(255,255,255,.45);
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.card-info{
+  margin-top:48px;
+}
+
+.card-info h3{
+  font-size:25px;
+  color:white;
+}
+
+.card-info p{
+  color:white;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.card-bottom{
+  margin-top:36px;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-weight:900;
+}
+
+/* PROGRESS */
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  color:#f7d84a;
+  font-weight:900;
+  margin:18px 0 10px;
+}
+
+.bar{
+  height:14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  overflow:hidden;
+  border:1px solid rgba(255,215,0,.25);
+}
+
+.fill{
   width:72%;
-  background:linear-gradient(90deg,#FFD700,#ffaa00);
-  border-radius:10px;
+  height:100%;
+  background:linear-gradient(90deg,#d6a900,#fff27a);
+  box-shadow:0 0 18px rgba(255,215,0,.55);
 }
 
-/* ===== BOX ===== */
-.box{
-  padding:15px;
-  border-radius:12px;
-  border:1px solid rgba(255,215,0,0.2);
+/* BOXES */
+.benefits,
+.levels,
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
 }
 
-.box h4{
-  color:var(--gold);
-  margin-bottom:5px;
+.actions{
+  grid-template-columns:repeat(3,1fr);
 }
 
+.box,
+.action{
+  border:1px solid rgba(255,215,0,.35);
+  border-radius:20px;
+  padding:18px;
+  background:rgba(0,0,0,.25);
+  transition:.25s;
+  text-decoration:none;
+  color:white;
+}
+
+.box:hover,
+.action:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px rgba(255,215,0,.35);
+}
+
+.box.active{
+  background:rgba(255,215,0,.12);
+  box-shadow:0 0 28px rgba(255,215,0,.42);
+}
+
+.box i,
+.action i{
+  color:#f7d84a;
+  font-size:24px;
+  margin-bottom:12px;
+}
+
+.box h3,
+.action h3{
+  color:#f7d84a;
+  margin-bottom:8px;
+}
+
+.box p,
+.action p{
+  font-size:13px;
+  color:#dce7dc;
+}
+
+@media(max-width:1000px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .grid,
+  .benefits,
+  .levels,
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
 </style>
 </head>
 
@@ -163,106 +411,156 @@ body{
 
 <div class="layout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="logo">STYLESphere</div>
+    <div class="logo">Ⓢ STYLESPHERE</div>
 
     <div class="profile">
+      <div class="avatar"><i class="fa-solid fa-crown"></i></div>
       <h3>MOHAMMED GHALEB</h3>
-      <span>Royal Infinity Member</span>
+      <p>Royal Infinity Member</p>
     </div>
 
-    <div class="nav">
-      <a href="client-dashboard.html">Dashboard</a>
-      <a href="wallet.html">Wallet</a>
-      <a href="rewards.html">Rewards</a>
-      <a href="qr-access.html">QR Access</a>
-      <a href="nfc-card.html">NFC Card</a>
-      <a href="activity.html">Activity</a>
-      <a class="active" href="membership.html">Membership</a>
-      <a href="notifications.html">Notifications</a>
-      <a href="settings.html">Settings</a>
-      <a href="support.html">Support</a>
-      <a href="profile.html">Profile</a>
-      <a href="checkout.html">Checkout</a>
-    </div>
+    <nav class="nav">
+      <a href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+      <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+      <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+      <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+      <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+      <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
+      <a class="active" href="membership.html"><i class="fa-solid fa-crown"></i> Membership</a>
+      <a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a>
+      <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+      <a href="support.html"><i class="fa-solid fa-headset"></i> Support</a>
+      <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="checkout.html"><i class="fa-solid fa-cart-shopping"></i> Checkout</a>
+      <a href="client-login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </nav>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
 
-    <div class="header">
-      <h1>Membership Center</h1>
-      <div class="status">SYSTEM VERIFIED</div>
-    </div>
+    <div class="top">
+      <div class="title">
+        <h1>Membership Center</h1>
+        <p>Manage your elite level, benefits, progress and premium StyleSphere membership status.</p>
+      </div>
 
-    <!-- CARD -->
-    <div class="card">
-      <h2>STYLESphere Elite Card</h2>
-      <p>MOHAMMED GHALEB — Global Elite Member</p>
-      <p>ID: SS-2026-8842</p>
-    </div>
-
-    <!-- PROGRESS -->
-    <div class="card">
-      <h3>Membership Progress</h3>
-      <p>Next Level: Imperial Infinity</p>
-      <div class="progress"><span></span></div>
-    </div>
-
-    <!-- BENEFITS -->
-    <div class="card">
-      <h3>Premium Benefits</h3>
-
-      <div class="grid">
-        <div class="box">
-          <h4>Exclusive Discounts</h4>
-          <p>Premium member-only pricing</p>
-        </div>
-
-        <div class="box">
-          <h4>Rewards Access</h4>
-          <p>Unlock gifts & balance rewards</p>
-        </div>
-
-        <div class="box">
-          <h4>NFC Member Card</h4>
-          <p>Digital & physical card</p>
-        </div>
-
-        <div class="box">
-          <h4>Priority Security</h4>
-          <p>Verified access system</p>
-        </div>
+      <div class="status">
+        <div class="signal"><span></span><span></span><span></span><span></span></div>
+        MEMBERSHIP SYSTEM VERIFIED
       </div>
     </div>
 
-    <!-- LEVELS -->
-    <div class="card">
-      <h3>Membership Levels</h3>
-
-      <div class="grid">
-        <div class="box">
-          <h4>Gold</h4>
-          <p>Starter level</p>
+    <section class="grid">
+      <div class="member-card">
+        <div class="card-top">
+          <h2>STYLESPHERE</h2>
+          <div class="badge">ROYAL INFINITY</div>
         </div>
 
-        <div class="box">
-          <h4>Diamond</h4>
-          <p>Advanced rewards</p>
+        <div class="card-info">
+          <h3>MOHAMMED GHALEB</h3>
+          <p>Global Elite Member</p>
         </div>
 
-        <div class="box">
-          <h4>Royal Infinity</h4>
-          <p>Current level</p>
-        </div>
-
-        <div class="box">
-          <h4>Imperial Infinity</h4>
-          <p>Next elite level</p>
+        <div class="card-bottom">
+          <span>ID: SS-RI-2026-8842</span>
+          <span>NFC / QR READY</span>
         </div>
       </div>
-    </div>
+
+      <div class="panel">
+        <h2>Membership Progress</h2>
+        <p>You are currently on Royal Infinity level. Keep earning points to unlock Imperial Infinity.</p>
+
+        <div class="progress-head">
+          <span>Progress to next level</span>
+          <span>72%</span>
+        </div>
+
+        <div class="bar"><div class="fill"></div></div>
+
+        <p style="margin-top:18px;color:#f7d84a;font-weight:900;">
+          Next Level: Imperial Infinity
+        </p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Premium Benefits</h2>
+
+      <div class="benefits">
+        <div class="box">
+          <i class="fa-solid fa-percent"></i>
+          <h3>Exclusive Discounts</h3>
+          <p>Premium member-only pricing across selected collections.</p>
+        </div>
+
+        <div class="box">
+          <i class="fa-solid fa-gift"></i>
+          <h3>Rewards Access</h3>
+          <p>Unlock rewards, wallet perks and gift balance options.</p>
+        </div>
+
+        <div class="box">
+          <i class="fa-solid fa-credit-card"></i>
+          <h3>NFC Member Card</h3>
+          <p>Digital and physical NFC membership card services.</p>
+        </div>
+
+        <div class="box">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3>Priority Security</h3>
+          <p>Verified account access and secure wallet controls.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="levels">
+      <div class="box">
+        <i class="fa-solid fa-medal"></i>
+        <h3>Gold</h3>
+        <p>Starter premium membership level.</p>
+      </div>
+
+      <div class="box">
+        <i class="fa-solid fa-gem"></i>
+        <h3>Diamond</h3>
+        <p>Advanced rewards and wallet benefits.</p>
+      </div>
+
+      <div class="box active">
+        <i class="fa-solid fa-crown"></i>
+        <h3>Royal Infinity</h3>
+        <p>Your current elite membership level.</p>
+      </div>
+
+      <div class="box">
+        <i class="fa-solid fa-star"></i>
+        <h3>Imperial Infinity</h3>
+        <p>Next private-level membership status.</p>
+      </div>
+    </section>
+
+    <section class="actions">
+      <a class="action" href="checkout.html">
+        <i class="fa-solid fa-arrow-up-right-dots"></i>
+        <h3>Upgrade Plan</h3>
+        <p>Upgrade or renew your membership subscription.</p>
+      </a>
+
+      <a class="action" href="rewards.html">
+        <i class="fa-solid fa-gift"></i>
+        <h3>View Rewards</h3>
+        <p>Explore available member rewards and benefits.</p>
+      </a>
+
+      <a class="action" href="nfc-card.html">
+        <i class="fa-solid fa-credit-card"></i>
+        <h3>Request Card</h3>
+        <p>Request your physical StyleSphere NFC card.</p>
+      </a>
+    </section>
 
   </main>
 
