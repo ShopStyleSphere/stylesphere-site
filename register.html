@@ -140,54 +140,64 @@ function togglePassword(id,icon){
   icon.classList.toggle("fa-eye-slash");
 }
 
-function createAccount(){
-  const name=document.getElementById("name").value.trim();
-  const email=document.getElementById("email").value.trim();
-  const pass=document.getElementById("password").value;
-  const confirm=document.getElementById("confirm").value;
-  const agree=document.getElementById("agree").checked;
-  const error=document.getElementById("error");
-
-  error.textContent="";
-
-  if(!name || !email || !pass || !confirm){
-    error.textContent="Please complete all fields.";
-    return;
-  }
-
-  if(pass.length < 6){
-    error.textContent="Password must be at least 6 characters.";
-    return;
-  }
-
-  if(pass !== confirm){
-    error.textContent="Passwords do not match.";
-    return;
-  }
-
-  if(!agree){
-    error.textContent="Please agree to Terms and Privacy Policy.";
-    return;
-  }
-
-  const user = {
-    name,
-    email,
-    level:"Bronze",
-    points:0,
-    wallet:0,
-    rewards:0,
-    qrId:"QR-SS-"+Date.now(),
-    nfcStatus:"Not Requested",
-    createdAt:new Date().toISOString()
-  };
-
-  localStorage.setItem("stylesphereUser", JSON.stringify(user));
-  localStorage.setItem("stylesphereLoggedIn", "true");
-
-  window.location.href="client-dashboard.html";
-}
 </script>
+<script type="module">
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { auth, db } from "./js/firebase.js";
 
+window.createAccount = async function () {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("password").value;
+  const confirm = document.getElementById("confirm").value;
+  const agree = document.getElementById("agree").checked;
+  const error = document.getElementById("error");
+
+  error.textContent = "";
+
+  if (!name || !email || !pass || !confirm) {
+    error.textContent = "Please complete all fields.";
+    return;
+  }
+
+  if (pass.length < 6) {
+    error.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+
+  if (pass !== confirm) {
+    error.textContent = "Passwords do not match.";
+    return;
+  }
+
+  if (!agree) {
+    error.textContent = "Please agree to Terms and Privacy Policy.";
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    const user = userCredential.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      name: name,
+      email: email,
+      role: "client",
+      level: "Bronze",
+      points: 0,
+      wallet: 0,
+      rewards: 0,
+      nfcStatus: "Not Requested",
+      createdAt: new Date().toISOString()
+    });
+
+    window.location.href = "client-dashboard.html";
+
+  } catch (err) {
+    error.textContent = err.message;
+  }
+};
+</script>
 </body>
 </html>
