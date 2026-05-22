@@ -1,4 +1,4 @@
-/* StyleSphere Global System — Production Ready Local Version */
+/* StyleSphere Global System — VIP Membership Core */
 
 const SS = {
   keys: {
@@ -32,7 +32,7 @@ const SS = {
   defaultUser() {
     return {
       id: "USR-" + Date.now(),
-      name: "Guest User",
+      name: "Your Name",
       email: "user@stylesphere.com",
       level: "Bronze",
       levelNumber: 1,
@@ -52,11 +52,19 @@ const SS = {
 
   getUser() {
     let user = JSON.parse(localStorage.getItem(this.keys.user) || "null");
+
     if (!user) user = this.defaultUser();
 
-    if (user.profileImage === undefined) user.profileImage = "";
-    if (!user.name) user.name = "Guest User";
+    if (!user.name) user.name = "Your Name";
     if (!user.email) user.email = "user@stylesphere.com";
+    if (user.profileImage === undefined) user.profileImage = "";
+    if (user.points === undefined) user.points = 0;
+    if (user.wallet === undefined) user.wallet = 0;
+    if (user.rewards === undefined) user.rewards = 0;
+    if (!user.nfcStatus) user.nfcStatus = "Not Requested";
+    if (!user.status) user.status = "Active";
+    if (!user.currency) user.currency = "USD";
+    if (!user.qrId) user.qrId = "QR-SS-" + Date.now();
 
     const level = this.calculateLevel(user.points);
     user.level = level.name;
@@ -93,25 +101,31 @@ const SS = {
 
   getNextLevel(points) {
     points = Number(points || 0);
-    const current = this.calculateLevel(points);
-    const next = this.levels
-      .slice()
-      .reverse()
-      .find(l => l.points > points);
 
-    return {
-      current,
-      next: next || null,
-      progress: next
-        ? Math.min(100, Math.round((points / next.points) * 100))
-        : 100,
-      needed: next ? Math.max(0, next.points - points) : 0
-    };
+    const current = this.calculateLevel(points);
+    const levelsAsc = this.levels.slice().reverse();
+    const next = levelsAsc.find(l => l.points > points);
+
+    let progress = 100;
+    let needed = 0;
+
+    if (next) {
+      const previous = current.points || 0;
+      const range = next.points - previous;
+      const earned = points - previous;
+      progress = range > 0 ? Math.round((earned / range) * 100) : 100;
+      progress = Math.max(0, Math.min(100, progress));
+      needed = Math.max(0, next.points - points);
+    }
+
+    return { current, next, progress, needed };
   },
 
   addPoints(amount, reason = "Points added") {
     const user = this.getUser();
-    user.points = Number(user.points || 0) + Number(amount || 0);
+    amount = Number(amount || 0);
+
+    user.points = Number(user.points || 0) + amount;
 
     const level = this.calculateLevel(user.points);
     user.level = level.name;
@@ -121,6 +135,7 @@ const SS = {
     this.saveUser(user);
     this.addActivity("Rewards", reason, "+" + amount + " pts");
     this.renderUser();
+
     return user;
   },
 
@@ -168,7 +183,7 @@ const SS = {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet -= amount;
+    user.wallet = Number(user.wallet || 0) - amount;
 
     this.saveUser(user);
     this.addActivity("Wallet", "Withdrawal request", "-$" + amount.toFixed(2));
@@ -185,7 +200,7 @@ const SS = {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet -= amount;
+    user.wallet = Number(user.wallet || 0) - amount;
 
     this.saveUser(user);
     this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + amount.toFixed(2));
@@ -266,22 +281,48 @@ const SS = {
     this.renderUser();
   },
 
-  handleImageUpload() {
-    const img = document.getElementById("profileImage");
-    const upload = document.getElementById("uploadImage");
+  removeProfileImage() {
+    const user = this.getUser();
+    user.profileImage = "";
+    this.saveUser(user);
 
-    if (!img || !upload) return;
-
-    img.addEventListener("click", () => upload.click());
-
-    upload.addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = e => SS.updateProfileImage(e.target.result);
-      reader.readAsDataURL(file);
+    document.querySelectorAll("[data-user-image]").forEach(img => {
+      img.src = "https://via.placeholder.com/120";
     });
+
+    this.renderUser();
+  },
+
+  handleImageUpload() {
+    const upload = document.getElementById("uploadImage");
+    const removeBtn = document.getElementById("removeImage");
+
+    if (upload && upload.dataset.ready !== "true") {
+      upload.dataset.ready = "true";
+
+      upload.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          SS.updateProfileImage(e.target.result);
+          window.StyleSphereUI?.toast?.("Profile photo updated");
+        };
+
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (removeBtn && removeBtn.dataset.ready !== "true") {
+      removeBtn.dataset.ready = "true";
+
+      removeBtn.addEventListener("click", () => {
+        SS.removeProfileImage();
+        window.StyleSphereUI?.toast?.("Profile photo removed");
+      });
+    }
   },
 
   login(email, password, name = "") {
@@ -341,6 +382,7 @@ const SS = {
 
   formatMoney(amount) {
     const user = this.getUser();
+
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: user.currency || "USD"
@@ -379,8 +421,8 @@ const SS = {
       el.textContent = levelData.needed.toLocaleString();
     });
 
-    document.querySelectorAll("[data-user-image]").forEach(el => {
-      if (user.profileImage) el.src = user.profileImage;
+    document.querySelectorAll("[data-user-image]").forEach(img => {
+      img.src = user.profileImage || "https://via.placeholder.com/120";
     });
   }
 };
