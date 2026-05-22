@@ -3,222 +3,391 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>StyleSphere | VIP System</title>
+<title>StyleSphere | VIP Levels</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
-/* ========== GLOBAL SYSTEM ========== */
-:root{
-  --gold:#d4af37;
-  --bg:#020202;
-  --glass:rgba(0,0,0,.75);
-}
-
 *{margin:0;padding:0;box-sizing:border-box}
 
+:root{
+  --gold:#f7d84a;
+  --green:#00ff9d;
+  --bg:#030403;
+  --panel:rgba(8,12,9,.82);
+  --line:rgba(247,216,74,.32);
+  --text:#f4f7f4;
+  --muted:#bfc8bf;
+}
+
 body{
+  min-height:100vh;
   background:var(--bg);
   color:#fff;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   overflow-x:hidden;
 }
 
-/* 🔥 Smart Light Engine (مرتبط بالماوس) */
 body::before{
   content:"";
   position:fixed;
   inset:0;
+  z-index:-3;
   background:
-  radial-gradient(circle at var(--x,50%) var(--y,50%),
-  rgba(255,215,0,.15), transparent 40%);
-  z-index:-1;
+    radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(247,216,74,.08), transparent 38%),
+    linear-gradient(135deg,#020302,#071007,#020302);
 }
 
-/* ========== LAYOUT SYSTEM ========== */
+.page{padding:26px}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.logo{
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:3px;
+  color:var(--gold);
+  text-shadow:0 0 10px rgba(247,216,74,.45);
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 22px;
+  border-radius:50px;
+  border:1px solid rgba(0,255,157,.32);
+  background:rgba(0,255,157,.06);
+  color:#dcfff0;
+  font-weight:900;
+}
+
 .layout{
   display:grid;
-  grid-template-columns:280px 1fr;
-  gap:20px;
-  padding:20px;
+  grid-template-columns:300px 1fr;
+  gap:24px;
 }
 
-/* ========== SIDEBAR (REAL SYSTEM) ========== */
+.sidebar,.panel,.level-card,.feature-box{
+  background:var(--panel);
+  border:1px solid var(--line);
+  box-shadow:0 0 22px rgba(247,216,74,.12), inset 0 0 18px rgba(247,216,74,.04);
+  backdrop-filter:blur(14px);
+}
+
 .sidebar{
-  background:var(--glass);
-  border:1px solid rgba(255,215,0,.3);
-  border-radius:25px;
-  padding:20px;
-  box-shadow:0 0 20px rgba(255,215,0,.1);
+  position:sticky;
+  top:22px;
+  height:fit-content;
+  border-radius:30px;
+  padding:22px;
 }
 
-/* ========== MAIN ========== */
 .main{
   display:grid;
-  gap:20px;
+  gap:24px;
 }
 
-/* Header */
-.header{
+.panel{
+  border-radius:28px;
+  padding:30px;
+}
+
+.panel h1{
+  color:var(--gold);
+  font-size:34px;
+  margin-bottom:10px;
+  text-shadow:0 0 8px rgba(247,216,74,.38);
+}
+
+.panel p{
+  color:var(--text);
+  opacity:.94;
+  line-height:1.7;
+  max-width:900px;
+}
+
+.levels-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:16px;
+}
+
+.level-card{
+  min-height:245px;
+  border-radius:24px;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.level-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 26px var(--glow);
+}
+
+.level-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.10),transparent 35%),
+    radial-gradient(circle at 85% 15%,var(--glow),transparent 38%);
+  pointer-events:none;
+}
+
+.level-card-inner{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.level-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.logo{
-  color:var(--gold);
-  font-size:30px;
+.level-number{
+  color:var(--accent);
+  font-size:28px;
   font-weight:900;
 }
 
-.status{
-  color:#00ff9d;
-  font-weight:bold;
+.level-badge{
+  color:var(--accent);
+  font-size:20px;
 }
 
-/* ========== VIP GRID SYSTEM ========== */
-.vip-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-/* ========== VIP CARD (CONNECTED WITH JS) ========== */
-.vip-card{
-  background:rgba(0,0,0,.6);
-  border:1px solid rgba(255,215,0,.4);
-  border-radius:20px;
-  padding:20px;
-  transition:.3s;
+.mini-card{
+  margin:12px 0;
+  min-height:82px;
+  border-radius:14px;
+  border:1px solid var(--glow);
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.10),transparent 35%),
+    linear-gradient(135deg,#050505,var(--card),#050505);
+  padding:12px;
   position:relative;
+  overflow:hidden;
+  box-shadow:0 0 12px var(--glow);
 }
 
-.vip-card:hover{
-  transform:translateY(-5px);
-}
-
-/* Dynamic Data */
 .card-brand{
-  color:var(--gold);
-  font-size:12px;
-  font-weight:bold;
+  color:var(--accent);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.7px;
+}
+
+.nfc-chip{
+  width:24px;
+  height:18px;
+  border-radius:5px;
+  background:linear-gradient(135deg,#fff8c6,var(--accent),#7b5e08);
+  margin-top:10px;
+  box-shadow:0 0 10px var(--glow);
+}
+
+.card-level-mini{
+  position:absolute;
+  right:10px;
+  top:10px;
+  font-size:11px;
+  font-weight:900;
 }
 
 .level-name{
-  font-size:18px;
-  margin-top:10px;
+  color:#fff;
+  font-size:14px;
+  font-weight:900;
+  text-transform:uppercase;
+  text-align:center;
+  margin-top:4px;
 }
 
 .points{
-  color:#aaa;
+  color:var(--accent);
+  font-size:23px;
+  font-weight:900;
+  text-align:center;
+}
+
+.points small{
+  display:block;
+  color:#fff;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-top:2px;
+}
+
+.icons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  color:var(--accent);
+  font-size:15px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+
+.feature-box{
+  border-radius:22px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.feature-box i{
+  color:var(--gold);
+  font-size:28px;
+}
+
+.feature-box h3{
+  color:var(--gold);
   font-size:14px;
+  margin-bottom:5px;
 }
 
-/* NFC */
-.nfc-chip{
-  width:40px;
-  height:25px;
-  background:gold;
-  border-radius:6px;
-  margin-top:10px;
+.feature-box p{
+  color:var(--muted);
+  font-size:13px;
 }
 
-/* Responsive */
-@media(max-width:1000px){
+@media(max-width:1250px){
+  .levels-grid{grid-template-columns:repeat(4,1fr)}
+  .features{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:900px){
   .layout{grid-template-columns:1fr}
-  .vip-grid{grid-template-columns:repeat(2,1fr)}
+  .sidebar{position:relative}
+  .levels-grid{grid-template-columns:repeat(2,1fr)}
 }
 
+@media(max-width:600px){
+  .page{padding:16px}
+  .header{flex-direction:column;align-items:flex-start;gap:12px}
+  .logo{font-size:28px}
+  .levels-grid,.features{grid-template-columns:1fr}
+}
 </style>
 </head>
 
 <body>
 
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status"><i class="fa-solid fa-signal"></i> VIP LEVELS SYSTEM LIVE</div>
+</header>
+
 <div class="layout">
 
-<!-- 🔥 SIDEBAR (يتم توليدها من sidebar.js) -->
-<aside class="sidebar" id="sidebar"></aside>
+<aside class="sidebar"></aside>
 
-<!-- MAIN -->
 <main class="main">
 
-<div class="header">
-  <div class="logo">STYLESPHERE</div>
-  <div class="status">● SYSTEM ONLINE</div>
-</div>
+<section class="panel">
+  <h1><i class="fa-solid fa-crown"></i> 18 VIP Levels</h1>
+  <p>StyleSphere VIP operating system with automatic level structure, rewards access, wallet readiness, QR identity and NFC membership services.</p>
+</section>
 
-<h2>VIP LEVEL SYSTEM</h2>
+<section class="levels-grid" id="levelsGrid"></section>
 
-<!-- 🔥 GRID -->
-<div class="vip-grid" id="vipContainer"></div>
+<section class="features">
+  <div class="feature-box"><i class="fa-solid fa-lock"></i><div><h3>EXCLUSIVE ACCESS</h3><p>Members-only privileges</p></div></div>
+  <div class="feature-box"><i class="fa-solid fa-shield-halved"></i><div><h3>MAXIMUM SECURITY</h3><p>Advanced protection</p></div></div>
+  <div class="feature-box"><i class="fa-solid fa-earth-americas"></i><div><h3>GLOBAL ACCEPTANCE</h3><p>Worldwide readiness</p></div></div>
+  <div class="feature-box"><i class="fa-solid fa-gift"></i><div><h3>SPECIAL REWARDS</h3><p>More points, more rewards</p></div></div>
+  <div class="feature-box"><i class="fa-solid fa-crown"></i><div><h3>VIP TREATMENT</h3><p>Premium member experience</p></div></div>
+</section>
 
 </main>
 </div>
+</div>
 
-<!-- ========== SYSTEM FILES ========== -->
 <script src="js/system.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/premium-effects.js"></script>
-<script src="js/vip-card-levels.js"></script>
+<script src="js/global-ui-engine.js"></script>
+<script src="js/store-loader.js"></script>
 
 <script>
+const levels = [
+  {id:18,name:"Infinity Black",points:"50,000+",accent:"#f7d84a",glow:"rgba(255,215,0,.40)",card:"#030303",icon:"fa-infinity"},
+  {id:17,name:"Royal Diamond",points:"40,000+",accent:"#f8fafc",glow:"rgba(248,250,252,.34)",card:"#101216",icon:"fa-gem"},
+  {id:16,name:"Imperial Elite",points:"35,000+",accent:"#b68cff",glow:"rgba(124,58,237,.32)",card:"#0d0718",icon:"fa-chess-king"},
+  {id:15,name:"Global Legend",points:"30,000+",accent:"#6ea8ff",glow:"rgba(29,78,216,.30)",card:"#050b18",icon:"fa-earth-americas"},
+  {id:14,name:"Crown Elite",points:"25,000+",accent:"#ffcc33",glow:"rgba(255,204,51,.36)",card:"#181204",icon:"fa-crown"},
+  {id:13,name:"Black VIP",points:"20,000+",accent:"#f7d84a",glow:"rgba(255,215,0,.28)",card:"#050505",icon:"fa-lock"},
+  {id:12,name:"Royal Infinity",points:"17,000+",accent:"#f7d84a",glow:"rgba(247,216,74,.34)",card:"#151305",icon:"fa-infinity"},
+  {id:11,name:"Diamond Elite",points:"15,000+",accent:"#ffffff",glow:"rgba(255,255,255,.30)",card:"#101216",icon:"fa-diamond"},
+  {id:10,name:"Platinum",points:"12,000+",accent:"#dce6f0",glow:"rgba(220,230,240,.28)",card:"#11161a",icon:"fa-credit-card"},
+  {id:9,name:"VIP",points:"10,000+",accent:"#3b82ff",glow:"rgba(59,130,255,.28)",card:"#050b18",icon:"fa-bolt"},
+  {id:8,name:"Elite",points:"8,000+",accent:"#00ff9d",glow:"rgba(0,255,157,.26)",card:"#06140d",icon:"fa-shield"},
+  {id:7,name:"Premium",points:"6,000+",accent:"#00e5ff",glow:"rgba(0,229,255,.26)",card:"#061316",icon:"fa-gem"},
+  {id:6,name:"Gold Plus",points:"4,500+",accent:"#ffd700",glow:"rgba(255,215,0,.34)",card:"#171204",icon:"fa-crown"},
+  {id:5,name:"Gold",points:"3,000+",accent:"#d4af37",glow:"rgba(255,215,0,.30)",card:"#151104",icon:"fa-crown"},
+  {id:4,name:"Silver Plus",points:"2,000+",accent:"#e5e5e5",glow:"rgba(240,240,240,.28)",card:"#111417",icon:"fa-star"},
+  {id:3,name:"Silver",points:"1,000+",accent:"#c0c0c0",glow:"rgba(220,220,220,.24)",card:"#101214",icon:"fa-star"},
+  {id:2,name:"Bronze Plus",points:"500+",accent:"#b87333",glow:"rgba(205,127,50,.32)",card:"#160b05",icon:"fa-medal"},
+  {id:1,name:"Bronze",points:"0+",accent:"#8b4513",glow:"rgba(205,127,50,.28)",card:"#120905",icon:"fa-medal"}
+];
 
-/* =========================
-   REAL SYSTEM ENGINE
-========================= */
+const grid = document.getElementById("levelsGrid");
 
-/* تحميل المستخدم */
-let user = null;
+levels.forEach(level=>{
+  const card = document.createElement("div");
+  card.className = "level-card";
+  card.style.setProperty("--accent", level.accent);
+  card.style.setProperty("--glow", level.glow);
+  card.style.setProperty("--card", level.card);
 
-if(window.SS){
-  user = SS.getUser();
-}
-
-/* تحميل مستويات VIP من النظام */
-const container = document.getElementById("vipContainer");
-
-if(window.StyleSphereVIPLevels){
-
-  const levels = window.StyleSphereVIPLevels.levels;
-
-  levels.forEach(level=>{
-
-    const card = document.createElement("div");
-    card.className="vip-card";
-    card.setAttribute("data-vip-card","");
-
-    card.innerHTML=`
-      <div class="card-brand">STYLESPHERE</div>
-
-      <div class="level-name" data-card-level>
-        ${level.name}
+  card.innerHTML = `
+    <div class="level-card-inner">
+      <div class="level-top">
+        <div class="level-number">${level.id}</div>
+        <div class="level-badge"><i class="fa-solid ${level.icon}"></i></div>
       </div>
 
-      <div class="points">
-        ${level.points}+ Points
+      <div class="mini-card">
+        <div class="card-brand">STYLESPHERE</div>
+        <div class="nfc-chip"></div>
+        <div class="card-level-mini">VIP</div>
       </div>
 
-      <div class="nfc-chip" data-card-chip></div>
-    `;
+      <div>
+        <div class="level-name">${level.name}</div>
+        <div class="points">${level.points}<small>POINTS</small></div>
+      </div>
 
-    container.appendChild(card);
-  });
+      <div class="icons">
+        <i class="fa-regular fa-gem"></i>
+        <i class="fa-solid fa-crown"></i>
+        <i class="fa-solid fa-plane"></i>
+        <i class="fa-regular fa-star"></i>
+      </div>
+    </div>
+  `;
 
-  /* 🔥 تطبيق النظام (الألوان + glow) */
-  window.StyleSphereVIPLevels.refresh();
-}
-
-/* =========================
-   LIGHT SYSTEM (GLOBAL)
-========================= */
-
-document.addEventListener("mousemove",(e)=>{
-  document.body.style.setProperty("--x",e.clientX+"px");
-  document.body.style.setProperty("--y",e.clientY+"px");
+  grid.appendChild(card);
 });
-
 </script>
 
 </body>
