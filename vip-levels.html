@@ -4,299 +4,222 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VIP Levels - StyleSphere</title>
+<title>StyleSphere | VIP System</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:system-ui;
+
+/* ========== GLOBAL SYSTEM ========== */
+:root{
+  --gold:#d4af37;
+  --bg:#020202;
+  --glass:rgba(0,0,0,.75);
 }
+
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  background:#0b0f14;
+  background:var(--bg);
   color:#fff;
-  display:flex;
+  font-family:Arial;
+  overflow-x:hidden;
 }
 
-/* ================= SIDEBAR ================= */
+/* 🔥 Smart Light Engine (مرتبط بالماوس) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+  radial-gradient(circle at var(--x,50%) var(--y,50%),
+  rgba(255,215,0,.15), transparent 40%);
+  z-index:-1;
+}
 
-.sidebar{
-  width:260px;
-  height:100vh;
-  background:#0d1218;
-  border-right:1px solid rgba(255,215,0,0.15);
+/* ========== LAYOUT SYSTEM ========== */
+.layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:20px;
   padding:20px;
 }
 
-.logo{
-  color:#FFD700;
-  font-weight:700;
-  font-size:20px;
-  margin-bottom:30px;
+/* ========== SIDEBAR (REAL SYSTEM) ========== */
+.sidebar{
+  background:var(--glass);
+  border:1px solid rgba(255,215,0,.3);
+  border-radius:25px;
+  padding:20px;
+  box-shadow:0 0 20px rgba(255,215,0,.1);
 }
 
-.menu a{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:10px;
-  color:#ccc;
-  text-decoration:none;
-  transition:.3s;
-}
-
-.menu a:hover{
-  background:rgba(255,215,0,0.1);
-  color:#FFD700;
-}
-
-.menu a.active{
-  background:linear-gradient(90deg,#FFD700,#ffae00);
-  color:#000;
-  font-weight:600;
-}
-
-/* ================= MAIN ================= */
-
+/* ========== MAIN ========== */
 .main{
-  flex:1;
-  padding:30px;
+  display:grid;
+  gap:20px;
 }
 
+/* Header */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:30px;
 }
 
-.title{
-  font-size:24px;
-  font-weight:700;
+.logo{
+  color:var(--gold);
+  font-size:30px;
+  font-weight:900;
 }
 
-.live{
-  background:#0f2f1c;
-  color:#00ff88;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:12px;
+.status{
+  color:#00ff9d;
+  font-weight:bold;
 }
 
-/* ================= GRID ================= */
-
-.grid{
+/* ========== VIP GRID SYSTEM ========== */
+.vip-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:20px;
 }
 
-/* ================= CARD ================= */
-
-.card{
-  background:#111;
-  border-radius:16px;
-  padding:18px;
-  border:1px solid rgba(255,215,0,0.15);
+/* ========== VIP CARD (CONNECTED WITH JS) ========== */
+.vip-card{
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,215,0,.4);
+  border-radius:20px;
+  padding:20px;
   transition:.3s;
+  position:relative;
 }
 
-.card:hover{
+.vip-card:hover{
   transform:translateY(-5px);
-  border-color:#FFD700;
 }
 
-.level{
-  font-size:14px;
-  color:#FFD700;
+/* Dynamic Data */
+.card-brand{
+  color:var(--gold);
+  font-size:12px;
+  font-weight:bold;
 }
 
-.name{
+.level-name{
   font-size:18px;
-  font-weight:700;
-  margin:5px 0;
+  margin-top:10px;
 }
 
 .points{
-  font-size:13px;
   color:#aaa;
+  font-size:14px;
 }
 
-.badge{
+/* NFC */
+.nfc-chip{
+  width:40px;
+  height:25px;
+  background:gold;
+  border-radius:6px;
   margin-top:10px;
-  font-size:11px;
-  color:#00ff88;
 }
 
-/* ================= COLORS ================= */
-
-.bronze{border-color:#cd7f32;}
-.silver{border-color:#c0c0c0;}
-.gold{border-color:#FFD700;}
-.platinum{border-color:#e5e4e2;}
-.diamond{border-color:#00eaff;}
-.black{border-color:#000;background:#050505;}
+/* Responsive */
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .vip-grid{grid-template-columns:repeat(2,1fr)}
+}
 
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+<div class="layout">
 
-  <div class="logo">STYLESPHERE</div>
-
-  <div class="menu">
-    <a href="client-dashboard.html"><i class="fa fa-chart-line"></i> Dashboard</a>
-    <a href="wallet.html"><i class="fa fa-wallet"></i> Wallet</a>
-    <a href="rewards.html"><i class="fa fa-gift"></i> Rewards</a>
-    <a href="qr-access.html"><i class="fa fa-qrcode"></i> QR Access</a>
-    <a href="nfc-card.html"><i class="fa fa-credit-card"></i> NFC Card</a>
-    <a href="activity.html"><i class="fa fa-rotate"></i> Activity</a>
-
-    <a href="membership.html"><i class="fa fa-crown"></i> Membership</a>
-    <a class="active" href="#"><i class="fa fa-ranking-star"></i> VIP Levels</a>
-
-    <a href="#"><i class="fa fa-bell"></i> Notifications</a>
-    <a href="#"><i class="fa fa-gear"></i> Settings</a>
-    <a href="#"><i class="fa fa-headset"></i> Support</a>
-    <a href="#"><i class="fa fa-user"></i> Profile</a>
-    <a href="#"><i class="fa fa-cart-shopping"></i> Checkout</a>
-    <a href="#"><i class="fa fa-right-from-bracket"></i> Logout</a>
-  </div>
-
-</div>
+<!-- 🔥 SIDEBAR (يتم توليدها من sidebar.js) -->
+<aside class="sidebar" id="sidebar"></aside>
 
 <!-- MAIN -->
-<div class="main">
+<main class="main">
 
-  <div class="header">
-    <div class="title">18 VIP Levels</div>
-    <div class="live">● SYSTEM LIVE</div>
-  </div>
-
-  <div class="grid">
-
-    <!-- LEVELS -->
-
-    <div class="card bronze">
-      <div class="level">Level 1</div>
-      <div class="name">Bronze</div>
-      <div class="points">0+ Points</div>
-    </div>
-
-    <div class="card bronze">
-      <div class="level">Level 2</div>
-      <div class="name">Bronze Plus</div>
-      <div class="points">500+ Points</div>
-    </div>
-
-    <div class="card silver">
-      <div class="level">Level 3</div>
-      <div class="name">Silver</div>
-      <div class="points">1,000+ Points</div>
-    </div>
-
-    <div class="card silver">
-      <div class="level">Level 4</div>
-      <div class="name">Silver Plus</div>
-      <div class="points">2,000+ Points</div>
-    </div>
-
-    <div class="card gold">
-      <div class="level">Level 5</div>
-      <div class="name">Gold</div>
-      <div class="points">3,000+ Points</div>
-    </div>
-
-    <div class="card gold">
-      <div class="level">Level 6</div>
-      <div class="name">Gold Plus</div>
-      <div class="points">4,500+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 7</div>
-      <div class="name">Premium</div>
-      <div class="points">6,000+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 8</div>
-      <div class="name">Elite</div>
-      <div class="points">8,000+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 9</div>
-      <div class="name">VIP</div>
-      <div class="points">10,000+ Points</div>
-    </div>
-
-    <div class="card platinum">
-      <div class="level">Level 10</div>
-      <div class="name">Platinum</div>
-      <div class="points">12,000+ Points</div>
-    </div>
-
-    <div class="card diamond">
-      <div class="level">Level 11</div>
-      <div class="name">Diamond Elite</div>
-      <div class="points">15,000+ Points</div>
-    </div>
-
-    <div class="card diamond">
-      <div class="level">Level 12</div>
-      <div class="name">Royal Infinity</div>
-      <div class="points">17,000+ Points</div>
-    </div>
-
-    <div class="card black">
-      <div class="level">Level 13</div>
-      <div class="name">Black VIP</div>
-      <div class="points">20,000+ Points</div>
-    </div>
-
-    <div class="card gold">
-      <div class="level">Level 14</div>
-      <div class="name">Crown Elite</div>
-      <div class="points">25,000+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 15</div>
-      <div class="name">Global Legend</div>
-      <div class="points">30,000+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 16</div>
-      <div class="name">Imperial Elite</div>
-      <div class="points">35,000+ Points</div>
-    </div>
-
-    <div class="card">
-      <div class="level">Level 17</div>
-      <div class="name">Royal Diamond</div>
-      <div class="points">40,000+ Points</div>
-    </div>
-
-    <div class="card black">
-      <div class="level">Level 18</div>
-      <div class="name">Infinity Black</div>
-      <div class="points">50,000+ Points</div>
-    </div>
-
-  </div>
-
+<div class="header">
+  <div class="logo">STYLESPHERE</div>
+  <div class="status">● SYSTEM ONLINE</div>
 </div>
+
+<h2>VIP LEVEL SYSTEM</h2>
+
+<!-- 🔥 GRID -->
+<div class="vip-grid" id="vipContainer"></div>
+
+</main>
+</div>
+
+<!-- ========== SYSTEM FILES ========== -->
+<script src="js/system.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/premium-effects.js"></script>
+<script src="js/vip-card-levels.js"></script>
+
+<script>
+
+/* =========================
+   REAL SYSTEM ENGINE
+========================= */
+
+/* تحميل المستخدم */
+let user = null;
+
+if(window.SS){
+  user = SS.getUser();
+}
+
+/* تحميل مستويات VIP من النظام */
+const container = document.getElementById("vipContainer");
+
+if(window.StyleSphereVIPLevels){
+
+  const levels = window.StyleSphereVIPLevels.levels;
+
+  levels.forEach(level=>{
+
+    const card = document.createElement("div");
+    card.className="vip-card";
+    card.setAttribute("data-vip-card","");
+
+    card.innerHTML=`
+      <div class="card-brand">STYLESPHERE</div>
+
+      <div class="level-name" data-card-level>
+        ${level.name}
+      </div>
+
+      <div class="points">
+        ${level.points}+ Points
+      </div>
+
+      <div class="nfc-chip" data-card-chip></div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  /* 🔥 تطبيق النظام (الألوان + glow) */
+  window.StyleSphereVIPLevels.refresh();
+}
+
+/* =========================
+   LIGHT SYSTEM (GLOBAL)
+========================= */
+
+document.addEventListener("mousemove",(e)=>{
+  document.body.style.setProperty("--x",e.clientX+"px");
+  document.body.style.setProperty("--y",e.clientY+"px");
+});
+
+</script>
 
 </body>
 </html>
