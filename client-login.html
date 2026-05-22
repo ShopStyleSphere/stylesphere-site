@@ -184,20 +184,22 @@ function togglePassword(icon){
     loginUser(email, password);
   };
 
-  window.togglePassword = function (icon) {
+const eye = document.getElementById("toggleEye");
+
+eye.addEventListener("click", () => {
   const pass = document.getElementById("password");
 
   if (pass.type === "password") {
     pass.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash");
+    eye.classList.remove("fa-eye");
+    eye.classList.add("fa-eye-slash");
   } else {
     pass.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye");
+    eye.classList.remove("fa-eye-slash");
+    eye.classList.add("fa-eye");
   }
-};
-
+});
+  
 </script>
 
 </body>
