@@ -8,197 +8,149 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
-body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.25),transparent 25%),linear-gradient(135deg,#000,#080603,#000)}
-body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:75px 75px;animation:grid 18s linear infinite}
-@keyframes grid{to{background-position:150px 150px}}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b0f14;
+  color:white;
+}
 
-.page{min-height:100vh;padding:28px;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
-.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900;box-shadow:0 0 24px rgba(255,215,0,.65)}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.3s infinite}
-@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+.container{
+  display:flex;
+  height:100vh;
+}
 
-.wrap{flex:1;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;max-width:1280px;margin:auto;width:100%}
-.left,.login-card{border:1px solid rgba(255,227,110,.75);border-radius:34px;background:var(--glass);box-shadow:0 0 40px rgba(255,215,0,.25),inset 0 0 25px rgba(255,215,0,.08);padding:42px;position:relative;overflow:hidden}
-.left::after,.login-card::after{content:"";position:absolute;inset:-120%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.25),transparent);transform:rotate(25deg);transition:.7s}
-.left:hover::after,.login-card:hover::after{inset:120%}
+.left, .right{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:60px;
+}
 
-.left h1{font-size:62px;color:var(--gold);line-height:1;text-shadow:0 0 38px gold;margin-bottom:22px}
-.left h2{font-size:32px;margin-bottom:20px}
-.left p{color:#ddd;line-height:1.7;max-width:560px}
+.left{
+  background:linear-gradient(135deg,#111,#1c1c1c);
+}
 
-.bank-card{margin-top:32px;max-width:470px;height:255px;border-radius:30px;padding:28px;background:linear-gradient(135deg,#050505,#171717 52%,#d7d5c2);border:1px solid var(--gold);box-shadow:0 0 55px gold;position:relative;overflow:hidden;transform:perspective(900px) rotateX(6deg) rotateY(-8deg)}
-.bank-card::before{content:"";position:absolute;inset:-80%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);transform:rotate(25deg);animation:shine 4s linear infinite}
-@keyframes shine{to{left:150%}}
-.card-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
-.card-top{display:flex;justify-content:space-between;font-weight:900}
-.card-brand{font-size:27px;color:var(--gold);text-shadow:0 0 14px gold}
-.chip-row{display:flex;gap:18px;align-items:center}
-.chip{width:54px;height:40px;border-radius:9px;background:linear-gradient(135deg,#b8860b,#fff3a3,#c99922);box-shadow:0 0 18px gold}
-.nfc{font-size:34px;color:var(--gold);transform:rotate(90deg)}
-.card-number{font-size:22px;letter-spacing:5px;text-shadow:0 0 10px white}
+.right{
+  background:#0f1115;
+}
 
-.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
-.feature{border:1px solid rgba(255,215,0,.65);border-radius:18px;padding:18px;color:var(--gold);font-weight:800;background:rgba(0,0,0,.45)}
+h1{
+  color:gold;
+  font-size:50px;
+}
 
-.login-card h1{text-align:center;color:var(--gold);font-size:46px;text-shadow:0 0 30px gold}
-.sub{text-align:center;color:#ddd;margin:10px 0 30px}
-label{display:block;color:var(--gold);font-weight:900;margin:16px 0 8px}
-.input{height:60px;border:1px solid var(--gold);border-radius:17px;background:rgba(0,0,0,.65);display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:inset 0 0 15px rgba(255,215,0,.08)}
-.input i{color:var(--gold)}
-.input input{flex:1;background:transparent;border:0;outline:0;color:white;font-size:15px}
-.input input:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px #080806 inset!important;-webkit-text-fill-color:white!important}
-.eye{cursor:pointer;color:var(--gold)}
-.row{display:flex;justify-content:space-between;align-items:center;margin:18px 0;color:#ddd;font-size:13px}
-.row a{color:var(--gold);text-decoration:none}
-.check{display:flex;align-items:center;gap:8px}
-.error{color:#ff6b6b;font-size:13px;margin-top:8px;min-height:18px}
-.btn{width:100%;height:62px;border:0;border-radius:18px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;letter-spacing:9px;cursor:pointer;box-shadow:0 0 32px gold;margin-top:12px}
-.or{text-align:center;color:var(--gold);font-weight:900;margin:22px 0}
-.socials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.socials button{height:48px;border:1px solid var(--gold);border-radius:14px;background:#050505;color:var(--gold);font-weight:900;cursor:pointer}
-.register{text-align:center;margin-top:20px;color:#ddd}
-.register a{color:var(--gold);font-weight:900}
+.card{
+  margin-top:20px;
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#222,#333);
+}
 
-@media(max-width:950px){.wrap{grid-template-columns:1fr}.left h1{font-size:44px}}
-@media(max-width:600px){.page{padding:16px}.top{flex-direction:column;gap:14px}.left,.login-card{padding:24px}.features,.socials{grid-template-columns:1fr}.logo{font-size:26px}.bank-card{height:230px}.card-number{font-size:17px}}
+input{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+
+.btn{
+  width:100%;
+  padding:15px;
+  margin-top:20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.error{
+  color:#ff6b6b;
+  margin-top:10px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<div class="container">
 
-  <div class="top">
-    <div class="logo">Ⓢ STYLESPHERE</div>
-    <div class="status"><span class="dot"></span> CLIENT ACCESS ONLINE</div>
-  </div>
+<div class="left">
+  <h1>BEYOND REWARDS</h1>
+  <p>World Elite Members Club</p>
 
-  <div class="wrap">
-
-    <section class="left">
-      <h1>BEYOND REWARDS</h1>
-      <h2>World Elite Members Club</h2>
-      <p>Access your premium StyleSphere account, manage wallet balance, rewards, NFC card, QR access and exclusive global benefits.</p>
-
-      <div class="bank-card" id="bankCard">
-        <div class="card-content">
-          <div class="card-top">
-            <div class="card-brand">STYLESPHERE</div>
-            <div>ROYAL INFINITY<br>WORLD ELITE</div>
-          </div>
-          <div class="chip-row">
-            <div class="chip"></div>
-            <i class="fa-solid fa-wifi nfc"></i>
-          </div>
-          <div class="card-number">5412&nbsp;&nbsp;7512&nbsp;&nbsp;3412&nbsp;&nbsp;3488</div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:bold">
-            <span>MEMBER SINCE 2026</span>
-            <span>NFC ENABLED</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="features">
-        <div class="feature"><i class="fa-solid fa-gem"></i> Exclusive Rewards</div>
-        <div class="feature"><i class="fa-solid fa-crown"></i> VIP Level Benefits</div>
-        <div class="feature"><i class="fa-solid fa-globe"></i> Global Access</div>
-        <div class="feature"><i class="fa-solid fa-shield"></i> Secure Account</div>
-      </div>
-    </section>
-
-    <section class="login-card">
-      <h1>Client Login</h1>
-      <p class="sub">Access your membership command center</p>
-
-      <label>EMAIL ADDRESS</label>
-      <div class="input">
-        <i class="fa-solid fa-envelope"></i>
-        <input id="email" type="email" placeholder="Enter your email" autocomplete="off">
-      </div>
-
-      <label>PASSWORD</label>
-      <div class="input">
-        <i class="fa-solid fa-lock"></i>
-        <input id="password" type="password" placeholder="Enter your password" autocomplete="new-password">
-      </div>
-
-      <div class="row">
-        <label class="check"><input id="remember" type="checkbox"> Remember me</label>
-        <a href="#" onclick="resetPassword()">Forgot Password?</a>
-      </div>
-
-      <div class="error" id="error"></div>
-
-      <button class="btn" onclick="loginNow()">LOGIN →</button>
-
-      <div class="or">OR CONTINUE WITH</div>
-
-      <div class="socials">
-        <button onclick="socialLogin('Google')"><i class="fa-brands fa-google"></i> Google</button>
-        <button onclick="socialLogin('Apple')"><i class="fa-brands fa-apple"></i> Apple</button>
-        <button onclick="socialLogin('Facebook')"><i class="fa-brands fa-facebook-f"></i> Facebook</button>
-      </div>
-
-      <div class="register">
-        Don’t have an account? <a href="register.html">Create Account</a>
-      </div>
-    </section>
-
+  <div class="card">
+    <p>Premium StyleSphere Account</p>
   </div>
 </div>
 
-<script>
-document.addEventListener("mousemove",(e)=>{
-  document.body.style.setProperty("--x",e.clientX+"px");
-  document.body.style.setProperty("--y",e.clientY+"px");
-});
+<div class="right">
+  <h2>Client Login</h2>
 
-function togglePassword(icon){
-  const pass=document.getElementById("password");
-  pass.type=pass.type==="password" ? "text" : "password";
-  icon.classList.toggle("fa-eye");
-  icon.classList.toggle("fa-eye-slash");
-}
+  <input id="email" type="email" placeholder="Enter your email">
+  <input id="password" type="password" placeholder="Enter your password">
 
+  <div id="error" class="error"></div>
+
+  <button class="btn" onclick="loginNow()">LOGIN</button>
+</div>
+
+</div>
+
+<!-- Firebase -->
 <script type="module">
-  import { loginUser } from "./js/firebase.js";
 
-  window.loginNow = function () {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const error = document.getElementById("error");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    error.textContent = "";
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
 
-    if (!email || !password) {
-      error.textContent = "Please enter email and password.";
-      return;
-    }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    loginUser(email, password);
-  };
+window.loginNow = async function () {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const error = document.getElementById("error");
 
-const eye = document.getElementById("toggleEye");
+  error.textContent = "";
 
-eye.addEventListener("click", () => {
-  const pass = document.getElementById("password");
-
-  if (pass.type === "password") {
-    pass.type = "text";
-    eye.classList.remove("fa-eye");
-    eye.classList.add("fa-eye-slash");
-  } else {
-    pass.type = "password";
-    eye.classList.remove("fa-eye-slash");
-    eye.classList.add("fa-eye");
+  if (!email || !password) {
+    error.textContent = "Please enter email and password.";
+    return;
   }
-});
-  
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    // نجاح تسجيل الدخول
+    window.location.href = "client-dashboard.html";
+
+  } catch (err) {
+
+    // أهم جزء 👇
+    if (err.code === "auth/user-not-found") {
+      error.textContent = "Account not found.";
+    } 
+    else if (err.code === "auth/wrong-password") {
+      error.textContent = "Wrong password.";
+    } 
+    else {
+      error.textContent = err.message;
+    }
+  }
+};
+
 </script>
 
 </body>
