@@ -166,60 +166,24 @@ function togglePassword(icon){
   icon.classList.toggle("fa-eye-slash");
 }
 
-function loginNow(){
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value;
-  const error=document.getElementById("error");
-  error.textContent="";
+<script type="module">
+  import { loginUser } from "./js/firebase.js";
 
-  if(!email || !password){
-    error.textContent="Please enter email and password.";
-    return;
-  }
+  window.loginNow = function () {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const error = document.getElementById("error");
 
-  let user=JSON.parse(localStorage.getItem("stylesphereUser") || "null");
+    error.textContent = "";
 
-  if(!user){
-    user={
-      name:"MOHAMMED GHALEB",
-      email:email,
-      level:"Royal Infinity",
-      points:12450,
-      wallet:240,
-      rewards:8,
-      qrId:"QR-SS-2026-8842",
-      nfcStatus:"Active"
-    };
-    localStorage.setItem("stylesphereUser",JSON.stringify(user));
-  }
+    if (!email || !password) {
+      error.textContent = "Please enter email and password.";
+      return;
+    }
 
-  localStorage.setItem("stylesphereLoggedIn","true");
-  localStorage.setItem("stylesphereLastLogin",new Date().toISOString());
+    loginUser(email, password);
+  };
 
-  window.location.href="client-dashboard.html";
-}
-
-function resetPassword(){
-  const email=document.getElementById("email").value.trim();
-  alert(email ? "Password reset request sent to: "+email : "Enter your email first.");
-}
-
-function socialLogin(provider){
-  alert(provider+" login will be connected later.");
-}
-
-const card=document.getElementById("bankCard");
-card.addEventListener("mousemove",function(e){
-  const r=card.getBoundingClientRect();
-  const x=e.clientX-r.left;
-  const y=e.clientY-r.top;
-  card.style.transform=`perspective(900px) rotateX(${ -((y/r.height)-.5)*14 }deg) rotateY(${ ((x/r.width)-.5)*14 }deg)`;
-});
-card.addEventListener("mouseenter",()=>{card.style.boxShadow="0 0 80px gold,0 0 120px rgba(255,215,0,.4)"});
-card.addEventListener("mouseleave",()=>{
-  card.style.transform="perspective(900px) rotateX(6deg) rotateY(-8deg)";
-  card.style.boxShadow="0 0 55px gold";
-});
 </script>
 
 </body>
