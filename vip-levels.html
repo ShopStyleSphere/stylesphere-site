@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere | VIP Levels</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --gold:#f7d84a;
+  --bg:#030403;
+  --panel:rgba(8,12,9,.86);
+  --line:rgba(247,216,74,.28);
+  --text:#f4f7f4;
+  --muted:#bfc8bf;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(247,216,74,.08),transparent 35%),
+    linear-gradient(135deg,#020302,#071007,#020302);
+  color:#fff;
+  font-family:Arial,sans-serif;
+  overflow-x:hidden;
+}
+
+.page{padding:28px}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:26px;
+}
+
+.logo{
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:3px;
+  color:var(--gold);
+  text-shadow:0 0 8px rgba(247,216,74,.38);
+}
+
+.status{
+  padding:12px 22px;
+  border-radius:50px;
+  border:1px solid rgba(0,255,157,.28);
+  background:rgba(0,255,157,.06);
+  color:#dcfff0;
+  font-weight:900;
+}
+
+.hero{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:34px;
+  margin-bottom:24px;
+  box-shadow:0 0 22px rgba(247,216,74,.12);
+}
+
+.hero h1{
+  color:var(--gold);
+  font-size:38px;
+  margin-bottom:12px;
+}
+
+.hero p{
+  color:var(--text);
+  max-width:850px;
+  line-height:1.7;
+  font-size:16px;
+}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.level-card{
+  min-height:210px;
+  border-radius:26px;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+  background:#0b0b0b;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 18px rgba(0,0,0,.35);
+  transition:.25s;
+}
+
+.level-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 26px var(--glow);
+}
+
+.level-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.08),transparent 34%),
+    radial-gradient(circle at 85% 20%,var(--glow),transparent 34%);
+  opacity:.7;
+}
+
+.level-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.badge{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--accent);
+  color:var(--accent);
+  box-shadow:0 0 14px var(--glow);
+  font-size:20px;
+}
+
+.level-no{
+  font-weight:900;
+  color:var(--accent);
+  letter-spacing:1px;
+}
+
+.level-name{
+  font-size:25px;
+  font-weight:900;
+  color:#fff;
+  margin-top:26px;
+}
+
+.points{
+  color:var(--muted);
+  font-weight:800;
+  margin-top:8px;
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:20px;
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  opacity:.9;
+}
+
+.locked{
+  color:var(--accent);
+}
+
+@media(max-width:1050px){
+  .levels{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+  .levels{grid-template-columns:1fr}
+  .header{flex-direction:column;align-items:flex-start;gap:14px}
+  .logo{font-size:28px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+  <div class="logo">Ⓢ STYLESPHERE</div>
+  <div class="status">VIP LEVELS SYSTEM LIVE</div>
+</header>
+
+<section class="hero">
+  <h1>VIP Levels</h1>
+  <p>
+    StyleSphere VIP system includes 18 automatic membership levels.
+    Customers upgrade based on points, activity, rewards access, wallet usage, NFC membership and premium benefits.
+  </p>
+</section>
+
+<section class="levels">
+
+  <div class="level-card" style="--accent:#8b4513;--glow:rgba(205,127,50,.28)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-medal"></i></div><div class="level-no">LEVEL 01</div></div>
+      <div><div class="level-name">Bronze</div><div class="points">0 Points</div></div>
+      <div class="footer"><span>Starter Access</span><span class="locked">OPEN</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#b87333;--glow:rgba(205,127,50,.32)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-medal"></i></div><div class="level-no">LEVEL 02</div></div>
+      <div><div class="level-name">Bronze Plus</div><div class="points">500 Points</div></div>
+      <div class="footer"><span>Basic Rewards</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#c0c0c0;--glow:rgba(220,220,220,.24)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-star"></i></div><div class="level-no">LEVEL 03</div></div>
+      <div><div class="level-name">Silver</div><div class="points">1,000 Points</div></div>
+      <div class="footer"><span>Member Pricing</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#e5e5e5;--glow:rgba(240,240,240,.28)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-star"></i></div><div class="level-no">LEVEL 04</div></div>
+      <div><div class="level-name">Silver Plus</div><div class="points">2,000 Points</div></div>
+      <div class="footer"><span>Extra Rewards</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#d4af37;--glow:rgba(255,215,0,.30)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-crown"></i></div><div class="level-no">LEVEL 05</div></div>
+      <div><div class="level-name">Gold</div><div class="points">3,000 Points</div></div>
+      <div class="footer"><span>Gold Benefits</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#ffd700;--glow:rgba(255,215,0,.34)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-crown"></i></div><div class="level-no">LEVEL 06</div></div>
+      <div><div class="level-name">Gold Plus</div><div class="points">4,500 Points</div></div>
+      <div class="footer"><span>Priority Offers</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#00e5ff;--glow:rgba(0,229,255,.26)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-gem"></i></div><div class="level-no">LEVEL 07</div></div>
+      <div><div class="level-name">Premium</div><div class="points">6,000 Points</div></div>
+      <div class="footer"><span>Premium Access</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#00ff9d;--glow:rgba(0,255,157,.26)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-shield"></i></div><div class="level-no">LEVEL 08</div></div>
+      <div><div class="level-name">Elite</div><div class="points">8,000 Points</div></div>
+      <div class="footer"><span>Elite Rewards</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#3b82ff;--glow:rgba(59,130,255,.28)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-bolt"></i></div><div class="level-no">LEVEL 09</div></div>
+      <div><div class="level-name">VIP</div><div class="points">10,000 Points</div></div>
+      <div class="footer"><span>VIP System</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#dce6f0;--glow:rgba(220,230,240,.28)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-credit-card"></i></div><div class="level-no">LEVEL 10</div></div>
+      <div><div class="level-name">Platinum</div><div class="points">12,000 Points</div></div>
+      <div class="footer"><span>NFC Ready</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#ffffff;--glow:rgba(255,255,255,.30)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-diamond"></i></div><div class="level-no">LEVEL 11</div></div>
+      <div><div class="level-name">Diamond Elite</div><div class="points">15,000 Points</div></div>
+      <div class="footer"><span>Diamond Access</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#f7d84a;--glow:rgba(247,216,74,.34)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-infinity"></i></div><div class="level-no">LEVEL 12</div></div>
+      <div><div class="level-name">Royal Infinity</div><div class="points">17,000 Points</div></div>
+      <div class="footer"><span>Royal Access</span><span class="locked">AUTO</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#f7d84a;--glow:rgba(255,215,0,.28)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-lock"></i></div><div class="level-no">LEVEL 13</div></div>
+      <div><div class="level-name">Black VIP</div><div class="points">20,000 Points</div></div>
+      <div class="footer"><span>Black Access</span><span class="locked">PRIVATE</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#ffcc33;--glow:rgba(255,204,51,.36)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-crown"></i></div><div class="level-no">LEVEL 14</div></div>
+      <div><div class="level-name">Crown Elite</div><div class="points">25,000 Points</div></div>
+      <div class="footer"><span>Crown Benefits</span><span class="locked">PRIVATE</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#6ea8ff;--glow:rgba(29,78,216,.30)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-earth-americas"></i></div><div class="level-no">LEVEL 15</div></div>
+      <div><div class="level-name">Global Legend</div><div class="points">30,000 Points</div></div>
+      <div class="footer"><span>Global Access</span><span class="locked">PRIVATE</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#b68cff;--glow:rgba(124,58,237,.32)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-chess-king"></i></div><div class="level-no">LEVEL 16</div></div>
+      <div><div class="level-name">Imperial Elite</div><div class="points">35,000 Points</div></div>
+      <div class="footer"><span>Imperial Status</span><span class="locked">PRIVATE</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#f8fafc;--glow:rgba(248,250,252,.34)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-gem"></i></div><div class="level-no">LEVEL 17</div></div>
+      <div><div class="level-name">Royal Diamond</div><div class="points">40,000 Points</div></div>
+      <div class="footer"><span>Royal Diamond</span><span class="locked">PRIVATE</span></div>
+    </div>
+  </div>
+
+  <div class="level-card" style="--accent:#f7d84a;--glow:rgba(255,215,0,.40)">
+    <div class="level-content">
+      <div class="top"><div class="badge"><i class="fa-solid fa-infinity"></i></div><div class="level-no">LEVEL 18</div></div>
+      <div><div class="level-name">Infinity Black</div><div class="points">50,000 Points</div></div>
+      <div class="footer"><span>Maximum Status</span><span class="locked">INVITE</span></div>
+    </div>
+  </div>
+
+</section>
+
+</div>
+
+<script src="js/system.js"></script>
+<script src="js/premium-effects.js"></script>
+<script src="js/global-ui-engine.js"></script>
+<script src="js/vip-card-levels.js"></script>
+<script src="js/store-loader.js"></script>
+
+</body>
+</html>
