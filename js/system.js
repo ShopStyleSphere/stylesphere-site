@@ -1,4 +1,4 @@
-/* StyleSphere Global System */
+/* StyleSphere Global System — Production Ready Local Version */
 
 const SS = {
   keys: {
@@ -8,127 +8,137 @@ const SS = {
     payments: "stylespherePayments"
   },
 
+  levels: [
+    { level: 18, name: "Infinity Black", points: 50000 },
+    { level: 17, name: "Royal Diamond", points: 40000 },
+    { level: 16, name: "Imperial Elite", points: 35000 },
+    { level: 15, name: "Global Legend", points: 30000 },
+    { level: 14, name: "Crown Elite", points: 25000 },
+    { level: 13, name: "Black VIP", points: 20000 },
+    { level: 12, name: "Royal Infinity", points: 17000 },
+    { level: 11, name: "Diamond Elite", points: 15000 },
+    { level: 10, name: "Platinum", points: 12000 },
+    { level: 9, name: "VIP", points: 10000 },
+    { level: 8, name: "Elite", points: 8000 },
+    { level: 7, name: "Premium", points: 6000 },
+    { level: 6, name: "Gold Plus", points: 4500 },
+    { level: 5, name: "Gold", points: 3000 },
+    { level: 4, name: "Silver Plus", points: 2000 },
+    { level: 3, name: "Silver", points: 1000 },
+    { level: 2, name: "Bronze Plus", points: 500 },
+    { level: 1, name: "Bronze", points: 0 }
+  ],
+
   defaultUser() {
     return {
       id: "USR-" + Date.now(),
       name: "Guest User",
       email: "user@stylesphere.com",
-      level: "Royal Infinity",
-      points: 12450,
-      wallet: 240,
-      rewards: 8,
+      level: "Bronze",
+      levelNumber: 1,
+      points: 0,
+      wallet: 0,
+      rewards: 0,
       profileImage: "",
-      qrId: "QR-SS-2026-8842",
-      nfcStatus: "Active",
+      qrId: "QR-SS-" + Date.now(),
+      nfcStatus: "Not Requested",
       status: "Active",
-      emailVerified: true,
+      emailVerified: false,
       currency: "USD",
-      membership: "Royal Infinity",
+      membership: "Bronze",
       createdAt: new Date().toISOString()
     };
   },
 
   getUser() {
     let user = JSON.parse(localStorage.getItem(this.keys.user) || "null");
-
-    if (!user) {
-      user = this.defaultUser();
-      this.saveUser(user);
-    }
+    if (!user) user = this.defaultUser();
 
     if (user.profileImage === undefined) user.profileImage = "";
     if (!user.name) user.name = "Guest User";
     if (!user.email) user.email = "user@stylesphere.com";
 
+    const level = this.calculateLevel(user.points);
+    user.level = level.name;
+    user.levelNumber = level.level;
+    user.membership = level.name;
+
+    this.saveUser(user);
     return user;
   },
 
   saveUser(user) {
     localStorage.setItem(this.keys.user, JSON.stringify(user));
+    return user;
   },
 
   updateUser(data = {}) {
     const user = this.getUser();
     Object.assign(user, data);
+
+    const level = this.calculateLevel(user.points);
+    user.level = level.name;
+    user.levelNumber = level.level;
+    user.membership = level.name;
+
     this.saveUser(user);
     this.renderUser();
     return user;
   },
 
-  updateProfileImage(imageBase64) {
-    const user = this.getUser();
-    user.profileImage = imageBase64;
-    this.saveUser(user);
-    this.renderUser();
-  },
-
-  isLoggedIn() {
-    return localStorage.getItem(this.keys.logged) === "true";
-  },
-
-  login(email, password, name = "") {
-    if (!email || !password) {
-      return { ok: false, message: "Enter email and password" };
-    }
-
-    const user = this.getUser();
-    user.email = email;
-    if (name) user.name = name;
-    user.lastLogin = new Date().toISOString();
-
-    this.saveUser(user);
-    localStorage.setItem(this.keys.logged, "true");
-    this.addActivity("Security", "Client login", "Verified");
-
-    return { ok: true, user };
-  },
-
-  logout() {
-    localStorage.setItem(this.keys.logged, "false");
-    this.addActivity("Security", "Client logout", "Completed");
-    window.location.href = "client-login.html";
-  },
-
-  protectPage() {
-    if (!this.isLoggedIn()) {
-      window.location.href = "client-login.html";
-    }
-  },
-
   calculateLevel(points) {
     points = Number(points || 0);
+    return this.levels.find(l => points >= l.points) || this.levels[this.levels.length - 1];
+  },
 
-    if (points >= 15000) return "Imperial Infinity";
-    if (points >= 10000) return "Royal Infinity";
-    if (points >= 5000) return "Royal";
-    if (points >= 2500) return "Elite";
-    if (points >= 1000) return "Gold";
-    if (points >= 300) return "Silver";
-    return "Bronze";
+  getNextLevel(points) {
+    points = Number(points || 0);
+    const current = this.calculateLevel(points);
+    const next = this.levels
+      .slice()
+      .reverse()
+      .find(l => l.points > points);
+
+    return {
+      current,
+      next: next || null,
+      progress: next
+        ? Math.min(100, Math.round((points / next.points) * 100))
+        : 100,
+      needed: next ? Math.max(0, next.points - points) : 0
+    };
   },
 
   addPoints(amount, reason = "Points added") {
     const user = this.getUser();
-    user.points = Number(user.points || 0) + Number(amount);
-    user.level = this.calculateLevel(user.points);
+    user.points = Number(user.points || 0) + Number(amount || 0);
+
+    const level = this.calculateLevel(user.points);
+    user.level = level.name;
+    user.levelNumber = level.level;
+    user.membership = level.name;
 
     this.saveUser(user);
     this.addActivity("Rewards", reason, "+" + amount + " pts");
     this.renderUser();
-
     return user;
   },
 
   redeemPoints(amount, rewardName = "Reward redeemed") {
     const user = this.getUser();
+    amount = Number(amount || 0);
 
-    if (Number(user.points || 0) < Number(amount)) {
+    if (Number(user.points || 0) < amount) {
       return { ok: false, message: "Not enough points" };
     }
 
-    user.points = Number(user.points || 0) - Number(amount);
+    user.points -= amount;
     user.rewards = Number(user.rewards || 0) + 1;
-    user.level = this.calculateLevel(user.points);
+
+    const level = this.calculateLevel(user.points);
+    user.level = level.name;
+    user.levelNumber = level.level;
+    user.membership = level.name;
 
     this.saveUser(user);
     this.addActivity("Rewards", rewardName, "-" + amount + " pts");
@@ -139,10 +149,12 @@ const SS = {
 
   topUpWallet(amount) {
     const user = this.getUser();
-    user.wallet = Number(user.wallet || 0) + Number(amount);
+    amount = Number(amount || 0);
+
+    user.wallet = Number(user.wallet || 0) + amount;
 
     this.saveUser(user);
-    this.addActivity("Wallet", "Wallet top-up", "+$" + Number(amount).toFixed(2));
+    this.addActivity("Wallet", "Wallet top-up", "+$" + amount.toFixed(2));
     this.renderUser();
 
     return user;
@@ -150,15 +162,16 @@ const SS = {
 
   withdrawWallet(amount) {
     const user = this.getUser();
+    amount = Number(amount || 0);
 
-    if (Number(user.wallet || 0) < Number(amount)) {
+    if (Number(user.wallet || 0) < amount) {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet = Number(user.wallet || 0) - Number(amount);
+    user.wallet -= amount;
 
     this.saveUser(user);
-    this.addActivity("Wallet", "Withdrawal request", "-$" + Number(amount).toFixed(2));
+    this.addActivity("Wallet", "Withdrawal request", "-$" + amount.toFixed(2));
     this.renderUser();
 
     return { ok: true, user };
@@ -166,15 +179,16 @@ const SS = {
 
   sendGift(amount, recipient = "Guest") {
     const user = this.getUser();
+    amount = Number(amount || 0);
 
-    if (Number(user.wallet || 0) < Number(amount)) {
+    if (Number(user.wallet || 0) < amount) {
       return { ok: false, message: "Insufficient wallet balance" };
     }
 
-    user.wallet = Number(user.wallet || 0) - Number(amount);
+    user.wallet -= amount;
 
     this.saveUser(user);
-    this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + Number(amount).toFixed(2));
+    this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + amount.toFixed(2));
     this.renderUser();
 
     return { ok: true, user };
@@ -214,6 +228,8 @@ const SS = {
   },
 
   pay(plan, amount, method = "Card") {
+    amount = Number(amount || 0);
+
     const payment = {
       id: "PAY-" + Date.now(),
       plan,
@@ -228,16 +244,77 @@ const SS = {
     localStorage.setItem(this.keys.payments, JSON.stringify(payments));
 
     const user = this.getUser();
-    user.membership = plan;
     user.status = "Active";
     user.points = Number(user.points || 0) + 500;
-    user.level = this.calculateLevel(user.points);
+
+    const level = this.calculateLevel(user.points);
+    user.level = level.name;
+    user.levelNumber = level.level;
+    user.membership = level.name;
 
     this.saveUser(user);
-    this.addActivity("Payment", plan, "$" + Number(amount).toFixed(2));
+    this.addActivity("Payment", plan, "$" + amount.toFixed(2));
     this.renderUser();
 
     return payment;
+  },
+
+  updateProfileImage(imageBase64) {
+    const user = this.getUser();
+    user.profileImage = imageBase64;
+    this.saveUser(user);
+    this.renderUser();
+  },
+
+  handleImageUpload() {
+    const img = document.getElementById("profileImage");
+    const upload = document.getElementById("uploadImage");
+
+    if (!img || !upload) return;
+
+    img.addEventListener("click", () => upload.click());
+
+    upload.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => SS.updateProfileImage(e.target.result);
+      reader.readAsDataURL(file);
+    });
+  },
+
+  login(email, password, name = "") {
+    if (!email || !password) {
+      return { ok: false, message: "Enter email and password" };
+    }
+
+    const user = this.getUser();
+    user.email = email;
+    if (name) user.name = name;
+    user.lastLogin = new Date().toISOString();
+
+    this.saveUser(user);
+    localStorage.setItem(this.keys.logged, "true");
+    this.addActivity("Security", "Client login", "Verified");
+
+    return { ok: true, user };
+  },
+
+  logout() {
+    localStorage.setItem(this.keys.logged, "false");
+    this.addActivity("Security", "Client logout", "Completed");
+    window.location.href = "client-login.html";
+  },
+
+  isLoggedIn() {
+    return localStorage.getItem(this.keys.logged) === "true";
+  },
+
+  protectPage() {
+    if (!this.isLoggedIn()) {
+      window.location.href = "client-login.html";
+    }
   },
 
   addActivity(type, title, status) {
@@ -264,20 +341,20 @@ const SS = {
 
   formatMoney(amount) {
     const user = this.getUser();
-    const currency = user.currency || "USD";
-
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency
+      currency: user.currency || "USD"
     }).format(Number(amount || 0));
   },
 
   renderUser() {
     const user = this.getUser();
+    const levelData = this.getNextLevel(user.points);
 
     document.querySelectorAll("[data-user-name]").forEach(el => el.textContent = user.name);
     document.querySelectorAll("[data-user-email]").forEach(el => el.textContent = user.email);
     document.querySelectorAll("[data-user-level]").forEach(el => el.textContent = user.level);
+    document.querySelectorAll("[data-user-level-number]").forEach(el => el.textContent = user.levelNumber);
     document.querySelectorAll("[data-user-points]").forEach(el => el.textContent = Number(user.points || 0).toLocaleString());
     document.querySelectorAll("[data-user-wallet]").forEach(el => el.textContent = this.formatMoney(user.wallet || 0));
     document.querySelectorAll("[data-user-rewards]").forEach(el => el.textContent = user.rewards || 0);
@@ -286,30 +363,24 @@ const SS = {
     document.querySelectorAll("[data-user-status]").forEach(el => el.textContent = user.status);
     document.querySelectorAll("[data-user-membership]").forEach(el => el.textContent = user.membership);
 
+    document.querySelectorAll("[data-next-level]").forEach(el => {
+      el.textContent = levelData.next ? levelData.next.name : "Max Level";
+    });
+
+    document.querySelectorAll("[data-progress]").forEach(el => {
+      el.textContent = levelData.progress + "%";
+    });
+
+    document.querySelectorAll("[data-progress-bar]").forEach(el => {
+      el.style.width = levelData.progress + "%";
+    });
+
+    document.querySelectorAll("[data-needed-points]").forEach(el => {
+      el.textContent = levelData.needed.toLocaleString();
+    });
+
     document.querySelectorAll("[data-user-image]").forEach(el => {
       if (user.profileImage) el.src = user.profileImage;
-    });
-  },
-
-  handleImageUpload() {
-    const img = document.getElementById("profileImage");
-    const upload = document.getElementById("uploadImage");
-
-    if (!img || !upload) return;
-
-    img.addEventListener("click", () => upload.click());
-
-    upload.addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        SS.updateProfileImage(e.target.result);
-      };
-
-      reader.readAsDataURL(file);
     });
   }
 };
@@ -317,7 +388,7 @@ const SS = {
 window.SS = SS;
 window.StyleSphereSystem = SS;
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("mousemove", e => {
   document.body.style.setProperty("--x", e.clientX + "px");
   document.body.style.setProperty("--y", e.clientY + "px");
 });
