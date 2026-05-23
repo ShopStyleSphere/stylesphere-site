@@ -239,11 +239,11 @@ input:-webkit-autofill:focus{
           createdAt: new Date().toISOString()
         });
 
-        success.textContent = "Account created successfully. Redirecting...";
-        setTimeout(() => {
-          window.location.href = "client-dashboard.html";
-        }, 900);
-
+success.textContent = "Account created successfully. Please check your email to verify your account.";
+setTimeout(() => {
+  window.location.href = "verify-sent.html";
+}, 900);
+        
       } catch (err) {
         btn.disabled = false;
         btn.textContent = "CREATE ACCOUNT →";
