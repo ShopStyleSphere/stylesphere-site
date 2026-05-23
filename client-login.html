@@ -100,6 +100,12 @@ input:-webkit-autofill:focus{
         <i class="fa-solid fa-eye eye" onclick="togglePassword('password',this)"></i>
       </div>
 
+      <div style="text-align:right; margin-top:8px;">
+  <a href="#" id="forgotPassword" style="color: gold; font-size:13px;">
+    Forgot Password?
+  </a>
+</div>
+
       <div class="error" id="error"></div>
       <div class="success" id="success"></div>
 
@@ -151,6 +157,27 @@ import {
 const btn = document.getElementById("loginBtn");
 const error = document.getElementById("error");
 const success = document.getElementById("success");
+
+  document.getElementById("forgotPassword").addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+
+  error.textContent = "";
+  success.textContent = "";
+
+  if (!email) {
+    error.textContent = "Please enter your email first.";
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    success.textContent = "Password reset email sent. Check your inbox.";
+  } catch (err) {
+    error.textContent = "Reset failed: " + err.message;
+  }
+});
 
 btn.addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
