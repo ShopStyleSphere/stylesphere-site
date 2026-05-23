@@ -78,33 +78,55 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear
 </div>
 
 <script>
-document.addEventListener("mousemove",(e)=>{
-  document.body.style.setProperty("--x",e.clientX+"px");
-  document.body.style.setProperty("--y",e.clientY+"px");
-});
+<script type="module">
+  import { auth } from "./js/firebase.js";
+  import {
+    applyActionCode,
+    checkActionCode,
+    sendEmailVerification
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
-const user = JSON.parse(localStorage.getItem("stylesphereUser") || "null");
-if(user && user.email){
-  document.getElementById("userEmail").textContent = user.email;
-}
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+  const oobCode = params.get("oobCode");
 
-function confirmEmail(){
-  document.getElementById("bar").style.width = "100%";
+  const emailBox = document.getElementById("userEmail");
+  const bar = document.getElementById("bar");
 
-  setTimeout(()=>{
-    let user = JSON.parse(localStorage.getItem("stylesphereUser") || "{}");
-    user.emailVerified = true;
-    user.status = "Active";
-    localStorage.setItem("stylesphereUser", JSON.stringify(user));
-    localStorage.setItem("stylesphereLoggedIn", "true");
-    window.location.href = "client-dashboard.html";
-  },900);
-}
+  if (!oobCode || mode !== "verifyEmail") {
+    emailBox.textContent = "Invalid verification link";
+  } else {
+    checkActionCode(auth, oobCode)
+      .then((info) => {
+        emailBox.textContent = info.data.email || "Email verification";
+      })
+      .catch(() => {
+        emailBox.textContent = "Invalid or expired verification link";
+      });
+  }
 
-function resendEmail(){
-  alert("Verification email sent again.");
-}
+  window.confirmEmail = async function () {
+    if (!oobCode) return alert("Invalid verification link");
+
+    try {
+      bar.style.width = "100%";
+      await applyActionCode(auth, oobCode);
+      alert("Email verified successfully.");
+      window.location.href = "client-login.html";
+    } catch (err) {
+      alert("Verification failed or link expired.");
+    }
+  };
+
+  window.resendEmail = async function () {
+    if (auth.currentUser) {
+      await sendEmailVerification(auth.currentUser);
+      alert("Verification email sent again.");
+    } else {
+      alert("Please login first, then resend verification email.");
+    }
+  };
+  
 </script>
-
 </body>
 </html>
