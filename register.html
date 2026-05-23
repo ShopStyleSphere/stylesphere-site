@@ -108,13 +108,15 @@ input:-webkit-autofill:focus{
 
 <div id="strengthText"></div>
 
-<ul id="passwordRules">
+<ul id="passwordRules" class="rules">
   <li id="ruleLength">8 characters minimum</li>
   <li id="ruleUpper">Uppercase letter</li>
   <li id="ruleLower">Lowercase letter</li>
   <li id="ruleNumber">Number</li>
   <li id="ruleSymbol">Symbol (@, #, $)</li>
 </ul>
+
+<div class="secure-note">✔ Bank-level security</div>        
         
         <label>CONFIRM PASSWORD</label>
         <div class="input">
@@ -302,14 +304,10 @@ createBtn.disabled = strength !== "Strong";
 });
  
     function updateRule(element, condition) {
-  const text = element.textContent.replace("✔ ", "").replace("✖ ", "");
-
   if (condition) {
-    element.style.color = "#00ff88";
-    element.textContent = "✔ " + text;
+    element.classList.add("valid");
   } else {
-    element.style.color = "red";
-    element.textContent = "✖ " + text;
+    element.classList.remove("valid");
   }
 }
 </script>  
