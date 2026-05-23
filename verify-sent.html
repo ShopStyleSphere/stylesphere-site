@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Check your email</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b0f14;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.box {
+  text-align: center;
+}
+
+.icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+p {
+  color: #aaa;
+  margin: 10px 0 20px;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#00f0ff,#00ff88);
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+  <div class="icon">📩</div>
+  <h1>Check your email</h1>
+  <p>We just sent a verification link to your email.</p>
+
+  <button onclick="goLogin()">Go to login →</button>
+</div>
+
+<script>
+function goLogin(){
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
