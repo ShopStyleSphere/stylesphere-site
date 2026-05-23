@@ -1,79 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Client Login</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleSphere | Client Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
-body{min-height:100vh;background:#020202;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 75% 35%,rgba(255,230,0,.25),transparent 28%),linear-gradient(135deg,#020202,#07110d,#182100)}
-body:after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:70px 70px}
-
-.page{min-height:100vh;padding:28px;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
-.status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900}
-.dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green)}
-
-.wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;max-width:1250px;margin:auto;width:100%}
-.left,.form-card{border:1px solid rgba(255,227,110,.75);border-radius:34px;background:var(--glass);box-shadow:0 0 40px rgba(255,215,0,.25),inset 0 0 25px rgba(255,255,255,.08);padding:42px;position:relative;overflow:hidden}
-.left h1{font-size:58px;color:var(--gold);line-height:1;text-shadow:0 0 35px gold;margin-bottom:22px}
-.left h2{font-size:34px;margin-bottom:20px}
-.left p{color:#ddd;line-height:1.7;max-width:560px}
-.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
-.feature{border:1px solid rgba(255,215,0,.65);border-radius:18px;padding:18px;color:var(--gold);font-weight:800;background:rgba(0,0,0,.45)}
-.form-card h1{text-align:center;color:var(--gold);font-size:42px;text-shadow:0 0 28px gold}
-.sub{text-align:center;color:#ddd;margin:10px 0 28px}
-
-label{display:block;color:var(--gold);font-weight:900;margin:16px 0 8px}
-.input{height:58px;border:1px solid var(--gold);border-radius:16px;background:rgba(0,0,0,.62);display:flex;align-items:center;gap:12px;padding:0 16px}
-.input i{color:var(--gold)}
-.input input{flex:1;background:transparent;border:0;outline:0;color:white;font-size:15px}
-.eye{cursor:pointer}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus{
-  -webkit-box-shadow:0 0 0 1000px rgba(0,0,0,.62) inset!important;
-  -webkit-text-fill-color:#fff!important;
-  caret-color:#fff!important;
-}
-
-.error{color:#ff6b6b;font-size:14px;margin:12px 0;min-height:20px;font-weight:800}
-.success{color:#00ff99;font-size:14px;margin:12px 0;min-height:20px;font-weight:800}
-
-.btn{width:100%;height:62px;border:0;border-radius:17px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;letter-spacing:8px;cursor:pointer;box-shadow:0 0 35px rgba(255,230,0,.7)}
-.btn:disabled{opacity:.65;cursor:not-allowed}
-
-.or{text-align:center;color:var(--gold);font-weight:900;margin:22px 0}
-.socials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.socials button{height:48px;border:1px solid var(--gold);border-radius:14px;background:#050505;color:var(--gold);font-weight:900;cursor:pointer}
-.login{text-align:center;margin-top:20px;color:#ddd}
-.login a{color:var(--gold);font-weight:900}
-
-@media(max-width:950px){.wrap{grid-template-columns:1fr}.left h1{font-size:44px}}
-@media(max-width:600px){.page{padding:16px}.top{flex-direction:column;gap:14px}.left,.form-card{padding:24px}.features,.socials{grid-template-columns:1fr}.logo{font-size:26px}}
-</style>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#d4af37;--green:#00ff99;--red:#ff4d4d;--line:rgba(212,175,55,.45)}
+    body{min-height:100vh;font-family:Arial,sans-serif;color:white;background:radial-gradient(circle at 15% 15%,rgba(212,175,55,.22),transparent 32%),linear-gradient(135deg,#020202,#101410,#020202)}
+    .page{min-height:100vh;padding:28px;display:flex;flex-direction:column}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+    .brand{color:var(--gold);font-size:34px;font-weight:900;letter-spacing:4px;text-shadow:0 0 22px var(--gold)}
+    .status{border:1px solid var(--line);border-radius:40px;padding:12px 22px;color:var(--green);font-weight:900;background:rgba(0,0,0,.35)}
+    .wrap{flex:1;display:grid;grid-template-columns:1fr 500px;gap:30px;align-items:center;max-width:1250px;margin:auto;width:100%}
+    .hero,.card{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:30px;padding:38px;box-shadow:0 0 35px rgba(212,175,55,.14);backdrop-filter:blur(16px)}
+    .hero h1{font-size:60px;color:var(--gold);line-height:1;text-shadow:0 0 25px var(--gold);margin-bottom:18px}
+    .hero h2{font-size:32px;margin-bottom:18px}
+    .hero p{color:#ddd;line-height:1.8}
+    .features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+    .feature{border:1px solid var(--line);border-radius:16px;padding:18px;color:var(--gold);font-weight:900;background:rgba(0,0,0,.25)}
+    .card h2{text-align:center;color:var(--gold);font-size:40px;margin-bottom:8px;text-shadow:0 0 22px var(--gold)}
+    .sub{text-align:center;color:#ddd;margin-bottom:24px}
+    label{display:block;color:var(--gold);font-weight:900;margin:16px 0 8px}
+    .input{height:56px;border:1px solid var(--line);border-radius:16px;display:flex;align-items:center;gap:12px;padding:0 16px;background:rgba(0,0,0,.35)}
+    .input i{color:var(--gold)}
+    .input input{flex:1;background:transparent;border:0;outline:0;color:white;font-size:15px}
+    .eye{cursor:pointer}
+    .row{display:flex;justify-content:space-between;align-items:center;margin:14px 0;color:#ddd;font-size:14px}
+    .row a{color:var(--gold);font-weight:900}
+    .msg{min-height:22px;margin:12px 0;font-weight:900;font-size:14px}
+    .error{color:var(--red)} .success{color:var(--green)}
+    .btn{width:100%;height:58px;border:0;border-radius:18px;background:linear-gradient(90deg,var(--gold),#fff2a6);color:#111;font-weight:900;letter-spacing:5px;cursor:pointer;box-shadow:0 0 30px rgba(212,175,55,.5)}
+    .or{text-align:center;color:var(--gold);font-weight:900;margin:18px 0}
+    .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .socials button{height:46px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:white;font-weight:900;cursor:pointer}
+    .signup{text-align:center;margin-top:18px;color:#ddd}
+    .signup a{color:var(--gold);font-weight:900}
+    @media(max-width:950px){.wrap{grid-template-columns:1fr}.hero h1{font-size:42px}.top{flex-direction:column;gap:14px}}
+  </style>
 </head>
 
 <body>
 <div class="page">
-
   <div class="top">
-    <div class="logo">Ⓢ STYLESPHERE</div>
-    <div class="status"><span class="dot"></span> LOGIN SYSTEM ONLINE</div>
+    <div class="brand">Ⓢ STYLESPHERE</div>
+    <div class="status">● LOGIN SYSTEM ONLINE</div>
   </div>
 
   <div class="wrap">
-
-    <section class="left">
+    <section class="hero">
       <h1>CLIENT ACCESS</h1>
       <h2>Global Members Portal</h2>
-      <p>Login to your secure StyleSphere membership account, access your wallet, rewards, QR verification, NFC card services and exclusive global benefits.</p>
+      <p>Login to your secure StyleSphere membership account, access wallet, rewards, QR verification, NFC card services and exclusive global benefits.</p>
 
       <div class="features">
         <div class="feature"><i class="fa-solid fa-wallet"></i> Wallet Access</div>
@@ -83,8 +63,8 @@ input:-webkit-autofill:focus{
       </div>
     </section>
 
-    <section class="form-card">
-      <h1>Login</h1>
+    <section class="card">
+      <h2>Login</h2>
       <p class="sub">Access StyleSphere Members Club</p>
 
       <label>EMAIL ADDRESS</label>
@@ -97,102 +77,84 @@ input:-webkit-autofill:focus{
       <div class="input">
         <i class="fa-solid fa-lock"></i>
         <input id="password" type="password" placeholder="Enter your password">
-        <i class="fa-solid fa-eye eye" onclick="togglePassword('password',this)"></i>
+        <i class="fa-solid fa-eye eye" onclick="togglePassword()"></i>
       </div>
 
-      <div style="text-align:right; margin-top:8px;">
-  <a href="#" id="forgotPassword" style="color: gold; font-size:13px;">
-    Forgot Password?
-  </a>
-</div>
+      <div class="row">
+        <span></span>
+        <a href="#">Forgot Password?</a>
+      </div>
 
-      <div class="error" id="error"></div>
-      <div class="success" id="success"></div>
+      <div id="error" class="msg error"></div>
+      <div id="success" class="msg success"></div>
 
-      <button class="btn" id="loginBtn">LOGIN →</button>
+      <button id="loginBtn" class="btn">LOGIN →</button>
 
       <div class="or">OR CONTINUE WITH</div>
 
       <div class="socials">
-        <button onclick="socialNotice('Google')">Google</button>
-        <button onclick="socialNotice('Apple')">Apple</button>
-        <button onclick="socialNotice('Facebook')">Facebook</button>
+        <button type="button" onclick="loginWithGoogle()"><i class="fa-brands fa-google"></i> Google</button>
+        <button type="button" onclick="loginSoon('Apple')"><i class="fa-brands fa-apple"></i> Apple</button>
+        <button type="button" onclick="loginSoon('Facebook')"><i class="fa-brands fa-facebook"></i> Facebook</button>
       </div>
 
-      <div class="login">
+      <div class="signup">
         New member? <a href="register.html">Create account</a>
       </div>
     </section>
-
   </div>
 </div>
 
 <script>
-document.addEventListener("mousemove",(e)=>{
-  document.body.style.setProperty("--x",e.clientX+"px");
-  document.body.style.setProperty("--y",e.clientY+"px");
-});
-
-function togglePassword(id,icon){
-  const input=document.getElementById(id);
-  input.type=input.type==="password" ? "text" : "password";
-  icon.classList.toggle("fa-eye");
-  icon.classList.toggle("fa-eye-slash");
+function togglePassword(){
+  const input = document.getElementById("password");
+  input.type = input.type === "password" ? "text" : "password";
 }
-
-function socialNotice(provider){
-  document.getElementById("error").textContent = provider + " login will be connected after business verification.";
+function loginSoon(provider){
+  alert(provider + " Login is coming soon. Please use Google or Email login for now.");
 }
 </script>
 
 <script type="module">
+import { auth, db, signInWithEmailAndPassword, doc, getDoc, setDoc } from "./js/firebase.js";
 import {
-  auth,
-  db,
-  signInWithEmailAndPassword,
-  doc,
-  getDoc
-} from "./js/firebase.js";
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("password");
 const btn = document.getElementById("loginBtn");
 const error = document.getElementById("error");
 const success = document.getElementById("success");
 
-  document.getElementById("forgotPassword").addEventListener("click", async (e) => {
-  e.preventDefault();
-
-  const email = document.getElementById("email").value.trim();
-
-  error.textContent = "";
-  success.textContent = "";
-
-  if (!email) {
-    error.textContent = "Please enter your email first.";
-    return;
-  }
-
-  try {
-    await sendPasswordResetEmail(auth, email);
-    success.textContent = "Password reset email sent. Check your inbox.";
-  } catch (err) {
-    error.textContent = "Reset failed: " + err.message;
-  }
-});
+function memberPayload(user){
+  return {
+    uid: user.uid,
+    name: user.displayName || "Client",
+    email: user.email || "",
+    role: "client",
+    level: "Bronze",
+    points: 0,
+    wallet: 0,
+    rewards: 0,
+    qrId: "QR-SS-" + Date.now(),
+    nfcStatus: "Not Requested",
+    accountStatus: "Active",
+    provider: user.providerData?.[0]?.providerId || "google.com",
+    createdAt: new Date().toISOString()
+  };
+}
 
 btn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passInput.value;
 
   error.textContent = "";
   success.textContent = "";
 
   if (!email || !password) {
-    error.textContent = "Please enter your email and password.";
-    return;
-  }
-
-  if (!email.includes("@") || !email.includes(".")) {
-    error.textContent = "Please enter a valid email address.";
+    error.textContent = "Please enter email and password.";
     return;
   }
 
@@ -200,19 +162,19 @@ btn.addEventListener("click", async () => {
     btn.disabled = true;
     btn.textContent = "LOGIN...";
 
-const userCredential = await signInWithEmailAndPassword(auth, email, password);
-const user = userCredential.user;
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+    const user = credential.user;
 
-if (!user.emailVerified) {
-  error.textContent = "Please verify your email before accessing your account.";
-  btn.disabled = false;
-  btn.textContent = "LOGIN →";
-  return;
-} 
-    const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
+    if (!user.emailVerified) {
+      error.textContent = "Please verify your email before accessing your account.";
+      btn.disabled = false;
+      btn.textContent = "LOGIN →";
+      return;
+    }
 
-    if (!userSnap.exists()) {
+    const snap = await getDoc(doc(db, "users", user.uid));
+
+    if (!snap.exists()) {
       error.textContent = "Account data not found. Please contact support.";
       btn.disabled = false;
       btn.textContent = "LOGIN →";
@@ -220,29 +182,42 @@ if (!user.emailVerified) {
     }
 
     success.textContent = "Login successful. Redirecting...";
-
     setTimeout(() => {
       window.location.href = "client-dashboard.html";
-    }, 900);
+    }, 700);
 
   } catch (err) {
     btn.disabled = false;
     btn.textContent = "LOGIN →";
-
-    if (err.code === "auth/user-not-found") {
-      error.textContent = "No account found with this email.";
-    } else if (err.code === "auth/wrong-password") {
-      error.textContent = "Incorrect password.";
-    } else if (err.code === "auth/invalid-email") {
-      error.textContent = "Invalid email address.";
-    } else if (err.code === "auth/invalid-credential") {
-      error.textContent = "Invalid email or password.";
-    } else {
-      error.textContent = "Login failed: " + err.message;
-    }
+    error.textContent = "Login failed. Please check your email and password.";
   }
 });
-</script>
 
+window.loginWithGoogle = async function(){
+  error.textContent = "";
+  success.textContent = "";
+
+  try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+
+    if (!snap.exists()) {
+      await setDoc(userRef, memberPayload(user));
+    }
+
+    success.textContent = "Google login successful. Redirecting...";
+    setTimeout(() => {
+      window.location.href = "client-dashboard.html";
+    }, 700);
+
+  } catch (err) {
+    error.textContent = "Google login failed: " + err.message;
+  }
+};
+</script>
 </body>
 </html>
