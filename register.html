@@ -160,6 +160,7 @@ input:-webkit-autofill:focus{
   auth,
   db,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   doc,
   setDoc,
   getDoc
@@ -210,6 +211,7 @@ input:-webkit-autofill:focus{
 
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         const user = userCredential.user;
+        await sendEmailVerification(user);
 
         await setDoc(doc(db, "users", user.uid), {
           uid: user.uid,
