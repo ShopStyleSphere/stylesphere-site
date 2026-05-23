@@ -3,142 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StyleSphere Register</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>StyleSphere | Create Account</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{--gold:#ffe36e;--green:#00ff66;--glass:rgba(0,0,0,.72)}
-    body{min-height:100vh;background:#020202;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
-    body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,215,0,.22),transparent 25%),linear-gradient(120deg,#050505,#171717 52%,#0b0b0b)}
-    body:after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.055) 1px,transparent 1px);background-size:150px 150px}
-
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#d4af37;
+      --gold2:#fff2a6;
+      --dark:#050607;
+      --glass:rgba(255,255,255,.055);
+      --line:rgba(212,175,55,.45);
+      --muted:#cfcfcf;
+      --green:#00ff99;
+      --red:#ff4d4d;
+    }
+    body{
+      min-height:100vh;
+      font-family:Arial,sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(circle at 15% 10%,rgba(212,175,55,.22),transparent 30%),
+        radial-gradient(circle at 85% 80%,rgba(0,255,153,.08),transparent 30%),
+        linear-gradient(135deg,#020202,#0c110d,#020202);
+      overflow-x:hidden;
+    }
     .page{min-height:100vh;padding:28px;display:flex;flex-direction:column}
-    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-    .logo{font-size:34px;font-weight:900;letter-spacing:3px;color:var(--gold);text-shadow:0 0 25px gold}
-    .status{display:flex;gap:10px;align-items:center;border:1px solid var(--gold);border-radius:50px;padding:12px 22px;color:var(--gold);background:var(--glass);font-weight:900}
-    .dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green)}
-
-    .wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;max-width:1250px;margin:auto;width:100%}
-    .left,.form-card{border:1px solid rgba(255,227,110,.75);border-radius:34px;background:var(--glass);box-shadow:0 0 40px rgba(255,215,0,.25),inset 0 0 25px rgba(255,215,0,.08);padding:42px;position:relative;overflow:hidden}
-    .left:after,.form-card:after{content:"";position:absolute;inset:-120%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);transform:rotate(25deg);pointer-events:none}
-
-    .left h1{font-size:58px;color:var(--gold);line-height:1;text-shadow:0 0 35px gold;margin-bottom:22px}
-    .left h2{font-size:34px;margin-bottom:20px}
-    .left p{color:#ddd;line-height:1.7;max-width:560px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+    .brand{
+      color:var(--gold);
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:4px;
+      text-shadow:0 0 22px rgba(212,175,55,.7);
+    }
+    .status{
+      border:1px solid var(--line);
+      border-radius:40px;
+      padding:12px 22px;
+      color:var(--green);
+      font-weight:900;
+      background:rgba(0,0,0,.35);
+    }
+    .wrap{
+      flex:1;
+      width:100%;
+      max-width:1280px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr 520px;
+      gap:28px;
+      align-items:center;
+    }
+    .hero,.card{
+      background:var(--glass);
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:38px;
+      box-shadow:0 0 35px rgba(212,175,55,.14);
+      backdrop-filter:blur(16px);
+    }
+    .hero h1{
+      font-size:62px;
+      line-height:.98;
+      color:var(--gold);
+      margin-bottom:18px;
+      text-shadow:0 0 28px rgba(212,175,55,.7);
+    }
+    .hero h2{font-size:34px;margin-bottom:18px}
+    .hero p{color:#ddd;line-height:1.8;max-width:680px}
     .features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
-    .feature{border:1px solid rgba(255,215,0,.65);border-radius:18px;padding:18px;color:var(--gold);font-weight:800;background:rgba(0,0,0,.45)}
-
-    .form-card h1{text-align:center;color:var(--gold);font-size:42px;text-shadow:0 0 28px gold}
-    .sub{text-align:center;color:#ddd;margin:10px 0 28px}
-    label{display:block;color:var(--gold);font-weight:900;margin:16px 0 8px}
-    .input{height:58px;border:1px solid var(--gold);border-radius:16px;background:rgba(0,0,0,.62);display:flex;align-items:center;gap:12px;padding:0 16px}
+    .feature{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      color:var(--gold);
+      font-weight:900;
+      background:rgba(0,0,0,.25);
+    }
+    .feature i{margin-right:8px}
+    .card h2{
+      text-align:center;
+      color:var(--gold);
+      font-size:38px;
+      margin-bottom:8px;
+      text-shadow:0 0 22px rgba(212,175,55,.7);
+    }
+    .sub{text-align:center;color:#ddd;margin-bottom:24px}
+    label{display:block;color:var(--gold);font-weight:900;margin:15px 0 8px}
+    .input{
+      height:56px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 16px;
+      background:rgba(0,0,0,.35);
+    }
     .input i{color:var(--gold)}
-    .input input{flex:1;background:transparent;border:0;outline:0;color:white;font-size:15px}
-    .eye{cursor:pointer;color:var(--gold)}
-    .row{display:flex;justify-content:space-between;align-items:center;margin:18px 0;color:#ddd;font-size:13px}
-    .check{display:flex;gap:10px;align-items:center}
-    .error{color:#ff6b6b;font-size:14px;margin:10px 0;min-height:20px;font-weight:800}
-    .success{color:#00ff99;font-size:14px;margin:10px 0;min-height:20px;font-weight:800}
-    .btn{width:100%;height:62px;border:0;border-radius:17px;background:linear-gradient(90deg,#b8860b,#fff3a3,#d4af37);color:#111;font-weight:900;letter-spacing:8px;cursor:pointer;box-shadow:0 0 35px gold;margin-top:10px}
+    .input input{
+      flex:1;
+      background:transparent;
+      border:0;
+      outline:0;
+      color:white;
+      font-size:15px;
+    }
+    .eye{cursor:pointer}
+    .rules{font-size:13px;line-height:1.8;margin-top:10px}
+    .ok{color:var(--green)}
+    .bad{color:var(--red)}
+    .check{display:flex;align-items:center;gap:10px;margin:20px 0;color:#ddd;font-size:14px}
+    .msg{min-height:22px;font-weight:900;margin:10px 0;font-size:14px}
+    .error{color:var(--red)}
+    .success{color:var(--green)}
+    .btn{
+      width:100%;
+      height:58px;
+      border:0;
+      border-radius:18px;
+      background:linear-gradient(90deg,var(--gold),var(--gold2));
+      color:#111;
+      font-weight:900;
+      letter-spacing:5px;
+      cursor:pointer;
+      box-shadow:0 0 30px rgba(212,175,55,.5);
+    }
     .btn:disabled{opacity:.55;cursor:not-allowed}
-    .or{text-align:center;color:var(--gold);font-weight:900;margin:22px 0}
-    .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .socials button{height:48px;border:1px solid var(--gold);border-radius:14px;background:#050505;color:var(--gold);font-weight:900;cursor:pointer}
-    .login{text-align:center;margin-top:20px;color:#ddd}
+    .or{text-align:center;color:var(--gold);font-weight:900;margin:18px 0}
+    .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .socials button{
+      height:46px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.25);
+      color:white;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .login{text-align:center;margin-top:18px;color:#ddd}
     .login a{color:var(--gold);font-weight:900}
-
-    @media(max-width:950px){.wrap{grid-template-columns:1fr}.left h1{font-size:44px}}
-    @media(max-width:600px){.page{padding:16px}.top{flex-direction:column;gap:14px}.left,.form-card{padding:24px}.features,.socials{grid-template-columns:1fr}.logo{font-size:26px}}
-
-  input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus{
-  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0.62) inset !important;
-  -webkit-text-fill-color: #fff !important;
-  caret-color: #fff !important;
-}
+    @media(max-width:950px){
+      .wrap{grid-template-columns:1fr}
+      .hero h1{font-size:44px}
+      .top{flex-direction:column;gap:14px}
+    }
+    @media(max-width:560px){
+      .page{padding:16px}
+      .hero,.card{padding:24px}
+      .features,.socials{grid-template-columns:1fr}
+    }
   </style>
-  
 </head>
 
 <body>
   <div class="page">
     <div class="top">
-      <div class="logo">Ⓢ STYLESPHERE</div>
-      <div class="status"><span class="dot"></span> REGISTRATION SYSTEM ONLINE</div>
+      <div class="brand">Ⓢ STYLESPHERE</div>
+      <div class="status">● REGISTRATION SYSTEM ONLINE</div>
     </div>
 
     <div class="wrap">
-      <section class="left">
+      <section class="hero">
         <h1>GLOBAL<br>MEMBERS CLUB</h1>
         <h2>Royal Access Platform</h2>
-        <p>Create your secure StyleSphere membership account, unlock rewards, wallet access, NFC card services, QR verification and exclusive global benefits.</p>
+        <p>
+          Create your secure StyleSphere membership account, unlock rewards,
+          wallet access, NFC card services, QR verification and exclusive global benefits.
+        </p>
 
         <div class="features">
-          <div class="feature"><i class="fa-solid fa-crown"></i> VIP Benefits</div>
-          <div class="feature"><i class="fa-solid fa-globe"></i> Global Access</div>
-          <div class="feature"><i class="fa-solid fa-gift"></i> Rewards</div>
-          <div class="feature"><i class="fa-solid fa-shield"></i> Secure Account</div>
+          <div class="feature"><i class="fa-solid fa-crown"></i>VIP Benefits</div>
+          <div class="feature"><i class="fa-solid fa-globe"></i>Global Access</div>
+          <div class="feature"><i class="fa-solid fa-gift"></i>Rewards</div>
+          <div class="feature"><i class="fa-solid fa-shield"></i>Secure Account</div>
         </div>
       </section>
 
-      <section class="form-card">
-        <h1>Create Account</h1>
+      <section class="card">
+        <h2>Create Account</h2>
         <p class="sub">Join StyleSphere Members Club</p>
 
         <label>FULL NAME</label>
         <div class="input">
           <i class="fa-solid fa-user"></i>
-          <input id="name" type="text" placeholder="Enter your full name">
+          <input id="name" type="text" placeholder="Enter your full name" />
         </div>
 
         <label>EMAIL ADDRESS</label>
         <div class="input">
           <i class="fa-solid fa-envelope"></i>
-          <input id="email" type="email" placeholder="Enter your email" autocomplete="new-email" inputmode="email">
+          <input id="email" type="email" placeholder="Enter your email" />
         </div>
 
         <label>PASSWORD</label>
         <div class="input">
           <i class="fa-solid fa-lock"></i>
-          <input id="password" type="password" placeholder="Enter your password">
-          <i class="fa-solid fa-eye eye" onclick="togglePassword('password',this)"></i>
+          <input id="password" type="password" placeholder="Enter your password" />
+          <i class="fa-solid fa-eye eye" onclick="togglePassword('password', this)"></i>
         </div>
 
-<div id="strengthText"></div>
+        <div class="rules">
+          <div id="rLength" class="bad">✕ 8 characters minimum</div>
+          <div id="rUpper" class="bad">✕ Uppercase letter</div>
+          <div id="rLower" class="bad">✕ Lowercase letter</div>
+          <div id="rNumber" class="bad">✕ Number</div>
+          <div id="rSymbol" class="bad">✕ Symbol (@, #, $, !)</div>
+          <div class="ok">✓ Bank-level security</div>
+        </div>
 
-<ul id="passwordRules" class="rules">
-  <li id="ruleLength">8 characters minimum</li>
-  <li id="ruleUpper">Uppercase letter</li>
-  <li id="ruleLower">Lowercase letter</li>
-  <li id="ruleNumber">Number</li>
-  <li id="ruleSymbol">Symbol (@, #, $)</li>
-</ul>
-
-<div class="secure-note">✔ Bank-level security</div>        
-        
         <label>CONFIRM PASSWORD</label>
         <div class="input">
-          <i class="fa-solid fa-shield"></i>
-          <input id="confirm" type="password" placeholder="Confirm password">
-          <i class="fa-solid fa-eye eye" onclick="togglePassword('confirm',this)"></i>
+          <i class="fa-solid fa-shield-halved"></i>
+          <input id="confirm" type="password" placeholder="Confirm password" />
+          <i class="fa-solid fa-eye eye" onclick="togglePassword('confirm', this)"></i>
         </div>
 
-        <div class="row">
-          <label class="check"><input id="agree" type="checkbox"> I agree to Terms & Privacy Policy</label>
-        </div>
+        <label class="check">
+          <input id="agree" type="checkbox" />
+          I agree to Terms & Privacy Policy
+        </label>
 
-        <div class="error" id="error"></div>
-        <div class="success" id="success"></div>
+        <div id="error" class="msg error"></div>
+        <div id="success" class="msg success"></div>
 
-<button class="btn" id="createBtn" disabled>CREATE ACCOUNT →</button>
+        <button id="createBtn" class="btn" disabled>CREATE ACCOUNT →</button>
+
         <div class="or">OR CONTINUE WITH</div>
 
         <div class="socials">
-          <button onclick="socialNotice('Google')">Google</button>
-          <button onclick="socialNotice('Apple')">Apple</button>
-          <button onclick="socialNotice('Facebook')">Facebook</button>
+          <button type="button" onclick="registerWithGoogle()">
+            <i class="fa-brands fa-google"></i> Google
+          </button>
+          <button type="button" onclick="loginSoon('Apple')">
+            <i class="fa-brands fa-apple"></i> Apple
+          </button>
+          <button type="button" onclick="loginSoon('Facebook')">
+            <i class="fa-brands fa-facebook"></i> Facebook
+          </button>
         </div>
 
         <div class="login">
@@ -149,49 +253,98 @@ input:-webkit-autofill:focus{
   </div>
 
   <script>
-    document.addEventListener("mousemove",(e)=>{
-      document.body.style.setProperty("--x",e.clientX+"px");
-      document.body.style.setProperty("--y",e.clientY+"px");
-    });
-
-    function togglePassword(id,icon){
-      const input=document.getElementById(id);
-      input.type=input.type==="password" ? "text" : "password";
+    function togglePassword(id, icon){
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
       icon.classList.toggle("fa-eye");
       icon.classList.toggle("fa-eye-slash");
     }
 
-    function socialNotice(provider){
-      document.getElementById("error").textContent = provider + " login will be connected after business verification.";
+    function loginSoon(provider){
+      alert(provider + " Login is coming soon. Please use Google or Email registration for now.");
     }
   </script>
 
   <script type="module">
+    import { auth, db } from "./js/firebase.js";
     import {
-  auth,
-  db,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  doc,
-  setDoc,
-  getDoc
-} from "./js/firebase.js";
+      createUserWithEmailAndPassword,
+      sendEmailVerification,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      doc,
+      setDoc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passInput = document.getElementById("password");
+    const confirmInput = document.getElementById("confirm");
+    const agreeInput = document.getElementById("agree");
     const btn = document.getElementById("createBtn");
     const error = document.getElementById("error");
     const success = document.getElementById("success");
 
+    const ruleMap = {
+      rLength: v => v.length >= 8,
+      rUpper: v => /[A-Z]/.test(v),
+      rLower: v => /[a-z]/.test(v),
+      rNumber: v => /[0-9]/.test(v),
+      rSymbol: v => /[@#$!%*?&]/.test(v)
+    };
+
+    function checkPassword(){
+      const value = passInput.value;
+      let strong = true;
+
+      Object.entries(ruleMap).forEach(([id, test]) => {
+        const el = document.getElementById(id);
+        const text = el.textContent.replace("✓ ","").replace("✕ ","");
+        const ok = test(value);
+
+        el.className = ok ? "ok" : "bad";
+        el.textContent = (ok ? "✓ " : "✕ ") + text;
+
+        if (!ok) strong = false;
+      });
+
+      btn.disabled = !strong;
+      return strong;
+    }
+
+    passInput.addEventListener("input", checkPassword);
+
+    function memberPayload(user, name, email){
+      return {
+        uid: user.uid,
+        name: name || user.displayName || "Client",
+        email: email || user.email || "",
+        role: "client",
+        level: "Bronze",
+        points: 0,
+        wallet: 0,
+        rewards: 0,
+        qrId: "QR-SS-" + Date.now(),
+        nfcStatus: "Not Requested",
+        accountStatus: "Active",
+        provider: user.providerData?.[0]?.providerId || "password",
+        createdAt: new Date().toISOString()
+      };
+    }
+
     btn.addEventListener("click", async () => {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const pass = document.getElementById("password").value;
-      const confirm = document.getElementById("confirm").value;
-      const agree = document.getElementById("agree").checked;
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim().toLowerCase();
+      const password = passInput.value;
+      const confirm = confirmInput.value;
 
       error.textContent = "";
       success.textContent = "";
 
-      if (!name || !email || !pass || !confirm) {
+      if (!name || !email || !password || !confirm) {
         error.textContent = "Please complete all fields.";
         return;
       }
@@ -201,17 +354,17 @@ input:-webkit-autofill:focus{
         return;
       }
 
-      if (pass.length < 6) {
-        error.textContent = "Password must be at least 6 characters.";
+      if (!checkPassword()) {
+        error.textContent = "Please use a stronger password.";
         return;
       }
 
-      if (pass !== confirm) {
+      if (password !== confirm) {
         error.textContent = "Passwords do not match.";
         return;
       }
 
-      if (!agree) {
+      if (!agreeInput.checked) {
         error.textContent = "Please agree to Terms and Privacy Policy.";
         return;
       }
@@ -220,30 +373,18 @@ input:-webkit-autofill:focus{
         btn.disabled = true;
         btn.textContent = "CREATING ACCOUNT...";
 
-        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        const user = userCredential.user;
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = credential.user;
+
         await sendEmailVerification(user);
+        await setDoc(doc(db, "users", user.uid), memberPayload(user, name, email));
 
-        await setDoc(doc(db, "users", user.uid), {
-          uid: user.uid,
-          name: name,
-          email: email,
-          role: "client",
-          level: "Bronze",
-          points: 0,
-          wallet: 0,
-          rewards: 0,
-          qrId: "QR-SS-" + Date.now(),
-          nfcStatus: "Not Requested",
-          accountStatus: "Active",
-          createdAt: new Date().toISOString()
-        });
+        success.textContent = "Account created. Please check your email to verify your account.";
 
-success.textContent = "Account created successfully. Please check your email to verify your account.";
-setTimeout(() => {
-  window.location.href = "verify-sent.html";
-}, 900);
-        
+        setTimeout(() => {
+          window.location.href = "verify-sent.html";
+        }, 1000);
+
       } catch (err) {
         btn.disabled = false;
         btn.textContent = "CREATE ACCOUNT →";
@@ -256,64 +397,32 @@ setTimeout(() => {
           error.textContent = "Password is too weak.";
         } else {
           error.textContent = "Registration failed: " + err.message;
-      }
-
+        }
       }
     });
 
+    window.registerWithGoogle = async function(){
+      error.textContent = "";
+      success.textContent = "";
 
-const passwordInput = document.getElementById("password");
-const strengthText = document.getElementById("strengthText");
-const createBtn = document.getElementById("createBtn");
+      try {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
 
-const ruleLength = document.getElementById("ruleLength");
-const ruleUpper = document.getElementById("ruleUpper");
-const ruleLower = document.getElementById("ruleLower");
-const ruleNumber = document.getElementById("ruleNumber");
-const ruleSymbol = document.getElementById("ruleSymbol");
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
 
-passwordInput.addEventListener("input", () => {
-  const value = passwordInput.value;
+        if (!snap.exists()) {
+          await setDoc(userRef, memberPayload(user, user.displayName, user.email));
+        }
 
-  let strength = "Weak";
-  let color = "red";
+        window.location.href = "client-dashboard.html";
 
-  const hasUpper = /[A-Z]/.test(value);
-  const hasLower = /[a-z]/.test(value);
-  const hasNumber = /[0-9]/.test(value);
-  const hasSymbol = /[^A-Za-z0-9]/.test(value);
-  const hasLength = value.length >= 8;
-
-updateRule(ruleLength, hasLength);
-updateRule(ruleUpper, hasUpper);
-updateRule(ruleLower, hasLower);
-updateRule(ruleNumber, hasNumber);
-updateRule(ruleSymbol, hasSymbol);
-  
-  if (value.length >= 8 && hasUpper && hasLower && hasNumber && hasSymbol) {
-    strength = "Strong";
-    color = "lime";
-  } else if (value.length >= 6 && (hasUpper || hasLower) && hasNumber) {
-    strength = "Medium";
-    color = "orange";
-  }
-
-  strengthText.textContent = "Strength: " + strength;
-  strengthText.style.color = color;
-createBtn.disabled = strength !== "Strong";
-});
- 
-    function updateRule(element, condition) {
-  const text = element.textContent.replace("✔ ", "").replace("✖ ", "").replace("• ", "");
-
-  if (condition) {
-    element.style.color = "#00ff88";
-    element.textContent = "✔ " + text;
-  } else {
-    element.style.color = "red";
-    element.textContent = "✖ " + text;
-  }
-}
-</script>  
+      } catch (err) {
+        error.textContent = "Google registration failed: " + err.message;
+      }
+    };
+  </script>
 </body>
 </html>
