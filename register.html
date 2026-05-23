@@ -106,6 +106,9 @@ input:-webkit-autofill:focus{
           <i class="fa-solid fa-eye eye" onclick="togglePassword('password',this)"></i>
         </div>
 
+          <div id="strengthText"></div>
+
+        
         <label>CONFIRM PASSWORD</label>
         <div class="input">
           <i class="fa-solid fa-shield"></i>
@@ -120,8 +123,7 @@ input:-webkit-autofill:focus{
         <div class="error" id="error"></div>
         <div class="success" id="success"></div>
 
-        <button class="btn" id="createBtn">CREATE ACCOUNT →</button>
-
+<button class="btn" id="createBtn" disabled>CREATE ACCOUNT →</button>
         <div class="or">OR CONTINUE WITH</div>
 
         <div class="socials">
@@ -245,9 +247,40 @@ input:-webkit-autofill:focus{
           error.textContent = "Password is too weak.";
         } else {
           error.textContent = "Registration failed: " + err.message;
-        }
+      }
+
       }
     });
-  </script>
+
+
+const passwordInput = document.getElementById("password");
+const strengthText = document.getElementById("strengthText");
+const createBtn = document.getElementById("createBtn");
+
+passwordInput.addEventListener("input", () => {
+  const value = passwordInput.value;
+
+  let strength = "Weak";
+  let color = "red";
+
+  const hasUpper = /[A-Z]/.test(value);
+  const hasLower = /[a-z]/.test(value);
+  const hasNumber = /[0-9]/.test(value);
+  const hasSymbol = /[^A-Za-z0-9]/.test(value);
+
+  if (value.length >= 8 && hasUpper && hasLower && hasNumber && hasSymbol) {
+    strength = "Strong";
+    color = "lime";
+  } else if (value.length >= 6 && (hasUpper || hasLower) && hasNumber) {
+    strength = "Medium";
+    color = "orange";
+  }
+
+  strengthText.textContent = "Strength: " + strength;
+  strengthText.style.color = color;
+createBtn.disabled = strength !== "Strong";
+});
+  
+</script>  
 </body>
 </html>
