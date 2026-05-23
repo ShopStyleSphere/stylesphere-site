@@ -106,8 +106,15 @@ input:-webkit-autofill:focus{
           <i class="fa-solid fa-eye eye" onclick="togglePassword('password',this)"></i>
         </div>
 
-          <div id="strengthText"></div>
+<div id="strengthText"></div>
 
+<ul id="passwordRules">
+  <li id="ruleLength">8 characters minimum</li>
+  <li id="ruleUpper">Uppercase letter</li>
+  <li id="ruleLower">Lowercase letter</li>
+  <li id="ruleNumber">Number</li>
+  <li id="ruleSymbol">Symbol (@, #, $)</li>
+</ul>
         
         <label>CONFIRM PASSWORD</label>
         <div class="input">
@@ -257,6 +264,12 @@ const passwordInput = document.getElementById("password");
 const strengthText = document.getElementById("strengthText");
 const createBtn = document.getElementById("createBtn");
 
+const ruleLength = document.getElementById("ruleLength");
+const ruleUpper = document.getElementById("ruleUpper");
+const ruleLower = document.getElementById("ruleLower");
+const ruleNumber = document.getElementById("ruleNumber");
+const ruleSymbol = document.getElementById("ruleSymbol");
+
 passwordInput.addEventListener("input", () => {
   const value = passwordInput.value;
 
@@ -267,7 +280,14 @@ passwordInput.addEventListener("input", () => {
   const hasLower = /[a-z]/.test(value);
   const hasNumber = /[0-9]/.test(value);
   const hasSymbol = /[^A-Za-z0-9]/.test(value);
+  const hasLength = value.length >= 8;
 
+updateRule(ruleLength, hasLength);
+updateRule(ruleUpper, hasUpper);
+updateRule(ruleLower, hasLower);
+updateRule(ruleNumber, hasNumber);
+updateRule(ruleSymbol, hasSymbol);
+  
   if (value.length >= 8 && hasUpper && hasLower && hasNumber && hasSymbol) {
     strength = "Strong";
     color = "lime";
@@ -280,7 +300,18 @@ passwordInput.addEventListener("input", () => {
   strengthText.style.color = color;
 createBtn.disabled = strength !== "Strong";
 });
-  
+ 
+    function updateRule(element, condition) {
+  const text = element.textContent.replace("✔ ", "").replace("✖ ", "");
+
+  if (condition) {
+    element.style.color = "#00ff88";
+    element.textContent = "✔ " + text;
+  } else {
+    element.style.color = "red";
+    element.textContent = "✖ " + text;
+  }
+}
 </script>  
 </body>
 </html>
