@@ -304,10 +304,14 @@ createBtn.disabled = strength !== "Strong";
 });
  
     function updateRule(element, condition) {
+  const text = element.textContent.replace("✔ ", "").replace("✖ ", "").replace("• ", "");
+
   if (condition) {
-    element.classList.add("valid");
+    element.style.color = "#00ff88";
+    element.textContent = "✔ " + text;
   } else {
-    element.classList.remove("valid");
+    element.style.color = "red";
+    element.textContent = "✖ " + text;
   }
 }
 </script>  
