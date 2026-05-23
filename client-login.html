@@ -200,9 +200,15 @@ btn.addEventListener("click", async () => {
     btn.disabled = true;
     btn.textContent = "LOGIN...";
 
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+const userCredential = await signInWithEmailAndPassword(auth, email, password);
+const user = userCredential.user;
 
+if (!user.emailVerified) {
+  error.textContent = "Please verify your email before accessing your account.";
+  btn.disabled = false;
+  btn.textContent = "LOGIN →";
+  return;
+} 
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
 
