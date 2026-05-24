@@ -7,77 +7,91 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
-body{min-height:100vh;background:radial-gradient(circle at top,#123d34,#05110f 55%,#020403);color:#fff}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{min-height:100vh;background:radial-gradient(circle at top,#123d34,#06120f 60%,#020403);color:white}
 .hidden{display:none!important}
-.wrap{min-height:100vh;padding:30px}
+.app{min-height:100vh;padding:28px}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
-.logo{font-size:30px;font-weight:900;letter-spacing:6px;color:#f4d84a}
-.status{border:1px solid #00ffae;padding:12px 22px;border-radius:999px;color:#00ffae;font-weight:900}
-.grid{display:grid;grid-template-columns:320px 1fr;gap:25px}
-.panel,.card,.box{background:rgba(5,25,21,.78);border:1px solid rgba(244,216,74,.3);border-radius:26px;box-shadow:0 20px 70px rgba(0,0,0,.35);backdrop-filter:blur(16px)}
-.panel{padding:25px}
-.panel h2{color:#fff1a3;margin-bottom:18px}
-input{width:100%;padding:15px;margin:10px 0;border-radius:14px;border:1px solid rgba(244,216,74,.4);background:#071815;color:#fff}
-button{border:0;border-radius:999px;padding:14px 22px;background:linear-gradient(90deg,#f4c400,#fff2a0);font-weight:900;cursor:pointer}
-.dash{display:grid;grid-template-columns:1.3fr .9fr;gap:22px}
-.hero{padding:30px}
-.hero h1{font-size:34px;color:#fff2a0}
-.hero p{margin:15px 0;color:#d9e5e2;line-height:1.7}
-.bankcard{padding:32px;background:linear-gradient(135deg,#eaffb9,#12d5a5 55%,#008cff);color:#0b302a}
-.bankcard h2{letter-spacing:9px}
-.balance{font-size:52px;font-weight:900;margin:45px 0 20px}
+.logo{font-size:30px;font-weight:900;letter-spacing:6px;color:#f6d84a}
+.status{border:1px solid #00ffaa;border-radius:999px;padding:12px 22px;color:#00ffaa;font-weight:900}
+.login{max-width:430px;margin:90px auto;padding:30px;border:1px solid rgba(246,216,74,.35);border-radius:28px;background:rgba(5,25,21,.85)}
+.login h2{color:#fff2a0;margin-bottom:18px}
+input{width:100%;padding:15px;margin:10px 0;border-radius:14px;border:1px solid rgba(246,216,74,.35);background:#071815;color:white}
+button{border:0;border-radius:999px;padding:14px 24px;background:linear-gradient(90deg,#f4c400,#fff2a0);font-weight:900;cursor:pointer}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:24px}
+.side,.panel,.card{background:rgba(5,25,21,.78);border:1px solid rgba(246,216,74,.28);border-radius:26px;box-shadow:0 20px 70px rgba(0,0,0,.35)}
+.side{padding:24px}
+.side h2{color:#fff2a0;margin-bottom:8px}
+.side p{color:#d6e3df;margin-bottom:22px}
+.nav{display:grid;gap:10px}
+.nav a,.logout{text-decoration:none;color:white;padding:14px;border-radius:16px;background:transparent;text-align:left}
+.nav a.active,.nav a:hover,.logout:hover{background:linear-gradient(90deg,#f4c400,#fff2a0);color:#111}
+.mainGrid{display:grid;grid-template-columns:1.3fr .9fr;gap:22px}
+.panel{padding:30px}
+.panel h1{font-size:34px;color:#fff2a0}
+.panel p{color:#d9e5e2;line-height:1.7;margin:15px 0}
+.bank{padding:32px;border-radius:28px;background:linear-gradient(135deg,#eaffb9,#12d5a5 55%,#008cff);color:#0b302a}
+.bank h2{letter-spacing:9px}
+.balance{font-size:52px;font-weight:900;margin:42px 0 20px}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
 .card{padding:24px;min-height:130px;cursor:pointer}
 .card i{font-size:28px;color:#f4d84a;margin-bottom:14px}
-.card h3{font-size:24px;color:#fff4b0}
+.card h3{font-size:23px;color:#fff3a5}
 .card p{color:#d9e5e2}
-.activity{margin-top:22px;padding:24px}
-.row{display:flex;justify-content:space-between;border:1px solid rgba(244,216,74,.2);padding:14px;border-radius:14px;margin-top:10px}
+.activity{margin-top:22px}
+.row{display:flex;justify-content:space-between;border:1px solid rgba(246,216,74,.2);padding:14px;border-radius:14px;margin-top:10px}
 .pending{color:#f4d84a}
-@media(max-width:900px){.grid,.dash,.cards{grid-template-columns:1fr}.logo{font-size:22px}}
+@media(max-width:900px){.layout,.mainGrid,.cards{grid-template-columns:1fr}.logo{font-size:22px}}
 </style>
 </head>
 
 <body>
-<div class="wrap">
+<div class="app">
 
   <div class="top">
     <div class="logo">STYLESPHERE</div>
     <div class="status" id="systemStatus">🔄 CONNECTING...</div>
   </div>
 
-  <!-- LOGIN -->
-  <section id="loginBox" class="panel" style="max-width:430px;margin:auto;margin-top:80px">
+  <section id="loginBox" class="login">
     <h2>Secure Client Login</h2>
     <input id="email" type="email" placeholder="Email address">
     <input id="password" type="password" placeholder="Password">
     <button id="loginBtn">Login Securely</button>
-    <p id="loginMsg" style="margin-top:15px;color:#f4d84a"></p>
+    <p id="loginMsg" style="margin-top:14px;color:#f4d84a"></p>
   </section>
 
-  <!-- DASHBOARD -->
   <section id="dashboardBox" class="hidden">
-    <div class="grid">
-      <aside class="panel">
+    <div class="layout">
+
+      <aside class="side">
         <h2 id="clientName">Client</h2>
-        <p id="clientEmail" style="color:#d9e5e2"></p>
-        <br>
-        <button id="logoutBtn">Logout</button>
+        <p id="clientEmail">loading...</p>
+
+        <div class="nav">
+          <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+          <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
+          <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
+          <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
+          <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
+          <a href="activity.html"><i class="fa-solid fa-clock"></i> Activity</a>
+          <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+          <button class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
       </aside>
 
       <main>
-        <div class="dash">
-          <div class="panel hero">
+        <div class="mainGrid">
+          <div class="panel">
             <h1>Welcome, <span id="welcomeName">Client</span></h1>
             <p>
               Secure StyleSphere membership dashboard connected to Firebase.
-              Wallet, QR, NFC, biometric access and request system.
+              Wallet, QR, NFC, biometric requests, activity and client security status.
             </p>
             <button id="topupBtn">Top-up Request</button>
           </div>
 
-          <div class="box bankcard">
+          <div class="bank">
             <h2>STYLESPHERE</h2>
             <h4>GLOBAL MEMBER <span id="memberLevel">Bronze</span></h4>
             <div class="balance" id="walletBalance">$0.00</div>
@@ -89,10 +103,10 @@ button{border:0;border-radius:999px;padding:14px 22px;background:linear-gradient
         <div class="cards">
           <div class="card"><i class="fa-solid fa-coins"></i><h3 id="points">0</h3><p>Reward Points</p></div>
           <div class="card"><i class="fa-solid fa-shield-halved"></i><h3 id="securityStatus">Active</h3><p>Security Status</p></div>
-          <div class="card" id="qrBtn"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Request QR</p></div>
-          <div class="card" id="nfcBtn"><i class="fa-solid fa-credit-card"></i><h3 id="nfcStatus">NFC Card</h3><p>Request Card</p></div>
+          <div class="card" id="qrBtn"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Request identity QR</p></div>
+          <div class="card" id="nfcBtn"><i class="fa-solid fa-credit-card"></i><h3 id="nfcStatus">NFC Card</h3><p>Request physical card</p></div>
           <div class="card" id="bioBtn"><i class="fa-solid fa-fingerprint"></i><h3>Biometric</h3><p>Face / Fingerprint</p></div>
-          <div class="card"><i class="fa-solid fa-lock"></i><h3>Protected</h3><p>Firebase Security</p></div>
+          <div class="card"><i class="fa-solid fa-lock"></i><h3>Protected</h3><p>Firebase security</p></div>
         </div>
 
         <div class="panel activity">
@@ -102,55 +116,55 @@ button{border:0;border-radius:999px;padding:14px 22px;background:linear-gradient
           </div>
         </div>
       </main>
+
     </div>
   </section>
 </div>
 
 <script type="module">
 import { auth, db } from "./js/firebase.js";
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-import {
-  doc,
-  onSnapshot,
-  collection,
-  addDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const $ = id => document.getElementById(id);
 const money = v => `$${Number(v || 0).toFixed(2)}`;
 
-async function sendRequest(path, type, extra = {}) {
-  const user = auth.currentUser;
-  if (!user) return alert("Please login first.");
+function showLogin(){
+  $("loginBox").classList.remove("hidden");
+  $("dashboardBox").classList.add("hidden");
+}
 
-  await addDoc(collection(db, path), {
-    uid: user.uid,
-    status: "pending",
-    type,
+function showDashboard(){
+  $("loginBox").classList.add("hidden");
+  $("dashboardBox").classList.remove("hidden");
+}
+
+async function sendRequest(path,type,extra={}){
+  const user = auth.currentUser;
+  if(!user){ showLogin(); return; }
+
+  await addDoc(collection(db,path),{
+    uid:user.uid,
+    status:"pending",
+    type:type,
     ...extra,
-    createdAt: serverTimestamp()
+    createdAt:serverTimestamp()
   });
 
   alert("Request sent successfully.");
 }
 
 $("loginBtn").onclick = async () => {
-  try {
+  try{
     $("loginMsg").innerText = "Checking...";
-    await signInWithEmailAndPassword(auth, $("email").value, $("password").value);
+    await signInWithEmailAndPassword(auth,$("email").value,$("password").value);
     $("loginMsg").innerText = "";
-  } catch (e) {
+  }catch(e){
     $("loginMsg").innerText = "Login failed. Check email/password.";
   }
 };
 
-onSnapshot(doc(db, "system", "status"), snap => {
+onSnapshot(doc(db,"system","status"), snap => {
   const state = snap.exists() ? snap.data().state : "offline";
   $("systemStatus").innerText =
     state === "online" ? "🟢 SYSTEM ONLINE" :
@@ -159,20 +173,13 @@ onSnapshot(doc(db, "system", "status"), snap => {
 });
 
 onAuthStateChanged(auth, user => {
-  if (!user) {
-    $("loginBox").classList.remove("hidden");
-    $("dashboardBox").classList.add("hidden");
-    return;
-  }
+  if(!user){ showLogin(); return; }
 
-  $("loginBox").classList.add("hidden");
-  $("dashboardBox").classList.remove("hidden");
+  showDashboard();
   $("clientEmail").innerText = user.email || "";
 
-  const userRef = doc(db, "users", user.uid);
-
-  onSnapshot(userRef, snap => {
-    if (!snap.exists()) return;
+  onSnapshot(doc(db,"users",user.uid), snap => {
+    if(!snap.exists()) return;
 
     const data = snap.data();
     $("clientName").innerText = data.name || "StyleSphere Client";
@@ -187,13 +194,14 @@ onAuthStateChanged(auth, user => {
   });
 });
 
-$("topupBtn").onclick = () => sendRequest("topup_requests", "top_up", { amount: 0, currency: "USD" });
-$("qrBtn").onclick = () => sendRequest("qr_requests", "qr_access");
-$("nfcBtn").onclick = () => sendRequest("nfc_requests", "nfc_card");
-$("bioBtn").onclick = () => sendRequest("biometric_requests", "biometric_access");
+$("topupBtn").onclick = () => sendRequest("topup_requests","top_up",{amount:0,currency:"USD"});
+$("qrBtn").onclick = () => sendRequest("qr_requests","qr_access");
+$("nfcBtn").onclick = () => sendRequest("nfc_requests","nfc_card");
+$("bioBtn").onclick = () => sendRequest("biometric_requests","biometric_access");
 
 $("logoutBtn").onclick = async () => {
   await signOut(auth);
+  showLogin();
 };
 </script>
 </body>
