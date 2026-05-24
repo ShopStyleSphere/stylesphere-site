@@ -4,12 +4,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
   
 import {
   getAuth,
+  setPersistence,
+  browserSessionPersistence,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   GoogleAuthProvider,
   signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
 
 import {
   getFirestore,
@@ -32,6 +35,10 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+ setPersistence(auth,
+ browserSessionPersistence);              
+
+
 export {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -40,5 +47,5 @@ export {
   signInWithPopup,
   doc,
   setDoc,
-  getDoc
+  getDoc,
 };
