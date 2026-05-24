@@ -19,7 +19,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCb4vblwGWSqaMFE5zYITtWmUYBpXYKDGicw",
+  apiKey: "AIzaSyCb4wbWGWSqaMFE5zYItWmUYBpXYKDGicw",
   authDomain: "stylesphere-81dfe.firebaseapp.com",
   projectId: "stylesphere-81dfe",
   storageBucket: "stylesphere-81dfe.firebasestorage.app",
