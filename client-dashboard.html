@@ -139,7 +139,7 @@ body{
   <main class="main">
     <div class="top">
       <h1>Client Command Center</h1>
-      <div class="status" id="systemStatus">● SYSTEM CHECKING</div>
+<div id="systemStatus" class="status">🔄 CONNECTING...</div>
     </div>
 
     <section class="dashboard">
@@ -425,5 +425,8 @@ onAuthStateChanged(auth, async(user)=>{
   loadSystemStatus();
 });
 </script>
+ 
+  <script type="module" src="./js/system-status.js"></script>
+
 </body>
 </html>
