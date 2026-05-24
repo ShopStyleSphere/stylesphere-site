@@ -3,47 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <title>Reset Password - StyleSphere</title>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-  background: #000;
-  color: #fff;
-  font-family: Arial;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#050505;
+  font-family:Arial;
+  color:white;
 }
 
 .box {
-  background: #111;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  width: 300px;
-  box-shadow: 0 0 20px gold;
+  padding:40px;
+  border-radius:25px;
+  background:#111;
+  border:1px solid rgba(255,215,0,0.3);
+  box-shadow:0 0 40px rgba(255,215,0,0.2);
+  width:90%;
+  max-width:420px;
+  text-align:center;
+}
+
+h1 {
+  color:#ffd700;
+  margin-bottom:25px;
 }
 
 input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: none;
+  width:100%;
+  padding:15px;
+  margin:10px 0;
+  border-radius:12px;
+  border:1px solid rgba(255,215,0,0.4);
+  background:#050505;
+  color:white;
+  font-size:16px;
 }
 
 button {
-  margin-top: 15px;
-  padding: 10px;
-  width: 100%;
-  background: gold;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
+  width:100%;
+  padding:15px;
+  border-radius:12px;
+  border:0;
+  background:#ffd700;
+  font-weight:bold;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+#status {
+  margin-top:15px;
+  font-size:14px;
 }
 </style>
 </head>
@@ -51,34 +65,73 @@ button {
 <body>
 
 <div class="box">
-  <h2>Reset Password</h2>
-  <input type="password" id="password" placeholder="New password">
-  <button onclick="resetPassword()">Confirm</button>
+  <h1>Reset Password</h1>
+
+  <input id="password" type="password" placeholder="New password">
+  <input id="confirmPassword" type="password" placeholder="Confirm password">
+
+  <button id="btn">Update Password</button>
+
   <p id="status"></p>
 </div>
 
-<script>
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN"
-};
+<script type="module">
+import { auth } from "./js/firebase.js";
+import { confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-firebase.initializeApp(firebaseConfig);
-
+// قراءة الرابط
 const params = new URLSearchParams(window.location.search);
+const mode = params.get("mode");
 const oobCode = params.get("oobCode");
 
-function resetPassword() {
-  const newPassword = document.getElementById("password").value;
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+const btn = document.getElementById("btn");
+const status = document.getElementById("status");
 
-  firebase.auth().confirmPasswordReset(oobCode, newPassword)
-    .then(() => {
-      document.getElementById("status").innerText = "Password updated successfully ✅";
-    })
-    .catch(() => {
-      document.getElementById("status").innerText = "Invalid or expired link ❌";
-    });
+// 🔴 تحقق من الرابط
+if (mode !== "resetPassword" || !oobCode) {
+  status.style.color = "red";
+  status.textContent = "❌ Invalid or expired link";
+  btn.disabled = true;
 }
+
+// زر التحديث
+btn.addEventListener("click", async () => {
+
+  const pass = password.value;
+  const confirm = confirmPassword.value;
+
+  if (!pass || !confirm) {
+    status.textContent = "Please fill all fields";
+    return;
+  }
+
+  if (pass.length < 6) {
+    status.textContent = "Password must be at least 6 characters";
+    return;
+  }
+
+  if (pass !== confirm) {
+    status.textContent = "Passwords do not match";
+    return;
+  }
+
+  try {
+    await confirmPasswordReset(auth, oobCode, pass);
+
+    status.style.color = "#00ff99";
+    status.textContent = "✅ Password updated successfully";
+
+    setTimeout(() => {
+      window.location.href = "client-login.html";
+    }, 1500);
+
+  } catch (err) {
+    status.style.color = "red";
+    status.textContent = "❌ Invalid or expired link";
+  }
+});
 </script>
 
 </body>
