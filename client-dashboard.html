@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere Dashboard</title>
+<title>StyleSphere | Client Dashboard</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
@@ -16,6 +16,12 @@ body{background:#0b0f14;color:white}
   justify-content:space-between;
   align-items:center;
   margin-bottom:30px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#f4d84a;
 }
 
 .status{
@@ -35,7 +41,7 @@ body{background:#0b0f14;color:white}
 }
 
 .balance{
-  font-size:40px;
+  font-size:42px;
   font-weight:bold;
 }
 
@@ -50,11 +56,12 @@ body{background:#0b0f14;color:white}
   padding:20px;
   border-radius:10px;
   cursor:pointer;
+  text-align:center;
 }
 
 button{
   margin-top:20px;
-  padding:10px 20px;
+  padding:12px 20px;
   border:none;
   border-radius:10px;
   background:gold;
@@ -68,26 +75,24 @@ button{
 <div class="container">
 
 <div class="header">
-  <h2>STYLESPHERE</h2>
+  <div class="logo">STYLESPHERE</div>
   <div id="systemStatus" class="status">CONNECTING...</div>
 </div>
 
-<h2>Welcome, <span id="name">Client</span></h2>
+<h2>Welcome, <span id="userName">Client</span></h2>
 
 <div class="card">
   <p>Wallet Balance</p>
-  <div id="balance" class="balance">$0</div>
+  <div id="walletBalance" class="balance">$0</div>
 </div>
 
 <button id="topupBtn">Top-up Request</button>
 
 <div class="grid">
-
   <div class="box" id="qrBtn">QR Access</div>
   <div class="box" id="nfcBtn">NFC Card</div>
   <div class="box" id="bioBtn">Biometric</div>
   <div class="box">Activity</div>
-
 </div>
 
 </div>
@@ -96,10 +101,7 @@ button{
 
 import { auth, db } from "./js/firebase.js";
 
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
   doc,
@@ -110,9 +112,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // عناصر
-const balanceEl = document.getElementById("balance");
+const walletEl = document.getElementById("walletBalance");
+const nameEl = document.getElementById("userName");
 const statusEl = document.getElementById("systemStatus");
-const nameEl = document.getElementById("name");
 
 // 🔒 تحقق تسجيل الدخول
 onAuthStateChanged(auth, (user) => {
@@ -122,22 +124,20 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
-  // 👤 اسم المستخدم
   nameEl.innerText = user.email;
 
-  // 💰 الرصيد
+  // 💰 Wallet
   const userRef = doc(db, "users", user.uid);
 
   onSnapshot(userRef, (snap) => {
     if (!snap.exists()) return;
 
     const data = snap.data();
-    balanceEl.innerText = "$" + (data.wallet || 0);
+    walletEl.innerText = "$" + (data.wallet || 0);
   });
 
-  // 💸 زر الشحن
+  // 💸 Top-up
   document.getElementById("topupBtn").onclick = async () => {
-
     await addDoc(collection(db, "topup_requests"), {
       uid: user.uid,
       amount: 100,
@@ -146,7 +146,6 @@ onAuthStateChanged(auth, (user) => {
       type: "top_up",
       createdAt: serverTimestamp()
     });
-
     alert("Top-up request sent");
   };
 
@@ -185,7 +184,7 @@ onAuthStateChanged(auth, (user) => {
 
 });
 
-// 🟢 حالة النظام
+// 🟢 System status
 onSnapshot(doc(db, "system", "status"), (snap) => {
   if (!snap.exists()) return;
 
