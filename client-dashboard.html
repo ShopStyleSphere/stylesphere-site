@@ -1,354 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StyleSphere Client Dashboard</title>
+<meta charset="UTF-8">
+<title>StyleSphere Dashboard</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --gold:#d4af37;
-      --dark:#050607;
-      --card:rgba(255,255,255,.055);
-      --line:rgba(212,175,55,.45);
-      --text:#fff;
-      --muted:#b9b9b9;
-      --green:#00ff99;
-    }
-    body{
-      min-height:100vh;
-      background:
-        radial-gradient(circle at top left,rgba(212,175,55,.18),transparent 35%),
-        linear-gradient(135deg,#020202,#101410,#020202);
-      color:var(--text);
-      font-family:Arial,sans-serif;
-    }
-    .loading{
-      position:fixed;inset:0;background:#050607;
-      display:flex;align-items:center;justify-content:center;
-      color:var(--gold);font-size:22px;z-index:9999;
-    }
-    .page{padding:24px;display:grid;grid-template-columns:280px 1fr;gap:22px}
-    .sidebar,.panel,.stat,.hero{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:24px;
-      box-shadow:0 0 25px rgba(212,175,55,.12);
-      backdrop-filter:blur(14px);
-    }
-    .sidebar{padding:22px;min-height:calc(100vh - 48px)}
-    .brand{
-      color:var(--gold);font-size:28px;font-weight:900;
-      letter-spacing:3px;margin-bottom:28px;text-shadow:0 0 18px var(--gold);
-    }
-    .profile{text-align:center;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:20px}
-    .avatar{
-      width:90px;height:90px;border-radius:50%;margin:auto;
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid var(--gold);color:var(--gold);
-      font-size:36px;box-shadow:0 0 30px rgba(212,175,55,.35);
-    }
-    .profile h3{margin-top:14px;color:var(--gold);font-size:16px}
-    .profile p{color:var(--muted);font-size:13px;margin-top:5px}
-    .nav a,.logout{
-      display:flex;align-items:center;gap:12px;
-      padding:14px 16px;margin:8px 0;border-radius:14px;
-      color:white;text-decoration:none;font-weight:700;
-      cursor:pointer;border:0;background:transparent;width:100%;
-    }
-    .nav a.active,.nav a:hover,.logout:hover{
-      background:linear-gradient(90deg,var(--gold),#fff3a3);
-      color:#111;box-shadow:0 0 20px rgba(212,175,55,.45);
-    }
-    .top{
-      display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;
-    }
-    .top h1{color:var(--gold);font-size:34px;text-shadow:0 0 20px rgba(212,175,55,.5)}
-    .status{
-      border:1px solid var(--line);border-radius:40px;padding:12px 20px;
-      color:var(--green);font-weight:900;background:rgba(0,0,0,.35);
-    }
-    .hero{padding:26px;display:grid;grid-template-columns:1.3fr .8fr;gap:24px;margin-bottom:22px}
-    .hero h2{font-size:42px;color:var(--gold);margin-bottom:12px}
-    .hero p{color:#ddd;line-height:1.7;max-width:700px}
-    .actions{display:flex;gap:14px;margin-top:24px;flex-wrap:wrap}
-    .btn{
-      border:0;border-radius:16px;padding:15px 22px;font-weight:900;
-      background:linear-gradient(90deg,var(--gold),#fff2a6);
-      color:#111;cursor:pointer;box-shadow:0 0 22px rgba(212,175,55,.45);
-      text-decoration:none;display:inline-flex;gap:10px;align-items:center;
-    }
-    .btn.dark{background:#111;color:var(--gold);border:1px solid var(--gold)}
-    .member-card{
-      border:1px solid var(--line);border-radius:22px;padding:24px;
-      background:linear-gradient(135deg,rgba(212,175,55,.25),rgba(255,255,255,.08),rgba(0,0,0,.35));
-      min-height:190px;position:relative;overflow:hidden;
-    }
-    .member-card h3{color:var(--gold);font-size:26px}
-    .chip{width:42px;height:32px;background:linear-gradient(135deg,#fff2a6,var(--gold));border-radius:8px;margin:24px 0}
-    .card-number{letter-spacing:5px;color:#eee;font-size:18px}
-    .card-meta{display:flex;justify-content:space-between;margin-top:22px;font-size:12px;color:#ddd}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
-    .stat{padding:22px}
-    .stat i{color:var(--gold);font-size:24px;margin-bottom:12px}
-    .stat h3{font-size:28px;color:var(--gold)}
-    .stat p{color:var(--muted);font-size:13px;margin-top:5px}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
-    .panel{padding:24px;margin-bottom:20px}
-    .panel h2{color:var(--gold);margin-bottom:14px}
-    .progress{height:16px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#111;margin:16px 0}
-    .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),#fff2a6)}
-    .qr{
-      width:170px;height:170px;margin:auto;
-      display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:16px;
-      border:8px solid var(--gold);border-radius:20px;box-shadow:0 0 25px rgba(212,175,55,.45);
-    }
-    .qr span{background:#e7eef3;border-radius:3px}
-    .rewards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .reward{
-      border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center;
-      background:rgba(0,0,0,.25)
-    }
-    .reward i{color:var(--gold);font-size:28px;margin-bottom:10px}
-    .activity div{
-      display:flex;justify-content:space-between;border:1px solid rgba(212,175,55,.25);
-      padding:14px;border-radius:12px;margin:10px 0;color:#ddd;
-    }
-    .activity span{color:var(--gold);font-weight:900}
-    @media(max-width:950px){
-      .page{grid-template-columns:1fr}
-      .sidebar{min-height:auto}
-      .hero,.grid{grid-template-columns:1fr}
-      .stats{grid-template-columns:repeat(2,1fr)}
-    }
-    @media(max-width:560px){
-      .page{padding:14px}
-      .stats,.rewards{grid-template-columns:1fr}
-      .hero h2{font-size:32px}
-    }
-  </style>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: gold;
+}
+
+/* User Card */
+.card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  box-shadow: 0 0 20px rgba(255,215,0,0.1);
+}
+
+.card h2 {
+  margin: 0;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.box {
+  padding: 20px;
+  border-radius: 15px;
+  background: #121212;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.box:hover {
+  background: #1f1f1f;
+}
+
+/* Button */
+.btn {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
 </head>
-
 <body>
-  <div class="loading" id="loading">Loading secure dashboard...</div>
 
-  <div class="page">
-    <aside class="sidebar">
-      <div class="brand">Ⓢ STYLESPHERE</div>
+<div class="container">
 
-      <div class="profile">
-        <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
-        <h3 id="clientName">Loading...</h3>
-        <p id="clientLevelSide">Loading...</p>
-      </div>
-
-      <nav class="nav">
-        <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
-        <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
-        <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
-        <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
-        <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
-        <a href="membership.html"><i class="fa-solid fa-crown"></i> Membership</a>
-        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-        <button class="logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-      </nav>
-    </aside>
-
-    <main>
-      <div class="top">
-        <h1>Client Command Center</h1>
-        <div class="status">● SECURE SYSTEM ONLINE</div>
-      </div>
-
-      <section class="hero">
-        <div>
-          <h2>Welcome Back</h2>
-          <p>
-            Manage your StyleSphere membership, wallet, rewards, QR access and NFC card from one secure real-time dashboard.
-          </p>
-          <div class="actions">
-            <a class="btn" href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> Request NFC Card</a>
-            <a class="btn dark" href="rewards.html"><i class="fa-solid fa-gift"></i> View Rewards</a>
-          </div>
-        </div>
-
-        <div class="member-card">
-          <h3>STYLESPHERE</h3>
-          <div class="chip"></div>
-          <div class="card-number" id="cardNumber">•••• •••• •••• ••••</div>
-          <div class="card-meta">
-            <span>MEMBER SINCE <b id="memberSince">2026</b></span>
-            <span id="nfcStatus">NFC Pending</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="stats">
-        <div class="stat">
-          <i class="fa-solid fa-coins"></i>
-          <h3 id="points">0</h3>
-          <p>Total Points</p>
-        </div>
-        <div class="stat">
-          <i class="fa-solid fa-wallet"></i>
-          <h3 id="wallet">$0.00</h3>
-          <p>Wallet Balance</p>
-        </div>
-        <div class="stat">
-          <i class="fa-solid fa-crown"></i>
-          <h3 id="level">Bronze</h3>
-          <p>Membership Level</p>
-        </div>
-        <div class="stat">
-          <i class="fa-solid fa-gift"></i>
-          <h3 id="rewards">0</h3>
-          <p>Available Rewards</p>
-        </div>
-      </section>
-
-      <div class="grid">
-        <section>
-          <div class="panel">
-            <h2>Membership Progress</h2>
-            <p id="progressText">Loading membership progress...</p>
-            <div class="progress"><div class="bar" id="progressBar"></div></div>
-            <p>Next Level: <b id="nextLevel">Silver</b></p>
-          </div>
-
-          <div class="panel">
-            <h2>Exclusive Rewards Store</h2>
-            <div class="rewards">
-              <div class="reward"><i class="fa-solid fa-ticket"></i><h3>Event Access</h3><p>Coming Soon</p></div>
-              <div class="reward"><i class="fa-solid fa-plane"></i><h3>Travel Rewards</h3><p>Coming Soon</p></div>
-              <div class="reward"><i class="fa-solid fa-mobile-screen"></i><h3>Electronics Gifts</h3><p>Coming Soon</p></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <h2>NFC Card Services</h2>
-            <p>Request a physical StyleSphere NFC membership card or manage your secure member identity.</p>
-            <br>
-            <a class="btn" href="nfc-card.html"><i class="fa-solid fa-truck"></i> Order Physical Card</a>
-          </div>
-
-          <div class="panel activity">
-            <h2>Recent Activity</h2>
-            <div><p>Membership activated</p><span id="activityMembership">Active</span></div>
-            <div><p>Welcome bonus</p><span id="activityBonus">0 pts</span></div>
-            <div><p>Wallet balance</p><span id="activityWallet">$0.00</span></div>
-            <div><p>NFC card status</p><span id="activityNfc">Pending</span></div>
-          </div>
-        </section>
-
-        <aside>
-          <div class="panel">
-            <h2>QR Access</h2>
-            <div class="qr" id="qrBox"></div>
-            <p style="text-align:center;margin-top:14px;color:#ccc">Member ID: <b id="qrId">Loading...</b></p>
-          </div>
-
-          <div class="panel">
-            <h2>Account Status</h2>
-            <p>Status: <b id="accountStatus">Loading...</b></p>
-            <p>Email: <b id="clientEmail">Loading...</b></p>
-          </div>
-        </aside>
-      </div>
-    </main>
+  <div class="header">
+    <div class="logo">StyleSphere</div>
+    <button onclick="logout()">Logout</button>
   </div>
 
-  <script type="module">
-    import { auth, db } from "./js/firebase.js";
-    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  <!-- User Info -->
+  <div class="card">
+    <h2 id="name">Loading...</h2>
+    <p id="email"></p>
+  </div>
 
-    const loading = document.getElementById("loading");
+  <!-- Features -->
+  <div class="grid">
 
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
+    <div class="box" onclick="go('wallet.html')">
+      💳 Wallet
+    </div>
 
-    function makeCardNumber(uid) {
-      const clean = uid.replace(/\D/g, "").padEnd(16, "8").slice(0, 16);
-      return clean.replace(/(.{4})/g, "$1 ").trim();
-    }
+    <div class="box" onclick="go('qr.html')">
+      📱 QR Access
+    </div>
 
-    function buildQR() {
-      const box = document.getElementById("qrBox");
-      box.innerHTML = "";
-      for (let i = 0; i < 25; i++) {
-        box.appendChild(document.createElement("span"));
-      }
-    }
+    <div class="box" onclick="go('nfc.html')">
+      📡 NFC Card
+    </div>
 
-    function nextLevel(level) {
-      const levels = ["Bronze","Silver","Gold","Platinum","Diamond","Royal","Imperial","Infinity"];
-      const index = levels.indexOf(level);
-      return levels[index + 1] || "Private";
-    }
+    <div class="box" onclick="go('activity.html')">
+      📊 Activity
+    </div>
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user || !user.emailVerified) {
-        window.location.href = "client-login.html";
-        return;
-      }
+  </div>
 
-      const snap = await getDoc(doc(db, "users", user.uid));
+</div>
 
-      if (!snap.exists()) {
-        window.location.href = "client-login.html";
-        return;
-      }
+<script type="module">
 
-      const data = snap.data();
+import {
+  auth
+} from "./js/firebase.js";
 
-      const name = data.name || "Client";
-      const email = data.email || user.email || "";
-      const level = data.level || "Bronze";
-      const points = Number(data.points || 0);
-      const wallet = Number(data.wallet || 0);
-      const rewards = Number(data.rewards || 0);
-      const qrId = data.qrId || ("QR-" + user.uid.slice(0, 8).toUpperCase());
-      const nfcStatus = data.nfcStatus || "Not Requested";
-      const status = data.accountStatus || "Active";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-      setText("clientName", name);
-      setText("clientLevelSide", level + " Member");
-      setText("level", level);
-      setText("points", points.toLocaleString());
-      setText("wallet", "$" + wallet.toFixed(2));
-      setText("rewards", rewards);
-      setText("qrId", qrId);
-      setText("clientEmail", email);
-      setText("accountStatus", status);
-      setText("nfcStatus", "NFC " + nfcStatus);
-      setText("activityMembership", status);
-      setText("activityBonus", points > 0 ? "+" + Math.min(points, 500) + " pts" : "0 pts");
-      setText("activityWallet", "$" + wallet.toFixed(2));
-      setText("activityNfc", nfcStatus);
-      setText("nextLevel", nextLevel(level));
-      setText("cardNumber", makeCardNumber(user.uid));
+// حماية الصفحة
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    document.getElementById("name").innerText = user.displayName || "User";
+    document.getElementById("email").innerText = user.email;
+  }
+});
 
-      const created = data.createdAt ? new Date(data.createdAt).getFullYear() : new Date().getFullYear();
-      setText("memberSince", created);
+// تنقل
+window.go = (page) => {
+  window.location.href = page;
+};
 
-      const progress = Math.min(100, Math.round((points / 10000) * 100));
-      document.getElementById("progressBar").style.width = progress + "%";
-      setText("progressText", "You are " + progress + "% toward unlocking the next membership level.");
+// تسجيل خروج
+window.logout = () => {
+  signOut(auth).then(() => {
+    window.location.href = "login.html";
+  });
+};
 
-      buildQR();
-      loading.style.display = "none";
-    });
+</script>
 
-    window.logout = async function () {
-      await signOut(auth);
-      window.location.href = "client-login.html";
-    };
-  </script>
 </body>
 </html>
