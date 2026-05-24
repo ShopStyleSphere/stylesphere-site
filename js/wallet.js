@@ -9,9 +9,9 @@ auth.onAuthStateChanged((user) => {
   const userRef = doc(db, "users", user.uid);
 
   onSnapshot(userRef, (snap) => {
-    if (!snap.exists()) return;
+    if (!snap.exists() || !balanceEl) return;
 
     const data = snap.data();
-    balanceEl.innerText = `$${data.wallet || 0}`;
+    balanceEl.innerText = `$${Number(data.wallet || 0).toFixed(2)}`;
   });
 });
