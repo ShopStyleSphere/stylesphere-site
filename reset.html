@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reset Password - StyleSphere</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<style>
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.box {
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 0 20px gold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: gold;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Reset Password</h2>
+  <input type="password" id="password" placeholder="New password">
+  <button onclick="resetPassword()">Confirm</button>
+  <p id="status"></p>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_DOMAIN"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const params = new URLSearchParams(window.location.search);
+const oobCode = params.get("oobCode");
+
+function resetPassword() {
+  const newPassword = document.getElementById("password").value;
+
+  firebase.auth().confirmPasswordReset(oobCode, newPassword)
+    .then(() => {
+      document.getElementById("status").innerText = "Password updated successfully ✅";
+    })
+    .catch(() => {
+      document.getElementById("status").innerText = "Invalid or expired link ❌";
+    });
+}
+</script>
+
+</body>
+</html>
