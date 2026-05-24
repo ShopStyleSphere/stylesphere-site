@@ -1,203 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StyleSphere | Client Dashboard</title>
+<meta charset="UTF-8">
+<title>StyleSphere Client Dashboard</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b0f14;
+    color: white;
+}
 
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
-    body{min-height:100vh;background:radial-gradient(circle at top,#103b32,#06110f 55%,#020403);color:#fff}
-    .app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-    .side{border-right:1px solid rgba(255,215,90,.25);padding:28px;background:rgba(0,0,0,.35)}
-    .brand{font-size:28px;font-weight:900;letter-spacing:5px;color:#f7d84a;margin-bottom:35px}
-    .profile{text-align:center;border-bottom:1px solid rgba(255,215,90,.25);padding-bottom:25px}
-    .avatar{width:86px;height:86px;border-radius:50%;margin:auto;background:linear-gradient(135deg,#f7d84a,#fff7b0);color:#0b1714;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900}
-    .profile h3{margin-top:14px}
-    .profile p{font-size:13px;color:#cfd8d6;margin-top:6px}
-    .nav{margin-top:25px;display:grid;gap:10px}
-    .nav a,.logout{border:0;text-decoration:none;color:#e9f2ef;padding:14px 16px;border-radius:18px;background:transparent;font-weight:800;text-align:left;cursor:pointer}
-    .nav a.active,.nav a:hover,.logout:hover{background:linear-gradient(90deg,#f4c400,#fff3a3);color:#101510}
-    .nav i{width:24px}
-    .main{padding:28px 36px}
-    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-    .top h1{font-size:34px}
-    .status{padding:12px 22px;border:1px solid rgba(0,255,170,.5);border-radius:999px;color:#13f0a0;font-weight:900;box-shadow:0 0 22px rgba(0,255,170,.18)}
-    .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:22px}
-    .hero,.card,.panel{border:1px solid rgba(255,215,90,.28);border-radius:28px;background:rgba(4,20,17,.72);box-shadow:0 18px 60px rgba(0,0,0,.35);backdrop-filter:blur(16px)}
-    .hero{padding:30px}
-    .hero h2{font-size:30px;color:#fff5b4;margin-bottom:12px}
-    .hero p{color:#d7e2df;line-height:1.7}
-    .btn{margin-top:20px;border:0;border-radius:999px;padding:14px 24px;background:linear-gradient(90deg,#f4c400,#fff3a3);font-weight:900;color:#101510;cursor:pointer}
-    .member-card{padding:32px;border-radius:28px;background:linear-gradient(135deg,#e8ffbf,#13d6a3 55%,#0087ff);color:#11322d;min-height:230px;box-shadow:0 0 45px rgba(0,255,190,.35)}
-    .member-card h2{letter-spacing:9px;font-size:26px}
-    .member-card h4{margin-top:8px}
-    .balance{font-size:48px;font-weight:900;margin:45px 0 22px}
-    .nums{font-weight:900;letter-spacing:4px;font-size:13px;line-height:2}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
-    .card{padding:22px;min-height:130px;cursor:pointer}
-    .card i{font-size:26px;color:#f4c400;margin-bottom:16px}
-    .card h3{font-size:24px;color:#fff7bb}
-    .card p{color:#d6e2df}
-    .panel{margin-top:22px;padding:24px}
-    .activity{display:grid;gap:10px;margin-top:14px}
-    .row{display:flex;justify-content:space-between;padding:14px;border:1px solid rgba(255,215,90,.18);border-radius:14px;color:#dce8e5}
-    .pending{color:#ffd84a}
-    .ok{color:#13f0a0}
-    @media(max-width:900px){.app{grid-template-columns:1fr}.side{position:relative}.grid,.cards{grid-template-columns:1fr}.top{align-items:flex-start;gap:14px;flex-direction:column}}
-  </style>
+.container {
+    padding: 30px;
+}
+
+.status {
+    background: #1a2a1a;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 20px;
+    color: #00ff88;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: linear-gradient(135deg,#00ffc3,#008cff);
+    padding: 20px;
+    border-radius: 15px;
+    color: black;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: gold;
+    cursor: pointer;
+}
+
+</style>
 </head>
 
 <body>
-<div class="app">
 
-  <aside class="side">
-    <div class="brand">STYLESPHERE</div>
+<div class="container">
 
-    <div class="profile">
-      <div class="avatar" id="avatarLetter">S</div>
-      <h3 id="clientName">StyleSphere Client</h3>
-      <p id="clientEmail">loading...</p>
-    </div>
+<div id="status" class="status">CONNECTING...</div>
 
-    <nav class="nav">
-      <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i>Dashboard</a>
-      <a href="wallet.html"><i class="fa-solid fa-wallet"></i>Wallet</a>
-      <a href="rewards.html"><i class="fa-solid fa-gift"></i>Rewards</a>
-      <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i>QR Access</a>
-      <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i>NFC Card</a>
-      <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i>Activity</a>
-      <a href="settings.html"><i class="fa-solid fa-gear"></i>Settings</a>
-      <button class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
-    </nav>
-  </aside>
+<h2>Welcome, Client</h2>
 
-  <main class="main">
-    <div class="top">
-      <h1>Client Command Center</h1>
-      <div class="status" id="systemStatus">🔄 CONNECTING...</div>
-    </div>
+<div class="card">
+    <h3>Wallet Balance</h3>
+    <h1 id="balance">$0</h1>
+</div>
 
-    <section class="grid">
-      <div class="hero">
-        <h2>Welcome, <span id="welcomeName">Client</span></h2>
-        <p>
-          Secure StyleSphere membership dashboard connected to Firebase.
-          Manage wallet access, rewards, QR identity, NFC card requests,
-          account activity and security status.
-        </p>
-        <button class="btn" id="topupBtn">Top-up Request</button>
-      </div>
+<button id="topupBtn">Top-up Request</button>
 
-      <div class="member-card">
-        <h2>STYLESPHERE</h2>
-        <h4>GLOBAL MEMBER <span id="memberLevel">Bronze</span></h4>
-        <div class="balance" id="walletBalance">$0.00</div>
-        <div class="nums">
-          Member No: <span id="memberNo">------</span><br>
-          Wallet No: <span id="walletNo">----</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="cards">
-      <div class="card"><i class="fa-solid fa-coins"></i><h3 id="points">0</h3><p>Reward Points</p></div>
-      <div class="card"><i class="fa-solid fa-shield-halved"></i><h3 id="securityStatus">Active</h3><p>Security Status</p></div>
-      <div class="card"><i class="fa-solid fa-credit-card"></i><h3 id="nfcStatus">Not Requested</h3><p>NFC Card Status</p></div>
-      <div class="card" id="qrBtn"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Request identity QR</p></div>
-      <div class="card" id="nfcBtn"><i class="fa-solid fa-plus"></i><h3>Order Card</h3><p>Physical NFC card</p></div>
-      <div class="card" id="bioBtn"><i class="fa-solid fa-fingerprint"></i><h3>Biometric</h3><p>Face / Fingerprint</p></div>
-      <div class="card"><i class="fa-solid fa-clock"></i><h3>Activity</h3><p>Account history</p></div>
-      <div class="card"><i class="fa-solid fa-lock"></i><h3>Protected</h3><p>Firebase security</p></div>
-    </section>
-
-    <section class="panel">
-      <h2>Recent Activity</h2>
-      <div class="activity" id="activityList">
-        <div class="row"><span>Waiting for activity...</span><span class="pending">Pending</span></div>
-      </div>
-    </section>
-  </main>
 </div>
 
 <script type="module">
-  import { auth, db } from "./js/firebase.js";
-  import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import {
-    doc, getDoc, onSnapshot, collection, addDoc,
-    serverTimestamp, query, where, orderBy, limit
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const $ = (id) => document.getElementById(id);
+// 🔥 Firebase Imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  onSnapshot,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const requestMap = {
-    topupBtn: ["topup_requests", "top_up", { amount: 0, currency: "USD" }],
-    qrBtn: ["qr_requests", "qr_access", {}],
-    nfcBtn: ["nfc_requests", "nfc_card", {}],
-    bioBtn: ["biometric_requests", "biometric_access", {}],
-  };
+// 🔐 Firebase Config
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "stylesphere-81dfe.firebaseapp.com",
+  projectId: "stylesphere-81dfe",
+  storageBucket: "stylesphere-81dfe.appspot.com",
+  messagingSenderId: "545255416631",
+  appId: "1:545255416631:web:d4b82393bb70e92e05b0b2"
+};
 
-  function money(v){ return `$${Number(v || 0).toFixed(2)}`; }
+// 🚀 Init
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  async function createRequest(collectionName, type, extra, user) {
-    await addDoc(collection(db, collectionName), {
-      uid: user.uid,
-      status: "pending",
-      type,
-      ...extra,
-      createdAt: serverTimestamp()
-    });
-    alert("Request sent successfully.");
-  }
+// عناصر الصفحة
+const statusBox = document.getElementById("status");
+const balanceEl = document.getElementById("balance");
+const topupBtn = document.getElementById("topupBtn");
 
-  onAuthStateChanged(auth, async (user) => {
+// 🟢 حالة النظام
+const systemRef = doc(db, "system", "status");
+
+onSnapshot(systemRef, (snap) => {
+    if (snap.exists()) {
+        statusBox.innerText = "SYSTEM ONLINE";
+        statusBox.style.background = "#003d2a";
+    }
+});
+
+// 👤 المستخدم
+onAuthStateChanged(auth, (user) => {
+
     if (!user) {
-      window.location.href = "client-login.html";
-      return;
+        alert("Login required");
+        return;
     }
 
-    $("clientEmail").innerText = user.email || "";
-    $("avatarLetter").innerText = (user.displayName || user.email || "S")[0].toUpperCase();
-
+    // 🔄 تحديث الرصيد مباشر
     const userRef = doc(db, "users", user.uid);
 
     onSnapshot(userRef, (snap) => {
-      if (!snap.exists()) return;
-      const data = snap.data();
-
-      $("clientName").innerText = data.name || "StyleSphere Client";
-      $("welcomeName").innerText = data.name || "Client";
-      $("memberLevel").innerText = data.level || "Bronze";
-      $("walletBalance").innerText = money(data.wallet);
-      $("memberNo").innerText = data.memberNo || "------";
-      $("walletNo").innerText = data.walletNo || "----";
-      $("points").innerText = data.points || 0;
-      $("securityStatus").innerText = data.securityStatus || "Active";
-      $("nfcStatus").innerText = data.nfcStatus || "Not Requested";
+        if (snap.exists()) {
+            const data = snap.data();
+            balanceEl.innerText = "$" + (data.wallet || 0);
+        }
     });
 
-    onSnapshot(doc(db, "system", "status"), (snap) => {
-      const state = snap.exists() ? snap.data().state : "offline";
-      $("systemStatus").innerText =
-        state === "online" ? "🟢 SYSTEM ONLINE" :
-        state === "issue" ? "🟡 SYSTEM ISSUE" :
-        "🔴 SYSTEM OFFLINE";
-    });
+    // 💰 طلب شحن
+    topupBtn.onclick = async () => {
+        await addDoc(collection(db, "topup_requests"), {
+            uid: user.uid,
+            amount: 100,
+            currency: "USD",
+            status: "pending",
+            type: "topup",
+            createdAt: serverTimestamp()
+        });
 
-    for (const [btnId, config] of Object.entries(requestMap)) {
-      const btn = $(btnId);
-      if (btn) {
-        btn.onclick = () => createRequest(config[0], config[1], config[2], user);
-      }
-    }
-
-    $("logoutBtn").onclick = async () => {
-      await signOut(auth);
-      window.location.href = "client-login.html";
+        alert("Top-up request sent");
     };
-  });
+
+});
+
 </script>
+
 </body>
 </html>
