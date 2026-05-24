@@ -44,10 +44,10 @@ async function verifyEmail() {
 
   try {
     await applyActionCode(auth, oobCode);
-    status.textContent = "✅ تم التحقق بنجاح";
+    status.textContent = "✅ Email Verified Successfully ";
   } catch (error) {
     console.error(error);
-    status.textContent = "⚠️ الرابط منتهي أو مستخدم";
+    status.textContent = "⚠️ Invalid or expired link ";
   }
 }
 
