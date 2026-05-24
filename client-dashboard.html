@@ -1,208 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StyleSphere | Secure Client Dashboard</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StyleSphere Dashboard</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{min-height:100vh;background:radial-gradient(circle at top,#123d34,#06120f 60%,#020403);color:white}
-.hidden{display:none!important}
-.app{min-height:100vh;padding:28px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
-.logo{font-size:30px;font-weight:900;letter-spacing:6px;color:#f6d84a}
-.status{border:1px solid #00ffaa;border-radius:999px;padding:12px 22px;color:#00ffaa;font-weight:900}
-.login{max-width:430px;margin:90px auto;padding:30px;border:1px solid rgba(246,216,74,.35);border-radius:28px;background:rgba(5,25,21,.85)}
-.login h2{color:#fff2a0;margin-bottom:18px}
-input{width:100%;padding:15px;margin:10px 0;border-radius:14px;border:1px solid rgba(246,216,74,.35);background:#071815;color:white}
-button{border:0;border-radius:999px;padding:14px 24px;background:linear-gradient(90deg,#f4c400,#fff2a0);font-weight:900;cursor:pointer}
-.layout{display:grid;grid-template-columns:280px 1fr;gap:24px}
-.side,.panel,.card{background:rgba(5,25,21,.78);border:1px solid rgba(246,216,74,.28);border-radius:26px;box-shadow:0 20px 70px rgba(0,0,0,.35)}
-.side{padding:24px}
-.side h2{color:#fff2a0;margin-bottom:8px}
-.side p{color:#d6e3df;margin-bottom:22px}
-.nav{display:grid;gap:10px}
-.nav a,.logout{text-decoration:none;color:white;padding:14px;border-radius:16px;background:transparent;text-align:left}
-.nav a.active,.nav a:hover,.logout:hover{background:linear-gradient(90deg,#f4c400,#fff2a0);color:#111}
-.mainGrid{display:grid;grid-template-columns:1.3fr .9fr;gap:22px}
-.panel{padding:30px}
-.panel h1{font-size:34px;color:#fff2a0}
-.panel p{color:#d9e5e2;line-height:1.7;margin:15px 0}
-.bank{padding:32px;border-radius:28px;background:linear-gradient(135deg,#eaffb9,#12d5a5 55%,#008cff);color:#0b302a}
-.bank h2{letter-spacing:9px}
-.balance{font-size:52px;font-weight:900;margin:42px 0 20px}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
-.card{padding:24px;min-height:130px;cursor:pointer}
-.card i{font-size:28px;color:#f4d84a;margin-bottom:14px}
-.card h3{font-size:23px;color:#fff3a5}
-.card p{color:#d9e5e2}
-.activity{margin-top:22px}
-.row{display:flex;justify-content:space-between;border:1px solid rgba(246,216,74,.2);padding:14px;border-radius:14px;margin-top:10px}
-.pending{color:#f4d84a}
-@media(max-width:900px){.layout,.mainGrid,.cards{grid-template-columns:1fr}.logo{font-size:22px}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#0b0f14;color:white}
+
+.container{padding:30px}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.status{
+  padding:10px 20px;
+  border-radius:20px;
+  background:#002f26;
+  color:#00ffae;
+  font-weight:bold;
+}
+
+.card{
+  background:linear-gradient(135deg,#00ffc3,#008cff);
+  color:black;
+  padding:25px;
+  border-radius:15px;
+  margin-bottom:25px;
+}
+
+.balance{
+  font-size:40px;
+  font-weight:bold;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.box{
+  background:#111;
+  padding:20px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
-<div class="app">
 
-  <div class="top">
-    <div class="logo">STYLESPHERE</div>
-    <div class="status" id="systemStatus">🔄 CONNECTING...</div>
-  </div>
+<div class="container">
 
-  <section id="loginBox" class="login">
-    <h2>Secure Client Login</h2>
-    <input id="email" type="email" placeholder="Email address">
-    <input id="password" type="password" placeholder="Password">
-    <button id="loginBtn">Login Securely</button>
-    <p id="loginMsg" style="margin-top:14px;color:#f4d84a"></p>
-  </section>
+<div class="header">
+  <h2>STYLESPHERE</h2>
+  <div id="systemStatus" class="status">CONNECTING...</div>
+</div>
 
-  <section id="dashboardBox" class="hidden">
-    <div class="layout">
+<h2>Welcome, <span id="name">Client</span></h2>
 
-      <aside class="side">
-        <h2 id="clientName">Client</h2>
-        <p id="clientEmail">loading...</p>
+<div class="card">
+  <p>Wallet Balance</p>
+  <div id="balance" class="balance">$0</div>
+</div>
 
-        <div class="nav">
-          <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-          <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
-          <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
-          <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
-          <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
-          <a href="activity.html"><i class="fa-solid fa-clock"></i> Activity</a>
-          <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-          <button class="logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-        </div>
-      </aside>
+<button id="topupBtn">Top-up Request</button>
 
-      <main>
-        <div class="mainGrid">
-          <div class="panel">
-            <h1>Welcome, <span id="welcomeName">Client</span></h1>
-            <p>
-              Secure StyleSphere membership dashboard connected to Firebase.
-              Wallet, QR, NFC, biometric requests, activity and client security status.
-            </p>
-            <button id="topupBtn">Top-up Request</button>
-          </div>
+<div class="grid">
 
-          <div class="bank">
-            <h2>STYLESPHERE</h2>
-            <h4>GLOBAL MEMBER <span id="memberLevel">Bronze</span></h4>
-            <div class="balance" id="walletBalance">$0.00</div>
-            <p>Member No: <b id="memberNo">------</b></p>
-            <p>Wallet No: <b id="walletNo">----</b></p>
-          </div>
-        </div>
+  <div class="box" id="qrBtn">QR Access</div>
+  <div class="box" id="nfcBtn">NFC Card</div>
+  <div class="box" id="bioBtn">Biometric</div>
+  <div class="box">Activity</div>
 
-        <div class="cards">
-          <div class="card"><i class="fa-solid fa-coins"></i><h3 id="points">0</h3><p>Reward Points</p></div>
-          <div class="card"><i class="fa-solid fa-shield-halved"></i><h3 id="securityStatus">Active</h3><p>Security Status</p></div>
-          <div class="card" id="qrBtn"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Request identity QR</p></div>
-          <div class="card" id="nfcBtn"><i class="fa-solid fa-credit-card"></i><h3 id="nfcStatus">NFC Card</h3><p>Request physical card</p></div>
-          <div class="card" id="bioBtn"><i class="fa-solid fa-fingerprint"></i><h3>Biometric</h3><p>Face / Fingerprint</p></div>
-          <div class="card"><i class="fa-solid fa-lock"></i><h3>Protected</h3><p>Firebase security</p></div>
-        </div>
+</div>
 
-        <div class="panel activity">
-          <h2>Recent Activity</h2>
-          <div id="activityList">
-            <div class="row"><span>Waiting for activity...</span><span class="pending">Pending</span></div>
-          </div>
-        </div>
-      </main>
-
-    </div>
-  </section>
 </div>
 
 <script type="module">
+
 import { auth, db } from "./js/firebase.js";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const $ = id => document.getElementById(id);
-const money = v => `$${Number(v || 0).toFixed(2)}`;
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-function showLogin(){
-  $("loginBox").classList.remove("hidden");
-  $("dashboardBox").classList.add("hidden");
-}
+import {
+  doc,
+  onSnapshot,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-function showDashboard(){
-  $("loginBox").classList.add("hidden");
-  $("dashboardBox").classList.remove("hidden");
-}
+// عناصر
+const balanceEl = document.getElementById("balance");
+const statusEl = document.getElementById("systemStatus");
+const nameEl = document.getElementById("name");
 
-async function sendRequest(path,type,extra={}){
-  const user = auth.currentUser;
-  if(!user){ showLogin(); return; }
+// 🔒 تحقق تسجيل الدخول
+onAuthStateChanged(auth, (user) => {
 
-  await addDoc(collection(db,path),{
-    uid:user.uid,
-    status:"pending",
-    type:type,
-    ...extra,
-    createdAt:serverTimestamp()
-  });
-
-  alert("Request sent successfully.");
-}
-
-$("loginBtn").onclick = async () => {
-  try{
-    $("loginMsg").innerText = "Checking...";
-    await signInWithEmailAndPassword(auth,$("email").value,$("password").value);
-    $("loginMsg").innerText = "";
-  }catch(e){
-    $("loginMsg").innerText = "Login failed. Check email/password.";
+  if (!user) {
+    window.location.href = "client-login.html";
+    return;
   }
-};
 
-onSnapshot(doc(db,"system","status"), snap => {
-  const state = snap.exists() ? snap.data().state : "offline";
-  $("systemStatus").innerText =
-    state === "online" ? "🟢 SYSTEM ONLINE" :
-    state === "issue" ? "🟡 SYSTEM ISSUE" :
-    "🔴 SYSTEM OFFLINE";
-});
+  // 👤 اسم المستخدم
+  nameEl.innerText = user.email;
 
-onAuthStateChanged(auth, user => {
-  if(!user){ showLogin(); return; }
+  // 💰 الرصيد
+  const userRef = doc(db, "users", user.uid);
 
-  showDashboard();
-  $("clientEmail").innerText = user.email || "";
-
-  onSnapshot(doc(db,"users",user.uid), snap => {
-    if(!snap.exists()) return;
+  onSnapshot(userRef, (snap) => {
+    if (!snap.exists()) return;
 
     const data = snap.data();
-    $("clientName").innerText = data.name || "StyleSphere Client";
-    $("welcomeName").innerText = data.name || "Client";
-    $("walletBalance").innerText = money(data.wallet);
-    $("memberLevel").innerText = data.level || "Bronze";
-    $("memberNo").innerText = data.memberNo || "------";
-    $("walletNo").innerText = data.walletNo || "----";
-    $("points").innerText = data.points || 0;
-    $("securityStatus").innerText = data.securityStatus || "Active";
-    $("nfcStatus").innerText = data.nfcStatus || "Not Requested";
+    balanceEl.innerText = "$" + (data.wallet || 0);
   });
+
+  // 💸 زر الشحن
+  document.getElementById("topupBtn").onclick = async () => {
+
+    await addDoc(collection(db, "topup_requests"), {
+      uid: user.uid,
+      amount: 100,
+      currency: "USD",
+      status: "pending",
+      type: "top_up",
+      createdAt: serverTimestamp()
+    });
+
+    alert("Top-up request sent");
+  };
+
+  // QR
+  document.getElementById("qrBtn").onclick = async () => {
+    await addDoc(collection(db, "qr_requests"), {
+      uid: user.uid,
+      status: "pending",
+      type: "qr_access",
+      createdAt: serverTimestamp()
+    });
+    alert("QR request sent");
+  };
+
+  // NFC
+  document.getElementById("nfcBtn").onclick = async () => {
+    await addDoc(collection(db, "nfc_requests"), {
+      uid: user.uid,
+      status: "pending",
+      type: "nfc_card",
+      createdAt: serverTimestamp()
+    });
+    alert("NFC request sent");
+  };
+
+  // Biometric
+  document.getElementById("bioBtn").onclick = async () => {
+    await addDoc(collection(db, "biometric_requests"), {
+      uid: user.uid,
+      status: "pending",
+      type: "biometric_access",
+      createdAt: serverTimestamp()
+    });
+    alert("Biometric request sent");
+  };
+
 });
 
-$("topupBtn").onclick = () => sendRequest("topup_requests","top_up",{amount:0,currency:"USD"});
-$("qrBtn").onclick = () => sendRequest("qr_requests","qr_access");
-$("nfcBtn").onclick = () => sendRequest("nfc_requests","nfc_card");
-$("bioBtn").onclick = () => sendRequest("biometric_requests","biometric_access");
+// 🟢 حالة النظام
+onSnapshot(doc(db, "system", "status"), (snap) => {
+  if (!snap.exists()) return;
 
-$("logoutBtn").onclick = async () => {
-  await signOut(auth);
-  showLogin();
-};
+  const state = snap.data().state;
+
+  if (state === "online") {
+    statusEl.innerText = "🟢 SYSTEM ONLINE";
+  } else if (state === "issue") {
+    statusEl.innerText = "🟡 SYSTEM ISSUE";
+  } else {
+    statusEl.innerText = "🔴 SYSTEM OFFLINE";
+  }
+});
+
 </script>
+
 </body>
 </html>
