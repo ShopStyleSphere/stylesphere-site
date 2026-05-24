@@ -1,111 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StyleSphere | Client Dashboard</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#d4af37;
-  --gold2:#fff2a6;
-  --bg:#07110d;
-  --card:rgba(255,255,255,.055);
-  --line:rgba(212,175,55,.45);
-  --green:#00ff99;
-  --red:#ff4d4d;
-  --muted:#cfcfcf;
+  --gold:#d4af37;--gold2:#fff2a6;--dark:#06110d;
+  --card:rgba(0,0,0,.35);--line:rgba(212,175,55,.45);
+  --green:#00ff99;--red:#ff4d4d;--muted:#cfcfcf;
 }
 body{
-  min-height:100vh;
-  font-family:Arial,sans-serif;
-  color:white;
+  min-height:100vh;font-family:Arial,sans-serif;color:#fff;
   background:
-    radial-gradient(circle at 85% 12%,rgba(212,175,55,.22),transparent 28%),
-    radial-gradient(circle at 20% 80%,rgba(0,255,153,.08),transparent 28%),
-    linear-gradient(135deg,#020202,#07110d,#020202);
+  radial-gradient(circle at 15% 10%,rgba(212,175,55,.18),transparent 30%),
+  radial-gradient(circle at 85% 80%,rgba(0,255,153,.08),transparent 30%),
+  linear-gradient(135deg,#020202,#0c110d,#020202);
 }
-.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh;padding:24px;gap:22px}
+.app{display:grid;grid-template-columns:280px 1fr;gap:22px;padding:28px;min-height:100vh}
 .sidebar,.card,.panel{
-  border:1px solid var(--line);
-  background:var(--card);
-  border-radius:26px;
-  box-shadow:0 0 35px rgba(212,175,55,.12);
-  backdrop-filter:blur(16px);
+  border:1px solid var(--line);border-radius:28px;background:var(--card);
+  box-shadow:0 0 35px rgba(212,175,55,.12);backdrop-filter:blur(14px)
 }
-.sidebar{padding:24px;position:sticky;top:24px;height:calc(100vh - 48px)}
-.brand{font-size:28px;font-weight:900;color:var(--gold);letter-spacing:3px;margin-bottom:28px}
-.profile{text-align:center;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:18px}
+.sidebar{padding:28px;display:flex;flex-direction:column;gap:22px}
+.logo{font-size:30px;font-weight:900;color:var(--gold);letter-spacing:4px}
 .avatar{
-  width:92px;height:92px;border-radius:50%;margin:0 auto 14px;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#111;font-size:34px;font-weight:900;
-  box-shadow:0 0 30px rgba(212,175,55,.55);
+  width:90px;height:90px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;
+  font-size:40px;font-weight:900;margin:auto
 }
-.profile h3{font-size:18px;color:var(--gold2)}
-.profile p{font-size:13px;color:var(--muted);margin-top:6px;word-break:break-all}
-.nav a{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;border-radius:16px;
-  color:white;text-decoration:none;font-weight:800;margin:7px 0;
+.user{text-align:center}
+.user h3{color:#fff;margin:12px 0 4px}
+.user p{color:var(--muted);font-size:13px}
+.nav{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:18px}
+.nav a,.nav button{
+  text-decoration:none;color:#fff;background:transparent;border:0;text-align:left;
+  padding:14px 16px;border-radius:18px;font-weight:800;cursor:pointer
 }
-.nav a.active,.nav a:hover{
-  background:linear-gradient(90deg,var(--gold),var(--gold2));
-  color:#111;
+.nav a.active,.nav a:hover,.nav button:hover{
+  background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111
 }
-.main{display:flex;flex-direction:column;gap:22px}
-.top{
-  display:flex;justify-content:space-between;align-items:center;
-}
-.top h1{font-size:34px;color:var(--gold2)}
-.status{
-  border:1px solid var(--line);border-radius:999px;padding:12px 18px;
-  color:var(--green);font-weight:900;background:rgba(0,0,0,.35)
-}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+.main{display:flex;flex-direction:column;gap:20px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top h1{font-size:34px}
+.status{border:1px solid var(--line);border-radius:30px;padding:12px 20px;color:var(--green);font-weight:900}
+.grid{display:grid;grid-template-columns:1.5fr .9fr;gap:20px}
 .card{padding:28px}
 .card h2{font-size:30px;color:var(--gold2);margin-bottom:12px}
 .card p{color:#eee;line-height:1.7}
 .btn{
-  border:0;border-radius:16px;padding:15px 22px;margin-top:22px;
-  background:linear-gradient(90deg,var(--gold),var(--gold2));
-  color:#111;font-weight:900;cursor:pointer;
-  box-shadow:0 0 25px rgba(212,175,55,.45);
+  margin-top:20px;border:0;border-radius:18px;padding:15px 24px;font-weight:900;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;cursor:pointer
 }
-.member-card{
-  min-height:245px;padding:26px;border-radius:26px;
-  background:linear-gradient(135deg,rgba(212,175,55,.95),rgba(255,255,255,.7),rgba(3,35,25,.9));
-  color:#111;position:relative;overflow:hidden;
+.vipcard{
+  min-height:190px;border-radius:25px;padding:25px;
+  background:linear-gradient(135deg,#f7e17b,#b8fff0,#063b2c);
+  color:#14221b;box-shadow:0 0 45px rgba(212,175,55,.45)
 }
-.member-card h2{font-size:28px;letter-spacing:2px}
-.member-card .tier{position:absolute;right:24px;top:24px;text-align:right;font-weight:900}
-.balance{position:absolute;left:26px;bottom:62px;font-size:42px;font-weight:900}
-.cardno{position:absolute;left:26px;bottom:30px;font-weight:900;letter-spacing:2px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.panel{padding:22px}
-.panel i{font-size:26px;color:var(--gold);margin-bottom:14px}
-.panel h3{font-size:24px;color:var(--gold2)}
-.panel p{color:var(--muted);font-size:13px;margin-top:6px}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.action{text-align:center;cursor:pointer;transition:.25s}
-.action:hover{transform:translateY(-4px)}
-.table{padding:24px}
-.row{
-  display:flex;justify-content:space-between;align-items:center;
-  border:1px solid var(--line);border-radius:14px;
-  padding:14px 16px;margin-top:10px;color:#eee
+.vipcard h3{letter-spacing:5px;font-size:24px}
+.vipcard .bal{font-size:42px;font-weight:900;margin:34px 0 10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:22px;border:1px solid var(--line);border-radius:22px;background:rgba(0,0,0,.28)}
+.stat i{color:var(--gold);font-size:24px;margin-bottom:14px}
+.stat h3{font-size:26px;color:var(--gold2)}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.action{
+  padding:28px;border:1px solid var(--line);border-radius:22px;background:rgba(0,0,0,.28);
+  text-align:center;cursor:pointer
 }
-.amount.plus{color:var(--green)}
-.amount.minus{color:#ffdd66}
-.loading{opacity:.6}
+.action:hover{background:rgba(212,175,55,.15)}
+.action i{font-size:28px;color:var(--gold);margin-bottom:12px}
+.panel{padding:24px}
+.row{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-top:10px}
+.good{color:var(--green)}.bad{color:var(--red)}.muted{color:var(--muted)}
 @media(max-width:900px){
-  .app{grid-template-columns:1fr;padding:14px}
-  .sidebar{position:relative;height:auto}
-  .hero,.grid,.actions{grid-template-columns:1fr}
+  .app{grid-template-columns:1fr;padding:16px}
+  .grid,.stats,.actions{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -114,15 +87,14 @@ body{
 <div class="app">
 
   <aside class="sidebar">
-    <div class="brand">STYLESHPERE</div>
-
-    <div class="profile">
+    <div class="logo">STYLESPHERE</div>
+    <div class="user">
       <div class="avatar" id="avatar">S</div>
       <h3 id="userName">Loading...</h3>
-      <p id="userEmail">Loading...</p>
+      <p id="userEmail">...</p>
     </div>
 
-    <nav class="nav">
+    <div class="nav">
       <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
       <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
       <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
@@ -130,8 +102,8 @@ body{
       <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
       <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
       <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-      <a onclick="logout()" style="cursor:pointer"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </nav>
+      <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
   </aside>
 
   <main class="main">
@@ -140,76 +112,40 @@ body{
       <div class="status">● SYSTEM ONLINE</div>
     </div>
 
-    <section class="hero">
+    <section class="grid">
       <div class="card">
         <h2>Welcome, <span id="welcomeName">Client</span></h2>
-        <p>
-          Secure membership dashboard connected to Firebase.
-          Manage wallet, rewards, QR identity, NFC card requests, and account activity.
-        </p>
-        <button class="btn" onclick="go('wallet.html')">Open Wallet →</button>
+        <p>Secure membership dashboard connected to Firebase. Manage wallet, rewards, QR identity, NFC card requests, and account activity.</p>
+        <button class="btn" onclick="location.href='wallet.html'">Open Wallet →</button>
       </div>
 
-      <div class="member-card">
-        <h2>STYLESHPERE</h2>
-        <div class="tier">
-          GLOBAL MEMBER<br>
-          <span id="level">BRONZE</span>
-        </div>
-        <div class="balance" id="balance">$0.00</div>
-        <div class="cardno" id="walletId">WLT-SS----</div>
+      <div class="vipcard">
+        <h3>STYLESPHERE</h3>
+        <p><b>GLOBAL MEMBER</b> <span id="level">BRONZE</span></p>
+        <div class="bal" id="balanceCard">$0.00</div>
+        <p id="walletId">WLT-SS</p>
       </div>
     </section>
 
-    <section class="grid">
-      <div class="panel">
-        <i class="fa-solid fa-coins"></i>
-        <h3 id="points">0</h3>
-        <p>Reward Points</p>
-      </div>
-      <div class="panel">
-        <i class="fa-solid fa-wallet"></i>
-        <h3 id="wallet">$0.00</h3>
-        <p>Wallet Balance</p>
-      </div>
-      <div class="panel">
-        <i class="fa-solid fa-shield-halved"></i>
-        <h3 id="security">Active</h3>
-        <p>Security Status</p>
-      </div>
-      <div class="panel">
-        <i class="fa-solid fa-credit-card"></i>
-        <h3 id="nfc">Not Requested</h3>
-        <p>NFC Card Status</p>
-      </div>
+    <section class="stats">
+      <div class="stat"><i class="fa-solid fa-coins"></i><h3 id="points">0</h3><p>Reward Points</p></div>
+      <div class="stat"><i class="fa-solid fa-wallet"></i><h3 id="wallet">$0.00</h3><p>Wallet Balance</p></div>
+      <div class="stat"><i class="fa-solid fa-shield-halved"></i><h3 id="security">Active</h3><p>Security Status</p></div>
+      <div class="stat"><i class="fa-solid fa-credit-card"></i><h3 id="nfc">Not Requested</h3><p>NFC Card Status</p></div>
     </section>
 
     <section class="actions">
-      <div class="panel action" onclick="go('wallet.html')">
-        <i class="fa-solid fa-plus"></i>
-        <h3>Top Up</h3>
-        <p>Add balance</p>
-      </div>
-      <div class="panel action" onclick="go('qr-access.html')">
-        <i class="fa-solid fa-qrcode"></i>
-        <h3>QR Access</h3>
-        <p>Verify identity</p>
-      </div>
-      <div class="panel action" onclick="go('nfc-card.html')">
-        <i class="fa-solid fa-credit-card"></i>
-        <h3>Order Card</h3>
-        <p>Physical NFC card</p>
-      </div>
-      <div class="panel action" onclick="go('activity.html')">
-        <i class="fa-solid fa-clock"></i>
-        <h3>Activity</h3>
-        <p>Account history</p>
-      </div>
+      <div class="action" id="topupBtn"><i class="fa-solid fa-plus"></i><h3>Top Up</h3><p>Add balance</p></div>
+      <div class="action" onclick="location.href='qr-access.html'"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Verify identity</p></div>
+      <div class="action" onclick="location.href='nfc-card.html'"><i class="fa-solid fa-credit-card"></i><h3>Order Card</h3><p>Physical NFC card</p></div>
+      <div class="action" onclick="location.href='activity.html'"><i class="fa-solid fa-clock"></i><h3>Activity</h3><p>Account history</p></div>
     </section>
 
-    <section class="card table">
+    <section class="panel">
       <h2>Recent Activity</h2>
-      <div id="activityList" class="loading">Loading activity...</div>
+      <div id="activityList">
+        <div class="row"><span>Loading activity...</span><span class="muted">Firebase</span></div>
+      </div>
     </section>
   </main>
 </div>
@@ -226,127 +162,148 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
   collection,
+  addDoc,
   query,
   where,
   orderBy,
   limit,
-  getDocs
+  onSnapshot,
+  increment,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const $ = (id) => document.getElementById(id);
+let currentUser = null;
 
-function money(v){
-  return "$" + Number(v || 0).toFixed(2);
+const $ = id => document.getElementById(id);
+
+function money(n){
+  return "$" + Number(n || 0).toFixed(2);
 }
 
-function walletCode(uid){
+function makeWalletId(uid){
   return "WLT-SS-" + uid.slice(0,4).toUpperCase() + "-" + uid.slice(-4).toUpperCase();
 }
 
-function defaultUser(user){
-  return {
-    uid: user.uid,
-    name: user.displayName || "Client",
-    email: user.email || "",
-    role: "client",
-    level: "Bronze",
-    wallet: 0,
-    points: 0,
-    rewards: 0,
-    nfcStatus: "Not Requested",
-    securityStatus: "Active",
-    accountStatus: "Active",
-    walletId: walletCode(user.uid),
-    createdAt: new Date().toISOString(),
-    lastLogin: new Date().toISOString()
-  };
-}
-
-async function loadUser(user){
-  const ref = doc(db, "users", user.uid);
-  const snap = await getDoc(ref);
-
-  let data;
-
-  if (!snap.exists()) {
-    data = defaultUser(user);
-    await setDoc(ref, data);
-  } else {
-    data = snap.data();
-  }
-
+function renderUser(data, user){
   const name = data.name || user.displayName || "Client";
   const email = data.email || user.email || "";
   const wallet = data.wallet || 0;
-  const points = data.points || 0;
 
-  $("avatar").textContent = name.charAt(0).toUpperCase();
   $("userName").textContent = name;
-  $("userEmail").textContent = email;
   $("welcomeName").textContent = name;
-  $("level").textContent = (data.level || "Bronze").toUpperCase();
-  $("balance").textContent = money(wallet);
+  $("userEmail").textContent = email;
+  $("avatar").textContent = name.charAt(0).toUpperCase();
+
   $("wallet").textContent = money(wallet);
-  $("points").textContent = Number(points).toLocaleString();
+  $("balanceCard").textContent = money(wallet);
+  $("points").textContent = data.points || 0;
+  $("level").textContent = data.level || "Bronze";
+  $("security").textContent = data.accountStatus || "Active";
   $("nfc").textContent = data.nfcStatus || "Not Requested";
-  $("security").textContent = data.securityStatus || "Active";
-  $("walletId").textContent = data.walletId || walletCode(user.uid);
+  $("walletId").textContent = data.walletId || makeWalletId(user.uid);
 }
 
-async function loadActivity(user){
-  const box = $("activityList");
-  box.innerHTML = "";
+async function ensureUserDoc(user){
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
 
-  try {
-    const q = query(
-      collection(db, "transactions"),
-      where("uid", "==", user.uid),
-      orderBy("createdAt", "desc"),
-      limit(5)
-    );
-
-    const snap = await getDocs(q);
-
-    if (snap.empty) {
-      box.innerHTML = `<div class="row"><span>No activity yet</span><span>Ready</span></div>`;
-      return;
-    }
-
-    snap.forEach((d) => {
-      const t = d.data();
-      const amount = Number(t.amount || 0);
-      const cls = amount >= 0 ? "plus" : "minus";
-      box.innerHTML += `
-        <div class="row">
-          <span>${t.title || t.type || "Transaction"}</span>
-          <strong class="amount ${cls}">${amount >= 0 ? "+" : ""}${money(amount)}</strong>
-        </div>
-      `;
+  if (!snap.exists()) {
+    await setDoc(ref, {
+      uid: user.uid,
+      name: user.displayName || "Client",
+      email: user.email || "",
+      role: "client",
+      level: "Bronze",
+      points: 0,
+      wallet: 0,
+      rewards: 0,
+      walletId: makeWalletId(user.uid),
+      nfcStatus: "Not Requested",
+      accountStatus: "Active",
+      provider: user.providerData?.[0]?.providerId || "password",
+      createdAt: new Date().toISOString()
     });
-  } catch (e) {
-    box.innerHTML = `<div class="row"><span>Activity not configured yet</span><span>Firestore index needed</span></div>`;
   }
 }
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = "client-login.html";
+    window.location.href = "register.html";
     return;
   }
 
-  await loadUser(user);
-  await loadActivity(user);
+  currentUser = user;
+  await ensureUserDoc(user);
+
+  const userRef = doc(db, "users", user.uid);
+
+  onSnapshot(userRef, (snap) => {
+    if (snap.exists()) renderUser(snap.data(), user);
+  });
+
+  const q = query(
+    collection(db, "transactions"),
+    where("uid", "==", user.uid),
+    orderBy("createdAt", "desc"),
+    limit(8)
+  );
+
+  onSnapshot(q, (snap) => {
+    const box = $("activityList");
+    box.innerHTML = "";
+
+    if (snap.empty) {
+      box.innerHTML = `<div class="row"><span>Activity not configured yet</span><span class="muted">Ready</span></div>`;
+      return;
+    }
+
+    snap.forEach(docSnap => {
+      const tx = docSnap.data();
+      const amount = Number(tx.amount || 0);
+      const cls = amount >= 0 ? "good" : "bad";
+      box.innerHTML += `
+        <div class="row">
+          <span>${tx.title || tx.type || "Transaction"}</span>
+          <span class="${cls}">${amount >= 0 ? "+" : ""}${money(amount)}</span>
+        </div>
+      `;
+    });
+  }, () => {
+    $("activityList").innerHTML =
+      `<div class="row"><span>Firestore index needed</span><span class="bad">Index</span></div>`;
+  });
 });
 
-window.go = function(page){
-  window.location.href = page;
-};
+$("topupBtn").addEventListener("click", async () => {
+  if (!currentUser) return;
 
-window.logout = async function(){
+  const amount = 10;
+
+  await updateDoc(doc(db, "users", currentUser.uid), {
+    wallet: increment(amount),
+    points: increment(1)
+  });
+
+  await addDoc(collection(db, "transactions"), {
+    uid: currentUser.uid,
+    type: "top_up",
+    title: "Wallet top-up",
+    amount: amount,
+    currency: "USD",
+    status: "completed",
+    createdAt: serverTimestamp()
+  });
+
+  alert("Top Up completed: $" + amount);
+});
+
+$("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
-  window.location.href = "client-login.html";
-};
+  window.location.href = "register.html";
+});
 </script>
+
 </body>
 </html>
