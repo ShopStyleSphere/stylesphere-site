@@ -1,28 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Email - StyleSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      text-align: center;
+      padding: 40px;
+      border-radius: 20px;
+      background: #111;
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: gold;
+      margin-bottom: 20px;
+    }
+
+    .status {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 12px 25px;
+      background: gold;
+      color: black;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>StyleSphere</h1>
+  <div class="status" id="status">⏳ Verifying your email...</div>
+  <a href="client-login.html" class="btn">Go to Login</a>
+</div>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { auth } from "./js/firebase.js";
+import { applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-// Firebase config (حط بياناتك هنا)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-};
+// قراءة الرابط
+const params = new URLSearchParams(window.location.search);
+const mode = params.get("mode");
+const oobCode = params.get("oobCode");
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const statusBox = document.getElementById("status");
 
-// نقرأ الكود من الرابط
-const urlParams = new URLSearchParams(window.location.search);
-const oobCode = urlParams.get("oobCode");
-
-if (oobCode) {
-  applyActionCode(auth, oobCode)
-    .then(() => {
-      document.querySelector(".status").innerText = "✅ Email Verified Successfully";
-    })
-    .catch((error) => {
-      document.querySelector(".status").innerText = "❌ Verification Failed";
+async function verifyEmail() {
+  if (mode === "verifyEmail" && oobCode) {
+    try {
+      await applyActionCode(auth, oobCode);
+      statusBox.innerHTML = "✅ Email verified successfully";
+    } catch (error) {
       console.error(error);
-    });
+      statusBox.innerHTML = "❌ Link expired or invalid";
+    }
+  } else {
+    statusBox.innerHTML = "⚠️ Invalid verification link";
+  }
 }
+
+verifyEmail();
 </script>
+
+</body>
+</html>
