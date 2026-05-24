@@ -1,121 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Verify Email - StyleSphere</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at center, rgba(255,215,0,.18), transparent 35%),
-        #050505;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    body{
+      margin:0;height:100vh;background:#050505;color:white;
+      display:flex;align-items:center;justify-content:center;
+      font-family:Arial,sans-serif;text-align:center;
     }
-
-    .box {
-      width: 100%;
-      max-width: 460px;
-      text-align: center;
-      padding: 42px 28px;
-      border-radius: 26px;
-      background: rgba(15, 18, 18, .95);
-      border: 1px solid rgba(255, 215, 0, .35);
-      box-shadow: 0 0 45px rgba(255, 215, 0, .25);
+    .box{
+      padding:45px 35px;border-radius:26px;background:#111;
+      border:1px solid rgba(255,215,0,.35);
+      box-shadow:0 0 45px rgba(255,215,0,.25);
+      max-width:430px;width:90%;
     }
-
-    .brand {
-      font-size: 34px;
-      font-weight: 900;
-      color: #ffd700;
-      margin-bottom: 22px;
-      text-shadow: 0 0 18px rgba(255, 215, 0, .55);
-    }
-
-    .status {
-      font-size: 20px;
-      font-weight: 700;
-      margin: 18px 0 26px;
-      line-height: 1.5;
-    }
-
-    .note {
-      color: #cfcfcf;
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
-    .btn {
-      display: none;
-      background: #ffd700;
-      color: #111;
-      padding: 14px 28px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 900;
-    }
-
-    .btn.show { display: inline-block; }
+    h1{color:#ffd700;font-size:36px}
+    p{font-size:22px;font-weight:bold}
   </style>
 </head>
-
 <body>
-  <div class="box">
-    <div class="brand">StyleSphere</div>
-    <div id="status" class="status">⏳ Verifying your email...</div>
-    <div id="note" class="note">Please wait. Do not close this page.</div>
-    <a id="loginBtn" class="btn" href="client-login.html">Go to Login →</a>
-  </div>
 
-  <script type="module">
-    import { auth } from "./js/firebase.js";
-    import { applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+<div class="box">
+  <h1>StyleSphere</h1>
+  <p id="status">⏳ Verifying...</p>
+</div>
 
-    const statusEl = document.getElementById("status");
-    const noteEl = document.getElementById("note");
-    const loginBtn = document.getElementById("loginBtn");
+<script type="module">
+import { auth } from "./js/firebase.js";
+import { applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    const params = new URLSearchParams(window.location.search);
-    const mode = params.get("mode");
-    const oobCode = params.get("oobCode");
+const status = document.getElementById("status");
+const params = new URLSearchParams(window.location.search);
+const mode = params.get("mode");
+const oobCode = params.get("oobCode");
 
-    async function verifyEmail() {
-      if (mode !== "verifyEmail" || !oobCode) {
-        statusEl.textContent = "⚠️ Invalid verification link";
-        noteEl.textContent = "Please open the latest verification email.";
-        loginBtn.classList.add("show");
-        return;
-      }
+async function verifyEmail() {
+  if (mode !== "verifyEmail" || !oobCode) {
+    status.textContent = "⚠️ Invalid verification link";
+    return;
+  }
 
-      try {
-        await applyActionCode(auth, oobCode);
+  try {
+    await applyActionCode(auth, oobCode);
+    status.textContent = "✅ تم التحقق بنجاح";
+  } catch (error) {
+    console.error(error);
+    status.textContent = "⚠️ الرابط منتهي أو مستخدم";
+  }
+}
 
-        statusEl.textContent = "✅ Email verified successfully";
-        noteEl.textContent = "Redirecting to login in 3 seconds...";
-        loginBtn.classList.add("show");
+verifyEmail();
+</script>
 
-        setTimeout(() => {
-          window.location.href = "client-login.html";
-        }, 3000);
-
-      } catch (error) {
-        console.error(error);
-        statusEl.textContent = "❌ Link expired or already used";
-        noteEl.textContent = "Please request a new verification email.";
-        loginBtn.classList.add("show");
-      }
-    }
-
-    verifyEmail();
-  </script>
 </body>
 </html>
