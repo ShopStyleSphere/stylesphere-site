@@ -2,307 +2,314 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>StyleSphere Client Dashboard</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StyleSphere | Client Dashboard</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --gold:#d4af37;--gold2:#fff2a6;--dark:#06110d;
-  --card:rgba(0,0,0,.35);--line:rgba(212,175,55,.45);
-  --green:#00ff99;--red:#ff4d4d;--muted:#cfcfcf;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
+
 body{
-  min-height:100vh;font-family:Arial,sans-serif;color:#fff;
-  background:
-  radial-gradient(circle at 15% 10%,rgba(212,175,55,.18),transparent 30%),
-  radial-gradient(circle at 85% 80%,rgba(0,255,153,.08),transparent 30%),
-  linear-gradient(135deg,#020202,#0c110d,#020202);
+  background:#0b0f14;
+  color:#fff;
 }
-.app{display:grid;grid-template-columns:280px 1fr;gap:22px;padding:28px;min-height:100vh}
-.sidebar,.card,.panel{
-  border:1px solid var(--line);border-radius:28px;background:var(--card);
-  box-shadow:0 0 35px rgba(212,175,55,.12);backdrop-filter:blur(14px)
+
+/* Layout */
+.container{
+  display:flex;
+  min-height:100vh;
 }
-.sidebar{padding:28px;display:flex;flex-direction:column;gap:22px}
-.logo{font-size:30px;font-weight:900;color:var(--gold);letter-spacing:4px}
-.avatar{
-  width:90px;height:90px;border-radius:50%;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;
-  font-size:40px;font-weight:900;margin:auto
+
+/* Sidebar */
+.sidebar{
+  width:260px;
+  background:#0e1319;
+  border-right:1px solid rgba(255,255,255,0.05);
+  padding:20px;
 }
-.user{text-align:center}
-.user h3{color:#fff;margin:12px 0 4px}
-.user p{color:var(--muted);font-size:13px}
-.nav{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:18px}
-.nav a,.nav button{
-  text-decoration:none;color:#fff;background:transparent;border:0;text-align:left;
-  padding:14px 16px;border-radius:18px;font-weight:800;cursor:pointer
+
+.logo{
+  font-size:20px;
+  font-weight:700;
+  color:#d4af37;
+  margin-bottom:30px;
 }
-.nav a.active,.nav a:hover,.nav button:hover{
-  background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111
+
+.profile{
+  text-align:center;
+  margin-bottom:30px;
 }
-.main{display:flex;flex-direction:column;gap:20px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.top h1{font-size:34px}
-.status{border:1px solid var(--line);border-radius:30px;padding:12px 20px;color:var(--green);font-weight:900}
-.grid{display:grid;grid-template-columns:1.5fr .9fr;gap:20px}
-.card{padding:28px}
-.card h2{font-size:30px;color:var(--gold2);margin-bottom:12px}
-.card p{color:#eee;line-height:1.7}
-.btn{
-  margin-top:20px;border:0;border-radius:18px;padding:15px 24px;font-weight:900;
-  background:linear-gradient(90deg,var(--gold),var(--gold2));color:#111;cursor:pointer
+
+.profile img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #d4af37;
+  margin-bottom:10px;
 }
-.vipcard{
-  min-height:190px;border-radius:25px;padding:25px;
-  background:linear-gradient(135deg,#f7e17b,#b8fff0,#063b2c);
-  color:#14221b;box-shadow:0 0 45px rgba(212,175,55,.45)
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.vipcard h3{letter-spacing:5px;font-size:24px}
-.vipcard .bal{font-size:42px;font-weight:900;margin:34px 0 10px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.stat{padding:22px;border:1px solid var(--line);border-radius:22px;background:rgba(0,0,0,.28)}
-.stat i{color:var(--gold);font-size:24px;margin-bottom:14px}
-.stat h3{font-size:26px;color:var(--gold2)}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.action{
-  padding:28px;border:1px solid var(--line);border-radius:22px;background:rgba(0,0,0,.28);
-  text-align:center;cursor:pointer
+
+.menu button{
+  background:none;
+  border:none;
+  color:#aaa;
+  text-align:left;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
 }
-.action:hover{background:rgba(212,175,55,.15)}
-.action i{font-size:28px;color:var(--gold);margin-bottom:12px}
-.panel{padding:24px}
-.row{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-top:10px}
-.good{color:var(--green)}.bad{color:var(--red)}.muted{color:var(--muted)}
-@media(max-width:900px){
-  .app{grid-template-columns:1fr;padding:16px}
-  .grid,.stats,.actions{grid-template-columns:1fr}
+
+.menu button:hover{
+  background:#1a222c;
+  color:#fff;
 }
+
+/* Main */
+.main{
+  flex:1;
+  padding:30px;
+}
+
+/* Top */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+/* Status */
+.system-status{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+  border:1px solid;
+}
+
+.status-online{
+  color:#00ff9c;
+  border-color:#00ff9c;
+}
+
+.status-warning{
+  color:#ffcc00;
+  border-color:#ffcc00;
+}
+
+.status-offline{
+  color:#ff3b3b;
+  border-color:#ff3b3b;
+}
+
+/* Cards */
+.card{
+  background:#111820;
+  padding:20px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
+  margin-bottom:20px;
+}
+
+/* Wallet Card */
+.wallet-card{
+  background:linear-gradient(135deg,#d4af37,#0f3d2e);
+  color:#000;
+  border-radius:18px;
+  padding:20px;
+}
+
+.wallet-card h2{
+  margin-top:10px;
+}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+
+/* Small cards */
+.box{
+  background:#111820;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.box h3{
+  font-size:14px;
+  color:#aaa;
+}
+
+.box p{
+  font-size:18px;
+  margin-top:5px;
+}
+
 </style>
 </head>
 
 <body>
-<div class="app">
 
-  <aside class="sidebar">
-    <div class="logo">STYLESPHERE</div>
-    <div class="user">
-      <div class="avatar" id="avatar">S</div>
-      <h3 id="userName">Loading...</h3>
-      <p id="userEmail">...</p>
-    </div>
+<div class="container">
 
-    <div class="nav">
-      <a class="active" href="client-dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-      <a href="wallet.html"><i class="fa-solid fa-wallet"></i> Wallet</a>
-      <a href="rewards.html"><i class="fa-solid fa-gift"></i> Rewards</a>
-      <a href="qr-access.html"><i class="fa-solid fa-qrcode"></i> QR Access</a>
-      <a href="nfc-card.html"><i class="fa-solid fa-credit-card"></i> NFC Card</a>
-      <a href="activity.html"><i class="fa-solid fa-clock-rotate-left"></i> Activity</a>
-      <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-      <button id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-    </div>
-  </aside>
+<!-- Sidebar -->
+<div class="sidebar">
 
-  <main class="main">
-    <div class="top">
-      <h1>Client Command Center</h1>
-      <div class="status">● SYSTEM ONLINE</div>
-    </div>
+<div class="logo">STYLESHPERE</div>
 
-    <section class="grid">
-      <div class="card">
-        <h2>Welcome, <span id="welcomeName">Client</span></h2>
-        <p>Secure membership dashboard connected to Firebase. Manage wallet, rewards, QR identity, NFC card requests, and account activity.</p>
-        <button class="btn" onclick="location.href='wallet.html'">Open Wallet →</button>
-      </div>
-
-      <div class="vipcard">
-        <h3>STYLESPHERE</h3>
-        <p><b>GLOBAL MEMBER</b> <span id="level">BRONZE</span></p>
-        <div class="bal" id="balanceCard">$0.00</div>
-        <p id="walletId">WLT-SS</p>
-      </div>
-    </section>
-
-    <section class="stats">
-      <div class="stat"><i class="fa-solid fa-coins"></i><h3 id="points">0</h3><p>Reward Points</p></div>
-      <div class="stat"><i class="fa-solid fa-wallet"></i><h3 id="wallet">$0.00</h3><p>Wallet Balance</p></div>
-      <div class="stat"><i class="fa-solid fa-shield-halved"></i><h3 id="security">Active</h3><p>Security Status</p></div>
-      <div class="stat"><i class="fa-solid fa-credit-card"></i><h3 id="nfc">Not Requested</h3><p>NFC Card Status</p></div>
-    </section>
-
-    <section class="actions">
-      <div class="action" id="topupBtn"><i class="fa-solid fa-plus"></i><h3>Top Up</h3><p>Add balance</p></div>
-      <div class="action" onclick="location.href='qr-access.html'"><i class="fa-solid fa-qrcode"></i><h3>QR Access</h3><p>Verify identity</p></div>
-      <div class="action" onclick="location.href='nfc-card.html'"><i class="fa-solid fa-credit-card"></i><h3>Order Card</h3><p>Physical NFC card</p></div>
-      <div class="action" onclick="location.href='activity.html'"><i class="fa-solid fa-clock"></i><h3>Activity</h3><p>Account history</p></div>
-    </section>
-
-    <section class="panel">
-      <h2>Recent Activity</h2>
-      <div id="activityList">
-        <div class="row"><span>Loading activity...</span><span class="muted">Firebase</span></div>
-      </div>
-    </section>
-  </main>
+<div class="profile">
+<img id="userPhoto" src="https://via.placeholder.com/80">
+<div id="userName">Client</div>
+<div id="userEmail" style="font-size:12px;color:#888"></div>
 </div>
 
+<div class="menu">
+<button>Dashboard</button>
+<button>Wallet</button>
+<button>Rewards</button>
+<button>QR Access</button>
+<button>Settings</button>
+<button onclick="logout()">Logout</button>
+</div>
+
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<div class="topbar">
+<h2>Client Dashboard</h2>
+
+<div id="systemStatus" class="system-status status-online">
+● SYSTEM ONLINE
+</div>
+
+</div>
+
+<!-- Wallet -->
+<div class="wallet-card">
+<div>STYLESHPERE • GLOBAL MEMBER</div>
+<h2 id="balance">$0.00</h2>
+<div id="walletNo">Wallet No: ----</div>
+</div>
+
+<!-- Info -->
+<div class="grid">
+
+<div class="box">
+<h3>Member No</h3>
+<p id="customerNo">----</p>
+</div>
+
+<div class="box">
+<h3>Security</h3>
+<p>Active</p>
+</div>
+
+<div class="box">
+<h3>NFC Card</h3>
+<p>Not Requested</p>
+</div>
+
+<div class="box">
+<h3>Activity</h3>
+<p>Normal</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Firebase -->
 <script type="module">
-import { auth, db } from "./js/firebase.js";
 
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  collection,
-  addDoc,
-  query,
-  where,
-  orderBy,
-  limit,
-  onSnapshot,
-  increment,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+};
 
-let currentUser = null;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
 
-const $ = id => document.getElementById(id);
-
-function money(n){
-  return "$" + Number(n || 0).toFixed(2);
-}
-
-function makeWalletId(uid){
-  return "WLT-SS-" + uid.slice(0,4).toUpperCase() + "-" + uid.slice(-4).toUpperCase();
-}
-
-function renderUser(data, user){
-  const name = data.name || user.displayName || "Client";
-  const email = data.email || user.email || "";
-  const wallet = data.wallet || 0;
-
-  $("userName").textContent = name;
-  $("welcomeName").textContent = name;
-  $("userEmail").textContent = email;
-  $("avatar").textContent = name.charAt(0).toUpperCase();
-
-  $("wallet").textContent = money(wallet);
-  $("balanceCard").textContent = money(wallet);
-  $("points").textContent = data.points || 0;
-  $("level").textContent = data.level || "Bronze";
-  $("security").textContent = data.accountStatus || "Active";
-  $("nfc").textContent = data.nfcStatus || "Not Requested";
-  $("walletId").textContent = data.walletId || makeWalletId(user.uid);
-}
-
-async function ensureUserDoc(user){
-  const ref = doc(db, "users", user.uid);
-  const snap = await getDoc(ref);
-
-  if (!snap.exists()) {
-    await setDoc(ref, {
-      uid: user.uid,
-      name: user.displayName || "Client",
-      email: user.email || "",
-      role: "client",
-      level: "Bronze",
-      points: 0,
-      wallet: 0,
-      rewards: 0,
-      walletId: makeWalletId(user.uid),
-      nfcStatus: "Not Requested",
-      accountStatus: "Active",
-      provider: user.providerData?.[0]?.providerId || "password",
-      createdAt: new Date().toISOString()
-    });
-  }
-}
-
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "register.html";
+/* Auth */
+onAuthStateChanged(auth, async(user)=>{
+  if(!user){
+    window.location="login.html";
     return;
   }
 
-  currentUser = user;
-  await ensureUserDoc(user);
+  document.getElementById("userName").innerText = user.displayName || "Client";
+  document.getElementById("userEmail").innerText = user.email;
 
-  const userRef = doc(db, "users", user.uid);
+  if(user.photoURL){
+    document.getElementById("userPhoto").src = user.photoURL;
+  }
 
-  onSnapshot(userRef, (snap) => {
-    if (snap.exists()) renderUser(snap.data(), user);
-  });
+  /* Load user data */
+  const ref = doc(db,"users",user.uid);
+  const snap = await getDoc(ref);
 
-  const q = query(
-    collection(db, "transactions"),
-    where("uid", "==", user.uid),
-    orderBy("createdAt", "desc"),
-    limit(8)
-  );
+  if(snap.exists()){
+    const data = snap.data();
 
-  onSnapshot(q, (snap) => {
-    const box = $("activityList");
-    box.innerHTML = "";
-
-    if (snap.empty) {
-      box.innerHTML = `<div class="row"><span>Activity not configured yet</span><span class="muted">Ready</span></div>`;
-      return;
-    }
-
-    snap.forEach(docSnap => {
-      const tx = docSnap.data();
-      const amount = Number(tx.amount || 0);
-      const cls = amount >= 0 ? "good" : "bad";
-      box.innerHTML += `
-        <div class="row">
-          <span>${tx.title || tx.type || "Transaction"}</span>
-          <span class="${cls}">${amount >= 0 ? "+" : ""}${money(amount)}</span>
-        </div>
-      `;
-    });
-  }, () => {
-    $("activityList").innerHTML =
-      `<div class="row"><span>Firestore index needed</span><span class="bad">Index</span></div>`;
-  });
+    document.getElementById("balance").innerText = "$"+data.balance;
+    document.getElementById("walletNo").innerText = "Wallet No: "+data.walletNo;
+    document.getElementById("customerNo").innerText = data.customerNo;
+  }
 });
 
-$("topupBtn").addEventListener("click", async () => {
-  if (!currentUser) return;
+/* System status realtime */
+onSnapshot(doc(db,"system","status"),(docSnap)=>{
+  if(!docSnap.exists()) return;
 
-  const amount = 10;
+  const state = docSnap.data().state;
+  const el = document.getElementById("systemStatus");
 
-  await updateDoc(doc(db, "users", currentUser.uid), {
-    wallet: increment(amount),
-    points: increment(1)
-  });
+  el.className = "system-status";
 
-  await addDoc(collection(db, "transactions"), {
-    uid: currentUser.uid,
-    type: "top_up",
-    title: "Wallet top-up",
-    amount: amount,
-    currency: "USD",
-    status: "completed",
-    createdAt: serverTimestamp()
-  });
+  if(state==="online"){
+    el.classList.add("status-online");
+    el.innerHTML="● SYSTEM ONLINE";
+  }
 
-  alert("Top Up completed: $" + amount);
+  if(state==="warning"){
+    el.classList.add("status-warning");
+    el.innerHTML="● SYSTEM ISSUE";
+  }
+
+  if(state==="offline"){
+    el.classList.add("status-offline");
+    el.innerHTML="● SYSTEM OFFLINE";
+  }
 });
 
-$("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "register.html";
-});
+/* Logout */
+window.logout = ()=>{
+  signOut(auth);
+};
+
 </script>
 
 </body>
