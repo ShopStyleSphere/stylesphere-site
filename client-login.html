@@ -117,7 +117,7 @@ function loginSoon(provider){
 </script>
 
 <script type="module">
-import { auth, db, signInWithEmailAndPassword, doc, getDoc, setDoc } from "./js/firebase.js";
+import { auth, db, signInWithEmailAndPassword, sendPasswordResetEmail, doc, getDoc, setDoc } from "./js/firebase.js";
 import {
   GoogleAuthProvider,
   signInWithPopup
@@ -129,6 +129,29 @@ const btn = document.getElementById("loginBtn");
 const error = document.getElementById("error");
 const success = document.getElementById("success");
 
+const forgotPassword = document.getElementById("forgotPassword");
+
+forgotPassword.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  error.textContent = "";
+  success.textContent = "";
+
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    error.textContent = "Please enter your email first.";
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    success.textContent = "Password reset email sent. Please check your email.";
+  } catch (err) {
+    error.textContent = "Unable to send reset email.";
+  }
+});
+  
 function memberPayload(user){
   return {
     uid: user.uid,
