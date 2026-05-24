@@ -53,14 +53,33 @@ button {
   <h1>Check your email</h1>
   <p>We just sent a verification link to your email.</p>
 
-  <button onclick="goLogin()">Go to login →</button>
+<button id="goLoginBtn" disabled>Verify email first</button>
+
 </div>
 
-<script>
-function goLogin(){
-  window.location.href = "client-login.html";
-}
-</script>
+<script type="module">
+import { auth } from "./js/firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+const btn = document.getElementById("goLoginBtn");
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) return;
+
+  setInterval(async () => {
+    await user.reload();
+
+    if (user.emailVerified) {
+      btn.disabled = false;
+      btn.innerText = "Go to login →";
+
+      btn.onclick = () => {
+        window.location.href = "client-login.html";
+      };
+    }
+  }, 3000);
+});
+</script>
+  
 </body>
 </html>
