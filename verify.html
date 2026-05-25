@@ -75,10 +75,14 @@ async function verifyEmail() {
 }
 
 function showResetPassword() {
-  box.innerHTML = `
-    <h1>StyleSphere</h1>
-    <p class="sub">Reset Password</p>
-    <input id="newPass" type="password" placeholder="New password">
+box.innerHTML = `
+<h1>StyleSphere</h1>
+<p class="sub">Reset Password</p>
+
+<div class="passBox">
+  <input id="newPass" type="password" placeholder="New password">
+  <i class="fa-solid fa-eye" onclick="togglePass('newPass', this)"></i>
+</div>
 
 <div id="rules">
   <p id="ruleLength">❌ 8 characters minimum</p>
@@ -87,13 +91,16 @@ function showResetPassword() {
   <p id="ruleNumber">❌ Number</p>
   <p id="ruleSymbol">❌ Symbol (@, #, $, !)</p>
 </div>
-  
-    <input id="confirmPass" type="password" placeholder="Confirm new password">
-    <button id="resetBtn">UPDATE PASSWORD →</button>
-    <p id="status">Enter a secure new password.</p>
-    <p class="small">Use at least 8 characters with letters and numbers.</p>
-  `;
 
+<div class="passBox">
+  <input id="confirmPass" type="password" placeholder="Confirm new password">
+  <i class="fa-solid fa-eye" onclick="togglePass('confirmPass', this)"></i>
+</div>
+
+<button id="resetBtn">UPDATE PASSWORD →</button>
+<p id="status">Enter a secure new password.</p>
+<p class="small">Use at least 8 characters with letters and numbers.</p>
+`;
   function updateRule(id, valid, text) {
   const el = document.getElementById(id);
   el.textContent = (valid ? "✅ " : "❌ ") + text;
