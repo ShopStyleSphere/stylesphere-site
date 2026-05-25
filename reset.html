@@ -1,158 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Reset Password - StyleSphere</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Reset Password - StyleSphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#050505;
-  font-family:Arial;
-  color:white;
-}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-.box {
-  padding:40px;
-  border-radius:25px;
-  background:#111;
-  border:1px solid rgba(255,215,0,0.3);
-  box-shadow:0 0 40px rgba(255,215,0,0.2);
-  width:90%;
-  max-width:420px;
-  text-align:center;
-}
-
-h1 {
-  color:#ffd700;
-  margin-bottom:25px;
-}
-
-input {
-  width:100%;
-  padding:15px;
-  margin:10px 0;
-  border-radius:12px;
-  border:1px solid rgba(255,215,0,0.4);
-  background:#050505;
-  color:white;
-  font-size:16px;
-}
-
-button {
-  width:100%;
-  padding:15px;
-  border-radius:12px;
-  border:0;
-  background:#ffd700;
-  font-weight:bold;
-  margin-top:15px;
-  cursor:pointer;
-}
-
-#status {
-  margin-top:15px;
-  font-size:14px;
-}
-</style>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at top,#10251d,#050505 55%,#000);
+      font-family:Arial,sans-serif;
+      color:#fff;
+      padding:24px;
+    }
+    .box{
+      width:100%;
+      max-width:430px;
+      text-align:center;
+      padding:42px 34px;
+      border-radius:28px;
+      background:rgba(10,18,15,.92);
+      border:1px solid rgba(255,215,0,.45);
+      box-shadow:0 0 45px rgba(255,215,0,.22), inset 0 0 30px rgba(255,215,0,.05);
+    }
+    h1{
+      margin:0 0 14px;
+      color:#ffd700;
+      font-size:38px;
+      text-shadow:0 0 18px rgba(255,215,0,.7);
+    }
+    .sub{
+      color:#ddd;
+      margin:0 0 24px;
+      font-weight:700;
+      font-size:22px;
+    }
+    .passBox{
+      position:relative;
+      margin:12px 0;
+    }
+    input{
+      width:100%;
+      padding:16px 55px 16px 18px;
+      border-radius:15px;
+      border:1px solid rgba(255,215,0,.55);
+      background:#070707;
+      color:#fff;
+      font-size:16px;
+      outline:none;
+    }
+    .passBox i{
+      position:absolute;
+      right:18px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#ffd700;
+      font-size:20px;
+      cursor:pointer;
+    }
+    #rules{
+      margin:18px 0;
+      text-align:left;
+      padding-left:35px;
+      font-weight:700;
+      font-size:16px;
+      line-height:1.8;
+    }
+    button{
+      width:100%;
+      padding:16px;
+      margin-top:14px;
+      border:0;
+      border-radius:15px;
+      background:linear-gradient(90deg,#ffd700,#fff3a0,#ffd700);
+      color:#111;
+      font-weight:900;
+      letter-spacing:2px;
+      cursor:pointer;
+      box-shadow:0 0 22px rgba(255,215,0,.45);
+    }
+    button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+    #status{
+      margin-top:18px;
+      font-size:16px;
+      font-weight:800;
+    }
+    .success{color:#00ff99}
+    .error{color:#ff4b4b}
+    .small{
+      color:#aaa;
+      font-size:13px;
+      margin-top:18px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="box">
+    <h1>StyleSphere</h1>
+    <p class="sub">Reset Password</p>
 
-<div class="box">
-  <h1>Reset Password</h1>
+    <div class="passBox">
+      <input id="newPass" type="password" placeholder="New password">
+      <i id="eyeNew" class="fa-solid fa-eye"></i>
+    </div>
 
-  <input id="password" type="password" placeholder="New password">
+    <div id="rules">
+      <p id="ruleLength">❌ 8 characters minimum</p>
+      <p id="ruleUpper">❌ Uppercase letter</p>
+      <p id="ruleLower">❌ Lowercase letter</p>
+      <p id="ruleNumber">❌ Number</p>
+      <p id="ruleSymbol">❌ Symbol (@, #, $, !)</p>
+    </div>
 
-<div id="rules">
-  <p id="ruleLength">❌ 8 characters minimum</p>
-  <p id="ruleUpper">❌ Uppercase letter</p>
-  <p id="ruleLower">❌ Lowercase letter</p>
-  <p id="ruleNumber">❌ Number</p>
-  <p id="ruleSymbol">❌ Symbol (@, #, $, !)</p>
-</div>
-  
-  <input id="confirmPassword" type="password" placeholder="Confirm password">
+    <div class="passBox">
+      <input id="confirmPass" type="password" placeholder="Confirm new password">
+      <i id="eyeConfirm" class="fa-solid fa-eye"></i>
+    </div>
 
-  <button id="btn">Update Password</button>
+    <button id="resetBtn">UPDATE PASSWORD →</button>
 
-  <p id="status"></p>
-</div>
+    <p id="status">Enter a secure new password.</p>
+    <p class="small">Use at least 8 characters with uppercase, lowercase, number, and symbol.</p>
+  </div>
 
-<script type="module">
-import { auth } from "./js/firebase.js";
-import { confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  <script type="module">
+    import { auth } from "./js/firebase.js";
+    import { confirmPasswordReset } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-// قراءة الرابط
-const params = new URLSearchParams(window.location.search);
-const mode = params.get("mode");
-const oobCode = params.get("oobCode");
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    const oobCode = params.get("oobCode");
 
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
-const btn = document.getElementById("btn");
-const status = document.getElementById("status");
+    const newPass = document.getElementById("newPass");
+    const confirmPass = document.getElementById("confirmPass");
+    const resetBtn = document.getElementById("resetBtn");
+    const status = document.getElementById("status");
 
-// 🔴 تحقق من الرابط
-if (mode !== "resetPassword" || !oobCode) {
-  status.style.color = "red";
-  status.textContent = "❌ Invalid or expired link";
-  btn.disabled = true;
-}
+    function updateRule(id, valid, text) {
+      const el = document.getElementById(id);
+      el.textContent = (valid ? "✅ " : "❌ ") + text;
+      el.style.color = valid ? "#00ff99" : "#ff4b4b";
+    }
 
-// زر التحديث
-btn.addEventListener("click", async () => {
+    function isStrong(pass) {
+      return (
+        pass.length >= 8 &&
+        /[A-Z]/.test(pass) &&
+        /[a-z]/.test(pass) &&
+        /[0-9]/.test(pass) &&
+        /[@#$!]/.test(pass)
+      );
+    }
 
-  const pass = password.value;
-  const confirm = confirmPassword.value;
+    function checkPassword() {
+      const pass = newPass.value;
 
-  if (!pass || !confirm) {
-    status.textContent = "Please fill all fields";
-    return;
-  }
+      updateRule("ruleLength", pass.length >= 8, "8 characters minimum");
+      updateRule("ruleUpper", /[A-Z]/.test(pass), "Uppercase letter");
+      updateRule("ruleLower", /[a-z]/.test(pass), "Lowercase letter");
+      updateRule("ruleNumber", /[0-9]/.test(pass), "Number");
+      updateRule("ruleSymbol", /[@#$!]/.test(pass), "Symbol (@, #, $, !)");
+    }
 
-// تحقق من قوة الباسورد
-if (
-  pass.length < 8 ||
-  !/[A-Z]/.test(pass) ||
-  !/[a-z]/.test(pass) ||
-  !/[0-9]/.test(pass) ||
-  !/[@#$!]/.test(pass)
-) {
-  status.style.color = "red";
-  status.textContent =
-    "Password must be 8+ characters with uppercase, lowercase, number, and symbol.";
-  return;
-}
+    function setupEye(inputId, eyeId) {
+      const input = document.getElementById(inputId);
+      const eye = document.getElementById(eyeId);
 
-// تحقق من التطابق
-if (pass !== confirm) {
-  status.style.color = "red";
-  status.textContent = "Passwords do not match";
-  return;
-}
-  
-  try {
-    await confirmPasswordReset(auth, oobCode, pass);
+      eye.addEventListener("click", () => {
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
 
-    status.style.color = "#00ff99";
-    status.textContent = "✅ Password updated successfully";
+        eye.classList.toggle("fa-eye", !show);
+        eye.classList.toggle("fa-eye-slash", show);
+      });
+    }
 
-    setTimeout(() => {
-      window.location.href = "client-login.html";
-    }, 1500);
+    setupEye("newPass", "eyeNew");
+    setupEye("confirmPass", "eyeConfirm");
 
-  } catch (err) {
-    status.style.color = "red";
-    status.textContent = "❌ Invalid or expired link";
-  }
-});
-</script>
+    newPass.addEventListener("input", checkPassword);
 
+    resetBtn.addEventListener("click", async () => {
+      const pass = newPass.value.trim();
+      const confirm = confirmPass.value.trim();
+
+      status.className = "";
+      status.textContent = "";
+
+      if (mode !== "resetPassword" || !oobCode) {
+        status.className = "error";
+        status.textContent = "❌ Invalid or expired reset link.";
+        return;
+      }
+
+      if (!pass || !confirm) {
+        status.className = "error";
+        status.textContent = "Please fill both password fields.";
+        return;
+      }
+
+      if (!isStrong(pass)) {
+        status.className = "error";
+        status.textContent = "Password must be 8+ characters with uppercase, lowercase, number, and symbol.";
+        return;
+      }
+
+      if (pass !== confirm) {
+        status.className = "error";
+        status.textContent = "Passwords do not match.";
+        return;
+      }
+
+      try {
+        resetBtn.disabled = true;
+        resetBtn.textContent = "UPDATING...";
+
+        await confirmPasswordReset(auth, oobCode, pass);
+
+        status.className = "success";
+        status.textContent = "✅ Password updated successfully. Redirecting...";
+
+        setTimeout(() => {
+          window.location.replace("client-login.html");
+        }, 1800);
+
+      } catch (err) {
+        resetBtn.disabled = false;
+        resetBtn.textContent = "UPDATE PASSWORD →";
+
+        status.className = "error";
+        status.textContent = "❌ Invalid or expired reset link.";
+      }
+    });
+  </script>
 </body>
 </html>
