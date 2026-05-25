@@ -2,81 +2,134 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Email Verification - StyleSphere</title>
+<title>StyleSphere Secure Action</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body {
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#050505;
-  font-family:Arial;
-  color:white;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at top,#10251d,#050505 55%,#000);
+  font-family:Arial,sans-serif;color:#fff;padding:24px;
 }
-
-.box {
-  padding:40px;
-  border-radius:25px;
-  background:#111;
-  border:1px solid rgba(255,215,0,0.3);
-  box-shadow:0 0 40px rgba(255,215,0,0.2);
-  width:90%;
-  max-width:420px;
-  text-align:center;
+.box{
+  width:100%;max-width:430px;text-align:center;padding:42px 34px;border-radius:28px;
+  background:rgba(10,18,15,.92);border:1px solid rgba(255,215,0,.45);
+  box-shadow:0 0 45px rgba(255,215,0,.22), inset 0 0 30px rgba(255,215,0,.05);
 }
-
-h1 {
-  color:#ffd700;
-  margin-bottom:20px;
+h1{margin:0 0 14px;color:#ffd700;font-size:38px;text-shadow:0 0 18px rgba(255,215,0,.7)}
+.sub{color:#d7d7d7;margin:0 0 24px;font-weight:700}
+input{
+  width:100%;padding:16px 18px;margin:9px 0;border-radius:15px;
+  border:1px solid rgba(255,215,0,.55);background:#070707;color:#fff;font-size:16px;
+  outline:none;
 }
-
-#status {
-  font-size:16px;
-  margin-top:10px;
+button{
+  width:100%;padding:16px;margin-top:14px;border:0;border-radius:15px;
+  background:linear-gradient(90deg,#ffd700,#fff3a0,#ffd700);
+  color:#111;font-weight:900;letter-spacing:2px;cursor:pointer;
+  box-shadow:0 0 22px rgba(255,215,0,.45);
 }
+#status{margin-top:18px;font-size:16px;font-weight:800}
+.success{color:#00ff99}
+.error{color:#ff4b4b}
+.small{font-size:13px;color:#aaa;margin-top:18px}
 </style>
 </head>
-
 <body>
 
-<div class="box">
+<div class="box" id="box">
   <h1>StyleSphere</h1>
-  <p id="status">⏳ Verifying your email...</p>
+  <p class="sub" id="title">Secure verification</p>
+  <p id="status">Checking secure link...</p>
 </div>
 
 <script type="module">
 import { auth } from "./js/firebase.js";
-import { applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import {
+  applyActionCode,
+  confirmPasswordReset
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+const box = document.getElementById("box");
 const status = document.getElementById("status");
+const title = document.getElementById("title");
 
 const params = new URLSearchParams(window.location.search);
 const mode = params.get("mode");
 const oobCode = params.get("oobCode");
 
-// 🔐 تحقق من الرابط
-if (mode !== "verifyEmail" || !oobCode) {
-  status.style.color = "red";
-  status.textContent = "❌ Invalid or expired link";
-} else {
+function setStatus(text, type="") {
+  status.className = type;
+  status.textContent = text;
+}
+
+async function verifyEmail() {
+  title.textContent = "Email verification";
   try {
     await applyActionCode(auth, oobCode);
-
-    status.style.color = "#00ff99";
-    status.textContent = "✅ Email verified successfully";
-
-    // تحويل تلقائي
-    setTimeout(() => {
-      window.location.replace("client-login.html");
-    }, 1500);
-
+    setStatus("✅ Email verified successfully. Redirecting...", "success");
+    setTimeout(() => window.location.replace("client-login.html"), 1800);
   } catch (err) {
-    status.style.color = "red";
-    status.textContent = "❌ Invalid or expired link";
+    setStatus("❌ Invalid or expired link", "error");
   }
+}
+
+function showResetPassword() {
+  box.innerHTML = `
+    <h1>StyleSphere</h1>
+    <p class="sub">Reset Password</p>
+    <input id="newPass" type="password" placeholder="New password">
+    <input id="confirmPass" type="password" placeholder="Confirm new password">
+    <button id="resetBtn">UPDATE PASSWORD →</button>
+    <p id="status">Enter a secure new password.</p>
+    <p class="small">Use at least 8 characters with letters and numbers.</p>
+  `;
+
+  document.getElementById("resetBtn").addEventListener("click", async () => {
+    const msg = document.getElementById("status");
+    const pass = document.getElementById("newPass").value.trim();
+    const confirm = document.getElementById("confirmPass").value.trim();
+
+    msg.className = "";
+
+    if (!pass || !confirm) {
+      msg.className = "error";
+      msg.textContent = "Please fill both password fields.";
+      return;
+    }
+
+    if (pass.length < 8 || !/[A-Za-z]/.test(pass) || !/[0-9]/.test(pass)) {
+      msg.className = "error";
+      msg.textContent = "Password must be 8+ characters and include letters and numbers.";
+      return;
+    }
+
+    if (pass !== confirm) {
+      msg.className = "error";
+      msg.textContent = "Passwords do not match.";
+      return;
+    }
+
+    try {
+      await confirmPasswordReset(auth, oobCode, pass);
+      msg.className = "success";
+      msg.textContent = "✅ Password updated successfully. Redirecting...";
+      setTimeout(() => window.location.replace("client-login.html"), 1800);
+    } catch (err) {
+      msg.className = "error";
+      msg.textContent = "❌ Invalid or expired link.";
+    }
+  });
+}
+
+if (!mode || !oobCode) {
+  setStatus("❌ Invalid link", "error");
+} else if (mode === "verifyEmail") {
+  verifyEmail();
+} else if (mode === "resetPassword") {
+  showResetPassword();
+} else {
+  setStatus("❌ Unknown secure action", "error");
 }
 </script>
 
