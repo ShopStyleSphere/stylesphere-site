@@ -242,6 +242,31 @@ window.loginWithGoogle = async function(){
     error.textContent = "Google login failed: " + err.message;
   }
 };
+
+forgotPassword.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  error.textContent = "";
+  success.textContent = "";
+
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    error.textContent = "Please enter your email first.";
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email, {
+      url: "https://stylesphereshops.com/reset.html"
+    });
+
+    success.textContent = "Password reset email sent. Please check your email.";
+  } catch (err) {
+    error.textContent = "Unable to send reset email.";
+  }
+});
+  
 </script>
 </body>
 </html>
