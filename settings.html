@@ -76,6 +76,46 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear
 
 @media(max-width:1050px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:0}.hero,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.page{padding:16px}.header{flex-direction:column;gap:14px}.stats{grid-template-columns:1fr}.logo{font-size:25px}.setting{align-items:flex-start;flex-direction:column}.device{align-items:flex-start;flex-direction:column;gap:10px}}
+
+/* ========================= */
+/* GOLD SWITCH DESIGN 🔥 */
+/* ========================= */
+
+input[type="checkbox"]{
+  appearance:none;
+  width:58px;
+  height:30px;
+  border-radius:40px;
+  background:#111;
+  border:1px solid var(--gold);
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(255,215,0,.25);
+}
+
+input[type="checkbox"]::after{
+  content:"";
+  position:absolute;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  left:4px;
+  top:3px;
+  background:#888;
+  transition:.25s;
+}
+
+input[type="checkbox"]:checked{
+  background:rgba(0,255,102,.18);
+  box-shadow:0 0 18px var(--green);
+}
+
+input[type="checkbox"]:checked::after{
+  left:30px;
+  background:var(--green);
+  box-shadow:0 0 15px var(--green);
+}
+
 </style>
 </head>
 
@@ -188,23 +228,23 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear
     <h2>Security & Privacy</h2>
     <div class="settings-list">
       <div class="setting">
-        <div class="setting-left"><i class="fa-solid fa-key"></i><div><strong>Two-Factor Authentication</strong><p>Add extra protection to your account.</p></div></div>
-        <div class="switch active" onclick="toggleSwitch(this)"></div>
+   <div class="setting-left"><i class="fa-solid fa-key"></i><div><strong>Two-Factor Authentication</strong><p>Add extra protection to your account.</p></div></div>
+      <input type="checkbox" id="twoFA">
       </div>
 
       <div class="setting">
-        <div class="setting-left"><i class="fa-solid fa-envelope"></i><div><strong>Email Alerts</strong><p>Receive login and activity notifications.</p></div></div>
-        <div class="switch active" onclick="toggleSwitch(this)"></div>
+      <div class="setting-left"><i class="fa-solid fa-envelope"></i><div><strong>Email Alerts</strong><p>Receive login and activity notifications.</p></div></div>
+<input type="checkbox" id="emailAlerts">
       </div>
 
       <div class="setting">
-        <div class="setting-left"><i class="fa-solid fa-eye-slash"></i><div><strong>Privacy Mode</strong><p>Hide sensitive information on dashboard.</p></div></div>
-        <div class="switch active" onclick="toggleSwitch(this)"></div>
+      <div class="setting-left"><i class="fa-solid fa-eye-slash"></i><div><strong>Privacy Mode</strong><p>Hide sensitive information on dashboard.</p></div></div>
+<input type="checkbox" id="privacyMode">
       </div>
 
       <div class="setting">
-        <div class="setting-left"><i class="fa-solid fa-fingerprint"></i><div><strong>Biometric Ready</strong><p>Prepare account for biometric login.</p></div></div>
-        <div class="switch" onclick="toggleSwitch(this)"></div>
+     <div class="setting-left"><i class="fa-solid fa-fingerprint"></i><div><strong>Biometric Ready</strong><p>Prepare account for biometric login.</p></div></div>
+<input type="checkbox" id="biometric">
       </div>
     </div>
   </div>
