@@ -107,16 +107,27 @@ btn.addEventListener("click", async () => {
     return;
   }
 
-  if (pass.length < 6) {
-    status.textContent = "Password must be at least 6 characters";
-    return;
-  }
+// تحقق من قوة الباسورد
+if (
+  pass.length < 8 ||
+  !/[A-Z]/.test(pass) ||
+  !/[a-z]/.test(pass) ||
+  !/[0-9]/.test(pass) ||
+  !/[@#$!]/.test(pass)
+) {
+  status.style.color = "red";
+  status.textContent =
+    "Password must be 8+ characters with uppercase, lowercase, number, and symbol.";
+  return;
+}
 
-  if (pass !== confirm) {
-    status.textContent = "Passwords do not match";
-    return;
-  }
-
+// تحقق من التطابق
+if (pass !== confirm) {
+  status.style.color = "red";
+  status.textContent = "Passwords do not match";
+  return;
+}
+  
   try {
     await confirmPasswordReset(auth, oobCode, pass);
 
