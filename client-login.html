@@ -131,8 +131,13 @@ const success = document.getElementById("success");
 
 const forgotPassword = document.getElementById("forgotPassword");
 
+let resetSending = false;
+
 forgotPassword.addEventListener("click", async (e) => {
   e.preventDefault();
+
+  if (resetSending) return;
+  resetSending = true;
 
   error.textContent = "";
   success.textContent = "";
@@ -141,14 +146,20 @@ forgotPassword.addEventListener("click", async (e) => {
 
   if (!email) {
     error.textContent = "Please enter your email first.";
+    resetSending = false;
     return;
   }
 
   try {
+    forgotPassword.style.pointerEvents = "none";
+
     await sendPasswordResetEmail(auth, email);
+
     success.textContent = "Password reset email sent. Please check your email.";
   } catch (err) {
     error.textContent = "Unable to send reset email.";
+    resetSending = false;
+    forgotPassword.style.pointerEvents = "auto";
   }
 });
   
