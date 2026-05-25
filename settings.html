@@ -300,9 +300,28 @@ function showNotice(text){
 
 function toggleSwitch(el){
   el.classList.toggle("active");
+
+  const settings = {
+    twoFA: document.getElementById("twoFA")?.checked || false,
+    emailAlerts: document.getElementById("emailAlerts")?.checked || false,
+    privacyMode: document.getElementById("privacyMode")?.checked || false,
+    biometric: document.getElementById("biometric")?.checked || false
+  };
+
+  localStorage.setItem("userSettings", JSON.stringify(settings));
+
   showNotice(el.classList.contains("active") ? "Setting enabled" : "Setting disabled");
 }
 
+window.addEventListener("load", () => {
+  const saved = JSON.parse(localStorage.getItem("userSettings") || "{}");
+
+  if (saved.twoFA) document.getElementById("twoFA").checked = true;
+  if (saved.emailAlerts) document.getElementById("emailAlerts").checked = true;
+  if (saved.privacyMode) document.getElementById("privacyMode").checked = true;
+  if (saved.biometric) document.getElementById("biometric").checked = true;
+});
+  
 function saveProfile(){
   const name=document.getElementById("fullName").value.trim();
   if(!name){showNotice("Enter full name");return}
@@ -323,6 +342,44 @@ card.addEventListener("mouseleave",function(){
   card.style.transform="perspective(1000px) rotateX(5deg) rotateY(-6deg)";
   card.style.boxShadow="0 0 50px gold";
 });
+
+import { auth, db } from "./js/firebase.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const twoFA = document.getElementById("twoFA");
+const emailAlerts = document.getElementById("emailAlerts");
+const privacyMode = document.getElementById("privacyMode");
+const biometric = document.getElementById("biometric");
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return;
+
+  const ref = doc(db, "users", user.uid);
+  const snap = await getDoc(ref);
+
+  // تحميل القيم
+  if (snap.exists()) {
+    const data = snap.data();
+    twoFA.checked = data.twoFA || false;
+    emailAlerts.checked = data.emailAlerts || false;
+    privacyMode.checked = data.privacyMode || false;
+    biometric.checked = data.biometric || false;
+  }
+
+  // حفظ عند التغيير
+  [twoFA, emailAlerts, privacyMode, biometric].forEach((el) => {
+    el.addEventListener("change", async () => {
+      await setDoc(ref, {
+        twoFA: twoFA.checked,
+        emailAlerts: emailAlerts.checked,
+        privacyMode: privacyMode.checked,
+        biometric: biometric.checked
+      }, { merge: true });
+    });
+  });
+});
+  
 </script>
 
 <script src="js/system.js"></script>  
