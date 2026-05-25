@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Verify Email - StyleSphere</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body{
-      margin:0;height:100vh;background:#050505;color:white;
-      display:flex;align-items:center;justify-content:center;
-      font-family:Arial,sans-serif;text-align:center;
-    }
-    .box{
-      padding:45px 35px;border-radius:26px;background:#111;
-      border:1px solid rgba(255,215,0,.35);
-      box-shadow:0 0 45px rgba(255,215,0,.25);
-      max-width:430px;width:90%;
-    }
-    h1{color:#ffd700;font-size:36px}
-    p{font-size:22px;font-weight:bold}
-  </style>
+<meta charset="UTF-8">
+<title>Email Verification - StyleSphere</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#050505;
+  font-family:Arial;
+  color:white;
+}
+
+.box {
+  padding:40px;
+  border-radius:25px;
+  background:#111;
+  border:1px solid rgba(255,215,0,0.3);
+  box-shadow:0 0 40px rgba(255,215,0,0.2);
+  width:90%;
+  max-width:420px;
+  text-align:center;
+}
+
+h1 {
+  color:#ffd700;
+  margin-bottom:20px;
+}
+
+#status {
+  font-size:16px;
+  margin-top:10px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="box">
   <h1>StyleSphere</h1>
-  <p id="status">⏳ Verifying...</p>
+  <p id="status">⏳ Verifying your email...</p>
 </div>
 
 <script type="module">
@@ -32,26 +52,32 @@ import { auth } from "./js/firebase.js";
 import { applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const status = document.getElementById("status");
+
 const params = new URLSearchParams(window.location.search);
 const mode = params.get("mode");
 const oobCode = params.get("oobCode");
 
-async function verifyEmail() {
-  if (mode !== "verifyEmail" || !oobCode) {
-    status.textContent = "⚠️ Invalid verification link";
-    return;
-  }
-
+// 🔐 تحقق من الرابط
+if (mode !== "verifyEmail" || !oobCode) {
+  status.style.color = "red";
+  status.textContent = "❌ Invalid or expired link";
+} else {
   try {
     await applyActionCode(auth, oobCode);
-    status.textContent = "✅ Email Verified Successfully ";
-  } catch (error) {
-    console.error(error);
-    status.textContent = "⚠️ Invalid or expired link ";
+
+    status.style.color = "#00ff99";
+    status.textContent = "✅ Email verified successfully";
+
+    // تحويل تلقائي
+    setTimeout(() => {
+      window.location.replace("client-login.html");
+    }, 1500);
+
+  } catch (err) {
+    status.style.color = "red";
+    status.textContent = "❌ Invalid or expired link";
   }
 }
-
-verifyEmail();
 </script>
 
 </body>
