@@ -277,6 +277,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup
 } from "./js/firebase.js";
+
+import { createWallet } from "./js/wallet.js";
     
     const nameInput = document.getElementById("name");
     const emailInput = document.getElementById("email");
@@ -378,6 +380,8 @@ import {
         await sendEmailVerification(user);
         await setDoc(doc(db, "users", user.uid), memberPayload(user, name, email));
 
+        await createWallet(user.uid);
+        
         success.textContent = "Account created. Please check your email to verify your account.";
 
         setTimeout(() => {
@@ -416,6 +420,8 @@ import {
           await setDoc(userRef, memberPayload(user, user.displayName, user.email));
         }
 
+        await createwallet(user.uid);
+        
         window.location.href = "client-dashboard.html";
 
       } catch (err) {
