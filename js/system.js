@@ -162,52 +162,6 @@ const SS = {
     return { ok: true, user };
   },
 
-  topUpWallet(amount) {
-    const user = this.getUser();
-    amount = Number(amount || 0);
-
-    user.wallet = Number(user.wallet || 0) + amount;
-
-    this.saveUser(user);
-    this.addActivity("Wallet", "Wallet top-up", "+$" + amount.toFixed(2));
-    this.renderUser();
-
-    return user;
-  },
-
-  withdrawWallet(amount) {
-    const user = this.getUser();
-    amount = Number(amount || 0);
-
-    if (Number(user.wallet || 0) < amount) {
-      return { ok: false, message: "Insufficient wallet balance" };
-    }
-
-    user.wallet = Number(user.wallet || 0) - amount;
-
-    this.saveUser(user);
-    this.addActivity("Wallet", "Withdrawal request", "-$" + amount.toFixed(2));
-    this.renderUser();
-
-    return { ok: true, user };
-  },
-
-  sendGift(amount, recipient = "Guest") {
-    const user = this.getUser();
-    amount = Number(amount || 0);
-
-    if (Number(user.wallet || 0) < amount) {
-      return { ok: false, message: "Insufficient wallet balance" };
-    }
-
-    user.wallet = Number(user.wallet || 0) - amount;
-
-    this.saveUser(user);
-    this.addActivity("Wallet", "Gift sent to " + recipient, "-$" + amount.toFixed(2));
-    this.renderUser();
-
-    return { ok: true, user };
-  },
 
   requestNFC() {
     const user = this.getUser();
