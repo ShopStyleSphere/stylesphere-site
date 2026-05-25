@@ -79,11 +79,36 @@ function showResetPassword() {
     <h1>StyleSphere</h1>
     <p class="sub">Reset Password</p>
     <input id="newPass" type="password" placeholder="New password">
+
+<div id="rules">
+  <p id="ruleLength">❌ 8 characters minimum</p>
+  <p id="ruleUpper">❌ Uppercase letter</p>
+  <p id="ruleLower">❌ Lowercase letter</p>
+  <p id="ruleNumber">❌ Number</p>
+  <p id="ruleSymbol">❌ Symbol (@, #, $, !)</p>
+</div>
+  
     <input id="confirmPass" type="password" placeholder="Confirm new password">
     <button id="resetBtn">UPDATE PASSWORD →</button>
     <p id="status">Enter a secure new password.</p>
     <p class="small">Use at least 8 characters with letters and numbers.</p>
   `;
+
+  function updateRule(id, valid, text) {
+  const el = document.getElementById(id);
+  el.textContent = (valid ? "✅ " : "❌ ") + text;
+  el.style.color = valid ? "#00ff99" : "red";
+}
+
+document.getElementById("newPass").addEventListener("input", () => {
+  const pass = document.getElementById("newPass").value;
+
+  updateRule("ruleLength", pass.length >= 8, "8 characters minimum");
+  updateRule("ruleUpper", /[A-Z]/.test(pass), "Uppercase letter");
+  updateRule("ruleLower", /[a-z]/.test(pass), "Lowercase letter");
+  updateRule("ruleNumber", /[0-9]/.test(pass), "Number");
+  updateRule("ruleSymbol", /[@#$!]/.test(pass), "Symbol (@, #, $, !)");
+});
 
   document.getElementById("resetBtn").addEventListener("click", async () => {
     const msg = document.getElementById("status");
@@ -98,12 +123,17 @@ function showResetPassword() {
       return;
     }
 
-    if (pass.length < 8 || !/[A-Za-z]/.test(pass) || !/[0-9]/.test(pass)) {
-      msg.className = "error";
-      msg.textContent = "Password must be 8+ characters and include letters and numbers.";
-      return;
-    }
-
+if (
+  pass.length < 8 ||
+  !/[A-Z]/.test(pass) ||
+  !/[a-z]/.test(pass) ||
+  !/[0-9]/.test(pass) ||
+  !/[@#$!]/.test(pass)
+) {
+  msg.className = "error";
+  msg.textContent = "Password must be 8+ characters with uppercase, lowercase, number, and symbol.";
+  return;
+}
     if (pass !== confirm) {
       msg.className = "error";
       msg.textContent = "Passwords do not match.";
