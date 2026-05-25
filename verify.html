@@ -66,6 +66,20 @@ import {
   confirmPasswordReset
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+window.togglePass = function(id, icon) {
+  const input = document.getElementById(id);
+
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+};
+  
 const box = document.getElementById("box");
 const status = document.getElementById("status");
 const title = document.getElementById("title");
